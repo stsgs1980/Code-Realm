@@ -115,7 +115,7 @@ function CodeEditor({
             <div className="flex">
               <div className="select-none text-white/20 text-right pr-4 flex-shrink-0" style={{ minWidth: '2.5rem' }}>
                 {Array.from({ length: lineCount }, (_, i) => (
-                  <div key={i}>{i + 1}</div>
+                  <div key={`line-no-${i}`}>{i + 1}</div>
                 ))}
               </div>
               <div className="flex-1 overflow-x-auto">{children}</div>

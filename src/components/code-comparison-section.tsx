@@ -464,7 +464,7 @@ function QuoteSection() {
         <div className="flex items-center justify-center gap-2 mt-8">
           {QUOTES.map((_, i) => (
             <button
-              key={i}
+              key={`quote-${i}`}
               onClick={() => setCurrentQuote(i)}
               className="relative w-2 h-2 rounded-full transition-colors"
               style={{
@@ -517,7 +517,7 @@ function StatsBar() {
     <div className="border-t border-b border-white/[0.06] py-6 px-4">
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0">
         {stats.map((stat, i) => (
-          <div key={i} className="flex items-center gap-3 px-4 sm:px-6">
+          <div key={`stat-${i}`} className="flex items-center gap-3 px-4 sm:px-6">
             <stat.icon className="w-4 h-4 text-purple-400/60" />
             <div>
               <span className="font-mono text-xs text-white/60">{stat.label}</span>
@@ -682,7 +682,7 @@ function CodeEditorPanel({ style }: { style: StyleName }) {
         <div className="flex-1 p-4 overflow-y-auto custom-scrollbar font-mono text-xs sm:text-sm leading-relaxed">
           <div className="space-y-0">
             {lines.map((line, i) => (
-              <div key={i} className="flex">
+              <div key={`code-line-${i}`} className="flex">
                 <span className="select-none text-white/15 w-8 text-right mr-4 shrink-0">{i + 1}</span>
                 <span className="whitespace-pre">{highlightLine(line)}</span>
               </div>

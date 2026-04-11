@@ -507,7 +507,7 @@ export default function BrutalismSection() {
                 </thead>
                 <tbody>
                   {DESIGN_RULES.flat().map((rule, i) => (
-                    <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f0f0f0' }}>
+                    <tr key={`rule-${i}`} style={{ background: i % 2 === 0 ? '#fff' : '#f0f0f0' }}>
                       <td className="border-[3px] border-black px-4 py-2 text-sm" style={{ fontFamily: 'monospace' }}>
                         {String(i + 1).padStart(2, '0')}
                       </td>
@@ -778,7 +778,7 @@ export default function BrutalismSection() {
         <div className="space-y-1">
           {FAKE_LINKS.map((link, i) => (
             <div
-              key={i}
+              key={`link-${i}`}
               className="relative"
               onMouseEnter={() => setHoveredLink(i)}
               onMouseLeave={() => setHoveredLink(null)}

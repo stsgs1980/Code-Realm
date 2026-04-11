@@ -174,7 +174,7 @@ ${stopElements}
 function highlightCSS(css: string): React.ReactNode[] {
   const lines = css.split('\n');
   return lines.map((line, i) => {
-    if (!line.trim()) return <div key={i} className="flex leading-[1.625rem]"><span className="select-none text-white/[0.12] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span><span className="whitespace-pre text-xs">&nbsp;</span></div>;
+    if (!line.trim()) return <div key={`css-line-${i}`} className="flex leading-[1.625rem]"><span className="select-none text-white/[0.12] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span><span className="whitespace-pre text-xs">&nbsp;</span></div>;
 
     // Highlight keywords
     let highlighted = line;
@@ -213,7 +213,7 @@ function highlightCSS(css: string): React.ReactNode[] {
     }
 
     return (
-      <div key={i} className="flex leading-[1.625rem]">
+      <div key={`css-line-${i}`} className="flex leading-[1.625rem]">
         <span className="select-none text-white/[0.12] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
         <span className="whitespace-pre text-xs">{parts}</span>
       </div>
@@ -244,7 +244,7 @@ function highlightGeneric(code: string): React.ReactNode[] {
     }
 
     return (
-      <div key={i} className="flex leading-[1.625rem]">
+      <div key={`gen-line-${i}`} className="flex leading-[1.625rem]">
         <span className="select-none text-white/[0.12] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
         <span className="whitespace-pre text-xs">{parts.length > 0 ? parts : <span>&nbsp;</span>}</span>
       </div>
@@ -988,7 +988,7 @@ export function GradientGeneratorSection() {
               { icon: Layers, label: '2–4 Color Stops', sub: 'FULL CONTROL' },
               { icon: Type, label: '3 Export Formats', sub: 'CSS / TAILWIND / SVG' },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3">
+              <div key={`grad-info-${i}`} className="flex items-center gap-3">
                 <item.icon className="w-4 h-4 text-emerald-400/50" />
                 <div>
                   <span className="font-mono text-xs text-white/50">{item.label}</span>

@@ -188,8 +188,6 @@ export function TerminalSection() {
   const [theme, setTheme] = useState<ThemeColor>('green');
   const [isBooting, setIsBooting] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [lineId, setLineId] = useState(0);
-
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
@@ -218,10 +216,8 @@ export function TerminalSection() {
     return () => clearInterval(interval);
   }, []);
 
-  const nextId = useCallback(() => {
-    setLineId(prev => prev + 1);
-    return lineId + 1;
-  }, [lineId]);
+  const idCounter = useRef(0);
+  const nextId = useCallback(() => ++idCounter.current, []);
 
   // ─── Auto-scroll ─────────────────────────────────────────────────────────
 
@@ -244,9 +240,8 @@ export function TerminalSection() {
     type: TerminalLine['type'] = 'output',
     showTimestamp = false
   ) => {
-    const id = Date.now() + Math.random();
     setLines(prev => [...prev, {
-      id,
+      id: nextId(),
       content,
       type,
       ...(showTimestamp ? { timestamp: getTimestamp() } : {}),
@@ -340,7 +335,7 @@ export function TerminalSection() {
 
     // Echo the input line
     setLines(prev => [...prev, {
-      id: Date.now() + Math.random(),
+      id: nextId(),
       content: `user@z-ai:~$ ${cmd}`,
       type: 'input',
       timestamp: ts,
@@ -353,7 +348,7 @@ export function TerminalSection() {
 
     const respond = (content: string, type: TerminalLine['type'] = 'output') => {
       setLines(prev => [...prev, {
-        id: Date.now() + Math.random(),
+        id: nextId(),
         content,
         type,
         timestamp: ts,

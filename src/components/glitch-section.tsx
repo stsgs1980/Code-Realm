@@ -561,7 +561,7 @@ export default function GlitchSection() {
           >
             {rapidGlitchLines.map((line, i) => (
               <motion.div
-                key={i}
+                key={`glitch-line-${i}`}
                 className="absolute font-mono text-sm"
                 style={{
                   color: i % 2 === 0 ? '#ff0040' : '#00ffff',
@@ -800,7 +800,7 @@ export default function GlitchSection() {
                 <div className="flex items-end gap-1 h-10">
                   {signalStrength.map((level, i) => (
                     <motion.div
-                      key={i}
+                      key={`signal-${i}`}
                       className="w-3 rounded-sm"
                       style={{
                         backgroundColor:

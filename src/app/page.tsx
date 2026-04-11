@@ -15,6 +15,9 @@ import {
   Layers,
   ArrowUp,
   Paintbrush,
+  Droplets,
+  Menu,
+  X,
 } from 'lucide-react';
 import { TerminalSection } from '@/components/terminal-section';
 import { DevexSection } from '@/components/devex-section';
@@ -23,6 +26,7 @@ import GlitchSection from '@/components/glitch-section';
 import { CodeComparisonSection } from '@/components/code-comparison-section';
 import { CodePlaygroundSection } from '@/components/code-playground-section';
 import { GradientGeneratorSection } from '@/components/gradient-generator-section';
+import { ColorPaletteSection } from '@/components/color-palette-section';
 import { ThemeToggle } from '@/components/theme-toggle';
 
 /* ──────────────────────────────────────────────
@@ -37,6 +41,7 @@ const SECTIONS = [
   { id: 'codeart', label: 'Code Art', icon: Sparkles, color: '#a855f7', bg: 'from-[#0d0d0d] to-[#141428]' },
   { id: 'playground', label: 'Playground', icon: Code2, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#141420]' },
   { id: 'gradient', label: 'Gradient', icon: Paintbrush, color: '#ec4899', bg: 'from-[#0a0a0a] to-[#0a1a15]' },
+  { id: 'palette', label: 'Palette', icon: Droplets, color: '#06b6d4', bg: 'from-[#0a0a0a] to-[#0a141a]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -76,8 +81,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS'];
-  const fullSubtitle = 'Explore seven iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects and interactive tools. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES'];
+  const fullSubtitle = 'Explore eight iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects and interactive tools. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -243,7 +248,7 @@ function HeroSection() {
         ].map(
           (item, i) => (
             <motion.div
-              key={i}
+              key={`hero-float-${i}`}
               className="absolute font-mono text-xs whitespace-nowrap select-none"
               style={{
                 left: `${item.x}%`,
@@ -383,10 +388,10 @@ function HeroSection() {
 }
 
 /* ──────────────────────────────────────────────
-   FLOATING NAVIGATION
+   FLOATING NAVIGATION (Desktop)
    ────────────────────────────────────────────── */
 
-function FloatingNav({
+function DesktopNav({
   activeSection,
   onClickSection,
 }: {
@@ -407,7 +412,7 @@ function FloatingNav({
     <AnimatePresence>
       {isVisible && (
         <motion.nav
-          className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 p-1.5 rounded-2xl border border-white/10 bg-black/70 backdrop-blur-xl shadow-2xl shadow-black/50"
+          className="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden sm:flex items-center gap-1 p-1.5 rounded-2xl border border-white/10 bg-black/70 backdrop-blur-xl shadow-2xl shadow-black/50"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
@@ -431,7 +436,7 @@ function FloatingNav({
                   />
                 )}
                 <section.icon className="w-3.5 h-3.5 relative z-10" />
-                <span className="relative z-10 hidden sm:inline">{section.label}</span>
+                <span className="relative z-10">{section.label}</span>
                 {isActive && (
                   <motion.div
                     className="w-1.5 h-1.5 rounded-full relative z-10"
@@ -450,12 +455,267 @@ function FloatingNav({
 }
 
 /* ──────────────────────────────────────────────
+   MOBILE HAMBURGER NAVIGATION
+   ────────────────────────────────────────────── */
+
+function MobileNav({
+  activeSection,
+  onClickSection,
+}: {
+  activeSection: string;
+  onClickSection: (id: string) => void;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsVisible(window.scrollY > window.innerHeight * 0.8);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  const handleSectionClick = (id: string) => {
+    setIsOpen(false);
+    onClickSection(id);
+  };
+
+  return (
+    <>
+      {/* Hamburger Button */}
+      <AnimatePresence>
+        {isVisible && (
+          <motion.button
+            onClick={() => setIsOpen(true)}
+            className="fixed top-4 right-4 z-50 sm:hidden flex items-center justify-center w-11 h-11 rounded-xl border border-white/10 bg-black/70 backdrop-blur-xl shadow-2xl shadow-black/50 cursor-pointer"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ borderColor: 'rgba(16, 185, 129, 0.3)', boxShadow: '0 0 20px rgba(16, 185, 129, 0.15)' }}
+            whileTap={{ scale: 0.92 }}
+            aria-label="Open navigation menu"
+          >
+            <Menu className="w-5 h-5 text-white/70" />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Full-Screen Overlay Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setIsOpen(false)}
+              aria-hidden="true"
+            />
+
+            {/* Menu Panel - slides from right */}
+            <motion.div
+              className="fixed inset-y-0 right-0 z-[70] w-[85vw] max-w-sm flex flex-col"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+            >
+              {/* Glassmorphism panel */}
+              <div className="flex-1 flex flex-col bg-gradient-to-br from-black/90 via-[#0a0f0d]/95 to-black/90 border-l border-white/[0.08] backdrop-blur-2xl">
+                {/* Header with close button */}
+                <div className="flex items-center justify-between px-6 py-5 border-b border-white/[0.06]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-sm font-mono text-white/50">Navigation</span>
+                  </div>
+                  <motion.button
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-center w-9 h-9 rounded-lg border border-white/10 bg-white/[0.04] cursor-pointer"
+                    whileHover={{ borderColor: 'rgba(239, 68, 68, 0.4)', backgroundColor: 'rgba(239, 68, 68, 0.08)' }}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label="Close navigation menu"
+                  >
+                    <X className="w-4 h-4 text-white/60" />
+                  </motion.button>
+                </div>
+
+                {/* Section list */}
+                <nav className="flex-1 overflow-y-auto px-4 py-4">
+                  <motion.div
+                    className="flex flex-col gap-1.5"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: {},
+                      visible: {
+                        transition: { staggerChildren: 0.06, delayChildren: 0.1 },
+                      },
+                    }}
+                  >
+                    {SECTIONS.map((section) => {
+                      const isActive = activeSection === section.id;
+                      return (
+                        <motion.button
+                          key={section.id}
+                          onClick={() => handleSectionClick(section.id)}
+                          className={`relative flex items-center gap-4 px-4 py-3.5 rounded-xl text-left transition-colors duration-200 cursor-pointer ${
+                            isActive
+                              ? 'bg-white/[0.08]'
+                              : 'hover:bg-white/[0.04]'
+                          }`}
+                          variants={{
+                            hidden: { opacity: 0, x: 24 },
+                            visible: { opacity: 1, x: 0 },
+                          }}
+                          whileHover={{ x: 4 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {/* Active indicator bar */}
+                          <motion.div
+                            className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] rounded-full"
+                            style={{ backgroundColor: section.color }}
+                            initial={false}
+                            animate={{
+                              height: isActive ? 24 : 0,
+                              opacity: isActive ? 1 : 0,
+                            }}
+                            transition={{ duration: 0.2 }}
+                          />
+
+                          {/* Icon container */}
+                          <div
+                            className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 ${
+                              isActive ? 'ring-1 ring-white/20' : ''
+                            }`}
+                            style={{
+                              backgroundColor: `${section.color}${isActive ? '20' : '10'}`,
+                              borderColor: `${section.color}30`,
+                            }}
+                          >
+                            <section.icon
+                              className="w-5 h-5 transition-all duration-300"
+                              style={{ color: isActive ? section.color : `${section.color}99` }}
+                            />
+                          </div>
+
+                          {/* Label + section number */}
+                          <div className="flex-1 min-w-0">
+                            <div className={`text-sm font-mono transition-colors duration-300 ${
+                              isActive ? 'text-white' : 'text-white/50'
+                            }`}>
+                              {section.label}
+                            </div>
+                            <div className="text-[10px] font-mono text-white/20 mt-0.5">
+                              Section {String(SECTIONS.indexOf(section) + 1).padStart(2, '0')}
+                            </div>
+                          </div>
+
+                          {/* Active check mark */}
+                          {isActive && (
+                            <motion.div
+                              className="w-1.5 h-1.5 rounded-full"
+                              style={{ backgroundColor: section.color }}
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                            />
+                          )}
+                        </motion.button>
+                      );
+                    })}
+                  </motion.div>
+                </nav>
+
+                {/* Footer with gradient accent */}
+                <div className="px-6 py-4 border-t border-white/[0.06]">
+                  <div className="flex items-center justify-center gap-1.5">
+                    <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
+                    <span className="text-[10px] font-mono text-white/20">8 sections</span>
+                    <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+/* ──────────────────────────────────────────────
+   FLOATING NAVIGATION (Combined)
+   ────────────────────────────────────────────── */
+
+function FloatingNav({
+  activeSection,
+  onClickSection,
+}: {
+  activeSection: string;
+  onClickSection: (id: string) => void;
+}) {
+  return (
+    <>
+      <DesktopNav activeSection={activeSection} onClickSection={onClickSection} />
+      <MobileNav activeSection={activeSection} onClickSection={onClickSection} />
+    </>
+  );
+}
+
+/* ──────────────────────────────────────────────
    SECTION DIVIDER
    ────────────────────────────────────────────── */
 
 function SectionDivider({ label, sectionId, description, icon: Icon }: { label: string; sectionId: string; description: string; icon: React.ElementType }) {
   const section = SECTIONS.find((s) => s.id === sectionId)!;
   const isBrutalism = sectionId === 'brutalism';
+  const [topVisible, setTopVisible] = useState(false);
+  const [bottomVisible, setBottomVisible] = useState(false);
+  const topRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === topRef.current) setTopVisible(true);
+            if (entry.target === bottomRef.current) setBottomVisible(true);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '-20px' }
+    );
+    if (topRef.current) observer.observe(topRef.current);
+    if (bottomRef.current) observer.observe(bottomRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
@@ -464,8 +724,14 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
         background: isBrutalism ? '#ffffff' : 'linear-gradient(180deg, #0a0a0a 0%, ' + (sectionId === 'devex' ? '#0f0f0f' : sectionId === 'glitch' ? '#0a0014' : sectionId === 'codeart' ? '#0d0d0d' : '#0a0a0a') + ' 100%)',
       }}
     >
-      {/* Decorative gradient line */}
-      {!isBrutalism && <div className="section-divider-line max-w-2xl mx-auto mb-12" />}
+      {/* Animated gradient line with pulsing center dot */}
+      {!isBrutalism && (
+        <div ref={topRef} className={`divider-fadein max-w-2xl mx-auto mb-12 ${topVisible ? 'visible' : ''}`}>
+          <div className="divider-glow">
+            <div className="divider-dot" />
+          </div>
+        </div>
+      )}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -503,8 +769,14 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
           {description}
         </p>
       </motion.div>
-      {/* Bottom gradient line */}
-      {!isBrutalism && <div className="section-divider-line max-w-2xl mx-auto mt-12" />}
+      {/* Bottom animated gradient line with pulsing center dot */}
+      {!isBrutalism && (
+        <div ref={bottomRef} className={`divider-fadein max-w-2xl mx-auto mt-12 ${bottomVisible ? 'visible' : ''}`}>
+          <div className="divider-glow">
+            <div className="divider-dot" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -514,8 +786,19 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
    ────────────────────────────────────────────── */
 
 function Footer() {
+  const scrollToTop = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      scrollToTop(e);
+    }
+  };
+
   return (
-    <footer className="w-full py-12 px-4 bg-[#050505] border-t border-white/[0.06]">
+    <footer className="w-full py-12 px-4 bg-[#050505] footer-gradient-border">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
@@ -524,24 +807,24 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">7 sections, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">8 sections, 1 showcase</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-6 text-xs text-white/30 font-mono">
-            <span className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/30 font-mono">
+            <span className="flex items-center gap-1.5 footer-link-glow">
               <Monitor className="w-3.5 h-3.5" />
               Next.js 16
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 footer-link-glow">
               <Type className="w-3.5 h-3.5" />
               TypeScript
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 footer-link-glow">
               <Layers className="w-3.5 h-3.5" />
               Tailwind CSS
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 footer-link-glow">
               <Zap className="w-3.5 h-3.5" />
               Framer Motion
             </span>
@@ -550,8 +833,21 @@ function Footer() {
           <div className="text-xs text-white/20 font-mono text-center md:text-right">
             <div>Built with Z.ai Code</div>
             <div className="mt-1 flex items-center gap-2 justify-center md:justify-end">
-              <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-block w-2 h-2 rounded-full status-pulse" />
               <span>All systems operational</span>
+            </div>
+            <div className="mt-3">
+              <a
+                href="#top"
+                onClick={scrollToTop}
+                onKeyDown={handleKeyDown}
+                className="footer-link-glow inline-flex items-center gap-1 text-white/25 hover:text-white/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400/50 rounded-sm px-1"
+                tabIndex={0}
+                aria-label="Scroll to top"
+              >
+                <ArrowUp className="w-3 h-3" />
+                <span>Back to top</span>
+              </a>
             </div>
           </div>
         </div>
@@ -725,6 +1021,17 @@ export default function HomePage() {
           icon={Paintbrush}
         />
         <GradientGeneratorSection />
+      </div>
+
+      {/* Section 8: Palette Studio */}
+      <div id="palette" ref={(el) => { sectionRefs.current['palette'] = el; }}>
+        <SectionDivider
+          label="Section 08"
+          sectionId="palette"
+          description="Generate harmonious color palettes using 7 color theory algorithms. Export to CSS, Tailwind, or JSON with WCAG contrast checking."
+          icon={Droplets}
+        />
+        <ColorPaletteSection />
       </div>
 
       {/* Footer */}
