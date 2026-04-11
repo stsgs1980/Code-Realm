@@ -130,18 +130,18 @@ function CodeEditor({
 }
 
 function countLines(node: React.ReactNode): number {
-  if (!node) return 1;
+  if (!node) return 0;
   if (typeof node === 'string') return node.split('\n').length;
   if (Array.isArray(node)) {
     return node.reduce((acc, child) => acc + countLines(child), 0);
   }
-  if (React.isValidElement(node) && node.props.children) {
-    // Don't count inline spans as line breaks
-    const children = node.props.children;
-    if (typeof children === 'string') return children.split('\n').length;
-    return countLines(children);
+  if (React.isValidElement(node)) {
+    // Each <div> wrapper represents one line of code
+    if (node.type === 'div') return 1;
+    // For fragments and other containers, recurse into children
+    return node.props.children ? countLines(node.props.children) : 0;
   }
-  return 1;
+  return 0;
 }
 
 /* ================================================================

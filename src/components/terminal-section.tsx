@@ -152,8 +152,31 @@ export function TerminalSection() {
 
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
+  const measureRef = useRef<HTMLSpanElement>(null);
   const themeRef = useRef(theme);
   themeRef.current = theme;
+
+  // ─── Cursor position measurement ─────────────────────────────────────────
+
+  const [cpuUsage, setCpuUsage] = useState(Math.floor(Math.random() * 10 + 2));
+  const [memUsage, setMemUsage] = useState(+(Math.random() * 8 + 4).toFixed(1));
+
+  useEffect(() => {
+    if (measureRef.current && cursorRef.current) {
+      cursorRef.current.style.left = `${measureRef.current.offsetWidth}px`;
+    }
+  }, [input]);
+
+  // ─── Animate status bar stats ────────────────────────────────────────────
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCpuUsage(Math.floor(Math.random() * 10 + 2));
+      setMemUsage(+(Math.random() * 8 + 4).toFixed(1));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   const nextId = useCallback(() => {
     setLineId(prev => prev + 1);
@@ -475,11 +498,10 @@ export function TerminalSection() {
           {/* Terminal Window */}
           <div className="flex-1 min-w-0">
             <div
-              className="rounded-lg overflow-hidden shadow-2xl scanlines crt-effect"
+              className="rounded-lg overflow-hidden shadow-2xl scanlines crt-effect terminal-green-glow"
               style={{
                 background: '#0a0a0a',
                 border: `1px solid ${tc.dim}`,
-                boxShadow: `0 0 30px ${tc.glow.replace('0.6', '0.1')}, inset 0 0 60px rgba(0,0,0,0.5)`,
               }}
             >
               {/* Title Bar */}
@@ -607,6 +629,19 @@ export function TerminalSection() {
                     </span>
                     <span className="mr-2 select-none" style={{ color: tc.text }}>$</span>
                     <div className="flex-1 relative">
+                      {/* Hidden span to measure input text width */}
+                      <span
+                        ref={measureRef}
+                        aria-hidden="true"
+                        className="invisible absolute pointer-events-none whitespace-pre"
+                        style={{
+                          fontFamily: 'var(--font-geist-mono), monospace',
+                          fontSize: '13px',
+                          lineHeight: '1.6',
+                        }}
+                      >
+                        {input}
+                      </span>
                       <input
                         ref={inputRef}
                         type="text"
@@ -628,9 +663,9 @@ export function TerminalSection() {
                       />
                       {/* Blinking cursor */}
                       <span
+                        ref={cursorRef}
                         className="cursor-blink absolute top-0 pointer-events-none"
                         style={{
-                          left: `${input.length * 7.8}px`,
                           color: tc.text,
                           textShadow: `0 0 8px ${tc.glow}`,
                           fontSize: '13px',
@@ -656,10 +691,10 @@ export function TerminalSection() {
                 <div className="flex items-center gap-3">
                   <span className="flex items-center gap-1">
                     <Cpu className="w-3 h-3" />
-                    CPU: {Math.floor(Math.random() * 10 + 2)}%
+                    CPU: {cpuUsage}%
                   </span>
                   <span className="flex items-center gap-1">
-                    MEM: {(Math.random() * 8 + 4).toFixed(1)}GB
+                    MEM: {memUsage}GB
                   </span>
                 </div>
                 <div className="flex items-center gap-3">

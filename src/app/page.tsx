@@ -18,6 +18,7 @@ import { TerminalSection } from '@/components/terminal-section';
 import { DevexSection } from '@/components/devex-section';
 import BrutalismSection from '@/components/brutalism-section';
 import GlitchSection from '@/components/glitch-section';
+import { CodeComparisonSection } from '@/components/code-comparison-section';
 
 /* ──────────────────────────────────────────────
    NAVIGATION ITEMS
@@ -28,7 +29,37 @@ const SECTIONS = [
   { id: 'devex', label: 'DevEx', icon: Code2, color: '#10b981', bg: 'from-[#0f0f0f] to-[#1a1a2e]' },
   { id: 'brutalism', label: 'Brutalism', icon: Palette, color: '#000000', bg: 'from-[#ffffff] to-[#f5f5f5]' },
   { id: 'glitch', label: 'Glitch', icon: Zap, color: '#00ffff', bg: 'from-[#0a0014] to-[#0d001a]' },
+  { id: 'codeart', label: 'Code Art', icon: Sparkles, color: '#a855f7', bg: 'from-[#0d0d0d] to-[#141428]' },
 ] as const;
+
+/* ──────────────────────────────────────────────
+   SCROLL PROGRESS BAR
+   ────────────────────────────────────────────── */
+
+function ScrollProgressBar() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div
+      className="scroll-progress-bar"
+      style={{ width: `${progress}%` }}
+      role="progressbar"
+      aria-valuenow={Math.round(progress)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+    />
+  );
+}
 
 /* ──────────────────────────────────────────────
    HERO SECTION
@@ -36,13 +67,36 @@ const SECTIONS = [
 
 function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH'];
+  const [typedText, setTypedText] = useState('');
+  const [isTypingDone, setIsTypingDone] = useState(false);
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART'];
+  const fullSubtitle = 'Explore four iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects. Each section is fully interactive.';
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWord((prev) => (prev + 1) % words.length);
     }, 2500);
     return () => clearInterval(interval);
+  }, []);
+
+  // Typing effect for subtitle
+  useEffect(() => {
+    let charIndex = 0;
+    setTypedText('');
+    setIsTypingDone(false);
+    const timeout = setTimeout(() => {
+      const typeInterval = setInterval(() => {
+        if (charIndex < fullSubtitle.length) {
+          setTypedText(fullSubtitle.slice(0, charIndex + 1));
+          charIndex++;
+        } else {
+          setIsTypingDone(true);
+          clearInterval(typeInterval);
+        }
+      }, 25);
+      return () => clearInterval(typeInterval);
+    }, 1200);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -59,22 +113,31 @@ function HeroSection() {
         }}
       />
 
-      {/* Floating code snippets background */}
+      {/* Floating code snippets background - more visible */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {['const art = "code";', '{ design: true }', 'export default Aesthetic;', '<Tech />', 'async function create() {}'].map(
-          (text, i) => (
+        {[
+          { text: 'const art = "code";', x: 8, y: 12, rot: -5, delay: 0 },
+          { text: '{ design: true }', x: 65, y: 20, rot: 3, delay: 0.8 },
+          { text: 'export default Aesthetic;', x: 15, y: 65, rot: -2, delay: 1.6 },
+          { text: '<Tech />', x: 72, y: 55, rot: 4, delay: 2.4 },
+          { text: 'async function create() {}', x: 35, y: 80, rot: -3, delay: 3.2 },
+          { text: 'import { Style } from "art";', x: 50, y: 8, rot: 2, delay: 1.0 },
+          { text: 'render(<Glitch />)', x: 80, y: 75, rot: -4, delay: 2.0 },
+        ].map(
+          (item, i) => (
             <motion.div
               key={i}
-              className="absolute font-mono text-xs text-white/[0.06] whitespace-nowrap select-none"
+              className="absolute font-mono text-xs whitespace-nowrap select-none"
               style={{
-                left: `${10 + (i * 18) % 70}%`,
-                top: `${15 + (i * 22) % 60}%`,
-                transform: `rotate(${-5 + i * 3}deg)`,
+                left: `${item.x}%`,
+                top: `${item.y}%`,
+                transform: `rotate(${item.rot}deg)`,
+                color: 'rgba(16, 185, 129, 0.12)',
               }}
-              animate={{ y: [0, -15, 0], opacity: [0.04, 0.08, 0.04] }}
-              transition={{ duration: 6 + i * 1.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 }}
+              animate={{ y: [0, -12, 0], opacity: [0.08, 0.18, 0.08] }}
+              transition={{ duration: 6 + i * 0.8, repeat: Infinity, ease: 'easeInOut', delay: item.delay }}
             >
-              {text}
+              {item.text}
             </motion.div>
           )
         )}
@@ -103,43 +166,47 @@ function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Main heading */}
-        <motion.h1
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
+        {/* Main heading with animated gradient border */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
+          className="hero-gradient-border rounded-3xl inline-block"
         >
-          <span className="text-white">The Art of</span>
-          <br />
-          <div className="relative h-[1.2em] overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={currentWord}
-                className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent bg-[length:200%_100%] animate-[gradient-shift_3s_ease-in-out_infinite]"
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -40, opacity: 0 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                style={{
-                  textShadow: 'none',
-                }}
-              >
-                {words[currentWord]}
-              </motion.span>
-            </AnimatePresence>
+          <div className="rounded-3xl px-8 py-4 bg-[#0a0a0a]">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-2">
+              <span className="text-white">The Art of</span>
+              <br />
+              <div className="relative h-[1.2em] overflow-hidden">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={currentWord}
+                    className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent bg-[length:200%_100%]"
+                    initial={{ y: 40, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -40, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    style={{
+                      textShadow: 'none',
+                    }}
+                  >
+                    {words[currentWord]}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+            </h1>
           </div>
-        </motion.h1>
+        </motion.div>
 
-        {/* Subtitle */}
+        {/* Subtitle with typing effect */}
         <motion.p
-          className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto mb-10 leading-relaxed h-[3.5rem] sm:h-[3rem]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          Explore four iconic code-inspired design styles: from retro terminals
-          to cyberpunk glitch effects. Each section is fully interactive.
+          <span>{typedText}</span>
+          {!isTypingDone && <span className="typing-cursor" />}
         </motion.p>
 
         {/* Section previews */}
@@ -277,9 +344,11 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
     <div
       className="py-16 md:py-20 text-center px-4"
       style={{
-        background: isBrutalism ? '#ffffff' : 'linear-gradient(180deg, #0a0a0a 0%, ' + (sectionId === 'devex' ? '#0f0f0f' : sectionId === 'glitch' ? '#0a0014' : '#0a0a0a') + ' 100%)',
+        background: isBrutalism ? '#ffffff' : 'linear-gradient(180deg, #0a0a0a 0%, ' + (sectionId === 'devex' ? '#0f0f0f' : sectionId === 'glitch' ? '#0a0014' : sectionId === 'codeart' ? '#0d0d0d' : '#0a0a0a') + ' 100%)',
       }}
     >
+      {/* Decorative gradient line */}
+      {!isBrutalism && <div className="section-divider-line max-w-2xl mx-auto mb-12" />}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -317,6 +386,8 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
           {description}
         </p>
       </motion.div>
+      {/* Bottom gradient line */}
+      {!isBrutalism && <div className="section-divider-line max-w-2xl mx-auto mt-12" />}
     </div>
   );
 }
@@ -336,7 +407,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">4 styles, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">5 styles, 1 showcase</div>
             </div>
           </div>
 
@@ -409,6 +480,7 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
+      <ScrollProgressBar />
       <FloatingNav activeSection={activeSection} onClickSection={scrollToSection} />
 
       {/* Hero */}
@@ -456,6 +528,17 @@ export default function HomePage() {
           icon={Zap}
         />
         <GlitchSection />
+      </div>
+
+      {/* Section 5: Code Art */
+      <div id="codeart" ref={(el) => { sectionRefs.current['codeart'] = el; }}>
+        <SectionDivider
+          label="Section 05"
+          sectionId="codeart"
+          description="When code becomes the canvas. Compare how the same component looks across four different aesthetic styles — from polished SaaS to glitchy cyberpunk."
+          icon={Sparkles}
+        />
+        <CodeComparisonSection />
       </div>
 
       {/* Footer */}

@@ -295,7 +295,6 @@ export default function GlitchSection() {
   const [connectState, setConnectState] = useState<'idle' | 'connecting' | 'connected'>('idle')
   const [screenFlash, setScreenFlash] = useState(false)
   const [rapidGlitchLines, setRapidGlitchLines] = useState<string[]>([])
-  const [particleCanvasReady, setParticleCanvasReady] = useState(false)
 
   const logRef = useRef<HTMLDivElement>(null)
   const matrixCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -499,11 +498,6 @@ export default function GlitchSection() {
       window.removeEventListener('resize', resize)
     }
   }, [matrixHover, theme.primary])
-
-  // Update matrix speed on hover change
-  useEffect(() => {
-    // The speed multiplier is handled in the effect above via the dependency
-  }, [matrixHover])
 
   // ---- Connect button handler ----
   const handleConnect = useCallback(() => {
