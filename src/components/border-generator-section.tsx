@@ -642,7 +642,7 @@ export function BorderGeneratorSection() {
             {/* Panel Tabs */}
             <div className="flex items-center gap-1 p-1 rounded-xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm">
               {([
-                { id: 'border' as const, label: 'Border', icon: BorderAll },
+                { id: 'border' as const, label: 'Border', icon: Square },
                 { id: 'radius' as const, label: 'Radius', icon: RotateCw },
                 { id: 'outline' as const, label: 'Outline', icon: Layers },
                 { id: 'gradient' as const, label: 'Gradient', icon: Sparkles },

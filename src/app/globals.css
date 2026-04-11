@@ -1053,38 +1053,101 @@ html {
   animation: icon-breathe 3s ease-in-out infinite;
 }
 
-/* ===== HERO SECTION CARD HOVER DRAMATIC ===== */
+/* ===== HERO SECTION CARD HOVER DRAMATIC (Enhanced) ===== */
 .hero-section-card {
+  --section-color: #10b981;
   position: relative;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.02) !important;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.35s ease;
 }
+/* Colored border glow using --section-color */
 .hero-section-card::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, transparent 30%, rgba(16, 185, 129, 0.3) 50%, transparent 70%);
+  padding: 1.5px;
+  background: linear-gradient(135deg, transparent 30%, var(--section-color, #10b981) 50%, transparent 70%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
   transition: opacity 0.35s ease;
+  z-index: 2;
+  pointer-events: none;
 }
 .hero-section-card:hover::before {
   opacity: 1;
-  background: linear-gradient(135deg, #10b981, #06b6d4, #8b5cf6, #ec4899);
+  background: linear-gradient(135deg, var(--section-color, #10b981), #06b6d4, #8b5cf6, var(--section-color, #10b981));
   background-size: 300% 300%;
   animation: gradient-shift 3s ease infinite;
 }
+/* Dramatic hover: bg shift + colored border glow + lift */
 .hero-section-card:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
   transform: translateY(-6px) scale(1.03);
   box-shadow:
-    0 0 20px rgba(16, 185, 129, 0.15),
+    0 0 15px color-mix(in srgb, var(--section-color, #10b981) 20%, transparent),
     0 20px 40px rgba(0, 0, 0, 0.4),
-    0 0 60px rgba(6, 182, 212, 0.08);
+    0 0 50px color-mix(in srgb, var(--section-color, #10b981) 10%, transparent);
+}
+/* Icon container dramatic scale + pulsing glow on hover */
+.hero-section-card:hover .hero-card-icon {
+  transform: scale(1.2);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--section-color, #10b981) 35%, transparent),
+              0 0 28px color-mix(in srgb, var(--section-color, #10b981) 15%, transparent);
+  animation: hero-icon-pulse-glow 1.2s ease-in-out infinite;
+}
+@keyframes hero-icon-pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px color-mix(in srgb, var(--section-color, #10b981) 30%, transparent),
+                0 0 24px color-mix(in srgb, var(--section-color, #10b981) 12%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 18px color-mix(in srgb, var(--section-color, #10b981) 45%, transparent),
+                0 0 36px color-mix(in srgb, var(--section-color, #10b981) 20%, transparent);
+  }
+}
+/* Shine sweep animation on hover */
+.hero-section-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 60%,
+    transparent 80%
+  );
+  transform: skewX(-15deg);
+  opacity: 0;
+  transition: none;
+  z-index: 1;
+  pointer-events: none;
+}
+.hero-section-card:hover::after {
+  animation: hero-card-shine 0.7s ease-out forwards;
+}
+@keyframes hero-card-shine {
+  0% {
+    left: -60%;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    left: 120%;
+    opacity: 0;
+  }
 }
 
 /* =====================================================
@@ -2355,4 +2418,58 @@ html {
   text-shadow: 0 0 10px rgba(139, 92, 246, 0.5),
                0 0 30px rgba(139, 92, 246, 0.2),
                0 0 60px rgba(139, 92, 246, 0.1);
+}
+
+/* =====================================================
+   SECTION DIVIDER ENHANCEMENTS (Task 6-a)
+   ===================================================== */
+
+/* ===== SECTION WATERMARK NUMBER ===== */
+.section-watermark {
+  font-family: var(--font-geist-mono), monospace;
+  user-select: none;
+  -webkit-user-select: none;
+  line-height: 1;
+}
+
+/* ===== DIVIDER FLANK DOTS (animated dots beside center dot) ===== */
+.divider-flank-dot {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 60px);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.5);
+  transform: translateY(-50%);
+  animation: divider-flank-pulse 2.5s ease-in-out infinite;
+  animation-delay: 0s;
+  pointer-events: none;
+}
+.divider-flank-dot-right {
+  left: auto;
+  right: calc(50% - 60px);
+  animation-delay: 1.25s;
+}
+
+@keyframes divider-flank-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateY(-50%) scale(1);
+    box-shadow: 0 0 4px rgba(16, 185, 129, 0.2);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-50%) scale(1.6);
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.4), 0 0 16px rgba(6, 182, 212, 0.2);
+  }
+}
+
+/* ===== DIVIDER LINE END DOTS ===== */
+.divider-line-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.3);
 }

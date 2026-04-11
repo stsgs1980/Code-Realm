@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import {
   Terminal,
   Code2,
@@ -28,6 +28,7 @@ import {
   Smartphone,
   Square,
   Scissors,
+  ScanSearch,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -57,6 +58,8 @@ const ResponsiveShowcaseSection = lazy(() => import('@/components/responsive-sho
 const BorderGeneratorSection = lazy(() => import('@/components/border-generator-section').then(m => ({ default: () => <m.BorderGeneratorSection /> })));
 
 const CssSnippetsSection = lazy(() => import('@/components/css-snippets-section').then(m => ({ default: () => <m.CssSnippetsSection /> })));
+
+const RegexTesterSection = lazy(() => import('@/components/regex-tester-section').then(m => ({ default: () => <m.RegexTesterSection /> })));
 
 /* ──────────────────────────────────────────────
    SECTION LOADER
@@ -96,6 +99,7 @@ const SECTIONS = [
   { id: 'responsive', label: 'Responsive', icon: Smartphone, color: '#38bdf8', bg: 'from-[#0a0a0a] to-[#0a0f14]' },
   { id: 'border', label: 'Border', icon: Square, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#14100a]' },
   { id: 'snippets', label: 'Snippets', icon: Scissors, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#1a140a]' },
+  { id: 'regex', label: 'Regex', icon: ScanSearch, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#14100a]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -181,8 +185,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS', 'RESPONSIVE', 'BORDERS', 'SNIPPETS'];
-  const fullSubtitle = 'Explore eighteen iconic code-inspired design styles and interactive developer tools: from retro terminals to CSS snippets. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS', 'RESPONSIVE', 'BORDERS', 'SNIPPETS', 'REGEX'];
+  const fullSubtitle = 'Explore nineteen iconic code-inspired design styles and interactive developer tools: from retro terminals to regex testing. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const tiltRef = useRef<HTMLDivElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
@@ -548,7 +552,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           {[
-            { value: 18, suffix: '', label: 'Sections' },
+            { value: 19, suffix: '', label: 'Sections' },
             { value: 50, suffix: '+', label: 'Commands' },
             { value: 100, suffix: '%', label: 'Interactive' },
           ].map((stat) => (
@@ -578,13 +582,14 @@ function HeroSection() {
             <motion.a
               key={section.id}
               href={`#${section.id}`}
-              className="hero-section-card group flex flex-col items-center gap-2.5 p-3 sm:p-4 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm"
+              className="hero-section-card group flex flex-col items-center gap-2.5 p-3 sm:p-4 rounded-xl border border-white/[0.06] backdrop-blur-sm"
+              style={{ '--section-color': section.color } as React.CSSProperties}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.3 + i * 0.06 }}
             >
               <div
-                className="icon-breathe w-10 h-10 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center transition-all duration-300"
+                className="hero-card-icon icon-breathe w-10 h-10 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center transition-all duration-300"
                 style={{
                   backgroundColor: `${section.color}15`,
                   border: `1px solid ${section.color}30`,
@@ -893,7 +898,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">18 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">19 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -937,6 +942,16 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
   const [bottomVisible, setBottomVisible] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  /* Scroll-based parallax for watermark and decorative dots */
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+  const watermarkY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const dotsParallaxLeft = useTransform(scrollYProgress, [0, 1], [15, -15]);
+  const dotsParallaxRight = useTransform(scrollYProgress, [0, 1], [-15, 15]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -955,18 +970,44 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
     return () => observer.disconnect();
   }, []);
 
+  const sectionNumber = String(sectionIndex + 1).padStart(2, '0');
+
   return (
     <div
-      className="py-20 md:py-28 text-center px-4"
+      ref={containerRef}
+      className="py-20 md:py-28 text-center px-4 relative overflow-hidden"
       style={{
         background: isBrutalism ? '#ffffff' : 'linear-gradient(180deg, #0a0a0a 0%, ' + (sectionId === 'devex' ? '#0f0f0f' : sectionId === 'glitch' ? '#0a0014' : sectionId === 'codeart' ? '#0d0d0d' : '#0a0a0a') + ' 100%)',
       }}
     >
-      {/* Top animated gradient line with pulsing center dot */}
+      {/* Large watermark section number behind title (parallax) */}
+      {!isBrutalism && (
+        <motion.div
+          className="section-watermark pointer-events-none select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
+          style={{
+            y: watermarkY,
+            color: `${section.color}08`,
+          }}
+        >
+          <span className="text-[8rem] sm:text-[12rem] md:text-[16rem] font-black font-mono leading-none tracking-tighter">
+            {sectionNumber}
+          </span>
+        </motion.div>
+      )}
+
+      {/* Top animated gradient line with pulsing center dot + animated flank dots */}
       {!isBrutalism && (
         <div ref={topRef} className={`divider-fadein max-w-2xl mx-auto mb-12 ${topVisible ? 'visible' : ''}`}>
-          <div className="divider-glow">
+          <div className="divider-glow relative">
             <div className="divider-dot" />
+            <motion.div
+              className="divider-flank-dot"
+              style={{ x: dotsParallaxLeft }}
+            />
+            <motion.div
+              className="divider-flank-dot divider-flank-dot-right"
+              style={{ x: dotsParallaxRight }}
+            />
           </div>
         </div>
       )}
@@ -977,7 +1018,7 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.6, type: 'spring', stiffness: 200, damping: 20 }}
-        className="mb-6"
+        className="mb-6 relative z-10"
       >
         <div
           className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl font-mono text-lg sm:text-xl font-black tracking-wider"
@@ -990,7 +1031,7 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
             color: section.color,
           }}
         >
-          {String(sectionIndex + 1).padStart(2, '0')}
+          {sectionNumber}
         </div>
       </motion.div>
 
@@ -1000,18 +1041,26 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.7, delay: 0.15 }}
-        className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 mb-6"
+        className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 mb-6 relative z-10"
       >
-        {/* Left animated line */}
+        {/* Left animated line with end dot */}
         {!isBrutalism && (
           <motion.div
-            className="h-[1px] flex-1 max-w-[120px] sm:max-w-[180px]"
+            className="h-[1px] flex-1 max-w-[120px] sm:max-w-[180px] relative"
             style={{ backgroundColor: `${section.color}20` }}
             initial={{ scaleX: 0, originX: 1 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-          />
+          >
+            <div
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full"
+              style={{
+                backgroundColor: `${section.color}40`,
+                boxShadow: `0 0 6px ${section.color}30`,
+              }}
+            />
+          </motion.div>
         )}
         {isBrutalism && (
           <div className="h-[2px] flex-1 max-w-[120px] sm:max-w-[180px] bg-black/20" />
@@ -1038,16 +1087,24 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
           </h2>
         </div>
 
-        {/* Right animated line */}
+        {/* Right animated line with start dot */}
         {!isBrutalism && (
           <motion.div
-            className="h-[1px] flex-1 max-w-[120px] sm:max-w-[180px]"
+            className="h-[1px] flex-1 max-w-[120px] sm:max-w-[180px] relative"
             style={{ backgroundColor: `${section.color}20` }}
             initial={{ scaleX: 0, originX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-          />
+          >
+            <div
+              className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full"
+              style={{
+                backgroundColor: `${section.color}40`,
+                boxShadow: `0 0 6px ${section.color}30`,
+              }}
+            />
+          </motion.div>
         )}
         {isBrutalism && (
           <div className="h-[2px] flex-1 max-w-[120px] sm:max-w-[180px] bg-black/20" />
@@ -1060,7 +1117,7 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.5, delay: 0.25 }}
-        className="mb-5"
+        className="mb-5 relative z-10"
       >
         <div
           className="section-badge-glow inline-flex items-center gap-2 px-4 py-2 rounded-full border"
@@ -1081,7 +1138,7 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
 
       {/* Description with delayed fade-in */}
       <motion.p
-        className="text-base sm:text-lg max-w-xl mx-auto"
+        className="text-base sm:text-lg max-w-xl mx-auto relative z-10"
         style={{ color: isBrutalism ? '#666666' : 'rgba(255,255,255,0.4)' }}
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -1097,7 +1154,7 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.6 }}
-        className="mt-10"
+        className="mt-10 relative z-10"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
@@ -1117,11 +1174,19 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
         </motion.div>
       </motion.div>
 
-      {/* Bottom animated gradient line with pulsing center dot */}
+      {/* Bottom animated gradient line with pulsing center dot + animated flank dots */}
       {!isBrutalism && (
         <div ref={bottomRef} className={`divider-fadein max-w-2xl mx-auto mt-12 ${bottomVisible ? 'visible' : ''}`}>
-          <div className="divider-glow">
+          <div className="divider-glow relative">
             <div className="divider-dot" />
+            <motion.div
+              className="divider-flank-dot"
+              style={{ x: dotsParallaxRight }}
+            />
+            <motion.div
+              className="divider-flank-dot divider-flank-dot-right"
+              style={{ x: dotsParallaxLeft }}
+            />
           </div>
         </div>
       )}
@@ -1225,7 +1290,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">18 sections, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">19 sections, 1 showcase</div>
             </div>
           </motion.div>
 
@@ -1786,6 +1851,19 @@ export default function HomePage() {
         />
         <Suspense fallback={<SectionLoader />}>
           <CssSnippetsSection />
+        </Suspense>
+      </div>
+
+      {/* Section 19: Regex Tester */}
+      <div id="regex" ref={(el) => { sectionRefs.current['regex'] = el; }}>
+        <SectionDivider
+          label="Section 19"
+          sectionId="regex"
+          description="Test, debug, and learn regular expressions in real-time with match highlighting, group capture, and curated presets."
+          icon={ScanSearch}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <RegexTesterSection />
         </Suspense>
       </div>
 
