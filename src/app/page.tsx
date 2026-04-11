@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Terminal,
@@ -18,16 +18,35 @@ import {
   Droplets,
   Menu,
   X,
+  Box,
 } from 'lucide-react';
-import { TerminalSection } from '@/components/terminal-section';
-import { DevexSection } from '@/components/devex-section';
-import BrutalismSection from '@/components/brutalism-section';
-import GlitchSection from '@/components/glitch-section';
-import { CodeComparisonSection } from '@/components/code-comparison-section';
-import { CodePlaygroundSection } from '@/components/code-playground-section';
-import { GradientGeneratorSection } from '@/components/gradient-generator-section';
-import { ColorPaletteSection } from '@/components/color-palette-section';
+import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
+
+const TerminalSection = lazy(() => import('@/components/terminal-section').then(m => ({ default: () => <m.TerminalSection /> })));
+const DevexSection = lazy(() => import('@/components/devex-section').then(m => ({ default: () => <m.DevexSection /> })));
+const BrutalismSection = lazy(() => import('@/components/brutalism-section'));
+const GlitchSection = lazy(() => import('@/components/glitch-section'));
+const CodeComparisonSection = lazy(() => import('@/components/code-comparison-section').then(m => ({ default: () => <m.CodeComparisonSection /> })));
+const CodePlaygroundSection = lazy(() => import('@/components/code-playground-section').then(m => ({ default: () => <m.CodePlaygroundSection /> })));
+const GradientGeneratorSection = lazy(() => import('@/components/gradient-generator-section').then(m => ({ default: () => <m.GradientGeneratorSection /> })));
+const ColorPaletteSection = lazy(() => import('@/components/color-palette-section').then(m => ({ default: () => <m.ColorPaletteSection /> })));
+const ShadowGeneratorSection = lazy(() => import('@/components/shadow-generator-section').then(m => ({ default: () => <m.ShadowGeneratorSection /> })));
+
+/* ──────────────────────────────────────────────
+   SECTION LOADER
+   ────────────────────────────────────────────── */
+
+function SectionLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-8 h-8 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
+        <span className="font-mono text-sm text-white/30">Loading...</span>
+      </div>
+    </div>
+  );
+}
 
 /* ──────────────────────────────────────────────
    NAVIGATION ITEMS
@@ -42,6 +61,7 @@ const SECTIONS = [
   { id: 'playground', label: 'Playground', icon: Code2, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#141420]' },
   { id: 'gradient', label: 'Gradient', icon: Paintbrush, color: '#ec4899', bg: 'from-[#0a0a0a] to-[#0a1a15]' },
   { id: 'palette', label: 'Palette', icon: Droplets, color: '#06b6d4', bg: 'from-[#0a0a0a] to-[#0a141a]' },
+  { id: 'shadow', label: 'Shadow', icon: Box, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#0a1a10]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -81,8 +101,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES'];
-  const fullSubtitle = 'Explore eight iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects and interactive tools. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS'];
+  const fullSubtitle = 'Explore nine iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects and interactive tools. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -342,7 +362,7 @@ function HeroSection() {
             <motion.a
               key={section.id}
               href={`#${section.id}`}
-              className="group flex flex-col items-center gap-2 p-4 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-300"
+              className="glass-card-hover group flex flex-col items-center gap-2 p-4 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-300"
               whileHover={{ y: -4, scale: 1.02 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -656,7 +676,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">8 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">9 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -807,7 +827,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">8 sections, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">9 sections, 1 showcase</div>
             </div>
           </div>
 
@@ -880,7 +900,7 @@ function BackToTopButton() {
       {isVisible && (
         <motion.button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-shadow duration-300"
+          className="float-gentle fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-shadow duration-300"
           style={{
             background: 'linear-gradient(135deg, #10b981, #06b6d4)',
             boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
@@ -943,6 +963,7 @@ export default function HomePage() {
       <ScrollProgressBar />
       <FloatingNav activeSection={activeSection} onClickSection={scrollToSection} />
 
+      <ErrorBoundary>
       {/* Hero */}
       <HeroSection />
 
@@ -954,7 +975,9 @@ export default function HomePage() {
           description="A fully interactive CLI experience with boot sequences, command history, and theme switching. The retro terminal that never gets old."
           icon={Terminal}
         />
-        <TerminalSection />
+        <Suspense fallback={<SectionLoader />}>
+          <TerminalSection />
+        </Suspense>
       </div>
 
       {/* Section 2: DevEx */}
@@ -965,7 +988,9 @@ export default function HomePage() {
           description="Modern developer documentation style inspired by Vercel and Stripe. VS Code editors, glassmorphism cards, and live code previews."
           icon={Code2}
         />
-        <DevexSection />
+        <Suspense fallback={<SectionLoader />}>
+          <DevexSection />
+        </Suspense>
       </div>
 
       {/* Section 3: Brutalism */}
@@ -976,7 +1001,9 @@ export default function HomePage() {
           description="Raw, unpolished design that celebrates the ugly. No rounded corners, no gradients — just pure HTML chaos as nature intended."
           icon={AlertTriangle}
         />
-        <BrutalismSection />
+        <Suspense fallback={<SectionLoader />}>
+          <BrutalismSection />
+        </Suspense>
       </div>
 
       {/* Section 4: Glitch */}
@@ -987,7 +1014,9 @@ export default function HomePage() {
           description="Digital distortion, neon glows, and cyberpunk aesthetics. Hack the system, watch the matrix rain, and generate glitch text."
           icon={Zap}
         />
-        <GlitchSection />
+        <Suspense fallback={<SectionLoader />}>
+          <GlitchSection />
+        </Suspense>
       </div>
 
       {/* Section 5: Code Art */}
@@ -998,7 +1027,9 @@ export default function HomePage() {
           description="When code becomes the canvas. Compare how the same component looks across four different aesthetic styles — from polished SaaS to glitchy cyberpunk."
           icon={Sparkles}
         />
-        <CodeComparisonSection />
+        <Suspense fallback={<SectionLoader />}>
+          <CodeComparisonSection />
+        </Suspense>
       </div>
 
       {/* Section 6: Code Playground */}
@@ -1009,7 +1040,9 @@ export default function HomePage() {
           description="Write HTML, CSS, and JavaScript code with live preview. Experiment with animations, layouts, and interactive effects in real-time."
           icon={Code2}
         />
-        <CodePlaygroundSection />
+        <Suspense fallback={<SectionLoader />}>
+          <CodePlaygroundSection />
+        </Suspense>
       </div>
 
       {/* Section 7: Gradient Lab */}
@@ -1020,7 +1053,9 @@ export default function HomePage() {
           description="Design beautiful gradients with an interactive builder. Pick colors, choose types, and export production-ready CSS, Tailwind, or SVG code."
           icon={Paintbrush}
         />
-        <GradientGeneratorSection />
+        <Suspense fallback={<SectionLoader />}>
+          <GradientGeneratorSection />
+        </Suspense>
       </div>
 
       {/* Section 8: Palette Studio */}
@@ -1031,11 +1066,27 @@ export default function HomePage() {
           description="Generate harmonious color palettes using 7 color theory algorithms. Export to CSS, Tailwind, or JSON with WCAG contrast checking."
           icon={Droplets}
         />
-        <ColorPaletteSection />
+        <Suspense fallback={<SectionLoader />}>
+          <ColorPaletteSection />
+        </Suspense>
+      </div>
+
+      {/* Section 9: Shadow Lab */}
+      <div id="shadow" ref={(el) => { sectionRefs.current['shadow'] = el; }}>
+        <SectionDivider
+          label="Section 09"
+          sectionId="shadow"
+          description="Craft beautiful box and text shadows with a layered compositor. Choose from 12 presets, stack up to 5 layers, and export to CSS or Tailwind."
+          icon={Box}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <ShadowGeneratorSection />
+        </Suspense>
       </div>
 
       {/* Footer */}
       <Footer />
+      </ErrorBoundary>
 
       {/* Back to Top */}
       <BackToTopButton />

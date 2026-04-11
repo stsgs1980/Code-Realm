@@ -574,3 +574,99 @@ The project is fully functional and stable with **8 interactive sections**. All 
 6. **Internationalization** — Add i18n support for multilingual showcase
 7. **Error boundary** — Add React Error Boundary to gracefully handle any runtime errors
 8. **Analytics** — Add section interaction tracking (time spent, clicks, feature usage)
+
+---
+Task ID: 16
+Agent: Terminal + Styling Agent
+Task: Enhance terminal commands and add micro-interaction CSS
+
+Work Log:
+- Read worklog.md, terminal-section.tsx, globals.css, and page.tsx to understand existing structure
+- **Task 1a — cowsay with custom message:**
+  - Added `AVAILABLE_COMMANDS` constant array (15 commands) after WEATHER_DATA in terminal-section.tsx
+  - Changed cowsay from exact `case 'cowsay':` match to `trimmed.startsWith('cowsay')` with early return
+  - Parses message from original `cmd` variable using case-insensitive regex: `cmd.replace(/^cowsay\s*/i, '').trim()`
+  - Defaults to 'Moo!' if no argument provided
+  - Removed old cowsay case from switch statement
+- **Task 1b — Command autocomplete:**
+  - Added Tab key handler in `handleKeyDown` callback
+  - On Tab press: filters AVAILABLE_COMMANDS against current trimmed input
+  - If exactly 1 match → auto-completes the command and appends a space
+  - If multiple matches → displays matches as system output in the terminal (joined by 4 spaces)
+  - If no matches → does nothing
+  - Prevents default Tab behavior to avoid focus change
+  - Updated handleKeyDown dependencies to include `input` and `nextId`
+- **Task 1c — Echo command with arguments:**
+  - Changed echo from exact `case 'echo':` match to `trimmed.startsWith('echo')` with early return
+  - Uses case-insensitive regex to extract text: `cmd.replace(/^echo\s*/i, '').trim()`
+  - Outputs '(no text to echo)' if no text provided
+  - Removed old echo case from switch statement
+- **Task 2a — CSS micro-interaction classes:**
+  - Added 6 new CSS utility classes to globals.css:
+    - `.glow-text-hover` — emerald/cyan text-shadow glow on hover
+    - `.border-shimmer` — animated gradient shimmer overlay (emerald)
+    - `.float-gentle` — gentle 8px vertical float animation (6s loop)
+    - `.cursor-blink-fast` — fast cursor blink (0.5s step-end)
+    - `.magnetic-hover` — subtle scale(1.05) on hover
+    - `.glass-card-hover` — glassmorphism card hover (bg, shadow, border transitions)
+  - Each class includes proper CSS animation keyframes where needed
+- **Task 2b — glass-card-hover on hero section preview cards:**
+  - Added `glass-card-hover` class to the `motion.a` elements in HeroSection SECTIONS.map
+  - Applied alongside existing classes (group, p-4, rounded-xl, border, backdrop-blur-sm, etc.)
+- **Task 2c — float-gentle on BackToTopButton:**
+  - Added `float-gentle` class to the BackToTopButton motion.button element
+  - Creates gentle floating animation alongside existing framer-motion enter/exit animations
+- Ran `bun run lint` — 0 errors, 0 warnings
+- Dev server compiles successfully (133-305ms compile times)
+
+Stage Summary:
+- Terminal now supports `cowsay <message>` with custom messages (defaults to 'Moo!')
+- Terminal now supports `echo <text>` with proper argument parsing
+- Tab autocomplete added for all 15 terminal commands
+- 6 new CSS micro-interaction utility classes available for future use
+- Hero section preview cards have enhanced glass-card hover effect
+- Back to Top button has gentle floating animation
+- All changes compile cleanly with zero lint errors
+
+---
+Task ID: 15
+Agent: Infrastructure Agent
+Task: Add SEO metadata, lazy loading, error boundary, reduced-motion support
+
+Work Log:
+- Read worklog.md and analyzed existing project structure, layout.tsx metadata, page.tsx imports, globals.css structure
+- **SEO Metadata (layout.tsx):**
+  - Replaced scaffold metadata with project-specific SEO metadata
+  - Title: "Code Aesthetic Showcase | Interactive Web Design Gallery"
+  - Description covering all 8 design styles
+  - Updated keywords to match project content
+  - Updated favicon icon path from external CDN to local `/logo.svg`
+  - Updated OpenGraph tags (title, description, siteName, type)
+  - Updated Twitter card metadata
+  - Removed unused `url` field from openGraph
+  - Added `other: { 'theme-color': '#0a0a0a' }` for browser theme color
+- **Lazy Loading (page.tsx):**
+  - Added `lazy` and `Suspense` to React imports
+  - Created `SectionLoader` component with emerald-themed spinner and "Loading..." text
+  - Replaced 8 static imports with `React.lazy()` calls:
+    - 6 named exports: TerminalSection, DevexSection, CodeComparisonSection, CodePlaygroundSection, GradientGeneratorSection, ColorPaletteSection — using `.then(m => ({ default: () => <m.NamedExport /> }))` pattern
+    - 2 default exports: BrutalismSection, GlitchSection — using direct `lazy(() => import(...))` pattern
+  - Wrapped all 8 section components in `<Suspense fallback={<SectionLoader />}>`
+- **Error Boundary:**
+  - Created `/home/z/my-project/src/components/error-boundary.tsx` as class component with `getDerivedStateFromError`
+  - Displays warning emoji, error message, and "Try Again" button on error
+  - Uses emerald-themed styling consistent with site design
+  - Wrapped main content area (Hero through Footer) in `<ErrorBoundary>` in page.tsx
+- **prefers-reduced-motion (globals.css):**
+  - Added `@media (prefers-reduced-motion: reduce)` block at very top of file (before any imports)
+  - Disables all animations, transitions, and smooth scrolling for users who prefer reduced motion
+- Fixed initial lazy loading error: default exports (BrutalismSection, GlitchSection) were incorrectly using named export pattern, resolved by using direct import
+- Ran `bun run lint` — 0 errors, 0 warnings
+- Dev server compiles successfully, page returns HTTP 200
+
+Stage Summary:
+- Comprehensive SEO metadata added to layout.tsx with OpenGraph, Twitter card, and theme-color meta tags
+- All 8 section components now lazy-loaded with React.lazy + Suspense, showing emerald spinner during load
+- ErrorBoundary component wraps main content to gracefully handle runtime errors
+- prefers-reduced-motion media query added for accessibility compliance
+- Lint passes clean with zero errors, dev server compiles without issues

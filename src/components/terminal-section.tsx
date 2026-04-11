@@ -141,6 +141,12 @@ const WEATHER_DATA = [
   { condition: 'Overcast, deployment day vibes', temp: '20°C', humidity: '55%', wind: '10 km/h', visibility: '12km' },
 ];
 
+const AVAILABLE_COMMANDS = [
+  'help', 'about', 'skills', 'projects', 'theme', 'matrix',
+  'fortune', 'cowsay', 'date', 'echo', 'weather', 'history',
+  'clear', 'whoami', 'neofetch',
+];
+
 const COWSAY_ASCII = (text: string) => {
   const top = ' ' + '_'.repeat(text.length + 2);
   const mid = `< ${text} >`;
@@ -355,6 +361,18 @@ export function TerminalSection() {
       }]);
     };
 
+    // Handle commands with arguments (early return)
+    if (trimmed.startsWith('cowsay')) {
+      const msg = cmd.replace(/^cowsay\s*/i, '').trim() || 'Moo!';
+      respond(COWSAY_ASCII(msg));
+      return;
+    }
+    if (trimmed.startsWith('echo')) {
+      const echoText = cmd.replace(/^echo\s*/i, '').trim();
+      respond(echoText || '(no text to echo)');
+      return;
+    }
+
     switch (trimmed) {
       case '':
         break;
@@ -430,23 +448,11 @@ export function TerminalSection() {
         respond(FORTUNES[Math.floor(Math.random() * FORTUNES.length)]);
         break;
 
-      case 'cowsay': {
-        const msg = 'Moo! I am a coding cow.';
-        respond(COWSAY_ASCII(msg));
-        break;
-      }
-
       case 'date':
         respond(`📅 ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
 🕐 ${new Date().toLocaleTimeString('en-US', { hour12: true })}
 ⏰ Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`);
         break;
-
-      case 'echo': {
-        const echoText = cmd.replace(/^echo\s+/i, '');
-        respond(echoText || '(no text to echo)');
-        break;
-      }
 
       case 'weather': {
         const w = WEATHER_DATA[Math.floor(Math.random() * WEATHER_DATA.length)];
@@ -544,8 +550,23 @@ export function TerminalSection() {
         setHistoryIndex(-1);
         setInput('');
       }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const trimmedInput = input.trim().toLowerCase();
+      if (!trimmedInput) return;
+      const matches = AVAILABLE_COMMANDS.filter(c => c.startsWith(trimmedInput));
+      if (matches.length === 1) {
+        setInput(matches[0] + ' ');
+      } else if (matches.length > 1) {
+        setLines(prev => [...prev, {
+          id: nextId(),
+          content: matches.join('    '),
+          type: 'system',
+          timestamp: getTimestamp(),
+        }]);
+      }
     }
-  }, [historyIndex]);
+  }, [historyIndex, input, nextId]);
 
   // ─── Click to focus ──────────────────────────────────────────────────────
 
