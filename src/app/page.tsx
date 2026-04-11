@@ -14,6 +14,7 @@ import {
   Type,
   Layers,
   ArrowUp,
+  Paintbrush,
 } from 'lucide-react';
 import { TerminalSection } from '@/components/terminal-section';
 import { DevexSection } from '@/components/devex-section';
@@ -21,6 +22,8 @@ import BrutalismSection from '@/components/brutalism-section';
 import GlitchSection from '@/components/glitch-section';
 import { CodeComparisonSection } from '@/components/code-comparison-section';
 import { CodePlaygroundSection } from '@/components/code-playground-section';
+import { GradientGeneratorSection } from '@/components/gradient-generator-section';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 /* ──────────────────────────────────────────────
    NAVIGATION ITEMS
@@ -33,6 +36,7 @@ const SECTIONS = [
   { id: 'glitch', label: 'Glitch', icon: Zap, color: '#00ffff', bg: 'from-[#0a0014] to-[#0d001a]' },
   { id: 'codeart', label: 'Code Art', icon: Sparkles, color: '#a855f7', bg: 'from-[#0d0d0d] to-[#141428]' },
   { id: 'playground', label: 'Playground', icon: Code2, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#141420]' },
+  { id: 'gradient', label: 'Gradient', icon: Paintbrush, color: '#ec4899', bg: 'from-[#0a0a0a] to-[#0a1a15]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -72,8 +76,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART'];
-  const fullSubtitle = 'Explore four iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS'];
+  const fullSubtitle = 'Explore seven iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects and interactive tools. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -520,7 +524,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">6 styles, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">7 sections, 1 showcase</div>
             </div>
           </div>
 
@@ -712,11 +716,25 @@ export default function HomePage() {
         <CodePlaygroundSection />
       </div>
 
+      {/* Section 7: Gradient Lab */}
+      <div id="gradient" ref={(el) => { sectionRefs.current['gradient'] = el; }}>
+        <SectionDivider
+          label="Section 07"
+          sectionId="gradient"
+          description="Design beautiful gradients with an interactive builder. Pick colors, choose types, and export production-ready CSS, Tailwind, or SVG code."
+          icon={Paintbrush}
+        />
+        <GradientGeneratorSection />
+      </div>
+
       {/* Footer */}
       <Footer />
 
       {/* Back to Top */}
       <BackToTopButton />
+
+      {/* Theme Toggle */}
+      <ThemeToggle />
     </main>
   );
 }
