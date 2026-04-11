@@ -649,3 +649,129 @@ html {
   box-shadow: 0 0 20px rgba(16, 185, 129, 0.08);
   border-color: rgba(255, 255, 255, 0.12);
 }
+
+/* ===== PRISM RAINBOW SHIMMER ===== */
+@keyframes prism-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.prism-text {
+  background: linear-gradient(90deg, #10b981, #06b6d4, #a855f7, #ec4899, #f59e0b, #10b981);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: prism-shimmer 6s ease infinite;
+}
+
+/* ===== GLOWING ORB BACKGROUND ===== */
+.glowing-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  animation: orb-float 12s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* ===== MORPHING BLOB ===== */
+@keyframes blob-morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 30% 60% / 40% 40% 60% 50%; }
+  75% { border-radius: 40% 50% 60% 40% / 60% 50% 40% 70%; }
+}
+.blob-shape {
+  animation: blob-morph 8s ease-in-out infinite;
+}
+
+/* ===== TILT CARD EFFECT ===== */
+.tilt-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+.tilt-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== AURORA GRADIENT BACKGROUND ===== */
+@keyframes aurora {
+  0%, 100% { background-position: 0% 50%; opacity: 0.5; }
+  50% { background-position: 100% 50%; opacity: 0.8; }
+}
+.aurora-bg {
+  background: linear-gradient(135deg, #10b981, #06b6d4, #8b5cf6, #ec4899, #10b981);
+  background-size: 400% 400%;
+  animation: aurora 15s ease infinite;
+  opacity: 0.12;
+  filter: blur(40px);
+}
+
+/* ===== BREATHING SCALE ===== */
+@keyframes breathing {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+.breathing {
+  animation: breathing 4s ease-in-out infinite;
+}
+
+/* ===== SPARKLE DOT ===== */
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+.sparkle-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* ===== SCAN LINE OVERLAY ===== */
+.scan-overlay {
+  position: relative;
+  overflow: hidden;
+}
+.scan-overlay::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.4), transparent);
+  animation: scan-overlay-move 4s linear infinite;
+  pointer-events: none;
+  z-index: 20;
+}
+@keyframes scan-overlay-move {
+  0% { top: -2px; }
+  100% { top: 100%; }
+}
+
+/* ===== GRADIENT TEXT UTILITY ===== */
+.gradient-text-emerald {
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-text-warm {
+  background: linear-gradient(135deg, #f59e0b, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-text-cool {
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

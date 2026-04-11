@@ -19,6 +19,7 @@ import {
   Menu,
   X,
   Box,
+  Wand2,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -32,6 +33,7 @@ const CodePlaygroundSection = lazy(() => import('@/components/code-playground-se
 const GradientGeneratorSection = lazy(() => import('@/components/gradient-generator-section').then(m => ({ default: () => <m.GradientGeneratorSection /> })));
 const ColorPaletteSection = lazy(() => import('@/components/color-palette-section').then(m => ({ default: () => <m.ColorPaletteSection /> })));
 const ShadowGeneratorSection = lazy(() => import('@/components/shadow-generator-section').then(m => ({ default: () => <m.ShadowGeneratorSection /> })));
+const AnimationGeneratorSection = lazy(() => import('@/components/animation-generator-section').then(m => ({ default: () => <m.AnimationGeneratorSection /> })));
 
 /* ──────────────────────────────────────────────
    SECTION LOADER
@@ -62,6 +64,7 @@ const SECTIONS = [
   { id: 'gradient', label: 'Gradient', icon: Paintbrush, color: '#ec4899', bg: 'from-[#0a0a0a] to-[#0a1a15]' },
   { id: 'palette', label: 'Palette', icon: Droplets, color: '#06b6d4', bg: 'from-[#0a0a0a] to-[#0a141a]' },
   { id: 'shadow', label: 'Shadow', icon: Box, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#0a1a10]' },
+  { id: 'animation', label: 'Animation', icon: Wand2, color: '#8b5cf6', bg: 'from-[#0a0a0a] to-[#0d0d1a]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -101,8 +104,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS'];
-  const fullSubtitle = 'Explore nine iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects and interactive tools. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS'];
+  const fullSubtitle = 'Explore ten iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects and interactive tools. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -676,7 +679,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">9 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">10 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -827,7 +830,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">9 sections, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">10 sections, 1 showcase</div>
             </div>
           </div>
 
@@ -1081,6 +1084,19 @@ export default function HomePage() {
         />
         <Suspense fallback={<SectionLoader />}>
           <ShadowGeneratorSection />
+        </Suspense>
+      </div>
+
+      {/* Section 10: Animation Lab */}
+      <div id="animation" ref={(el) => { sectionRefs.current['animation'] = el; }}>
+        <SectionDivider
+          label="Section 10"
+          sectionId="animation"
+          description="Create stunning CSS animations with a visual keyframe editor. Choose from 16 presets, customize timing and easing, and export production-ready keyframes."
+          icon={Wand2}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <AnimationGeneratorSection />
         </Suspense>
       </div>
 
