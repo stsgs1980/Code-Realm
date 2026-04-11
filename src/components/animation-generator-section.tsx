@@ -351,7 +351,7 @@ function FloatingDecorations() {
           className="absolute font-mono text-[10px] whitespace-nowrap select-none"
           style={{ left: `${sym.x}%`, top: `${sym.y}%`, color: 'rgba(16, 185, 129, 0.07)' }}
           animate={{ y: [0, -10, 0], opacity: [0.04, 0.12, 0.04] }}
-          transition={{ duration: 7 + i * 1.1, repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
+          transition={{ duration: 7 + i * 1.1, repeatType: "loop", repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
         >
           {sym.text}
         </motion.div>
@@ -729,7 +729,7 @@ export function AnimationGeneratorSection() {
         style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%)' }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <motion.div
           className="text-center mb-10"

@@ -318,6 +318,7 @@ function FloatingDecorations() {
           transition={{
             duration: item.duration,
             delay: item.delay,
+            repeatType: "loop",
             repeat: Infinity,
             ease: 'easeInOut',
           }}
@@ -975,7 +976,7 @@ export function ColorPaletteSection() {
         </div>
 
         {/* ===== Main Content ===== */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
 
           {/* --- Presets Row --- */}
           <motion.div

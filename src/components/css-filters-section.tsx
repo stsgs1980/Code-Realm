@@ -216,7 +216,7 @@ function FloatingDecorations() {
             color: 'rgba(6, 182, 212, 0.07)',
           }}
           animate={{ y: [0, -10, 0], opacity: [0.04, 0.12, 0.04] }}
-          transition={{ duration: 7 + i * 0.8, repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
+          transition={{ duration: 7 + i * 0.8, repeatType: "loop", repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
         >
           {sym.text}
         </motion.div>
@@ -488,7 +488,7 @@ export function CssFiltersSection() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-6">
         {/* ──── Section Header ──── */}
         <motion.div
           className="text-center mb-10"

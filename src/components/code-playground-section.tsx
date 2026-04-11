@@ -627,6 +627,7 @@ function FloatingDecorations() {
           transition={{
             duration: item.duration,
             delay: item.delay,
+            repeatType: "loop",
             repeat: Infinity,
             ease: 'easeInOut',
           }}
@@ -843,7 +844,7 @@ export function CodePlaygroundSection() {
         </div>
 
         {/* ===== Playground Container ===== */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

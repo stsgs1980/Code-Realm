@@ -176,7 +176,7 @@ function FloatingDecorations() {
             color: 'rgba(16, 185, 129, 0.08)',
           }}
           animate={{ y: [0, -10, 0], opacity: [0.05, 0.14, 0.05] }}
-          transition={{ duration: 7 + i * 0.9, repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
+          transition={{ duration: 7 + i * 0.9, repeatType: "loop", repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
         >
           {sym.text}
         </motion.div>
@@ -424,7 +424,7 @@ export function ShadowGeneratorSection() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-6">
         {/* Section header */}
         <motion.div
           className="text-center mb-10"

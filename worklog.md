@@ -752,3 +752,37 @@ The project is fully functional and stable with **11 interactive sections**. All
 6. **Export all sections** — Add a "Download All" feature to export all tool outputs as a ZIP
 7. **PWA support** — Add service worker and manifest for offline access
 8. **Custom cursor effects** — Add interactive cursor trail or custom cursor for different sections
+
+---
+Task ID: 18
+Agent: Bug Fix Agent
+Task: Fix hydration error, duplicate React keys, WAAPI iterationCount error, and full-width layout
+
+Work Log:
+- **Hydration Error Fix (terminal-section.tsx):**
+  - Line 631: `new Date().toLocaleTimeString()` rendered different times on server vs client
+  - Fixed by adding `suppressHydrationWarning` attribute to the time display span
+- **Duplicate React Key Fix (glitch-section.tsx):**
+  - logEntries state used a `useRef` counter (`logIdRef.current += 1`) that was shared across all 8 initial entries
+  - In React Strict Mode, the for-loop incremented the ref to 8 before any setState callback executed, causing all 8 entries to get `id: 8`
+  - Replaced with a unique string key generator inside the functional setState callback: `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`
+  - Added cleanup `setLogEntries([])` in the effect return to clear stale entries on Strict Mode re-run
+  - Changed LogEntry interface `id` field from `number` to `string`
+  - Removed unused `logIdRef` ref
+- **WAAPI iterationCount Error Fix (8 component files):**
+  - `Failed to execute 'animate' on 'Element': iterationCount must be non-negative` from framer-motion's WAAPI backend
+  - Added `repeatType: "loop"` before all `repeat: Infinity` in transition props to force CSS-based animation instead of WAAPI
+  - Fixed in: code-playground-section.tsx, gradient-generator-section.tsx, code-comparison-section.tsx, color-palette-section.tsx, glitch-section.tsx (3 occurrences), animation-generator-section.tsx, shadow-generator-section.tsx, css-filters-section.tsx
+- **Full-Width Layout (10 component files):**
+  - Replaced `max-w-7xl` (1280px) with `w-full` in all section container divs
+  - Replaced `max-w-6xl` (1152px) with `w-full` in code-comparison-section.tsx
+  - Files modified: terminal-section.tsx, glitch-section.tsx, devex-section.tsx, code-comparison-section.tsx, code-playground-section.tsx, gradient-generator-section.tsx, color-palette-section.tsx, shadow-generator-section.tsx, animation-generator-section.tsx, css-filters-section.tsx
+
+Stage Summary:
+- Hydration error fixed with suppressHydrationWarning on time display
+- Duplicate React key warning eliminated with unique string IDs in functional setState
+- WAAPI iterationCount error resolved by adding repeatType: "loop" to all infinite animations
+- All sections now use full viewport width instead of max-w-7xl constraint
+- Zero console errors and zero console warnings after fixes
+- Lint passes clean with 0 errors
+- Dev server compiles and responds with HTTP 200

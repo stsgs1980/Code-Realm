@@ -91,6 +91,7 @@ function FloatingDecorations() {
           transition={{
             duration: item.duration,
             delay: item.delay,
+            repeatType: "loop",
             repeat: Infinity,
             ease: 'easeInOut',
           }}
@@ -829,7 +830,7 @@ export function CodeComparisonSection() {
         </div>
 
         {/* ===== Live Style Switcher ===== */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -873,7 +874,7 @@ export function CodeComparisonSection() {
         </div>
 
         {/* ===== Comparison Grid ===== */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

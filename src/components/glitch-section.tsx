@@ -24,7 +24,7 @@ import {
 type ColorTheme = 'neon-green' | 'neon-pink' | 'neon-cyan'
 
 interface LogEntry {
-  id: number
+  id: string
   type: 'ERR' | 'WARN' | 'INFO'
   code: string
   message: string
@@ -205,6 +205,7 @@ function FloatingParticles() {
           transition={{
             duration: p.duration,
             delay: p.delay,
+            repeatType: "loop",
             repeat: Infinity,
             ease: 'easeInOut',
           }}
@@ -299,7 +300,6 @@ export default function GlitchSection() {
   const logRef = useRef<HTMLDivElement>(null)
   const matrixCanvasRef = useRef<HTMLCanvasElement>(null)
   const matrixAnimRef = useRef<number>(0)
-  const logIdRef = useRef(0)
   const hackCooldownRef = useRef(0)
 
   const theme = COLOR_THEMES[colorTheme]
@@ -352,16 +352,19 @@ export default function GlitchSection() {
   useEffect(() => {
     const addEntry = () => {
       const msg = ERROR_MESSAGES[Math.floor(Math.random() * ERROR_MESSAGES.length)]
-      logIdRef.current += 1
       setLogEntries((prev) => {
-        const newEntries = [...prev, { ...msg, id: logIdRef.current, timestamp: getTimestamp() }]
+        const id = `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`
+        const newEntries = [...prev, { ...msg, id, timestamp: getTimestamp() }]
         return newEntries.slice(-50)
       })
     }
     // Add initial entries
     for (let i = 0; i < 8; i++) addEntry()
     const interval = setInterval(addEntry, 2000)
-    return () => clearInterval(interval)
+    return () => {
+      clearInterval(interval)
+      setLogEntries([])
+    }
   }, [])
 
   // Auto-scroll log
@@ -616,7 +619,7 @@ export default function GlitchSection() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         {/* ===== HERO AREA ===== */}
         <div className="text-center mb-16 relative">
@@ -748,7 +751,7 @@ export default function GlitchSection() {
                           : '0 0 8px #ff0040',
                     }}
                     animate={{ scale: [1, 1.3, 1] }}
-                    transition={{ duration: 1, repeat: Infinity }}
+                    transition={{ duration: 1, repeatType: "loop", repeat: Infinity }}
                   />
                   <span
                     className="font-mono text-lg font-bold tracking-wider"
@@ -966,7 +969,7 @@ export default function GlitchSection() {
                   <>
                     <motion.span
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                      transition={{ duration: 1, repeatType: "loop", repeat: Infinity, ease: 'linear' }}
                       className="inline-block mr-2"
                     >
                       ⟳

@@ -582,7 +582,7 @@ export function TerminalSection() {
 
   return (
     <section className="w-full py-8 md:py-12" style={{ background: '#050505' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-6 md:mb-8">
           <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 rounded-full border border-[#1a1a1a] bg-[#0a0a0a]">
@@ -627,7 +627,7 @@ export function TerminalSection() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-3 h-3" style={{ color: tc.dim }} />
-                  <span className="text-xs font-mono" style={{ color: tc.dim }}>
+                  <span className="text-xs font-mono" style={{ color: tc.dim }} suppressHydrationWarning>
                     {new Date().toLocaleTimeString('en-US', { hour12: false })}
                   </span>
                 </div>
