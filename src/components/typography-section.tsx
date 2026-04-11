@@ -500,7 +500,7 @@ export function TypographySection() {
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)' }} />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         {/* Section header */}
         <motion.div
           className="text-center mb-10"

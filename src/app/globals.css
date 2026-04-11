@@ -1958,3 +1958,401 @@ html {
   backdrop-filter: blur(40px) saturate(150%);
   -webkit-backdrop-filter: blur(40px) saturate(150%);
 }
+
+/* =====================================================
+   TASK 5-A: CSS STYLING POLISH ENHANCEMENTS
+   ===================================================== */
+
+/* ===== 1. ENHANCED HERO SECTION CARD HOVER EFFECTS ===== */
+/* Icon scaling + color shift inside hero cards */
+.hero-section-card .hero-card-icon {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.35s ease,
+              filter 0.35s ease;
+}
+.hero-section-card:hover .hero-card-icon {
+  transform: scale(1.18) rotate(-3deg);
+  filter: drop-shadow(0 0 8px currentColor);
+}
+/* Background brightness / overlay on hover */
+.hero-section-card .hero-card-bg {
+  transition: filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.5s ease;
+}
+.hero-section-card:hover .hero-card-bg {
+  filter: brightness(1.3) saturate(1.2);
+}
+/* Inner content subtle lift */
+.hero-section-card .hero-card-content {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-section-card:hover .hero-card-content {
+  transform: translateY(-2px);
+}
+/* Gradient border glow overlay - secondary layer using ::after */
+.hero-section-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(16, 185, 129, 0.08),
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.hero-section-card:hover::after {
+  opacity: 1;
+}
+
+/* ===== 2. IMPROVED SCROLL PROGRESS BAR — SHIMMER + GLOW ===== */
+/* Shimmer/shine animation sweeping across the bar */
+.scroll-progress-bar-shimmer {
+  position: relative;
+  overflow: visible;
+}
+/* Downward glow under the progress bar */
+.scroll-progress-bar-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 20%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 80%,
+    transparent 100%
+  );
+  background-size: 50% 100%;
+  animation: progress-shimmer-sweep 1.8s ease-in-out infinite;
+  border-radius: inherit;
+  z-index: 1;
+}
+/* Glow effect radiating downward from the bar */
+.scroll-progress-bar-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 185, 129, 0.15),
+    rgba(6, 182, 212, 0.08) 40%,
+    transparent 100%
+  );
+  filter: blur(4px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.8;
+  animation: progress-glow-breathe 2s ease-in-out infinite;
+}
+@keyframes progress-shimmer-sweep {
+  0% { background-position: 150% 0; }
+  100% { background-position: -150% 0; }
+}
+@keyframes progress-glow-breathe {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ===== 3. BETTER TYPOGRAPHY ANIMATIONS ===== */
+/* Enhanced typing cursor with gradient glow */
+.typing-cursor-enhanced {
+  position: relative;
+  display: inline;
+}
+.typing-cursor-enhanced::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  background: linear-gradient(180deg, #10b981, #06b6d4);
+  border-radius: 1px;
+  animation: cursor-enhanced-blink 0.75s step-end infinite;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6), 0 0 12px rgba(6, 182, 212, 0.3);
+}
+@keyframes cursor-enhanced-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+/* Character-by-character text reveal with staggered delays */
+.text-reveal-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px) scale(0.95);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.text-reveal-char.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+/* Stagger delays — apply as style="transition-delay: calc(var(--char-index) * 0.03s)" */
+/* Or use these preset delay classes for manual control */
+.text-reveal-char-delay-1 { transition-delay: 0.03s; }
+.text-reveal-char-delay-2 { transition-delay: 0.06s; }
+.text-reveal-char-delay-3 { transition-delay: 0.09s; }
+.text-reveal-char-delay-4 { transition-delay: 0.12s; }
+.text-reveal-char-delay-5 { transition-delay: 0.15s; }
+.text-reveal-char-delay-6 { transition-delay: 0.18s; }
+.text-reveal-char-delay-7 { transition-delay: 0.21s; }
+.text-reveal-char-delay-8 { transition-delay: 0.24s; }
+.text-reveal-char-delay-9 { transition-delay: 0.27s; }
+.text-reveal-char-delay-10 { transition-delay: 0.30s; }
+
+/* ===== 4. NOISE OVERLAY ENHANCEMENT — Subtle & Performant ===== */
+/* Override existing noise to be more subtle and GPU-friendly */
+.noise-overlay::before {
+  will-change: opacity;
+  opacity: 0.018;
+  background-size: 256px 256px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.noise-overlay::after {
+  will-change: opacity;
+  opacity: 0.85;
+}
+
+/* ===== 5. CUSTOM SCROLLBAR IMPROVEMENTS ===== */
+/* Enhanced scrollbar with gradient thumb (emerald → cyan) and smooth transitions */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.8);
+  border-radius: 4px;
+  margin: 4px 0;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #10b981, #06b6d4);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: all 0.3s ease;
+  min-height: 40px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #34d399, #22d3ee);
+  background-clip: padding-box;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4), 0 0 16px rgba(6, 182, 212, 0.2);
+  border-color: transparent;
+}
+/* Scrollbar corner for consistency */
+.custom-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+/* Firefox scrollbar support */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #10b981 rgba(10, 10, 10, 0.8);
+}
+
+/* ===== 6. GLASS CARD UTILITY — Frosted Glass + Border Shimmer ===== */
+.glass-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 4px 24px rgba(0, 0, 0, 0.2);
+}
+/* Animated border shimmer pseudo-element */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 30%,
+    rgba(16, 185, 129, 0.35) 45%,
+    rgba(250, 204, 21, 0.2) 50%,
+    rgba(6, 182, 212, 0.35) 55%,
+    transparent 70%,
+    transparent 100%
+  );
+  background-size: 250% 100%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: glass-card-shimmer 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.glass-card:hover::before {
+  opacity: 1;
+}
+@keyframes glass-card-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 30px rgba(16, 185, 129, 0.06),
+    0 0 60px rgba(6, 182, 212, 0.03),
+    0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== 7. ENHANCED FLOATING BADGE — Dynamic Hover ===== */
+.floating-badge {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s ease,
+              background-color 0.3s ease;
+}
+.floating-badge:hover {
+  animation: floating-badge-hover 0.6s ease-in-out infinite;
+  box-shadow:
+    0 8px 24px rgba(16, 185, 129, 0.2),
+    0 0 12px rgba(16, 185, 129, 0.15);
+}
+@keyframes floating-badge-hover {
+  0%, 100% {
+    transform: translateY(0) scale(1.05);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.05);
+  }
+}
+
+/* ===== 8. LOADING SKELETON — Shimmer Gradient Animation ===== */
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+}
+.skeleton-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 25%,
+    rgba(255, 255, 255, 0.06) 37%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.06) 63%,
+    transparent 75%,
+    transparent 100%
+  );
+  background-size: 300% 100%;
+  animation: skeleton-shimmer-move 1.8s ease-in-out infinite;
+}
+@keyframes skeleton-shimmer-move {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+/* Rounded skeleton variant */
+.skeleton-shimmer-rounded {
+  border-radius: 9999px;
+}
+/* Circle skeleton variant */
+.skeleton-shimmer-circle {
+  border-radius: 50%;
+}
+/* Text skeleton line */
+.skeleton-shimmer-text {
+  height: 14px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+.skeleton-shimmer-text:last-child {
+  width: 70%;
+  margin-bottom: 0;
+}
+
+/* ===== 9. IMPROVED GRID BACKGROUND — Dot-Grid Pattern ===== */
+.bg-grid-dots {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+/* Dot grid with emerald tint */
+.bg-grid-dots-emerald {
+  background-image: radial-gradient(circle, rgba(16, 185, 129, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+/* Dot grid with cyan tint */
+.bg-grid-dots-cyan {
+  background-image: radial-gradient(circle, rgba(6, 182, 212, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+/* Larger dot grid */
+.bg-grid-dots-lg {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1.5px, transparent 1.5px);
+  background-size: 40px 40px;
+}
+
+/* ===== 10. GLOW UTILILITIES ===== */
+.glow-emerald {
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3),
+              0 0 30px rgba(16, 185, 129, 0.15),
+              0 0 60px rgba(16, 185, 129, 0.08);
+}
+.glow-emerald-strong {
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5),
+              0 0 20px rgba(16, 185, 129, 0.3),
+              0 0 40px rgba(16, 185, 129, 0.2),
+              0 0 80px rgba(16, 185, 129, 0.1);
+}
+.glow-cyan {
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.3),
+              0 0 30px rgba(6, 182, 212, 0.15),
+              0 0 60px rgba(6, 182, 212, 0.08);
+}
+.glow-cyan-strong {
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.5),
+              0 0 20px rgba(6, 182, 212, 0.3),
+              0 0 40px rgba(6, 182, 212, 0.2),
+              0 0 80px rgba(6, 182, 212, 0.1);
+}
+.glow-purple {
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3),
+              0 0 30px rgba(139, 92, 246, 0.15),
+              0 0 60px rgba(139, 92, 246, 0.08);
+}
+.glow-purple-strong {
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.5),
+              0 0 20px rgba(139, 92, 246, 0.3),
+              0 0 40px rgba(139, 92, 246, 0.2),
+              0 0 80px rgba(139, 92, 246, 0.1);
+}
+/* Text glow variants */
+.text-glow-emerald {
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.5),
+               0 0 30px rgba(16, 185, 129, 0.2),
+               0 0 60px rgba(16, 185, 129, 0.1);
+}
+.text-glow-cyan {
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.5),
+               0 0 30px rgba(6, 182, 212, 0.2),
+               0 0 60px rgba(6, 182, 212, 0.1);
+}
+.text-glow-purple {
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.5),
+               0 0 30px rgba(139, 92, 246, 0.2),
+               0 0 60px rgba(139, 92, 246, 0.1);
+}

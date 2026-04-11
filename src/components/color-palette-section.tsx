@@ -490,14 +490,17 @@ function ColorCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.06 }}
     >
-      {/* Large swatch */}
-      <motion.button
+      {/* Large swatch — use div instead of button to allow nested lock button */}
+      <motion.div
         className="relative w-full aspect-square rounded-xl border border-white/[0.08] cursor-pointer overflow-hidden"
         style={{ backgroundColor: color.hex }}
         onClick={() => onShowShades(index)}
         whileHover={{ scale: 1.04, boxShadow: `0 0 30px ${color.hex}40` }}
         whileTap={{ scale: 0.97 }}
         title="Click to see shades"
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onShowShades(index); } }}
       >
         {/* Lock icon overlay */}
         <motion.button
@@ -527,7 +530,7 @@ function ColorCard({
         >
           {color.hex.toUpperCase()}
         </span>
-      </motion.button>
+      </motion.div>
 
       {/* Copy hex button */}
       <motion.button

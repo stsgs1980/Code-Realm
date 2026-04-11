@@ -618,7 +618,7 @@ export function ResponsiveShowcaseSection() {
         </div>
 
         {/* ===== Tab Content ===== */}
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 max-w-7xl">
+        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
           <AnimatePresence mode="wait">
             {/* ─── PREVIEW TAB ─── */}
             {activeTab === 'preview' && (

@@ -27,6 +27,7 @@ import {
   RotateCcw,
   Smartphone,
   Square,
+  Scissors,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -54,6 +55,8 @@ const Transform3dSection = lazy(() => import('@/components/transform-3d-section'
 const ResponsiveShowcaseSection = lazy(() => import('@/components/responsive-showcase-section').then(m => ({ default: () => <m.ResponsiveShowcaseSection /> })));
 
 const BorderGeneratorSection = lazy(() => import('@/components/border-generator-section').then(m => ({ default: () => <m.BorderGeneratorSection /> })));
+
+const CssSnippetsSection = lazy(() => import('@/components/css-snippets-section').then(m => ({ default: () => <m.CssSnippetsSection /> })));
 
 /* ──────────────────────────────────────────────
    SECTION LOADER
@@ -92,6 +95,7 @@ const SECTIONS = [
   { id: 'transform', label: '3D', icon: RotateCcw, color: '#a78bfa', bg: 'from-[#0a0a0a] to-[#0d0d1a]' },
   { id: 'responsive', label: 'Responsive', icon: Smartphone, color: '#38bdf8', bg: 'from-[#0a0a0a] to-[#0a0f14]' },
   { id: 'border', label: 'Border', icon: Square, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#14100a]' },
+  { id: 'snippets', label: 'Snippets', icon: Scissors, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#1a140a]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -177,8 +181,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS', 'RESPONSIVE', 'BORDERS'];
-  const fullSubtitle = 'Explore seventeen iconic code-inspired design styles and interactive developer tools: from retro terminals to responsive design. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS', 'RESPONSIVE', 'BORDERS', 'SNIPPETS'];
+  const fullSubtitle = 'Explore eighteen iconic code-inspired design styles and interactive developer tools: from retro terminals to CSS snippets. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const tiltRef = useRef<HTMLDivElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
@@ -471,7 +475,7 @@ function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-7xl mx-auto">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -544,7 +548,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           {[
-            { value: 17, suffix: '', label: 'Sections' },
+            { value: 18, suffix: '', label: 'Sections' },
             { value: 50, suffix: '+', label: 'Commands' },
             { value: 100, suffix: '%', label: 'Interactive' },
           ].map((stat) => (
@@ -565,7 +569,7 @@ function HeroSection() {
 
         {/* Section preview cards - dramatic hover */}
         <motion.div
-          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 max-w-4xl mx-auto mb-14"
+          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-8 gap-3 sm:gap-4 max-w-5xl mx-auto mb-14"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
@@ -889,7 +893,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">17 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">18 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -1143,7 +1147,7 @@ function Footer() {
 
   return (
     <footer className="w-full py-16 px-4 bg-[#050505] footer-gradient-border">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto">
         {/* Top gradient divider with spinning icon */}
         <div className="flex items-center justify-center gap-3 mb-10">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/20" />
@@ -1221,7 +1225,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">17 sections, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">18 sections, 1 showcase</div>
             </div>
           </motion.div>
 
@@ -1769,6 +1773,19 @@ export default function HomePage() {
         />
         <Suspense fallback={<SectionLoader />}>
           <BorderGeneratorSection />
+        </Suspense>
+      </div>
+
+      {/* Section 18: CSS Snippets */}
+      <div id="snippets" ref={(el) => { sectionRefs.current['snippets'] = el; }}>
+        <SectionDivider
+          label="Section 18"
+          sectionId="snippets"
+          description="Browse, preview, and copy 13+ commonly-used CSS patterns — from text truncation to glassmorphism, neon glow, custom scrollbars, and more."
+          icon={Scissors}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <CssSnippetsSection />
         </Suspense>
       </div>
 
