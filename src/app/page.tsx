@@ -20,9 +20,11 @@ import {
   X,
   Box,
   Wand2,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { SoundToggle } from '@/components/sound-toggle';
 
 const TerminalSection = lazy(() => import('@/components/terminal-section').then(m => ({ default: () => <m.TerminalSection /> })));
 const DevexSection = lazy(() => import('@/components/devex-section').then(m => ({ default: () => <m.DevexSection /> })));
@@ -34,6 +36,7 @@ const GradientGeneratorSection = lazy(() => import('@/components/gradient-genera
 const ColorPaletteSection = lazy(() => import('@/components/color-palette-section').then(m => ({ default: () => <m.ColorPaletteSection /> })));
 const ShadowGeneratorSection = lazy(() => import('@/components/shadow-generator-section').then(m => ({ default: () => <m.ShadowGeneratorSection /> })));
 const AnimationGeneratorSection = lazy(() => import('@/components/animation-generator-section').then(m => ({ default: () => <m.AnimationGeneratorSection /> })));
+const CssFiltersSection = lazy(() => import('@/components/css-filters-section').then(m => ({ default: () => <m.CssFiltersSection /> })));
 
 /* ──────────────────────────────────────────────
    SECTION LOADER
@@ -65,6 +68,7 @@ const SECTIONS = [
   { id: 'palette', label: 'Palette', icon: Droplets, color: '#06b6d4', bg: 'from-[#0a0a0a] to-[#0a141a]' },
   { id: 'shadow', label: 'Shadow', icon: Box, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#0a1a10]' },
   { id: 'animation', label: 'Animation', icon: Wand2, color: '#8b5cf6', bg: 'from-[#0a0a0a] to-[#0d0d1a]' },
+  { id: 'filters', label: 'Filters', icon: SlidersHorizontal, color: '#14b8a6', bg: 'from-[#0a0a0a] to-[#0a1a15]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -104,8 +108,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS'];
-  const fullSubtitle = 'Explore ten iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects and interactive tools. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS'];
+  const fullSubtitle = 'Explore eleven iconic code-inspired design styles and interactive developer tools: from retro terminals to CSS filters. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -238,16 +242,12 @@ function HeroSection() {
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a]">
       {/* Background grid */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none bg-grid-subtle" />
+
+      {/* Hero gradient orbs */}
+      <div className="hero-orb hero-orb-1" aria-hidden="true" />
+      <div className="hero-orb hero-orb-2" aria-hidden="true" />
+      <div className="hero-orb hero-orb-3" aria-hidden="true" />
 
       {/* Particle canvas background */}
       <div className="absolute inset-0 pointer-events-none">
@@ -447,7 +447,7 @@ function DesktopNav({
               <button
                 key={section.id}
                 onClick={() => onClickSection(section.id)}
-                className={`relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono transition-all duration-300 ${
+                className={`nav-link-underline hover-ripple relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono transition-all duration-300 ${
                   isActive ? 'text-white' : 'text-white/40 hover:text-white/70'
                 }`}
               >
@@ -679,7 +679,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">10 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">11 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -762,7 +762,7 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
         transition={{ duration: 0.6 }}
       >
         <div
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-4"
+          className="section-badge-glow inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-4"
           style={{
             borderColor: isBrutalism ? '#000000' : `${section.color}30`,
             backgroundColor: isBrutalism ? '#f0f0f0' : `${section.color}08`,
@@ -830,7 +830,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">10 sections, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">11 sections, 1 showcase</div>
             </div>
           </div>
 
@@ -962,7 +962,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a]">
+    <main className="min-h-screen bg-[#0a0a0a] noise-overlay">
       <ScrollProgressBar />
       <FloatingNav activeSection={activeSection} onClickSection={scrollToSection} />
 
@@ -1100,6 +1100,19 @@ export default function HomePage() {
         </Suspense>
       </div>
 
+      {/* Section 11: Filters Lab */}
+      <div id="filters" ref={(el) => { sectionRefs.current['filters'] = el; }}>
+        <SectionDivider
+          label="Section 11"
+          sectionId="filters"
+          description="Apply real-time CSS filters to images with 8 adjustable properties, 12 curated presets, before/after comparison, and instant CSS export."
+          icon={SlidersHorizontal}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <CssFiltersSection />
+        </Suspense>
+      </div>
+
       {/* Footer */}
       <Footer />
       </ErrorBoundary>
@@ -1109,6 +1122,9 @@ export default function HomePage() {
 
       {/* Theme Toggle */}
       <ThemeToggle />
+
+      {/* Sound Toggle */}
+      <SoundToggle />
     </main>
   );
 }
