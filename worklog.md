@@ -786,3 +786,37 @@ Stage Summary:
 - Zero console errors and zero console warnings after fixes
 - Lint passes clean with 0 errors
 - Dev server compiles and responds with HTTP 200
+
+---
+Task ID: 6
+Agent: Hero Redesign Agent
+Task: Dramatic hero section redesign
+
+Work Log:
+- Read worklog.md, page.tsx (full 1000+ line file), and globals.css to understand existing HeroSection structure
+- Identified HeroSection component (lines 107-411) with particle canvas, gradient orbs, typing effect, rotating words, section cards grid, and scroll indicator
+- Added enhanced CSS to globals.css:
+  - Replaced basic `.aurora-bg` with full aurora northern lights system: 3 gradient blobs (emerald, cyan, purple) with independent drift keyframes (aurora-drift-1/2/3), 12-18s cycles, smooth opacity pulsing
+  - Added `.tilt-card-3d` / `.tilt-card-3d-inner` for CSS 3D perspective tilt container with will-change optimization
+  - Added `.counter-glow` for animated counter number text-shadow glow (emerald/cyan)
+  - Added `.magnetic-text` for magnetic pull effect with smooth transform transition
+  - Added `.icon-breathe` with 3s ease-in-out scale+opacity breathing animation for card icons
+  - Added `.hero-section-card` with dramatic hover: translateY(-6px), scale(1.03), animated gradient border via mask-composite, multi-layer box-shadow (emerald glow + dark shadow + cyan halo)
+- Enhanced HeroSection component in page.tsx:
+  - **AnimatedCounter sub-component**: Uses IntersectionObserver + requestAnimationFrame with ease-out cubic easing, tabular-nums font variant, triggers on viewport visibility
+  - **3D Tilt Effect**: onMouseMove handler calculates rotateX/rotateY (max ±8deg) based on cursor position relative to card center, perspective(1000px) with 0.12s ease-out transition, resets on mouseLeave
+  - **Aurora Background**: 3 `.aurora-blob` divs with emerald/cyan/purple radial gradients, animated via CSS keyframes with independent timing
+  - **Animated Counter Stats Row**: 4 stats (11 Sections, 50+ Commands, 100% Interactive, ∞ Possibilities), each with countUp animation and counter-glow effect
+  - **Enhanced Section Cards**: Changed grid from 2/4 columns to 3/4/6 columns for better layout, replaced glass-card-hover with hero-section-card (dramatic lift+glow+scale+gradient border), added icon-breathe animation with staggered delays per card
+  - **Magnetic Scroll Indicator**: useEffect tracks global mouse position, calculates distance to scroll indicator center, pulls toward cursor when within 180px (max 12px pull), smooth reset when cursor moves away
+  - **Enhanced Particle System**: Increased count from 60→80 desktop / 25→30 mobile, added 3rd color (#34d399), added mouse repulsion (200px radius, 0.8 strength), velocity dampening back to base (0.02 factor), faint radial gradient glow at cursor position
+  - **Heading card**: Added semi-transparent bg-[#0a0a0a]/90 with backdrop-blur, animate-gradient-text on rotating words for shimmer effect
+- All existing imports, SECTIONS array, navigation, and all other components preserved intact
+- `bun run lint` → 0 errors, 0 warnings
+- Dev server compiles successfully (235ms), HTTP 200 on all routes
+
+Stage Summary:
+- HeroSection completely redesigned with 6 dramatic enhancements: 3D tilt, aurora background, animated counters, dramatic hover cards, magnetic scroll indicator, mouse-reactive particles
+- New CSS classes added: .aurora-bg, .aurora-blob (1/2/3), .tilt-card-3d, .counter-glow, .magnetic-text, .icon-breathe, .hero-section-card
+- All existing functionality preserved: SECTIONS array, navigation, typing effect, rotating words, floating code snippets, gradient orbs
+- Zero lint errors, successful compilation

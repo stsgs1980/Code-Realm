@@ -8,6 +8,7 @@ import {
   AlertTriangle,
   Zap,
   ChevronUp,
+  ChevronDown,
   Sparkles,
   Monitor,
   Palette,
@@ -104,6 +105,52 @@ function ScrollProgressBar() {
    HERO SECTION
    ────────────────────────────────────────────── */
 
+/* ─── Animated Counter Sub-component ─── */
+function AnimatedCounter({ target, suffix = '', duration = 2000 }: { target: number; suffix?: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const counterRef = useRef<HTMLSpanElement>(null);
+  const frameRef = useRef<number>(0);
+
+  useEffect(() => {
+    const el = counterRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+    const startTime = performance.now();
+    function tick(now: number) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) {
+        frameRef.current = requestAnimationFrame(tick);
+      }
+    }
+    frameRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameRef.current);
+  }, [hasStarted, target, duration]);
+
+  return (
+    <span ref={counterRef} className="counter-glow tabular-nums">
+      {count}{suffix}
+    </span>
+  );
+}
+
 function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
@@ -111,6 +158,9 @@ function HeroSection() {
   const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS'];
   const fullSubtitle = 'Explore eleven iconic code-inspired design styles and interactive developer tools: from retro terminals to CSS filters. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null);
+  const mousePosRef = useRef({ x: 0, y: 0 });
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -139,7 +189,37 @@ function HeroSection() {
     return () => clearTimeout(timeout);
   }, []);
 
-  // ─── Particle canvas animation ───
+  // ─── 3D Tilt on mouse move ───
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const card = tiltRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const maxTilt = 8;
+    const rotateX = -((y - centerY) / centerY) * maxTilt;
+    const rotateY = ((x - centerX) / centerX) * maxTilt;
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    const card = tiltRef.current;
+    if (!card) return;
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+  }, []);
+
+  // ─── Track mouse position for particles ───
+  useEffect(() => {
+    const handleGlobalMove = (e: MouseEvent) => {
+      mousePosRef.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener('mousemove', handleGlobalMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleGlobalMove);
+  }, []);
+
+  // ─── Enhanced particle canvas with mouse repulsion ───
   const animateParticles = useCallback(() => {
     const canvas = particleCanvasRef.current;
     if (!canvas) return;
@@ -157,15 +237,19 @@ function HeroSection() {
     ctx.scale(dpr, dpr);
 
     const isMobile = w < 768;
-    const PARTICLE_COUNT = isMobile ? 25 : 60;
-    const CONNECTION_DIST = 120;
-    const COLORS = ['#10b981', '#06b6d4']; // emerald, cyan
+    const PARTICLE_COUNT = isMobile ? 30 : 80;
+    const CONNECTION_DIST = 130;
+    const REPULSION_RADIUS = 200;
+    const REPULSION_STRENGTH = 0.8;
+    const COLORS = ['#10b981', '#06b6d4', '#34d399']; // emerald, cyan, lighter emerald
 
     interface Particle {
       x: number;
       y: number;
       vx: number;
       vy: number;
+      baseVx: number;
+      baseVy: number;
       radius: number;
       opacity: number;
       color: string;
@@ -173,13 +257,17 @@ function HeroSection() {
 
     const particles: Particle[] = [];
     for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const vx = (Math.random() - 0.5) * 0.4;
+      const vy = (Math.random() - 0.5) * 0.4;
       particles.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        radius: 1 + Math.random(),
-        opacity: 0.1 + Math.random() * 0.3,
+        vx,
+        vy,
+        baseVx: vx,
+        baseVy: vy,
+        radius: 0.8 + Math.random() * 1.2,
+        opacity: 0.15 + Math.random() * 0.35,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
       });
     }
@@ -189,8 +277,30 @@ function HeroSection() {
     function draw() {
       ctx.clearRect(0, 0, w, h);
 
+      // Get canvas-relative mouse position
+      const canvasRect = canvas.getBoundingClientRect();
+      const mx = mousePosRef.current.x - canvasRect.left;
+      const my = mousePosRef.current.y - canvasRect.top;
+
       // Update positions and draw particles
       for (const p of particles) {
+        // Mouse repulsion
+        const dx = p.x - mx;
+        const dy = p.y - my;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < REPULSION_RADIUS && dist > 0) {
+          const force = ((REPULSION_RADIUS - dist) / REPULSION_RADIUS) * REPULSION_STRENGTH;
+          const nx = dx / dist;
+          const ny = dy / dist;
+          p.vx += nx * force;
+          p.vy += ny * force;
+        }
+
+        // Dampen back to base velocity
+        p.vx += (p.baseVx - p.vx) * 0.02;
+        p.vy += (p.baseVy - p.vy) * 0.02;
+
         p.x += p.vx;
         p.y += p.vy;
 
@@ -215,7 +325,7 @@ function HeroSection() {
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < CONNECTION_DIST) {
-            const lineOpacity = (1 - dist / CONNECTION_DIST) * 0.15;
+            const lineOpacity = (1 - dist / CONNECTION_DIST) * 0.18;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -225,6 +335,16 @@ function HeroSection() {
             ctx.stroke();
           }
         }
+      }
+
+      // Draw faint glow near mouse cursor
+      if (mx > 0 && mx < w && my > 0 && my < h) {
+        const gradient = ctx.createRadialGradient(mx, my, 0, mx, my, REPULSION_RADIUS);
+        gradient.addColorStop(0, 'rgba(16, 185, 129, 0.04)');
+        gradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
+        ctx.fillStyle = gradient;
+        ctx.globalAlpha = 1;
+        ctx.fillRect(mx - REPULSION_RADIUS, my - REPULSION_RADIUS, REPULSION_RADIUS * 2, REPULSION_RADIUS * 2);
       }
 
       animationId = requestAnimationFrame(draw);
@@ -239,10 +359,42 @@ function HeroSection() {
     return cleanup;
   }, [animateParticles]);
 
+  // ─── Magnetic scroll indicator ───
+  useEffect(() => {
+    const el = scrollIndicatorRef.current;
+    if (!el) return;
+    const handleMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const maxDist = 180;
+      if (dist < maxDist) {
+        const pull = ((maxDist - dist) / maxDist) * 12;
+        const nx = dx / dist;
+        const ny = dy / dist;
+        el.style.transform = `translate(${nx * pull}px, ${ny * pull}px)`;
+      } else {
+        el.style.transform = 'translate(0, 0)';
+      }
+    };
+    window.addEventListener('mousemove', handleMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
+
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a]">
       {/* Background grid */}
       <div className="absolute inset-0 pointer-events-none bg-grid-subtle" />
+
+      {/* Aurora Northern Lights background */}
+      <div className="aurora-bg" aria-hidden="true">
+        <div className="aurora-blob aurora-blob-1" />
+        <div className="aurora-blob aurora-blob-2" />
+        <div className="aurora-blob aurora-blob-3" />
+      </div>
 
       {/* Hero gradient orbs */}
       <div className="hero-orb hero-orb-1" aria-hidden="true" />
@@ -297,7 +449,7 @@ function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -311,41 +463,49 @@ function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Main heading with animated gradient border */}
+        {/* Main heading with 3D tilt effect */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="hero-gradient-border rounded-3xl inline-block"
+          className="tilt-card-3d inline-block mb-6"
         >
-          <div className="rounded-3xl px-8 py-4 bg-[#0a0a0a]">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-2">
-              <span className="text-white">The Art of</span>
-              <br />
-              <div className="relative h-[1.2em] overflow-hidden">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={currentWord}
-                    className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent bg-[length:200%_100%]"
-                    initial={{ y: 40, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -40, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    style={{
-                      textShadow: 'none',
-                    }}
-                  >
-                    {words[currentWord]}
-                  </motion.span>
-                </AnimatePresence>
-              </div>
-            </h1>
+          <div
+            ref={tiltRef}
+            className="tilt-card-3d-inner hero-gradient-border rounded-3xl"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ transition: 'transform 0.12s ease-out' }}
+          >
+            <div className="rounded-3xl px-8 py-4 sm:px-10 sm:py-6 bg-[#0a0a0a]/90 backdrop-blur-sm">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-2">
+                <span className="text-white">The Art of</span>
+                <br />
+                <div className="relative h-[1.2em] overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={currentWord}
+                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient-text"
+                      initial={{ y: 40, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -40, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      style={{
+                        textShadow: 'none',
+                      }}
+                    >
+                      {words[currentWord]}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
+              </h1>
+            </div>
           </div>
         </motion.div>
 
         {/* Subtitle with typing effect */}
         <motion.p
-          className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto mb-10 leading-relaxed h-[3.5rem] sm:h-[3rem]"
+          className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto mb-8 leading-relaxed h-[3.5rem] sm:h-[3rem]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -354,55 +514,83 @@ function HeroSection() {
           {!isTypingDone && <span className="typing-cursor" />}
         </motion.p>
 
-        {/* Section previews */}
+        {/* Animated counter stats row */}
         <motion.div
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto mb-12"
+          className="flex flex-wrap justify-center gap-6 sm:gap-10 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+        >
+          {[
+            { value: 11, suffix: '', label: 'Sections' },
+            { value: 50, suffix: '+', label: 'Commands' },
+            { value: 100, suffix: '%', label: 'Interactive' },
+          ].map((stat) => (
+            <div key={`stat-counter-${stat.label}`} className="text-center">
+              <div className="text-2xl sm:text-3xl font-bold font-mono text-white/90">
+                <AnimatedCounter target={stat.value} suffix={stat.suffix} duration={1800} />
+              </div>
+              <div className="text-xs font-mono text-white/30 mt-1 uppercase tracking-wider">{stat.label}</div>
+            </div>
+          ))}
+          <div className="text-center">
+            <div className="text-2xl sm:text-3xl font-bold font-mono text-transparent bg-gradient-to-r from-emerald-400 via-cyan-400 to-purple-400 bg-clip-text">
+              ∞
+            </div>
+            <div className="text-xs font-mono text-white/30 mt-1 uppercase tracking-wider">Possibilities</div>
+          </div>
+        </motion.div>
+
+        {/* Section preview cards - dramatic hover */}
+        <motion.div
+          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 max-w-4xl mx-auto mb-14"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
         >
           {SECTIONS.map((section, i) => (
             <motion.a
               key={section.id}
               href={`#${section.id}`}
-              className="glass-card-hover group flex flex-col items-center gap-2 p-4 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-300"
-              whileHover={{ y: -4, scale: 1.02 }}
+              className="hero-section-card group flex flex-col items-center gap-2.5 p-3 sm:p-4 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 + i * 0.1 }}
+              transition={{ delay: 1.3 + i * 0.06 }}
             >
               <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300"
+                className="icon-breathe w-10 h-10 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center transition-all duration-300"
                 style={{
                   backgroundColor: `${section.color}15`,
                   border: `1px solid ${section.color}30`,
+                  animationDelay: `${i * 0.25}s`,
                 }}
               >
                 <section.icon
-                  className="w-5 h-5 transition-all duration-300"
+                  className="w-5 h-5 sm:w-5.5 sm:h-5.5 transition-all duration-300"
                   style={{ color: section.color }}
                 />
               </div>
-              <span className="text-xs font-mono text-white/50 group-hover:text-white/80 transition-colors">
+              <span className="text-[10px] sm:text-xs font-mono text-white/40 group-hover:text-white/80 transition-colors duration-300">
                 {section.label}
               </span>
             </motion.a>
           ))}
         </motion.div>
 
-        {/* Scroll hint */}
+        {/* Magnetic scroll indicator */}
         <motion.div
-          className="flex flex-col items-center gap-2"
+          ref={scrollIndicatorRef}
+          className="magnetic-text flex flex-col items-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 1.8 }}
         >
-          <span className="text-xs font-mono text-white/20">SCROLL TO EXPLORE</span>
+          <span className="text-xs font-mono text-white/25 tracking-[0.2em]">SCROLL TO EXPLORE</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <ChevronUp className="w-5 h-5 text-white/20 rotate-180" />
+            <ChevronUp className="w-5 h-5 text-white/25 rotate-180" />
           </motion.div>
         </motion.div>
       </div>
@@ -717,6 +905,7 @@ function FloatingNav({
 
 function SectionDivider({ label, sectionId, description, icon: Icon }: { label: string; sectionId: string; description: string; icon: React.ElementType }) {
   const section = SECTIONS.find((s) => s.id === sectionId)!;
+  const sectionIndex = SECTIONS.findIndex((s) => s.id === sectionId);
   const isBrutalism = sectionId === 'brutalism';
   const [topVisible, setTopVisible] = useState(false);
   const [bottomVisible, setBottomVisible] = useState(false);
@@ -742,12 +931,12 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
 
   return (
     <div
-      className="py-16 md:py-20 text-center px-4"
+      className="py-20 md:py-28 text-center px-4"
       style={{
         background: isBrutalism ? '#ffffff' : 'linear-gradient(180deg, #0a0a0a 0%, ' + (sectionId === 'devex' ? '#0f0f0f' : sectionId === 'glitch' ? '#0a0014' : sectionId === 'codeart' ? '#0d0d0d' : '#0a0a0a') + ' 100%)',
       }}
     >
-      {/* Animated gradient line with pulsing center dot */}
+      {/* Top animated gradient line with pulsing center dot */}
       {!isBrutalism && (
         <div ref={topRef} className={`divider-fadein max-w-2xl mx-auto mb-12 ${topVisible ? 'visible' : ''}`}>
           <div className="divider-glow">
@@ -755,14 +944,100 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
           </div>
         </div>
       )}
+
+      {/* Dramatic section number badge */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: '-50px' }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.6, type: 'spring', stiffness: 200, damping: 20 }}
+        className="mb-6"
       >
         <div
-          className="section-badge-glow inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-4"
+          className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl font-mono text-lg sm:text-xl font-black tracking-wider"
+          style={isBrutalism ? {
+            backgroundColor: '#000000',
+            color: '#ffffff',
+          } : {
+            background: `linear-gradient(135deg, ${section.color}25, ${section.color}10)`,
+            border: `1.5px solid ${section.color}40`,
+            color: section.color,
+          }}
+        >
+          {String(sectionIndex + 1).padStart(2, '0')}
+        </div>
+      </motion.div>
+
+      {/* Title with horizontal animated lines and gradient glow */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ duration: 0.7, delay: 0.15 }}
+        className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 mb-6"
+      >
+        {/* Left animated line */}
+        {!isBrutalism && (
+          <motion.div
+            className="h-[1px] flex-1 max-w-[120px] sm:max-w-[180px]"
+            style={{ backgroundColor: `${section.color}20` }}
+            initial={{ scaleX: 0, originX: 1 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          />
+        )}
+        {isBrutalism && (
+          <div className="h-[2px] flex-1 max-w-[120px] sm:max-w-[180px] bg-black/20" />
+        )}
+
+        {/* Title with subtle gradient glow behind */}
+        <div className="relative">
+          {!isBrutalism && (
+            <div
+              className="absolute inset-0 blur-3xl opacity-20 -z-10"
+              style={{
+                background: `radial-gradient(ellipse, ${section.color}30, transparent 70%)`,
+              }}
+            />
+          )}
+          <h2
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
+            style={{
+              color: isBrutalism ? '#000000' : '#ffffff',
+              fontFamily: isBrutalism ? 'Times New Roman, Georgia, serif' : 'var(--font-geist-sans), sans-serif',
+            }}
+          >
+            {section.label} Style
+          </h2>
+        </div>
+
+        {/* Right animated line */}
+        {!isBrutalism && (
+          <motion.div
+            className="h-[1px] flex-1 max-w-[120px] sm:max-w-[180px]"
+            style={{ backgroundColor: `${section.color}20` }}
+            initial={{ scaleX: 0, originX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          />
+        )}
+        {isBrutalism && (
+          <div className="h-[2px] flex-1 max-w-[120px] sm:max-w-[180px] bg-black/20" />
+        )}
+      </motion.div>
+
+      {/* Section badge with icon */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ duration: 0.5, delay: 0.25 }}
+        className="mb-5"
+      >
+        <div
+          className="section-badge-glow inline-flex items-center gap-2 px-4 py-2 rounded-full border"
           style={{
             borderColor: isBrutalism ? '#000000' : `${section.color}30`,
             backgroundColor: isBrutalism ? '#f0f0f0' : `${section.color}08`,
@@ -776,22 +1051,46 @@ function SectionDivider({ label, sectionId, description, icon: Icon }: { label: 
             {label}
           </span>
         </div>
-        <h2
-          className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3"
-          style={{
-            color: isBrutalism ? '#000000' : '#ffffff',
-            fontFamily: isBrutalism ? 'Times New Roman, Georgia, serif' : 'var(--font-geist-sans), sans-serif',
-          }}
-        >
-          {section.label} Style
-        </h2>
-        <p
-          className="text-base max-w-xl mx-auto"
-          style={{ color: isBrutalism ? '#666666' : 'rgba(255,255,255,0.4)' }}
-        >
-          {description}
-        </p>
       </motion.div>
+
+      {/* Description with delayed fade-in */}
+      <motion.p
+        className="text-base sm:text-lg max-w-xl mx-auto"
+        style={{ color: isBrutalism ? '#666666' : 'rgba(255,255,255,0.4)' }}
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        {description}
+      </motion.p>
+
+      {/* Bouncing down-arrow indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="mt-10"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex flex-col items-center gap-1"
+        >
+          <ChevronDown
+            className="w-5 h-5"
+            style={{ color: isBrutalism ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.15)' }}
+          />
+          <span
+            className="text-[10px] font-mono uppercase tracking-[0.15em]"
+            style={{ color: isBrutalism ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.1)' }}
+          >
+            Scroll
+          </span>
+        </motion.div>
+      </motion.div>
+
       {/* Bottom animated gradient line with pulsing center dot */}
       {!isBrutalism && (
         <div ref={bottomRef} className={`divider-fadein max-w-2xl mx-auto mt-12 ${bottomVisible ? 'visible' : ''}`}>
@@ -821,10 +1120,80 @@ function Footer() {
   };
 
   return (
-    <footer className="w-full py-12 px-4 bg-[#050505] footer-gradient-border">
+    <footer className="w-full py-16 px-4 bg-[#050505] footer-gradient-border">
       <div className="max-w-7xl mx-auto">
+        {/* Top gradient divider with spinning icon */}
+        <div className="flex items-center justify-center gap-3 mb-10">
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/20" />
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+            className="w-6 h-6 rounded-full border border-emerald-500/30 flex items-center justify-center"
+          >
+            <Code2 className="w-3 h-3 text-emerald-400/50" />
+          </motion.div>
+          <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/20" />
+        </div>
+
+        {/* Signature Z.AI logo */}
+        <div className="text-center mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-300 bg-clip-text text-transparent tracking-tight">
+              Z.AI
+            </span>
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-sm font-mono text-white/25 mt-3"
+          >
+            Built with &hearts; and &nbsp;☕
+          </motion.p>
+        </div>
+
+        {/* Row of mini section icons as visual summary */}
+        <motion.div
+          className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          {SECTIONS.map((s, i) => (
+            <motion.a
+              key={s.id}
+              href={`#${s.id}`}
+              className="group/footer-icon flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-white/[0.06] bg-white/[0.02] transition-all duration-300 hover:border-white/15 hover:bg-white/[0.06]"
+              whileHover={{ y: -3, scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.35 + i * 0.04 }}
+              title={s.label}
+            >
+              <s.icon
+                className="w-4 h-4 sm:w-[18px] sm:h-[18px] transition-all duration-300"
+                style={{ color: `${s.color}80` }}
+              />
+            </motion.a>
+          ))}
+        </motion.div>
+
+        {/* Main footer content */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
+          <motion.div
+            className="flex items-center gap-3"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          >
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center">
               <Code2 className="w-4 h-4 text-black" />
             </div>
@@ -832,25 +1201,37 @@ function Footer() {
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
               <div className="text-xs text-white/30 font-mono">11 sections, 1 showcase</div>
             </div>
-          </div>
+          </motion.div>
 
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/30 font-mono">
-            <span className="flex items-center gap-1.5 footer-link-glow">
+            <motion.span
+              className="flex items-center gap-1.5 footer-link-glow hover:text-white/50 transition-colors duration-300 cursor-default"
+              whileHover={{ y: -1 }}
+            >
               <Monitor className="w-3.5 h-3.5" />
               Next.js 16
-            </span>
-            <span className="flex items-center gap-1.5 footer-link-glow">
+            </motion.span>
+            <motion.span
+              className="flex items-center gap-1.5 footer-link-glow hover:text-white/50 transition-colors duration-300 cursor-default"
+              whileHover={{ y: -1 }}
+            >
               <Type className="w-3.5 h-3.5" />
               TypeScript
-            </span>
-            <span className="flex items-center gap-1.5 footer-link-glow">
+            </motion.span>
+            <motion.span
+              className="flex items-center gap-1.5 footer-link-glow hover:text-white/50 transition-colors duration-300 cursor-default"
+              whileHover={{ y: -1 }}
+            >
               <Layers className="w-3.5 h-3.5" />
               Tailwind CSS
-            </span>
-            <span className="flex items-center gap-1.5 footer-link-glow">
+            </motion.span>
+            <motion.span
+              className="flex items-center gap-1.5 footer-link-glow hover:text-white/50 transition-colors duration-300 cursor-default"
+              whileHover={{ y: -1 }}
+            >
               <Zap className="w-3.5 h-3.5" />
               Framer Motion
-            </span>
+            </motion.span>
           </div>
 
           <div className="text-xs text-white/20 font-mono text-center md:text-right">
@@ -860,17 +1241,18 @@ function Footer() {
               <span>All systems operational</span>
             </div>
             <div className="mt-3">
-              <a
+              <motion.a
                 href="#top"
                 onClick={scrollToTop}
                 onKeyDown={handleKeyDown}
-                className="footer-link-glow inline-flex items-center gap-1 text-white/25 hover:text-white/50 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400/50 rounded-sm px-1"
+                className="footer-link-glow inline-flex items-center gap-1 text-white/25 hover:text-white/60 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-400/50 rounded-sm px-1 transition-colors duration-300"
                 tabIndex={0}
                 aria-label="Scroll to top"
+                whileHover={{ y: -2 }}
               >
                 <ArrowUp className="w-3 h-3" />
                 <span>Back to top</span>
-              </a>
+              </motion.a>
             </div>
           </div>
         </div>
@@ -930,6 +1312,182 @@ function BackToTopButton() {
    MAIN PAGE
    ────────────────────────────────────────────── */
 
+/* ──────────────────────────────────────────────
+   CURSOR FOLLOWER (Canvas-based trail effect)
+   ────────────────────────────────────────────── */
+
+function CursorFollower() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: -100, y: -100 });
+  const orbRef = useRef({ x: -100, y: -100, scale: 1, targetScale: 1 });
+  const trailRef = useRef<{ x: number; y: number }[]>([]);
+  const isVisibleRef = useRef(true);
+  const rafRef = useRef<number>(0);
+
+  useEffect(() => {
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      isVisibleRef.current = false;
+      return;
+    }
+    // Hide on touch devices
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      isVisibleRef.current = false;
+      return;
+    }
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+    ctx.scale(dpr, dpr);
+
+    const TRAIL_LENGTH = 10;
+    const ORB_RADIUS = 12;
+    const DOT_RADIUS_MAX = 4;
+    const DOT_RADIUS_MIN = 1;
+    const LERP_FACTOR = 0.15;
+    // Initialize trail with offscreen positions
+    for (let i = 0; i < TRAIL_LENGTH; i++) {
+      trailRef.current.push({ x: -100, y: -100 });
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+
+      // Check if hovering over interactive element
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      if (el) {
+        const interactive = el.closest('a, button, [role="button"], input, textarea, select, [tabindex], .hero-section-card, .nav-link-underline');
+        orbRef.current.targetScale = interactive ? 1.6 : 1;
+      }
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current = { x: -100, y: -100 };
+      orbRef.current.targetScale = 1;
+    };
+
+    const handleResize = () => {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    function lerp(a: number, b: number, t: number) {
+      return a + (b - a) * t;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+      const orb = orbRef.current;
+
+      // Smooth orb follow with spring easing
+      orb.x = lerp(orb.x, mx, LERP_FACTOR);
+      orb.y = lerp(orb.y, my, LERP_FACTOR);
+      orb.scale = lerp(orb.scale, orb.targetScale, 0.1);
+
+      // Update trail: shift positions and add new at front
+      const trail = trailRef.current;
+      for (let i = trail.length - 1; i > 0; i--) {
+        trail[i] = { ...trail[i - 1] };
+      }
+      trail[0] = { x: orb.x, y: orb.y };
+
+      // Skip drawing if cursor is offscreen
+      if (mx < -50 || mx > w + 50 || my < -50 || my > h + 50) {
+        rafRef.current = requestAnimationFrame(draw);
+        return;
+      }
+
+      // Draw trail dots (back to front)
+      for (let i = trail.length - 1; i >= 1; i--) {
+        const t = i / trail.length;
+        const opacity = (1 - t) * 0.5;
+        const radius = DOT_RADIUS_MAX - (DOT_RADIUS_MAX - DOT_RADIUS_MIN) * t;
+
+        ctx.beginPath();
+        ctx.arc(trail[i].x, trail[i].y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(16, 185, 129, ${opacity})`;
+        ctx.fill();
+      }
+
+      // Draw main orb glow (outer soft glow)
+      const glowRadius = ORB_RADIUS * orb.scale * 2.5;
+      const glow = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, glowRadius);
+      glow.addColorStop(0, 'rgba(16, 185, 129, 0.12)');
+      glow.addColorStop(0.5, 'rgba(6, 182, 212, 0.06)');
+      glow.addColorStop(1, 'rgba(16, 185, 129, 0)');
+      ctx.beginPath();
+      ctx.arc(orb.x, orb.y, glowRadius, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
+
+      // Draw main orb (solid center)
+      const orbRadius = ORB_RADIUS * orb.scale;
+      const orbGrad = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orbRadius);
+      orbGrad.addColorStop(0, 'rgba(52, 211, 153, 0.8)');
+      orbGrad.addColorStop(0.6, 'rgba(16, 185, 129, 0.5)');
+      orbGrad.addColorStop(1, 'rgba(6, 182, 212, 0.15)');
+      ctx.beginPath();
+      ctx.arc(orb.x, orb.y, orbRadius, 0, Math.PI * 2);
+      ctx.fillStyle = orbGrad;
+      ctx.fill();
+
+      // Inner bright core
+      ctx.beginPath();
+      ctx.arc(orb.x, orb.y, orbRadius * 0.4, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(167, 243, 208, 0.7)';
+      ctx.fill();
+
+      rafRef.current = requestAnimationFrame(draw);
+    }
+
+    rafRef.current = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Don't render anything if not visible
+  if (typeof window !== 'undefined' &&
+    (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+     window.matchMedia('(pointer: coarse)').matches)) {
+    return null;
+  }
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="cursor-follower-canvas"
+      aria-hidden="true"
+    />
+  );
+}
+
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState('terminal');
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -965,6 +1523,7 @@ export default function HomePage() {
     <main className="min-h-screen bg-[#0a0a0a] noise-overlay">
       <ScrollProgressBar />
       <FloatingNav activeSection={activeSection} onClickSection={scrollToSection} />
+      <CursorFollower />
 
       <ErrorBoundary>
       {/* Hero */}
