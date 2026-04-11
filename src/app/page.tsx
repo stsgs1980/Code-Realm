@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Terminal,
@@ -13,12 +13,14 @@ import {
   Palette,
   Type,
   Layers,
+  ArrowUp,
 } from 'lucide-react';
 import { TerminalSection } from '@/components/terminal-section';
 import { DevexSection } from '@/components/devex-section';
 import BrutalismSection from '@/components/brutalism-section';
 import GlitchSection from '@/components/glitch-section';
 import { CodeComparisonSection } from '@/components/code-comparison-section';
+import { CodePlaygroundSection } from '@/components/code-playground-section';
 
 /* ──────────────────────────────────────────────
    NAVIGATION ITEMS
@@ -30,6 +32,7 @@ const SECTIONS = [
   { id: 'brutalism', label: 'Brutalism', icon: Palette, color: '#000000', bg: 'from-[#ffffff] to-[#f5f5f5]' },
   { id: 'glitch', label: 'Glitch', icon: Zap, color: '#00ffff', bg: 'from-[#0a0014] to-[#0d001a]' },
   { id: 'codeart', label: 'Code Art', icon: Sparkles, color: '#a855f7', bg: 'from-[#0d0d0d] to-[#141428]' },
+  { id: 'playground', label: 'Playground', icon: Code2, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#141420]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -71,6 +74,7 @@ function HeroSection() {
   const [isTypingDone, setIsTypingDone] = useState(false);
   const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART'];
   const fullSubtitle = 'Explore four iconic code-inspired design styles: from retro terminals to cyberpunk glitch effects. Each section is fully interactive.';
+  const particleCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -99,6 +103,106 @@ function HeroSection() {
     return () => clearTimeout(timeout);
   }, []);
 
+  // ─── Particle canvas animation ───
+  const animateParticles = useCallback(() => {
+    const canvas = particleCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.parentElement!.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
+    ctx.scale(dpr, dpr);
+
+    const isMobile = w < 768;
+    const PARTICLE_COUNT = isMobile ? 25 : 60;
+    const CONNECTION_DIST = 120;
+    const COLORS = ['#10b981', '#06b6d4']; // emerald, cyan
+
+    interface Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      opacity: number;
+      color: string;
+    }
+
+    const particles: Particle[] = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: 1 + Math.random(),
+        opacity: 0.1 + Math.random() * 0.3,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      });
+    }
+
+    let animationId: number;
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+
+      // Update positions and draw particles
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around edges
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        if (p.y > h) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.opacity;
+        ctx.fill();
+      }
+
+      // Draw connecting lines between nearby particles
+      ctx.globalAlpha = 1;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECTION_DIST) {
+            const lineOpacity = (1 - dist / CONNECTION_DIST) * 0.15;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(16, 185, 129, ${lineOpacity})`;
+            ctx.lineWidth = 0.5;
+            ctx.globalAlpha = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animationId = requestAnimationFrame(draw);
+    }
+
+    draw();
+    return () => cancelAnimationFrame(animationId);
+  }, []);
+
+  useEffect(() => {
+    const cleanup = animateParticles();
+    return cleanup;
+  }, [animateParticles]);
+
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a]">
       {/* Background grid */}
@@ -112,6 +216,15 @@ function HeroSection() {
           backgroundSize: '40px 40px',
         }}
       />
+
+      {/* Particle canvas background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <canvas
+          ref={particleCanvasRef}
+          className="absolute inset-0 w-full h-full"
+          aria-hidden="true"
+        />
+      </div>
 
       {/* Floating code snippets background - more visible */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -407,7 +520,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">5 styles, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">6 styles, 1 showcase</div>
             </div>
           </div>
 
@@ -440,6 +553,53 @@ function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+/* ──────────────────────────────────────────────
+   BACK TO TOP BUTTON
+   ────────────────────────────────────────────── */
+
+function BackToTopButton() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsVisible(window.scrollY > window.innerHeight * 0.8);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-shadow duration-300"
+          style={{
+            background: 'linear-gradient(135deg, #10b981, #06b6d4)',
+            boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
+          }}
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.8 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          whileHover={{
+            scale: 1.1,
+            boxShadow: '0 6px 30px rgba(16, 185, 129, 0.5), 0 0 40px rgba(6, 182, 212, 0.25)',
+          }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Back to top"
+        >
+          <ArrowUp className="w-5 h-5 text-white" strokeWidth={2.5} />
+        </motion.button>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -530,7 +690,7 @@ export default function HomePage() {
         <GlitchSection />
       </div>
 
-      {/* Section 5: Code Art */
+      {/* Section 5: Code Art */}
       <div id="codeart" ref={(el) => { sectionRefs.current['codeart'] = el; }}>
         <SectionDivider
           label="Section 05"
@@ -541,8 +701,22 @@ export default function HomePage() {
         <CodeComparisonSection />
       </div>
 
+      {/* Section 6: Code Playground */}
+      <div id="playground" ref={(el) => { sectionRefs.current['playground'] = el; }}>
+        <SectionDivider
+          label="Section 06"
+          sectionId="playground"
+          description="Write HTML, CSS, and JavaScript code with live preview. Experiment with animations, layouts, and interactive effects in real-time."
+          icon={Code2}
+        />
+        <CodePlaygroundSection />
+      </div>
+
       {/* Footer */}
       <Footer />
+
+      {/* Back to Top */}
+      <BackToTopButton />
     </main>
   );
 }

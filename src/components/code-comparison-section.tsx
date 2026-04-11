@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useSyncExternalStore } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Sparkles,
@@ -751,11 +751,11 @@ function ComparisonGridCard({ style }: { style: StyleConfig }) {
 
 export function CodeComparisonSection() {
   const [activeStyle, setActiveStyle] = useState<StyleName>('clean');
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   const handleStyleChange = useCallback((style: StyleName) => {
     setActiveStyle(style);

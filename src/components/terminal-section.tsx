@@ -115,6 +115,46 @@ const PROJECTS_DATA = [
   { name: 'synth-wave-api', desc: 'Music synthesis REST API with WebSocket', status: '● LIVE', lang: 'Go' },
 ];
 
+const FORTUNES = [
+  'There are only 10 types of people in this world: those who understand binary and those who don\'t.',
+  'A SQL query walks into a bar, sees two tables, and asks: "Can I JOIN you?"',
+  'There\'s no place like 127.0.0.1',
+  'Debugging is like being the detective in a crime movie where you are also the murderer.',
+  'Code never lies; comments sometimes do. — Ron Jeffries',
+  'First, solve the problem. Then, write the code. — John Johnson',
+  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand. — Martin Fowler',
+  'The best error message is the one that never shows up. — Thomas Fuchs',
+  'Programs must be written for people to read, and only incidentally for machines to execute. — Harold Abelson',
+  'It\'s not a bug — it\'s an undocumented feature.',
+  'In order to be irreplaceable, one must always be different. — Coco Chanel',
+  'The computer was born to solve problems that did not exist before. — Bill Gates',
+  'Talk is cheap. Show me the code. — Linus Torvalds',
+  'Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away. — Antoine de Saint-Exupery',
+  'Simplicity is the soul of efficiency. — Austin Freeman',
+];
+
+const WEATHER_DATA = [
+  { condition: 'Cloudy with a chance of bugs', temp: '22°C', humidity: '66%', wind: '12 km/h', visibility: '10km' },
+  { condition: 'Partly cloudy, compiling in background', temp: '18°C', humidity: '71%', wind: '8 km/h', visibility: '15km' },
+  { condition: 'Sunny, perfect for coding outside', temp: '26°C', humidity: '45%', wind: '5 km/h', visibility: '20km' },
+  { condition: 'Rainy, ideal for deep work sessions', temp: '14°C', humidity: '89%', wind: '18 km/h', visibility: '5km' },
+  { condition: 'Overcast, deployment day vibes', temp: '20°C', humidity: '55%', wind: '10 km/h', visibility: '12km' },
+];
+
+const COWSAY_ASCII = (text: string) => {
+  const top = ' ' + '_'.repeat(text.length + 2);
+  const mid = `< ${text} >`;
+  const bot = ' ' + '-'.repeat(text.length + 2);
+  return `${top}
+${mid}
+${bot}
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||`;
+};
+
 const WHOAMI_DATA = `
 ┌─────────────────────────────────────────┐
 │            USER PROFILE                  │
@@ -332,6 +372,12 @@ export function TerminalSection() {
   projects  — Show project portfolio
   theme     — Toggle terminal color theme
   matrix    — Trigger Matrix rain effect
+  fortune   — Display a random dev quote
+  cowsay    — A cow says your message
+  date      — Show current date and time
+  echo      — Echo text back to terminal
+  weather   — Simulated weather report
+  history   — Show command history
   clear     — Clear the terminal
   whoami    — Display user profile
   neofetch  — Show system information`);
@@ -383,6 +429,50 @@ export function TerminalSection() {
       case 'matrix':
         showMatrix();
         respond('Initializing Matrix rain sequence...', 'system');
+        break;
+
+      case 'fortune':
+        respond(FORTUNES[Math.floor(Math.random() * FORTUNES.length)]);
+        break;
+
+      case 'cowsay': {
+        const msg = 'Moo! I am a coding cow.';
+        respond(COWSAY_ASCII(msg));
+        break;
+      }
+
+      case 'date':
+        respond(`📅 ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+🕐 ${new Date().toLocaleTimeString('en-US', { hour12: true })}
+⏰ Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`);
+        break;
+
+      case 'echo': {
+        const echoText = cmd.replace(/^echo\s+/i, '');
+        respond(echoText || '(no text to echo)');
+        break;
+      }
+
+      case 'weather': {
+        const w = WEATHER_DATA[Math.floor(Math.random() * WEATHER_DATA.length)];
+        respond(`┌────────── WEATHER ──────────────┐
+│  🌍 Location: Virtual Server Farm  │
+│  🌡️  Temperature: ${w.temp.padEnd(16)}│
+│  💧 Humidity: ${w.humidity.padEnd(17)}│
+│  💨 Wind: ${w.wind.padEnd(21)}│
+│  👁️  Visibility: ${w.visibility.padEnd(15)}│
+│  ☁️  ${w.condition.padEnd(25)}│
+└────────────────────────────────┘`);
+        break;
+      }
+
+      case 'history':
+        if (history.length === 0) {
+          respond('No command history yet.');
+        } else {
+          const histStr = history.slice(0, 20).map((h, i) => `  ${String(i + 1).padStart(3)}  ${h}`).join('\n');
+          respond(`Command history:\n${histStr}`);
+        }
         break;
 
       case 'clear':
@@ -741,11 +831,13 @@ export function TerminalSection() {
                   { cmd: 'about', desc: 'About this demo' },
                   { cmd: 'skills', desc: 'Developer skills' },
                   { cmd: 'projects', desc: 'Project portfolio' },
+                  { cmd: 'fortune', desc: 'Random dev quote' },
+                  { cmd: 'weather', desc: 'Weather report' },
+                  { cmd: 'cowsay', desc: 'Cow says moo' },
                   { cmd: 'theme', desc: 'Toggle color theme' },
                   { cmd: 'matrix', desc: 'Matrix rain effect' },
-                  { cmd: 'clear', desc: 'Clear terminal' },
-                  { cmd: 'whoami', desc: 'User profile' },
                   { cmd: 'neofetch', desc: 'System info' },
+                  { cmd: 'clear', desc: 'Clear terminal' },
                 ].map(item => (
                   <button
                     key={item.cmd}
