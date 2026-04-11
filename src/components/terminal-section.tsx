@@ -205,6 +205,7 @@ export function TerminalSection() {
 
   const [cpuUsage, setCpuUsage] = useState(Math.floor(Math.random() * 10 + 2));
   const [memUsage, setMemUsage] = useState(+(Math.random() * 8 + 4).toFixed(1));
+  const [clock, setClock] = useState('--:--:--');
 
   useEffect(() => {
     if (measureRef.current && cursorRef.current) {
@@ -212,12 +213,15 @@ export function TerminalSection() {
     }
   }, [input]);
 
-  // ─── Animate status bar stats ────────────────────────────────────────────
+  // ─── Animate status bar stats & clock ────────────────────────────────────
 
   useEffect(() => {
+    const tickClock = () => setClock(new Date().toLocaleTimeString('en-US', { hour12: false }));
+    tickClock(); // Set immediately on mount
     const interval = setInterval(() => {
       setCpuUsage(Math.floor(Math.random() * 10 + 2));
       setMemUsage(+(Math.random() * 8 + 4).toFixed(1));
+      tickClock();
     }, 2000);
     return () => clearInterval(interval);
   }, []);
@@ -627,8 +631,8 @@ export function TerminalSection() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-3 h-3" style={{ color: tc.dim }} />
-                  <span className="text-xs font-mono" style={{ color: tc.dim }} suppressHydrationWarning>
-                    {new Date().toLocaleTimeString('en-US', { hour12: false })}
+                  <span className="text-xs font-mono" style={{ color: tc.dim }}>
+                    {clock}
                   </span>
                 </div>
               </div>

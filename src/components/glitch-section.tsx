@@ -301,6 +301,7 @@ export default function GlitchSection() {
   const matrixCanvasRef = useRef<HTMLCanvasElement>(null)
   const matrixAnimRef = useRef<number>(0)
   const hackCooldownRef = useRef(0)
+  const logIdRef = useRef(0)
 
   const theme = COLOR_THEMES[colorTheme]
 
@@ -353,7 +354,7 @@ export default function GlitchSection() {
     const addEntry = () => {
       const msg = ERROR_MESSAGES[Math.floor(Math.random() * ERROR_MESSAGES.length)]
       setLogEntries((prev) => {
-        const id = `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`
+        const id = `glitch-log-${logIdRef.current++}`
         const newEntries = [...prev, { ...msg, id, timestamp: getTimestamp() }]
         return newEntries.slice(-50)
       })
