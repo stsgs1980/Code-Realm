@@ -23,6 +23,8 @@ import {
   Wand2,
   SlidersHorizontal,
   Pen,
+  LayoutGrid,
+  RotateCcw,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -42,6 +44,10 @@ const CssFiltersSection = lazy(() => import('@/components/css-filters-section').
 const TypographySection = lazy(() => import('@/components/typography-section').then(m => ({ default: () => <m.TypographySection /> })));
 
 const SvgEditorSection = lazy(() => import('@/components/svg-editor-section').then(m => ({ default: () => <m.SvgEditorSection /> })));
+
+const FlexboxGridSection = lazy(() => import('@/components/flexbox-grid-section').then(m => ({ default: () => <m.FlexboxGridSection /> })));
+
+const Transform3dSection = lazy(() => import('@/components/transform-3d-section').then(m => ({ default: () => <m.Transform3dSection /> })));
 
 /* ──────────────────────────────────────────────
    SECTION LOADER
@@ -76,6 +82,8 @@ const SECTIONS = [
   { id: 'filters', label: 'Filters', icon: SlidersHorizontal, color: '#14b8a6', bg: 'from-[#0a0a0a] to-[#0a1a15]' },
   { id: 'svg', label: 'SVG', icon: Pen, color: '#34d399', bg: 'from-[#0a0a0a] to-[#0a1a15]' },
   { id: 'typography', label: 'Type', icon: Type, color: '#f472b6', bg: 'from-[#0a0a0a] to-[#0a0a12]' },
+  { id: 'flexbox', label: 'Layout', icon: LayoutGrid, color: '#10b981', bg: 'from-[#0a0a0a] to-[#0a1a10]' },
+  { id: 'transform', label: '3D', icon: RotateCcw, color: '#a78bfa', bg: 'from-[#0a0a0a] to-[#0d0d1a]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -161,8 +169,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY'];
-  const fullSubtitle = 'Explore thirteen iconic code-inspired design styles and interactive developer tools: from retro terminals to typography playground. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS'];
+  const fullSubtitle = 'Explore fifteen iconic code-inspired design styles and interactive developer tools: from retro terminals to 3D transforms. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const tiltRef = useRef<HTMLDivElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
@@ -463,7 +471,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-8"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm floating-badge">
             <Sparkles className="w-4 h-4 text-emerald-400" />
             <span className="text-sm text-white/60 font-mono">Code Aesthetic Showcase</span>
           </div>
@@ -528,7 +536,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           {[
-            { value: 13, suffix: '', label: 'Sections' },
+            { value: 15, suffix: '', label: 'Sections' },
             { value: 50, suffix: '+', label: 'Commands' },
             { value: 100, suffix: '%', label: 'Interactive' },
           ].map((stat) => (
@@ -873,7 +881,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">13 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">15 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -1149,7 +1157,7 @@ function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-300 bg-clip-text text-transparent tracking-tight">
+            <span className="text-4xl sm:text-5xl font-black gradient-text-anim tracking-tight">
               Z.AI
             </span>
           </motion.div>
@@ -1205,7 +1213,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">13 sections, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">15 sections, 1 showcase</div>
             </div>
           </motion.div>
 
@@ -1701,6 +1709,32 @@ export default function HomePage() {
         />
         <Suspense fallback={<SectionLoader />}>
           <TypographySection />
+        </Suspense>
+      </div>
+
+      {/* Section 14: Layout Lab */}
+      <div id="flexbox" ref={(el) => { sectionRefs.current['flexbox'] = el; }}>
+        <SectionDivider
+          label="Section 14"
+          sectionId="flexbox"
+          description="Master CSS Flexbox and Grid layouts with a visual builder. Drag items, tweak properties, and export production-ready layout code instantly."
+          icon={LayoutGrid}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <FlexboxGridSection />
+        </Suspense>
+      </div>
+
+      {/* Section 15: 3D Transforms */}
+      <div id="transform" ref={(el) => { sectionRefs.current['transform'] = el; }}>
+        <SectionDivider
+          label="Section 15"
+          sectionId="transform"
+          description="Explore the third dimension of CSS. Rotate, scale, translate, and skew elements in 3D space with real-time preview and preset animations."
+          icon={RotateCcw}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <Transform3dSection />
         </Suspense>
       </div>
 
