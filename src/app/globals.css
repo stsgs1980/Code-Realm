@@ -1257,3 +1257,246 @@ html {
     transform: translateY(-50%) scale(1.3);
   }
 }
+
+/* =====================================================
+   PREMIUM STYLING ENHANCEMENTS (Task 6)
+   ===================================================== */
+
+/* ===== 1. CARD SPOTLIGHT (Mouse-Following) ===== */
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(16, 185, 129, 0.06),
+    transparent 40%
+  );
+  transition: background 0.4s ease;
+}
+
+/* ===== 2. GRADIENT TEXT HOVER ===== */
+.gradient-text-hover {
+  color: rgba(255, 255, 255, 0.85);
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: currentColor;
+  transition: -webkit-text-fill-color 0.3s ease, background-position 0.3s ease;
+}
+.gradient-text-hover:hover {
+  -webkit-text-fill-color: transparent;
+  background-position: right center;
+}
+
+/* ===== 3. BORDER GRADIENT ANIMATED ===== */
+@keyframes rotate-gradient {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.border-gradient-animated {
+  position: relative;
+  border-radius: 12px;
+  overflow: visible;
+}
+.border-gradient-animated::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #10b981,
+    #06b6d4,
+    #a855f7,
+    #10b981
+  );
+  animation: rotate-gradient 3s linear infinite;
+  z-index: 0;
+}
+.border-gradient-animated > * {
+  position: relative;
+  z-index: 10;
+  background: #0d0d0d;
+  border-radius: 10px;
+}
+
+/* ===== 4. GLASS INPUT ===== */
+.glass-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+.glass-input:focus {
+  border-color: rgba(16, 185, 129, 0.5);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba(16, 185, 129, 0.3);
+}
+
+/* ===== 5. GLASS BUTTON ===== */
+.glass-button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.1);
+}
+.glass-button:active {
+  transform: scale(0.98);
+}
+
+/* ===== 6. TAG BADGE ===== */
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-family: var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.tag-badge:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== 7. CODE BLOCK (Premium Display) ===== */
+.code-block {
+  background: #0d1117;
+  border-left: 3px solid #10b981;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  overflow-x: auto;
+}
+.code-block::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.code-block::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+.code-block::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+.code-block::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ===== 8. TOOLTIP FLOAT ===== */
+.tooltip-float {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  margin-bottom: 8px;
+  z-index: 100;
+}
+.tooltip-float::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1a1a2e;
+}
+[style*="--tooltip-parent"]:hover > .tooltip-float,
+.tooltip-float:hover {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* ===== 9. STEP CONNECTOR ===== */
+.step-connector {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.step-connector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(16, 185, 129, 0.4) 0px,
+    rgba(16, 185, 129, 0.4) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+.step-connector-dot {
+  position: relative;
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+  flex-shrink: 0;
+}
+.step-connector-dot.active {
+  animation: step-dot-pulse 2s ease-in-out infinite;
+}
+@keyframes step-dot-pulse {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.8), 0 0 28px rgba(16, 185, 129, 0.3);
+    transform: scale(1.25);
+  }
+}
+
+/* ===== 10. SCROLL PROGRESS BAR — GLOWING TRAIL ===== */
+@keyframes progress-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px #10b981, 0 0 20px rgba(16, 185, 129, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 14px #10b981, 0 0 30px rgba(16, 185, 129, 0.7), 0 0 50px rgba(6, 182, 212, 0.3);
+  }
+}
+.scroll-progress-bar {
+  animation: progress-gradient-shift 4s ease infinite, progress-glow-pulse 2s ease-in-out infinite;
+}

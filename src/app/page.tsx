@@ -22,6 +22,7 @@ import {
   Box,
   Wand2,
   SlidersHorizontal,
+  Pen,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -38,6 +39,9 @@ const ColorPaletteSection = lazy(() => import('@/components/color-palette-sectio
 const ShadowGeneratorSection = lazy(() => import('@/components/shadow-generator-section').then(m => ({ default: () => <m.ShadowGeneratorSection /> })));
 const AnimationGeneratorSection = lazy(() => import('@/components/animation-generator-section').then(m => ({ default: () => <m.AnimationGeneratorSection /> })));
 const CssFiltersSection = lazy(() => import('@/components/css-filters-section').then(m => ({ default: () => <m.CssFiltersSection /> })));
+const TypographySection = lazy(() => import('@/components/typography-section').then(m => ({ default: () => <m.TypographySection /> })));
+
+const SvgEditorSection = lazy(() => import('@/components/svg-editor-section').then(m => ({ default: () => <m.SvgEditorSection /> })));
 
 /* ──────────────────────────────────────────────
    SECTION LOADER
@@ -70,6 +74,8 @@ const SECTIONS = [
   { id: 'shadow', label: 'Shadow', icon: Box, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#0a1a10]' },
   { id: 'animation', label: 'Animation', icon: Wand2, color: '#8b5cf6', bg: 'from-[#0a0a0a] to-[#0d0d1a]' },
   { id: 'filters', label: 'Filters', icon: SlidersHorizontal, color: '#14b8a6', bg: 'from-[#0a0a0a] to-[#0a1a15]' },
+  { id: 'svg', label: 'SVG', icon: Pen, color: '#34d399', bg: 'from-[#0a0a0a] to-[#0a1a15]' },
+  { id: 'typography', label: 'Type', icon: Type, color: '#f472b6', bg: 'from-[#0a0a0a] to-[#0a0a12]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -155,8 +161,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS'];
-  const fullSubtitle = 'Explore eleven iconic code-inspired design styles and interactive developer tools: from retro terminals to CSS filters. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY'];
+  const fullSubtitle = 'Explore thirteen iconic code-inspired design styles and interactive developer tools: from retro terminals to typography playground. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const tiltRef = useRef<HTMLDivElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
@@ -522,7 +528,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           {[
-            { value: 11, suffix: '', label: 'Sections' },
+            { value: 13, suffix: '', label: 'Sections' },
             { value: 50, suffix: '+', label: 'Commands' },
             { value: 100, suffix: '%', label: 'Interactive' },
           ].map((stat) => (
@@ -867,7 +873,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">11 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">13 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -1199,7 +1205,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">11 sections, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">13 sections, 1 showcase</div>
             </div>
           </motion.div>
 
@@ -1669,6 +1675,32 @@ export default function HomePage() {
         />
         <Suspense fallback={<SectionLoader />}>
           <CssFiltersSection />
+        </Suspense>
+      </div>
+
+      {/* Section 12: SVG Path Editor */}
+      <div id="svg" ref={(el) => { sectionRefs.current['svg'] = el; }}>
+        <SectionDivider
+          label="Section 12"
+          sectionId="svg"
+          description="Interactive SVG path builder with 3 drawing modes, style controls, transform tools, 6 pre-built shapes, and real-time path data export."
+          icon={Pen}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <SvgEditorSection />
+        </Suspense>
+      </div>
+
+      {/* Section 13: Typography Playground */}
+      <div id="typography" ref={(el) => { sectionRefs.current['typography'] = el; }}>
+        <SectionDivider
+          label="Section 13"
+          sectionId="typography"
+          description="Interactive typography playground with 8 font families, 11 style controls, 8 presets, font pairing suggestions, and live CSS export."
+          icon={Type}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <TypographySection />
         </Suspense>
       </div>
 
