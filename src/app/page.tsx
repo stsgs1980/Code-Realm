@@ -25,6 +25,8 @@ import {
   Pen,
   LayoutGrid,
   RotateCcw,
+  Smartphone,
+  Square,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -48,6 +50,10 @@ const SvgEditorSection = lazy(() => import('@/components/svg-editor-section').th
 const FlexboxGridSection = lazy(() => import('@/components/flexbox-grid-section').then(m => ({ default: () => <m.FlexboxGridSection /> })));
 
 const Transform3dSection = lazy(() => import('@/components/transform-3d-section').then(m => ({ default: () => <m.Transform3dSection /> })));
+
+const ResponsiveShowcaseSection = lazy(() => import('@/components/responsive-showcase-section').then(m => ({ default: () => <m.ResponsiveShowcaseSection /> })));
+
+const BorderGeneratorSection = lazy(() => import('@/components/border-generator-section').then(m => ({ default: () => <m.BorderGeneratorSection /> })));
 
 /* ──────────────────────────────────────────────
    SECTION LOADER
@@ -84,6 +90,8 @@ const SECTIONS = [
   { id: 'typography', label: 'Type', icon: Type, color: '#f472b6', bg: 'from-[#0a0a0a] to-[#0a0a12]' },
   { id: 'flexbox', label: 'Layout', icon: LayoutGrid, color: '#10b981', bg: 'from-[#0a0a0a] to-[#0a1a10]' },
   { id: 'transform', label: '3D', icon: RotateCcw, color: '#a78bfa', bg: 'from-[#0a0a0a] to-[#0d0d1a]' },
+  { id: 'responsive', label: 'Responsive', icon: Smartphone, color: '#38bdf8', bg: 'from-[#0a0a0a] to-[#0a0f14]' },
+  { id: 'border', label: 'Border', icon: Square, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#14100a]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -169,8 +177,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS'];
-  const fullSubtitle = 'Explore fifteen iconic code-inspired design styles and interactive developer tools: from retro terminals to 3D transforms. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS', 'RESPONSIVE', 'BORDERS'];
+  const fullSubtitle = 'Explore seventeen iconic code-inspired design styles and interactive developer tools: from retro terminals to responsive design. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const tiltRef = useRef<HTMLDivElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
@@ -536,7 +544,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           {[
-            { value: 15, suffix: '', label: 'Sections' },
+            { value: 17, suffix: '', label: 'Sections' },
             { value: 50, suffix: '+', label: 'Commands' },
             { value: 100, suffix: '%', label: 'Interactive' },
           ].map((stat) => (
@@ -881,7 +889,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">15 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">17 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -1213,7 +1221,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-sm font-semibold text-white/80">Code Aesthetic Gallery</div>
-              <div className="text-xs text-white/30 font-mono">15 sections, 1 showcase</div>
+              <div className="text-xs text-white/30 font-mono">17 sections, 1 showcase</div>
             </div>
           </motion.div>
 
@@ -1735,6 +1743,32 @@ export default function HomePage() {
         />
         <Suspense fallback={<SectionLoader />}>
           <Transform3dSection />
+        </Suspense>
+      </div>
+
+      {/* Section 16: Responsive Lab */}
+      <div id="responsive" ref={(el) => { sectionRefs.current['responsive'] = el; }}>
+        <SectionDivider
+          label="Section 16"
+          sectionId="responsive"
+          description="Master responsive design with live device preview, breakpoint visualization, layout demos, media query builder, and a unit converter. See your CSS adapt to any screen size."
+          icon={Smartphone}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <ResponsiveShowcaseSection />
+        </Suspense>
+      </div>
+
+      {/* Section 17: Border Lab */}
+      <div id="border" ref={(el) => { sectionRefs.current['border'] = el; }}>
+        <SectionDivider
+          label="Section 17"
+          sectionId="border"
+          description="Craft beautiful borders, outlines, and border-image gradients with per-side control. Choose from 10 presets, explore radius mapping, and export production-ready CSS."
+          icon={Square}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <BorderGeneratorSection />
         </Suspense>
       </div>
 
