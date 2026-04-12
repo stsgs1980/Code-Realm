@@ -5,121 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Code Aesthetic Gallery v2.0</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  :root {
-    --bg: #0a0a0a;
-    --bg2: #0d0d0d;
-    --fg: #e8e8e8;
-    --muted: rgba(255,255,255,0.5);
-    --emerald: #10b981;
-    --cyan: #06b6d4;
-    --purple: #a855f7;
-    --pink: #ec4899;
-    --border: rgba(255,255,255,0.06);
-  }
-
-  html { scroll-behavior: smooth; }
-
   body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--fg);
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    background-color: #0a0a0a;
+    color: #f0f0f0;
     min-height: 100vh;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* ===== NOISE OVERLAY ===== */
-  body::before {
-    content: '';
-    position: fixed;
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #333; }
+  ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+  /* Grid background */
+  .grid-bg {
+    position: absolute;
     inset: 0;
-    z-index: 9998;
-    pointer-events: none;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 128px 128px;
-  }
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 9997;
-    pointer-events: none;
-    background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(0,0,0,0.15) 85%, rgba(0,0,0,0.25) 100%);
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  @keyframes float-code {
-    0%, 100% { transform: translateY(0) rotate(var(--rot, -1deg)); }
-    50% { transform: translateY(-12px) rotate(calc(var(--rot, -1deg) * -1)); }
-  }
-  @keyframes scroll-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
-  }
-  @keyframes boot-fadein {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes cursor-blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-  }
-  @keyframes progress-gradient-shift {
-    0% { background-position: 0% 0; }
-    100% { background-position: 300% 0; }
-  }
-  @keyframes footer-border-flow {
-    0% { background-position: 0% 0; }
-    100% { background-position: 200% 0; }
-  }
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 6px rgba(16,185,129,0.5); opacity: 1; }
-    50% { box-shadow: 0 0 14px rgba(16,185,129,0.8), 0 0 28px rgba(6,182,212,0.3); opacity: 0.7; }
-  }
-  @keyframes divider-shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
-
-  /* ===== SCROLL PROGRESS BAR ===== */
-  .scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--emerald), var(--cyan), var(--purple), var(--pink));
-    background-size: 300% 100%;
-    z-index: 9999;
-    transition: width 0.1s linear;
-    box-shadow: 0 0 10px rgba(16,185,129,0.5), 0 0 20px rgba(6,182,212,0.2);
-    animation: progress-gradient-shift 4s ease infinite;
-    width: 100%;
-  }
-
-  /* ===== GRID BG ===== */
-  .bg-grid {
     background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
     background-size: 40px 40px;
+    pointer-events: none;
   }
 
-  /* ===== GLOWING ORBS ===== */
+  /* Ambient orbs */
   .orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
     pointer-events: none;
+  }
+  .orb-1 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(245,197,66,0.06), transparent 70%);
+    top: 10%; left: 15%;
     animation: orb-drift 20s ease-in-out infinite;
   }
+  .orb-2 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(6,182,212,0.04), transparent 70%);
+    bottom: 20%; right: 10%;
+    animation: orb-drift 18s ease-in-out infinite reverse;
+  }
+
   @keyframes orb-drift {
     0%, 100% { transform: translate(0, 0) scale(1); }
     25% { transform: translate(40px, -30px) scale(1.1); }
@@ -127,192 +62,160 @@
     75% { transform: translate(30px, 20px) scale(1.05); }
   }
 
-  /* ===== FLOATING CODE ===== */
-  .float-code {
+  /* Floating code snippets */
+  .snippet {
     position: absolute;
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
     white-space: nowrap;
+    color: rgba(255,255,255,0.04);
     user-select: none;
     pointer-events: none;
-    color: rgba(255,255,255,0.06);
-    animation: float-code 6s ease-in-out infinite;
   }
 
-  /* ===== HERO ===== */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(180deg, #0a0a0a 0%, #0a0f0d 40%, #0d0d0d 100%);
-  }
-  .hero-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    max-width: 800px;
+  @keyframes float-code {
+    0%, 100% { transform: translateY(0) rotate(var(--rot)); }
+    50% { transform: translateY(-10px) rotate(calc(var(--rot) + 2deg)); }
   }
 
   /* Badge */
-  .hero-badge {
+  .badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 18px;
-    border: 1px solid rgba(16,185,129,0.25);
-    border-radius: 9999px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--emerald);
-    background: rgba(16,185,129,0.06);
-    backdrop-filter: blur(8px);
-    margin-bottom: 28px;
-    letter-spacing: 0.05em;
-  }
-  .hero-badge::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--emerald);
-    box-shadow: 0 0 8px rgba(16,185,129,0.6);
-  }
-
-  /* Sub label */
-  .hero-sub {
-    font-size: 14px;
-    letter-spacing: 0.25em;
+    padding: 6px 16px;
+    border: 1px solid rgba(245, 197, 66, 0.25);
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: bold;
     text-transform: uppercase;
-    color: var(--muted);
+    letter-spacing: 0.12em;
+    color: #ccc;
+    background: rgba(245, 197, 66, 0.05);
+    cursor: default;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .badge:hover {
+    border-color: rgba(245, 197, 66, 0.5);
+    background: rgba(245, 197, 66, 0.1);
+  }
+  .badge-dot { color: #f5c542; }
+
+  /* Hero heading */
+  .hero-label {
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #888;
     margin-bottom: 12px;
   }
-
-  /* Title */
   .hero-title {
-    font-size: clamp(56px, 11vw, 120px);
-    font-weight: 800;
-    line-height: 0.9;
-    background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.7));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 12px;
-    text-shadow: none;
+    font-size: clamp(72px, 12vw, 140px);
+    font-weight: 700;
+    line-height: 1;
+    color: #f0f0f0;
+    margin-bottom: 16px;
   }
 
   /* Rotating word */
-  .hero-rotating {
+  .rotating-word {
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 700;
+    color: #f5c542;
     height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-bottom: 24px;
   }
-  .hero-rotating span {
-    font-size: clamp(22px, 4vw, 38px);
-    font-weight: 700;
-    background: linear-gradient(90deg, var(--emerald), var(--cyan), var(--purple));
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: boot-fadein 0.3s ease-out;
+  .rotating-word span {
+    animation: word-enter 0.3s ease-out;
   }
-  .typing-cursor {
-    display: inline-block;
-    width: 2px;
-    height: 28px;
-    background: var(--emerald);
-    margin-left: 4px;
+  .rotating-word span::after {
+    content: '█';
     animation: cursor-blink 0.8s step-end infinite;
-    box-shadow: 0 0 6px rgba(16,185,129,0.5);
-    vertical-align: middle;
+    font-weight: 300;
   }
 
-  /* Description */
-  .hero-desc {
-    font-size: 15px;
-    color: var(--muted);
+  @keyframes word-enter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* Subtitle */
+  .subtitle {
+    font-size: 14px;
     max-width: 560px;
-    margin: 0 auto 36px;
+    margin: 0 auto 40px;
     line-height: 1.7;
+    color: #888;
   }
 
-  /* Nav pills */
-  .hero-nav {
+  /* Nav buttons */
+  .nav-buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 36px;
+    gap: 8px;
+    margin-bottom: 40px;
   }
-  .nav-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
-    border-radius: 9999px;
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.7);
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
+  .nav-btn {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 2px;
+    background: transparent;
+    color: #999;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 16px;
     cursor: pointer;
-    transition: all 0.25s ease;
-    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
   }
-  .nav-pill:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.12);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  .nav-btn:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(245,197,66,0.3);
+    color: #f0f0f0;
   }
-  .nav-pill.active {
-    background: rgba(16,185,129,0.12);
-    border-color: rgba(16,185,129,0.3);
-    color: var(--emerald);
-    box-shadow: 0 0 20px rgba(16,185,129,0.08);
+  .nav-btn.active {
+    background: rgba(245,197,66,0.12);
+    border-color: rgba(245,197,66,0.4);
+    color: #f5c542;
+    box-shadow: 0 0 12px rgba(245,197,66,0.1);
   }
-  .nav-pill .count {
-    opacity: 0.4;
-    font-size: 11px;
-    margin-left: 2px;
-  }
+  .nav-btn .count { opacity: 0.5; margin-left: 4px; }
 
   /* Stats */
-  .hero-stats {
+  .stats {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 16px;
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
+    gap: 16px 32px;
+    font-size: 13px;
+    color: #555;
   }
-  .hero-stats .dot-sep {
-    color: rgba(255,255,255,0.2);
-  }
-  .hero-stats .highlight {
-    color: var(--emerald);
-    text-shadow: 0 0 12px rgba(16,185,129,0.4);
-  }
+  .stats .dot { color: #f5c542; }
+  .stats .highlight { color: #f5c542; }
 
   /* Scroll indicator */
   .scroll-indicator {
     position: absolute;
-    bottom: 36px;
+    bottom: 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    color: rgba(255,255,255,0.3);
+    gap: 4px;
+    color: #555;
+  }
+  .scroll-indicator .label {
     font-size: 11px;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
   }
   .scroll-indicator .arrow {
@@ -320,266 +223,452 @@
     animation: scroll-bounce 2s ease-in-out infinite;
   }
 
-  /* ===== FOOTER ===== */
-  .footer {
-    margin-top: 48px;
-    position: relative;
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
   }
-  .footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, var(--emerald) 25%, var(--cyan) 50%, var(--emerald) 75%, transparent 100%);
-    background-size: 200% 100%;
-    animation: footer-border-flow 4s linear infinite;
+
+  /* ─── SHOWCASES SECTION ─── */
+  .showcases-section {
+    padding: 48px 16px;
   }
-  .footer-inner {
-    padding: 48px 20px;
-    max-width: 800px;
+  .section-container {
+    max-width: 1024px;
     margin: 0 auto;
   }
-  .footer-title {
-    font-family: 'Courier New', monospace;
+
+  /* Section divider */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 30%, rgba(245,197,66,0.2) 50%, rgba(255,255,255,0.08) 70%, transparent);
+    margin-bottom: 16px;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #666;
+  }
+
+  /* Filter pills */
+  .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 24px 0 32px;
+  }
+  .pill {
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #777;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .pill:hover { border-color: rgba(245,197,66,0.3); color: #bbb; }
+  .pill.active {
+    border-color: rgba(245,197,66,0.4);
+    color: #f5c542;
+    background: rgba(245,197,66,0.08);
+  }
+
+  /* Showcase cards grid */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .showcase-card {
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.02);
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .showcase-card:hover {
+    border-color: rgba(245,197,66,0.2);
+    background: rgba(255,255,255,0.04);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 20px rgba(245,197,66,0.05);
+  }
+  .showcase-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--card-color, #f5c542), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .showcase-card:hover::before { opacity: 1; }
+
+  .card-icon {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.03);
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #f0f0f0;
+  }
+  .card-desc {
     font-size: 12px;
-    color: rgba(255,255,255,0.3);
+    color: #666;
+    line-height: 1.5;
+  }
+  .card-tag {
+    display: inline-block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--card-color, #f5c542);
+    margin-top: 12px;
+    padding: 2px 8px;
+    border: 1px solid var(--card-color, #f5c542);
+    opacity: 0.5;
+    border-radius: 2px;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    margin-top: 64px;
+  }
+  .footer-bar {
+    height: 3px;
+    background: linear-gradient(90deg, #f5c542, #d4a017, #f59e0b, #f5c542);
+    background-size: 300% 100%;
+    animation: footer-shift 3s linear infinite;
+  }
+  @keyframes footer-shift {
+    0% { background-position: 0% 0; }
+    100% { background-position: 300% 0; }
+  }
+  .footer-content {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 40px 16px;
+  }
+  .footer-label {
+    font-size: 12px;
+    color: #555;
     margin-bottom: 24px;
   }
   .footer-status {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 24px;
   }
-  .footer-status .dot {
+  .status-dot {
     width: 8px; height: 8px;
     border-radius: 50%;
-    background: var(--emerald);
-    animation: pulse-glow 2.5s ease-in-out infinite;
+    background: #f5c542;
+    box-shadow: 0 0 6px rgba(245,197,66,0.5);
+    animation: cursor-blink 1.5s ease-in-out infinite;
   }
-  .footer-status .label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--emerald);
-    text-shadow: 0 0 8px rgba(16,185,129,0.4);
+  .status-text {
+    font-size: 12px;
+    font-weight: bold;
+    color: #f5c542;
   }
   .footer-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent);
+    background: rgba(255,255,255,0.06);
     margin-bottom: 24px;
   }
   .footer-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 24px;
+    gap: 16px;
+    margin-bottom: 32px;
   }
-  .footer-grid .cat-label {
+  .footer-grid-item h4 {
     font-size: 12px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.85);
-    margin-bottom: 3px;
+    font-weight: bold;
+    color: #f0f0f0;
+    margin-bottom: 4px;
   }
-  .footer-grid .cat-count {
+  .footer-grid-item p {
     font-size: 11px;
-    color: rgba(255,255,255,0.3);
+    color: #555;
   }
   .footer-tech {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
-    font-size: 11px;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 32px;
+    gap: 12px 24px;
   }
   .footer-tech span {
+    font-size: 11px;
+    color: #555;
     cursor: pointer;
-    transition: all 0.25s ease;
-    text-decoration: none;
+    transition: color 0.2s;
   }
-  .footer-tech span:hover {
-    color: rgba(255,255,255,0.7);
-    text-shadow: 0 0 8px rgba(16,185,129,0.4), 0 0 16px rgba(6,182,212,0.2);
+  .footer-tech span:hover { color: #f5c542; }
+  .footer-bottom {
+    margin-top: 32px;
+    font-size: 11px;
+    color: #555;
   }
-  .footer-prompt {
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    color: rgba(255,255,255,0.3);
-  }
-  .footer-prompt .prompt-symbol {
-    color: var(--emerald);
-  }
-  .footer-cursor {
-    display: inline-block;
-    color: var(--emerald);
-    animation: cursor-blink 0.8s step-end infinite;
-  }
+  .footer-bottom .prompt { color: #f5c542; }
 
-  /* ===== RESPONSIVE ===== */
+  /* Responsive */
   @media (max-width: 640px) {
-    .hero-nav { gap: 6px; }
-    .nav-pill { padding: 6px 14px; font-size: 11px; }
+    .hero-label { font-size: 12px; }
+    .subtitle { font-size: 12px; }
+    .nav-btn { font-size: 10px; padding: 6px 12px; }
+    .stats { font-size: 11px; gap: 8px 16px; }
+    .cards-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: repeat(2, 1fr); }
-    .hero-stats { gap: 10px; font-size: 11px; }
-    .hero-desc { font-size: 13px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Scroll progress -->
-<div class="scroll-progress"></div>
+  <!-- ═══════════════════════════════════════
+       HERO SECTION
+       ═══════════════════════════════════════ -->
+  <header style="position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; overflow: hidden;">
+    <!-- Grid -->
+    <div class="grid-bg"></div>
 
-<!-- ═══════════════════════════════════════════
-     HERO SECTION
-     ═══════════════════════════════════════════ -->
-<header class="hero">
-  <!-- Grid bg -->
-  <div class="bg-grid" style="position:absolute;inset:0;pointer-events:none;"></div>
+    <!-- Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
 
-  <!-- Glow orbs -->
-  <div class="orb" style="width:300px;height:300px;background:radial-gradient(circle,rgba(16,185,129,0.2),transparent 70%);top:10%;left:10%;"></div>
-  <div class="orb" style="width:250px;height:250px;background:radial-gradient(circle,rgba(6,182,212,0.15),transparent 70%);top:40%;right:10%;animation-delay:-7s;"></div>
-  <div class="orb" style="width:200px;height:200px;background:radial-gradient(circle,rgba(168,85,247,0.12),transparent 70%);bottom:15%;left:25%;animation-delay:-14s;"></div>
-
-  <!-- Floating snippets -->
-  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
-    <span class="float-code" style="left:5%;top:15%;--rot:-3deg;animation-delay:0s;">{ design: true }</span>
-    <span class="float-code" style="left:72%;top:10%;--rot:2deg;animation-delay:1.2s;">export default Art;</span>
-    <span class="float-code" style="left:82%;top:62%;--rot:-2deg;animation-delay:2.4s;">const style = "brutal";</span>
-    <span class="float-code" style="left:8%;top:72%;--rot:4deg;animation-delay:3.6s;">&lt;Terminal /&gt;</span>
-    <span class="float-code" style="left:55%;top:80%;--rot:-1deg;animation-delay:4.8s;">async function create() {}</span>
-  </div>
-
-  <!-- Content -->
-  <div class="hero-content">
-    <!-- Badge -->
-    <div>
-      <span class="hero-badge">Code Aesthetic Gallery v2.0</span>
+    <!-- Floating snippets -->
+    <div style="position: absolute; inset: 0; overflow: hidden;">
+      <div class="snippet" style="left: 5%; top: 15%; --rot: -3deg; animation: float-code 6s ease-in-out infinite 0s;">( design: true )</div>
+      <div class="snippet" style="left: 72%; top: 10%; --rot: 2deg; animation: float-code 6s ease-in-out infinite 1.2s;">export default Art;</div>
+      <div class="snippet" style="left: 82%; top: 62%; --rot: -2deg; animation: float-code 6s ease-in-out infinite 2.4s;">const style = &quot;brutal&quot;;</div>
+      <div class="snippet" style="left: 8%; top: 72%; --rot: 4deg; animation: float-code 6s ease-in-out infinite 3.6s;">&lt;Terminal /&gt;</div>
+      <div class="snippet" style="left: 55%; top: 80%; --rot: -1deg; animation: float-code 6s ease-in-out infinite 4.8s;">async function create() {}</div>
+      <div class="snippet" style="left: 15%; top: 45%; --rot: 1deg; animation: float-code 6s ease-in-out infinite 6s;">import { Gallery } from &quot;art&quot;</div>
+      <div class="snippet" style="left: 78%; top: 35%; --rot: -1.5deg; animation: float-code 6s ease-in-out infinite 7.2s;">render(&lt;Code /&gt;)</div>
     </div>
 
-    <!-- Sub label -->
-    <p class="hero-sub">The Art of</p>
-
-    <!-- Title -->
-    <h1 class="hero-title">CODE</h1>
-
-    <!-- Rotating word -->
-    <div class="hero-rotating">
-      <span id="rotating-word">GRADIENTS</span>
-      <span class="typing-cursor"></span>
-    </div>
-
-    <!-- Description -->
-    <p class="hero-desc">
-      Explore 23 iconic code-inspired design styles.
-      From retro terminals to brutalist layouts &mdash; the intersection of programming and visual design.
-    </p>
-
-    <!-- Nav pills -->
-    <nav class="hero-nav">
-      <button class="nav-pill active">SHOWCASES<span class="count">(6)</span></button>
-      <button class="nav-pill">GENERATORS<span class="count">(6)</span></button>
-      <button class="nav-pill">EDITORS<span class="count">(4)</span></button>
-      <button class="nav-pill">TOOLS<span class="count">(7)</span></button>
-    </nav>
-
-    <!-- Stats -->
-    <div class="hero-stats">
-      <span>23 SECTIONS</span>
-      <span class="dot-sep">&middot;</span>
-      <span>50+ TOOLS</span>
-      <span class="dot-sep">&middot;</span>
-      <span class="highlight">&infin; STYLE</span>
-    </div>
-  </div>
-
-  <!-- Scroll indicator -->
-  <div class="scroll-indicator">
-    <span>Scroll</span>
-    <span class="arrow">&darr;</span>
-  </div>
-</header>
-
-<!-- ═══════════════════════════════════════════
-     FOOTER
-     ═══════════════════════════════════════════ -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-title">// CODE AESTHETIC GALLERY v2.0 &mdash; 23 SECTIONS</div>
-
-    <div class="footer-status">
-      <span class="dot"></span>
-      <span class="label">&box; SYSTEM ONLINE</span>
-    </div>
-
-    <div class="footer-divider"></div>
-
-    <div class="footer-grid">
-      <div>
-        <div class="cat-label">SHOWCASES</div>
-        <div class="cat-count">6 sections</div>
+    <!-- Hero content -->
+    <div style="position: relative; z-index: 10; text-align: center; max-width: 720px; margin: 0 auto;">
+      <!-- Badge -->
+      <div style="margin-bottom: 32px;">
+        <span class="badge">
+          <span class="badge-dot">◆</span> Code Aesthetic Gallery v2.0
+        </span>
       </div>
-      <div>
-        <div class="cat-label">GENERATORS</div>
-        <div class="cat-count">6 sections</div>
+
+      <!-- Heading -->
+      <p class="hero-label">The Art of</p>
+      <h1 class="hero-title">CODE</h1>
+
+      <!-- Rotating word -->
+      <div class="rotating-word" id="rotating-word">
+        <span>TERMINAL</span>
       </div>
-      <div>
-        <div class="cat-label">EDITORS</div>
-        <div class="cat-count">4 sections</div>
-      </div>
-      <div>
-        <div class="cat-label">TOOLS</div>
-        <div class="cat-count">7 sections</div>
+
+      <!-- Subtitle -->
+      <p class="subtitle">
+        Explore 23 iconic code-inspired design styles.
+        From retro terminals to brutalist layouts — the intersection of programming and visual design.
+      </p>
+
+      <!-- Nav buttons -->
+      <nav class="nav-buttons">
+        <button class="nav-btn active">SHOWCASES<span class="count">(6)</span></button>
+        <button class="nav-btn">GENERATORS<span class="count">(6)</span></button>
+        <button class="nav-btn">EDITORS<span class="count">(4)</span></button>
+        <button class="nav-btn">TOOLS<span class="count">(7)</span></button>
+      </nav>
+
+      <!-- Stats -->
+      <div class="stats">
+        <span>23 SECTIONS</span>
+        <span class="dot">·</span>
+        <span>50+ TOOLS</span>
+        <span class="dot">·</span>
+        <span class="highlight">∞ STYLE</span>
       </div>
     </div>
 
-    <div class="footer-divider"></div>
-
-    <div class="footer-tech">
-      <span>NEXT.JS 16</span>
-      <span>REACT 19</span>
-      <span>TYPESCRIPT 5</span>
-      <span>TAILWIND CSS 4</span>
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <span class="label">Scroll</span>
+      <span class="arrow">↓</span>
     </div>
+  </header>
 
-    <div class="footer-prompt">
-      <span class="prompt-symbol">$ </span>
-      Built with &hearts; and monospace fonts
-      <span class="footer-cursor">&box;</span>
+  <!-- ═══════════════════════════════════════
+       SHOWCASES SECTION
+       ═══════════════════════════════════════ -->
+  <section class="showcases-section">
+    <div class="section-container">
+      <div class="section-divider"></div>
+      <div class="section-label">// SHOWCASES — Visual Style Demos</div>
+
+      <!-- Filter pills -->
+      <div class="filter-pills">
+        <button class="pill active">All</button>
+        <button class="pill">Terminal</button>
+        <button class="pill">Brutal</button>
+        <button class="pill">Glitch</button>
+        <button class="pill">Code Art</button>
+        <button class="pill">Tools</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats" style="margin-bottom: 32px;">
+        <span>23 SECTIONS</span>
+        <span class="dot">·</span>
+        <span>50+ COMMANDS</span>
+        <span class="dot">·</span>
+        <span class="highlight">∞ POSSIBILITIES</span>
+      </div>
+
+      <!-- Cards grid -->
+      <div class="cards-grid">
+        <div class="showcase-card" style="--card-color: #f5c542;">
+          <div class="card-icon">⌨</div>
+          <div class="card-title">Retro Terminal</div>
+          <div class="card-desc">Interactive boot sequence with amber phosphor glow. Type commands, explore the gallery.</div>
+          <span class="card-tag">SHOWCASE</span>
+        </div>
+        <div class="showcase-card" style="--card-color: #10b981;">
+          <div class="card-icon">💻</div>
+          <div class="card-title">Developer Experience</div>
+          <div class="card-desc">Clean, modern developer tools interface with syntax highlighting.</div>
+          <span class="card-tag">SHOWCASE</span>
+        </div>
+        <div class="showcase-card" style="--card-color: #ef4444;">
+          <div class="card-icon">🔨</div>
+          <div class="card-title">Brutalism</div>
+          <div class="card-desc">Raw, unpolished aesthetic. Bold borders, stark contrasts, no compromises.</div>
+          <span class="card-tag">SHOWCASE</span>
+        </div>
+        <div class="showcase-card" style="--card-color: #a855f7;">
+          <div class="card-icon">⚡</div>
+          <div class="card-title">Glitch</div>
+          <div class="card-desc">Digital corruption aesthetics. RGB splits, data moshing, chromatic aberration.</div>
+          <span class="card-tag">SHOWCASE</span>
+        </div>
+        <div class="showcase-card" style="--card-color: #06b6d4;">
+          <div class="card-icon">🎨</div>
+          <div class="card-title">Code Art</div>
+          <div class="card-desc">Code as visual medium. Syntax highlighting becomes design language.</div>
+          <span class="card-tag">SHOWCASE</span>
+        </div>
+        <div class="showcase-card" style="--card-color: #f59e0b;">
+          <div class="card-icon">🌊</div>
+          <div class="card-title">Gradients</div>
+          <div class="card-desc">Beautiful gradient generator with live preview and CSS export.</div>
+          <span class="card-tag">GENERATOR</span>
+        </div>
+      </div>
     </div>
-  </div>
-</footer>
+  </section>
 
-<script>
-  const words = ['TERMINAL', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'TYPOGRAPHY', 'SHADOWS', 'ANIMATIONS'];
-  let current = 0;
-  const el = document.getElementById('rotating-word');
+  <!-- ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-bar"></div>
+    <div class="footer-content">
+      <div class="footer-label">// CODE AESTHETIC GALLERY v2.0 — 23 SECTIONS</div>
 
-  setInterval(() => {
-    current = (current + 1) % words.length;
-    el.style.animation = 'none';
-    el.offsetHeight;
-    el.textContent = words[current];
-    el.style.animation = 'boot-fadein 0.3s ease-out';
-  }, 2500);
+      <div class="footer-status">
+        <div class="status-dot"></div>
+        <span class="status-text">█ SYSTEM ONLINE</span>
+      </div>
 
-  document.querySelectorAll('.nav-pill').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.nav-pill').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      <div class="footer-divider"></div>
+
+      <div class="footer-grid">
+        <div class="footer-grid-item">
+          <h4>SHOWCASES</h4>
+          <p>6 sections</p>
+        </div>
+        <div class="footer-grid-item">
+          <h4>GENERATORS</h4>
+          <p>6 sections</p>
+        </div>
+        <div class="footer-grid-item">
+          <h4>EDITORS</h4>
+          <p>4 sections</p>
+        </div>
+        <div class="footer-grid-item">
+          <h4>TOOLS</h4>
+          <p>7 sections</p>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-tech">
+        <span>NEXT.JS 16</span>
+        <span>REACT 19</span>
+        <span>TYPESCRIPT 5</span>
+        <span>TAILWIND CSS 4</span>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="prompt">$ </span>
+        Built with ♥ and monospace fonts
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Rotating hero words
+    const words = ['TERMINAL', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'TYPOGRAPHY', 'SHADOWS', 'ANIMATIONS'];
+    let currentIndex = 0;
+    const wordEl = document.getElementById('rotating-word');
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % words.length;
+      wordEl.innerHTML = `<span>${words[currentIndex]}</span>`;
+    }, 2500);
+
+    // Nav button active toggle
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
     });
-  });
 
-  // Scroll progress
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    document.querySelector('.scroll-progress').style.width = percent + '%';
-  });
-</script>
+    // Filter pill active toggle
+    document.querySelectorAll('.pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+      });
+    });
+
+    // Card hover effects
+    document.querySelectorAll('.showcase-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
 </body>
 </html>

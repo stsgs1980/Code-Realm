@@ -4521,3 +4521,129 @@ html {
 .boot-fadein {
   animation: boot-fadein 0.5s ease-out forwards;
 }
+
+/* =====================================================
+   DARK HERO THEME — Code Aesthetic Gallery
+   ===================================================== */
+
+/* Page root background */
+.dark-page-root {
+  background-color: #0a0a0a;
+  position: relative;
+}
+
+/* Subtle grid background */
+.dark-grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Dark section divider */
+.dark-section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 30%, rgba(245, 197, 66, 0.2) 50%, rgba(255,255,255,0.08) 70%, transparent);
+}
+
+/* Dark section label */
+.dark-section-label {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #666;
+}
+
+/* Dark badge */
+.dark-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border: 1px solid rgba(245, 197, 66, 0.25);
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #ccc;
+  background: rgba(245, 197, 66, 0.05);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.dark-badge:hover {
+  border-color: rgba(245, 197, 66, 0.5);
+  background: rgba(245, 197, 66, 0.1);
+}
+
+/* Dark nav button */
+.dark-nav-btn {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  background: transparent;
+  color: #999;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.dark-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(245, 197, 66, 0.3);
+  color: #f0f0f0;
+}
+.dark-nav-btn.active {
+  background: rgba(245, 197, 66, 0.12);
+  border-color: rgba(245, 197, 66, 0.4);
+  color: #f5c542;
+  box-shadow: 0 0 12px rgba(245, 197, 66, 0.1);
+}
+
+/* Dark typing cursor */
+.dark-typing::after {
+  content: '█';
+  color: #f5c542;
+  animation: amber-blink 0.8s step-end infinite;
+  font-weight: 300;
+}
+
+/* Dark footer progress bar */
+.dark-footer-progress {
+  height: 3px;
+  background: linear-gradient(90deg, #f5c542, #d4a017, #f59e0b, #f5c542);
+  background-size: 300% 100%;
+  animation: amber-progress-shift 3s linear infinite;
+}
+
+/* Dark footer link */
+.dark-footer-link {
+  color: #666;
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+.dark-footer-link:hover {
+  color: #f5c542;
+  text-shadow: 0 0 8px rgba(245, 197, 66, 0.2);
+}
+
+/* Dark cursor blink */
+.dark-cursor-blink {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  background-color: #f5c542;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: amber-blink 0.8s step-end infinite;
+}
+
+/* Dark scrollbar */
+.dark-page-root::-webkit-scrollbar { width: 6px; }
+.dark-page-root::-webkit-scrollbar-track { background: #0a0a0a; }
+.dark-page-root::-webkit-scrollbar-thumb { background: #333; border-radius: 0; }
+.dark-page-root::-webkit-scrollbar-thumb:hover { background: #555; }

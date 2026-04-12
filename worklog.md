@@ -1567,3 +1567,29 @@ Stage Summary:
 - Accurate 23-section listing with proper categorization
 - Consistent with current amber/cream retro terminal theme
 - Standalone HTML preview verified (black background, emerald/cyan accents) at /home/z/my-project/download/code-aesthetic-gallery-preview.html
+
+---
+Task ID: dark-theme-restyle
+Agent: Main Agent
+Task: Restyle page to dark theme matching user's desired design (screenshot 2)
+
+Work Log:
+- Analyzed two user screenshots: (1) retro terminal boot screen (current amber/cream), (2) dark hero with CODE heading and yellow accents (desired)
+- Updated page.tsx: Changed color constants from cream/amber (CREAM=#f5f0e1, BLACK=#1a1a1a) to dark theme (DARK_BG=#0a0a0a, WHITE=#f0f0f0, YELLOW=#f5c542, GRAY=#888888, MUTED=#555555)
+- Replaced retro-paper/retro-scanlines classes with dark-page-root/dark-grid-bg classes
+- Updated hero section: light text on dark bg, yellow accent for rotating word, subtle floating code snippets
+- Updated SectionDivider: dark gradient line + dark section labels
+- Updated category nav buttons: dark-nav-btn with hover/active states using yellow accent glow
+- Updated footer: dark background with yellow status dot, yellow tech links, dark cursor blink
+- Added scroll progress bar with yellow gradient
+- Added ambient glow orbs (yellow + cyan) to hero background
+- Added dark-* CSS classes to globals.css: dark-page-root, dark-grid-bg, dark-section-divider, dark-section-label, dark-badge, dark-nav-btn, dark-typing, dark-footer-progress, dark-footer-link, dark-cursor-blink, dark-scrollbar
+- Created standalone HTML preview file at /home/z/my-project/download/code-aesthetic-gallery-preview.html matching screenshot 2 design
+- Lint passes clean, dev server compiles successfully
+
+Stage Summary:
+- Page now uses dark black (#0a0a0a) background with yellow (#f5c542) accents
+- Hero section matches user's desired design: "CODE" in large white text, rotating words in yellow, subtle floating code snippets, category buttons, stats row
+- RetroTerminalPrototype keeps its own amber/cream theme as a self-contained showcase section
+- All dark theme CSS classes added to globals.css without modifying existing retro classes
+- Standalone HTML preview file created for sharing

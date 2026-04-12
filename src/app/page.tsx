@@ -40,11 +40,15 @@ function useMounted() {
   return useSyncExternalStore(subscribe, () => true, () => false);
 }
 
-/* ─── Color Constants ─── */
-const CREAM = '#f5f0e1';
-const BLACK = '#1a1a1a';
+/* ─── Color Constants (Dark Theme) ─── */
+const DARK_BG = '#0a0a0a';
+const CARD_BG = '#111111';
+const WHITE = '#f0f0f0';
+const YELLOW = '#f5c542';
 const AMBER = '#d4a017';
-const MUTED = '#6b6356';
+const GRAY = '#888888';
+const MUTED = '#555555';
+const SUBTLE_BORDER = 'rgba(255, 255, 255, 0.08)';
 
 /* ─── Rotating hero words ─── */
 const HERO_WORDS = ['TERMINAL', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'TYPOGRAPHY', 'SHADOWS', 'ANIMATIONS'];
@@ -59,11 +63,13 @@ const CATEGORIES = [
 
 /* ─── Floating code snippets ─── */
 const FLOATING_SNIPPETS = [
-  { text: '{ design: true }', x: 5, y: 15, rot: -3 },
+  { text: '( design: true )', x: 5, y: 15, rot: -3 },
   { text: 'export default Art;', x: 72, y: 10, rot: 2 },
   { text: 'const style = "brutal";', x: 82, y: 62, rot: -2 },
   { text: '<Terminal />', x: 8, y: 72, rot: 4 },
   { text: 'async function create() {}', x: 55, y: 80, rot: -1 },
+  { text: 'import { Gallery } from "art"', x: 15, y: 45, rot: 1 },
+  { text: 'render(<Code />)', x: 78, y: 35, rot: -1.5 },
 ];
 
 /* ─── SectionDivider ─── */
@@ -71,8 +77,8 @@ function SectionDivider({ label }: { label: string }) {
   return (
     <div className="px-4 py-6">
       <div className="max-w-5xl mx-auto">
-        <div className="h-px w-full" style={{ backgroundColor: 'rgba(26,26,26,0.12)' }} />
-        <div className="section-label mt-3">{label}</div>
+        <div className="dark-section-divider" />
+        <div className="dark-section-label mt-3">{label}</div>
       </div>
     </div>
   );
@@ -118,18 +124,18 @@ export default function Home() {
 
   /* ─── SSR fallback ─── */
   if (!mounted) {
-    return <div className="min-h-screen" style={{ backgroundColor: CREAM }} />;
+    return <div className="min-h-screen" style={{ backgroundColor: DARK_BG }} />;
   }
 
   return (
-    <div className="min-h-screen retro-paper retro-scanlines retro-scrollbar font-mono" style={{ color: BLACK }}>
+    <div className="min-h-screen dark-page-root font-mono" style={{ color: WHITE }}>
       {/* ── Scroll Progress Bar ── */}
       <div
         className="fixed top-0 left-0 z-[9999] h-[3px] transition-[width] duration-100"
         style={{
           width: `${scrollPercent}%`,
-          backgroundColor: AMBER,
-          boxShadow: '0 0 8px rgba(212, 160, 23, 0.4)',
+          background: `linear-gradient(90deg, ${YELLOW}, ${AMBER}, #f59e0b)`,
+          boxShadow: `0 0 10px rgba(245, 197, 66, 0.4), 0 0 20px rgba(212, 160, 23, 0.2)`,
         }}
       />
 
@@ -138,7 +144,23 @@ export default function Home() {
           ═══════════════════════════════════════════ */}
       <header className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
         {/* Background grid */}
-        <div className="absolute inset-0 retro-grid pointer-events-none" />
+        <div className="absolute inset-0 dark-grid-bg pointer-events-none" />
+
+        {/* Ambient glow orbs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute w-[400px] h-[400px] rounded-full opacity-[0.04]" style={{
+            background: `radial-gradient(circle, ${YELLOW}, transparent 70%)`,
+            top: '10%', left: '15%',
+            filter: 'blur(80px)',
+            animation: 'hero-orb-drift 20s ease-in-out infinite',
+          }} />
+          <div className="absolute w-[300px] h-[300px] rounded-full opacity-[0.03]" style={{
+            background: 'radial-gradient(circle, #06b6d4, transparent 70%)',
+            bottom: '20%', right: '10%',
+            filter: 'blur(80px)',
+            animation: 'hero-orb-drift 18s ease-in-out infinite reverse',
+          }} />
+        </div>
 
         {/* Floating code snippets */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -150,7 +172,7 @@ export default function Home() {
                 left: `${snippet.x}%`,
                 top: `${snippet.y}%`,
                 transform: `rotate(${snippet.rot}deg)`,
-                color: 'rgba(212, 160, 23, 0.15)',
+                color: 'rgba(255, 255, 255, 0.04)',
                 animationDelay: `${i * 1.2}s`,
               }}
             >
@@ -162,27 +184,29 @@ export default function Home() {
         {/* Hero content */}
         <div className="relative z-10 text-center max-w-3xl mx-auto">
           {/* Badge */}
-          <div className="mb-6">
-            <span className="retro-badge">Code Aesthetic Gallery v2.0</span>
+          <div className="mb-8">
+            <span className="dark-badge">
+              <span style={{ color: YELLOW }}>◆</span> Code Aesthetic Gallery v2.0
+            </span>
           </div>
 
           {/* Main heading */}
           <div className="mb-4">
-            <p className="text-sm sm:text-base tracking-widest uppercase mb-2" style={{ color: MUTED }}>
+            <p className="text-sm sm:text-base tracking-[0.3em] uppercase mb-3" style={{ color: GRAY }}>
               The Art of
             </p>
-            <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold leading-none" style={{ color: BLACK }}>
+            <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold leading-none" style={{ color: WHITE }}>
               CODE
             </h1>
           </div>
 
           {/* Rotating word */}
-          <div className="h-10 sm:h-12 mb-6 flex items-center justify-center overflow-hidden">
+          <div className="h-10 sm:h-12 mb-8 flex items-center justify-center overflow-hidden">
             <span
-              className="text-2xl sm:text-3xl md:text-4xl font-bold amber-typing"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold dark-typing"
               key={currentWord}
               style={{
-                color: AMBER,
+                color: YELLOW,
                 animation: 'boot-fadein 0.3s ease-out',
               }}
             >
@@ -191,7 +215,7 @@ export default function Home() {
           </div>
 
           {/* Subtitle */}
-          <p className="text-sm sm:text-base max-w-xl mx-auto mb-8 leading-relaxed" style={{ color: MUTED }}>
+          <p className="text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed" style={{ color: GRAY }}>
             Explore 23 iconic code-inspired design styles.
             From retro terminals to brutalist layouts — the intersection of programming and visual design.
           </p>
@@ -201,12 +225,12 @@ export default function Home() {
             {CATEGORIES.map((cat) => (
               <button
                 key={`nav-${cat.id}`}
-                className={`brutal-nav-btn text-xs sm:text-sm ${activeCategory === cat.id ? 'active' : ''}`}
+                className={`dark-nav-btn text-xs sm:text-sm ${activeCategory === cat.id ? 'active' : ''}`}
                 onClick={() => scrollToSection(cat.id)}
                 aria-label={`Navigate to ${cat.label}`}
               >
                 {cat.label}
-                <span className="ml-1.5 opacity-60">({cat.sections})</span>
+                <span className="ml-1.5 opacity-50">({cat.sections})</span>
               </button>
             ))}
           </nav>
@@ -214,16 +238,16 @@ export default function Home() {
           {/* Stats row */}
           <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm" style={{ color: MUTED }}>
             <span>23 SECTIONS</span>
-            <span style={{ color: AMBER }}>·</span>
+            <span style={{ color: YELLOW }}>·</span>
             <span>50+ TOOLS</span>
-            <span style={{ color: AMBER }}>·</span>
-            <span style={{ color: AMBER }}>∞ STYLE</span>
+            <span style={{ color: YELLOW }}>·</span>
+            <span style={{ color: YELLOW }}>∞ STYLE</span>
           </div>
         </div>
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 flex flex-col items-center gap-1" style={{ color: MUTED }}>
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
+          <span className="text-xs tracking-[0.3em] uppercase">Scroll</span>
           <span className="text-lg" style={{ animation: 'scroll-bounce 2s ease-in-out infinite' }}>↓</span>
         </div>
       </header>
@@ -420,8 +444,8 @@ export default function Home() {
           FOOTER
           ═══════════════════════════════════════════ */}
       <footer className="mt-16">
-        {/* Amber progress bar */}
-        <div className="amber-progress" />
+        {/* Gradient progress bar */}
+        <div className="dark-footer-progress" />
 
         <div className="px-4 py-10 sm:py-14">
           <div className="max-w-5xl mx-auto">
@@ -435,24 +459,24 @@ export default function Home() {
               <span
                 className="inline-block w-2 h-2 rounded-full"
                 style={{
-                  backgroundColor: AMBER,
+                  backgroundColor: YELLOW,
                   animation: 'amber-blink 1.5s ease-in-out infinite',
-                  boxShadow: '0 0 6px rgba(212, 160, 23, 0.5)',
+                  boxShadow: '0 0 6px rgba(245, 197, 66, 0.5)',
                 }}
               />
-              <span className="text-xs sm:text-sm font-bold" style={{ color: AMBER }}>
+              <span className="text-xs sm:text-sm font-bold" style={{ color: YELLOW }}>
                 █ SYSTEM ONLINE
               </span>
             </div>
 
             {/* Divider */}
-            <div className="h-px mb-6" style={{ backgroundColor: 'rgba(0,0,0,0.1)' }} />
+            <div className="h-px mb-6" style={{ backgroundColor: SUBTLE_BORDER }} />
 
             {/* Section summary */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
               {CATEGORIES.map((cat) => (
                 <div key={`footer-${cat.id}`}>
-                  <div className="text-xs font-bold mb-1" style={{ color: BLACK }}>
+                  <div className="text-xs font-bold mb-1" style={{ color: WHITE }}>
                     {cat.label}
                   </div>
                   <div className="text-xs" style={{ color: MUTED }}>
@@ -463,12 +487,15 @@ export default function Home() {
             </div>
 
             {/* Divider */}
-            <div className="h-px mb-6" style={{ backgroundColor: 'rgba(0,0,0,0.1)' }} />
+            <div className="h-px mb-6" style={{ backgroundColor: SUBTLE_BORDER }} />
 
             {/* Tech stack */}
             <div className="flex flex-wrap gap-3 sm:gap-6 text-xs" style={{ color: MUTED }}>
               {['NEXT.JS 16', 'REACT 19', 'TYPESCRIPT 5', 'TAILWIND CSS 4'].map((tech) => (
-                <span key={`tech-${tech}`} className="amber-link cursor-pointer">
+                <span
+                  key={`tech-${tech}`}
+                  className="dark-footer-link cursor-pointer"
+                >
                   {tech}
                 </span>
               ))}
@@ -476,9 +503,9 @@ export default function Home() {
 
             {/* Bottom note */}
             <div className="mt-8 text-xs" style={{ color: MUTED }}>
-              <span className="amber-prompt">$ </span>
+              <span style={{ color: YELLOW }}>$ </span>
               Built with ♥ and monospace fonts
-              <span className="amber-cursor" />
+              <span className="dark-cursor-blink" />
             </div>
           </div>
         </div>
