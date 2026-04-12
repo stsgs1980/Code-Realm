@@ -1,112 +1,199 @@
 <div align="center">
 
-![Preview](public/preview.png)
+```
+ ██████╗ ██████╗ ██████╗ ███████╗    ██████╗ ███████╗ █████╗ ██╗     ███╗   ███╗
+██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔══██╗██╔════╝██╔══██╗██║     ████╗ ████║
+██║     ██║   ██║██║  ██║█████╗      ██████╔╝█████╗  ███████║██║     ██╔████╔██║
+██║     ██║   ██║██║  ██║██╔══╝      ██╔══██╗██╔══╝  ██╔══██║██║     ██║╚██╔╝██║
+╚██████╗╚██████╔╝██████╔╝███████╗    ██║  ██║███████╗██║  ██║███████╗██║ ╚═╝ ██║
+ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝
+```
 
-# Code Aesthetic Showcase
+### `The Art of CODE AESTHETICS`
 
-**A fully interactive, 21-section developer tools & CSS playground built with Next.js 16**
+**23 sections. 50+ tools. Infinite style.**
+*From retro terminals to brutalist layouts — the intersection of programming and visual design.*
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff69b4?style=flat-square&logo=framer)](https://www.framer.com/motion/)
-[![shadcn/ui](https://img.shields.io/badge/shadcn/ui-New_York-18181b?style=flat-square)](https://ui.shadcn.com/)
+[![Next.js](https://img.shields.io/badge/NEXT.JS-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TYPESCRIPT-5-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/TAILWIND-4-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/FRAMER_MOTION-12-ff69b4?style=flat-square&logo=framer)](https://www.framer.com/motion/)
+[![Bun](https://img.shields.io/badge/BUN-RUNTIME-f472b6?style=flat-square&logo=bun)](https://bun.sh/)
 
 </div>
 
 ---
 
-## Overview
+```css
+/* ═══════════════════════════════════════════════════════════
+   CODE AESTHETIC GALLERY v2.0
+   A curated collection of code-inspired design aesthetics
+   ═══════════════════════════════════════════════════════════ */
 
-Code Aesthetic Showcase is a production-ready single-page application that demonstrates creative coding, interactive CSS tools, and cutting-edge web development techniques. It features 21 fully interactive sections ranging from a retro terminal emulator to real-time gradient generators, JSON formatters, and CSS animation playgrounds.
+.gallery {
+  --sections: 23;
+  --tools: 50+;
+  --style: infinite;
+  --aesthetic: "retro-terminal";
+  --accent: #d4a017;
+  --paper: #f5f0e1;
 
-## Sections
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--paper);
+  color: #1a1a1a;
 
-| # | Section | Description |
-|---|---------|-------------|
-| 01 | **Terminal** | Interactive terminal with 15+ commands, boot sequence, theme switching (green/amber/white), CRT scanlines, command history |
-| 02 | **DevEx** | VS Code-inspired code editors with 3 feature cards, live code preview (React/Python/CSS tabs), count-up metrics |
-| 03 | **Brutalism** | Anti-design showcase with broken grid, marquee banners, 404 box, raw HTML source display, chaos button |
-| 04 | **Glitch** | Cyberpunk glitch effects with RGB split, Matrix rain canvas, system status dashboard, error log terminal |
-| 05 | **Code Art** | 4 style comparisons (Clean/Terminal/Brutalist/Glitch) of the same component, live style switcher, quote rotation |
-| 06 | **Playground** | Live HTML/CSS/JS code editor with syntax highlighting, auto-run with debounce, iframe preview, export |
-| 07 | **Gradient Lab** | Interactive gradient builder (Linear/Radial/Conic), 2-4 color stops, 8 presets, random generator, CSS/Tailwind/SVG export |
-| 08 | **Palette Studio** | 7 color harmony algorithms, WCAG AA/AAA contrast checking, HSL sliders, shades generator, 8 presets, 3 export formats |
-| 09 | **Shadow Generator** | Interactive box-shadow designer with multiple layers, inset support, color controls, and CSS output |
-| 10 | **Animation** | CSS animation generator with keyframe editor, easing curves, and real-time preview |
-| 11 | **CSS Filters** | Visual filter playground with brightness, contrast, blur, hue-rotate, saturate, and more |
-| 12 | **SVG Editor** | Inline SVG editor with shape tools, path editing, and live preview |
-| 13 | **Typography** | Font showcase with type scale, weight previews, and spacing tools |
-| 14 | **Layout (Flexbox/Grid)** | Interactive Flexbox and CSS Grid playground with visual controls |
-| 15 | **3D Transforms** | Interactive 3D CSS transform playground with perspective, rotate, and translate controls |
-| 16 | **Responsive** | Responsive design showcase with breakpoint previews and device mockups |
-| 17 | **Border Generator** | Interactive border-radius and border-style designer with live preview |
-| 18 | **CSS Snippets** | 13 curated CSS code snippets with live preview, syntax highlighting, and one-click copy |
-| 19 | **Regex Tester** | Real-time regular expression tester with match highlighting, capture groups, and pattern explanation |
-| 20 | **JSON Studio** | JSON validator/formatter with syntax highlighting, collapsible tree view, path display, minify, sort keys |
-| 21 | **Markdown Lab** | Zero-dependency Markdown parser with split/tab view, toolbar, templates, word count, auto-save, HTML export |
-| 22 | **Base64 Encoder** | Encode/decode Base64, URLs, and HTML entities with real-time conversion |
+  animation: boot-sequence 2s ease-out;
+}
 
-## Features
+.gallery::before {
+  content: "// The intersection of programming and visual design";
+}
+```
 
-### Design & UX
-- **Dark cyberpunk aesthetic** with emerald/cyan neon accents
-- **Full-width responsive layout** optimized for all screen sizes
-- **Floating navigation** with active section tracking (desktop pills + mobile hamburger menu)
-- **Scroll progress bar** with gradient shimmer effect
-- **Particle constellation** hero background (60 desktop / 25 mobile particles)
-- **Sticky footer** with animated gradient border
-- **Dark/light theme toggle** with localStorage persistence
-- **Smooth scroll** between sections
-- **Back to top** floating button with animated entrance
+---
 
-### Animations
-- Framer Motion throughout (whileInView, AnimatePresence, layoutId)
-- Scroll-triggered reveals (fade-in, blur-reveal, divider glow)
-- Glitch text effects with RGB split
-- Matrix rain canvas animation
-- Text character reveal animations (10 stagger delays)
-- Typing cursor with gradient glow
-- Hover/press micro-interactions on all interactive elements
+## `> SHOWCASES` — Visual Style Demos
+
+| `#` | Section | Description |
+|----:|:--------|:------------|
+| `00` | **Retro Terminal v2** | Amber/cream prototype — paper texture, scanlines, boot sequence, CRT effects |
+| `01` | **Terminal** | Interactive terminal with 15+ commands, theme switching (green/amber/white), CRT scanlines |
+| `02` | **DevEx** | VS Code-inspired developer experience with live code preview & count-up metrics |
+| `03` | **Brutalism** | Anti-design: broken grid, marquee banners, 404 box, chaos button, raw HTML |
+| `04` | **Glitch** | Cyberpunk RGB split, Matrix rain canvas, system dashboard, error log terminal |
+| `05` | **Code Art** | 4 style comparisons (Clean/Terminal/Brutalist/Glitch) — live switcher, quote rotation |
+
+<details>
+<summary><code>// GENERATORS — Design Tools (6)</code></summary>
+
+| `#` | Section | Description |
+|----:|:--------|:------------|
+| `06` | **Gradient Lab** | Linear/Radial/Conic gradient builder, 2-4 stops, 8 presets, CSS/Tailwind/SVG export |
+| `07` | **Palette Studio** | 7 harmony algorithms, WCAG AA/AAA contrast, HSL sliders, shades, 3 export formats |
+| `08` | **Shadow** | Multi-layer box-shadow designer with inset support, color controls, CSS output |
+| `09` | **Border** | Interactive border-radius & border-style designer with live preview |
+| `10` | **Animation** | CSS keyframe editor with easing curves & real-time preview |
+| `11` | **CSS Filters** | Visual playground: brightness, contrast, blur, hue-rotate, saturate & more |
+
+</details>
+
+<details>
+<summary><code>// EDITORS — Code & Content (4)</code></summary>
+
+| `#` | Section | Description |
+|----:|:--------|:------------|
+| `12` | **Playground** | Live HTML/CSS/JS editor with syntax highlighting, auto-run, iframe preview, export |
+| `13` | **SVG Editor** | Inline SVG editor with shape tools, path editing, live preview |
+| `14` | **CSS Snippets** | 13 curated snippets with live preview, syntax highlighting, one-click copy |
+| `15` | **Markdown** | Zero-dependency parser, split/tab view, toolbar, templates, word count, HTML export |
+
+</details>
+
+<details>
+<summary><code>// TOOLS — Developer Utilities (7)</code></summary>
+
+| `#` | Section | Description |
+|----:|:--------|:------------|
+| `16` | **Base64** | Encode/decode Base64, URLs, HTML entities with real-time conversion |
+| `17` | **Unit Converter** | px/rem/em/vw/vh/cm/mm conversion with visual reference |
+| `18` | **Regex Tester** | Real-time regex with match highlighting, capture groups, pattern explanation |
+| `19` | **JSON Studio** | Validator/formatter, syntax highlighting, collapsible tree, path, minify, sort |
+| `20` | **Typography** | Font showcase, type scale, weight previews, spacing tools |
+| `21` | **Flexbox & Grid** | Interactive Flexbox/CSS Grid playground with visual controls |
+| `22` | **3D Transforms** | Perspective, rotate, translate controls — interactive 3D CSS transforms |
+| `23` | **Responsive** | Responsive design showcase with breakpoint previews & device mockups |
+
+</details>
+
+---
+
+```javascript
+// ═══════════════════════════════════════════════
+// AESTHETIC SYSTEM
+// ═══════════════════════════════════════════════
+
+const GALLERY = {
+  theme: 'amber-cream-retro',
+  palette: {
+    paper:   '#f5f0e1',  // warm parchment
+    ink:     '#1a1a1a',  // dark charcoal
+    amber:   '#d4a017',  // golden accent
+    muted:   '#6b6356',  // aged stone
+    border:  'rgba(26,26,26,0.12)',
+  },
+  effects: [
+    'paper-texture', 'scanlines', 'crt-vignette',
+    'floating-code', 'grid-overlay', 'boot-sequence',
+    'amber-glow', 'cursor-blink', 'scroll-bounce'
+  ],
+  typography: {
+    primary: "'JetBrains Mono', 'Courier New', monospace",
+    weight:   { light: 300, normal: 400, bold: 700 },
+    tracking: { body: '0.02em', label: '0.15em', heading: '-0.02em' },
+  }
+};
+
+export default GALLERY;
+```
+
+---
+
+## `Features`
+
+### Design System
+- **Amber/cream retro terminal** aesthetic with paper texture & scanlines
+- **CRT vignette effect** and subtle grid overlay
+- **Floating code snippets** with gentle drift animation
+- **Scroll progress bar** with amber gradient shimmer
+- **Section dividers** styled as terminal comments `// SHOWCASES — ...`
+- **Responsive layout** — mobile-first with `clamp()` typography
+
+### Animation System
+```css
+@keyframes boot-fadein { from { opacity: 0; transform: translateY(8px); } }
+@keyframes amber-blink  { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+@keyframes float-code   { 0%, 100% { transform: translateY(0) rotate(-1deg); }
+                          50% { transform: translateY(-10px) rotate(1deg); } }
+@keyframes scroll-bounce { 0%, 100% { transform: translateY(0); }
+                          50% { transform: translateY(8px); } }
+```
+- Framer Motion throughout (`whileInView`, `AnimatePresence`, `layoutId`)
 - `prefers-reduced-motion` accessibility support
+- 30+ custom CSS animations in `globals.css` (4500+ lines)
 
-### CSS System
-- 15+ custom CSS animations (cursor-blink, glitch, matrix-fall, scanline, neon-pulse, etc.)
-- Syntax highlighting classes (.syn-keyword, .syn-string, .syn-function, etc.)
-- Glassmorphism utilities (.glass-card, .glass-card-hover)
-- Glow effects (.glow-emerald, .glow-cyan, .glow-purple)
-- Text effects (.text-glow-emerald, .text-reveal-char)
-- Custom scrollbar with gradient thumb
-- Shimmer and skeleton animations
-- 400+ lines of enhanced CSS in globals.css
+### Technical Highlights
+- **SSR-safe mounting** via `useSyncExternalStore` — zero hydration mismatches
+- **Named exports** for all 23 section components — tree-shakeable
+- **Zero nested `<button>` elements** — `role="button"` + `tabIndex` pattern
+- **Unique React keys** with component-specific prefixes
 
-## Tech Stack
+---
 
-| Category | Technology |
-|----------|-----------|
-| **Framework** | Next.js 16 (App Router, Turbopack) |
-| **Language** | TypeScript 5 |
-| **Styling** | Tailwind CSS 4 + globals.css |
-| **Components** | shadcn/ui (New York style) |
-| **Icons** | Lucide React |
-| **Animation** | Framer Motion 12 |
-| **State** | React hooks + useSyncExternalStore |
-| **Theme** | next-themes |
-| **Database** | Prisma ORM (SQLite) |
-| **Lint** | ESLint 9 + eslint-config-next |
-| **Runtime** | Bun |
+## `Tech Stack`
 
-## Getting Started
+```
+┌─────────────────────────────────────────────────────┐
+│  FRAMEWORK    Next.js 16 (App Router, Turbopack)    │
+│  LANGUAGE     TypeScript 5                          │
+│  STYLING      Tailwind CSS 4 + globals.css          │
+│  COMPONENTS   shadcn/ui (New York style)            │
+│  ICONS        Lucide React                          │
+│  ANIMATION    Framer Motion 12                      │
+│  STATE        React hooks + useSyncExternalStore     │
+│  DATABASE     Prisma ORM (SQLite)                   │
+│  RUNTIME      Bun                                   │
+│  LINT         ESLint 9 + eslint-config-next         │
+└─────────────────────────────────────────────────────┘
+```
 
-### Prerequisites
-- [Bun](https://bun.sh/) (recommended) or Node.js 18+
+---
 
-### Installation
+## `> Getting Started`
 
 ```bash
 # Clone the repository
-git clone <repo-url>
-cd my-project
+git clone https://github.com/Sts8987/Code-Aesthetic-Gallery-v2.0.git
+cd Code-Aesthetic-Gallery-v2.0
 
 # Install dependencies
 bun install
@@ -118,87 +205,76 @@ bun run db:push
 bun run dev
 ```
 
-The app will be available at `http://localhost:3000`.
-
 ### Scripts
 
-| Script | Description |
-|--------|-------------|
-| `bun run dev` | Start development server (port 3000) |
+| Command | Description |
+|:--------|:------------|
+| `bun run dev` | Start dev server (port 3000) |
 | `bun run lint` | Run ESLint |
-| `bun run build` | Production build |
-| `bun run start` | Start production server |
-| `bun run db:push` | Push Prisma schema to database |
+| `bun run db:push` | Push Prisma schema |
 | `bun run db:generate` | Generate Prisma client |
-| `bun run db:migrate` | Run database migrations |
-| `bun run db:reset` | Reset database |
 
-## Project Structure
+---
+
+## `Project Structure`
 
 ```
 my-project/
 ├── public/
 │   ├── logo.svg
-│   ├── preview.png
 │   └── robots.txt
 ├── prisma/
 │   └── schema.prisma
 ├── src/
 │   ├── app/
-│   │   ├── globals.css          # 400+ lines of custom CSS
-│   │   ├── layout.tsx           # Root layout with ThemeProvider
-│   │   ├── page.tsx             # Main page with 21 sections
-│   │   └── api/route.ts         # API route
+│   │   ├── globals.css            # 4500+ lines — full CSS system
+│   │   ├── layout.tsx             # Root layout
+│   │   └── page.tsx               # Main page — all 23 sections
 │   ├── components/
-│   │   ├── ui/                  # shadcn/ui components
-│   │   ├── animation-generator-section.tsx
-│   │   ├── base64-tool-section.tsx
-│   │   ├── border-generator-section.tsx
-│   │   ├── brutalism-section.tsx
-│   │   ├── code-comparison-section.tsx
-│   │   ├── code-playground-section.tsx
-│   │   ├── color-palette-section.tsx
-│   │   ├── css-filters-section.tsx
-│   │   ├── css-snippets-section.tsx
-│   │   ├── devex-section.tsx
-│   │   ├── error-boundary.tsx
-│   │   ├── flexbox-grid-section.tsx
-│   │   ├── glitch-section.tsx
-│   │   ├── gradient-generator-section.tsx
-│   │   ├── json-formatter-section.tsx
-│   │   ├── markdown-preview-section.tsx
-│   │   ├── regex-tester-section.tsx
-│   │   ├── responsive-showcase-section.tsx
-│   │   ├── shadow-generator-section.tsx
-│   │   ├── sound-toggle.tsx
-│   │   ├── svg-editor-section.tsx
-│   │   ├── terminal-section.tsx
-│   │   ├── theme-provider.tsx
-│   │   ├── theme-toggle.tsx
-│   │   ├── transform-3d-section.tsx
-│   │   └── typography-section.tsx
+│   │   ├── ui/                    # shadcn/ui components
+│   │   ├── showcases/             # Terminal, DevEx, Brutalism, Glitch,
+│   │   │                          # Code Art, Retro Terminal
+│   │   ├── generators/            # Gradient, Palette, Shadow, Border,
+│   │   │                          # Animation, CSS Filters
+│   │   ├── editors/               # Playground, SVG Editor, CSS Snippets,
+│   │   │                          # Markdown Preview
+│   │   └── tools/                 # Base64, Unit Converter, Regex, JSON,
+│   │                              # Typography, Flexbox/Grid, 3D Transform,
+│   │                              # Responsive Showcase
 │   ├── hooks/
 │   │   ├── use-mobile.ts
 │   │   └── use-toast.ts
 │   └── lib/
-│       ├── db.ts               # Prisma database client
-│       └── utils.ts            # Utility functions (cn, etc.)
-├── Caddyfile                    # Gateway configuration
+│       ├── db.ts                  # Prisma client
+│       ├── utils.ts               # Utilities (cn, etc.)
+│       └── sections-registry.ts   # Section config
+├── download/                      # Generated assets
+├── Caddyfile                      # Gateway configuration
 ├── package.json
-├── tailwind.config.ts
 ├── tsconfig.json
-└── worklog.md                   # Development handover document
+└── worklog.md                     # Development log
 ```
 
-## Architecture Decisions
+---
 
-- **Zero external Markdown library** for Markdown Lab — custom parser from scratch to avoid dependency bloat
-- **SSR-safe mounting** via `useSyncExternalStore` to prevent hydration mismatches
-- **Named exports** for all section components for tree-shaking compatibility
-- **Accessibility-first**: ARIA labels, keyboard navigation, focus-visible states, `prefers-reduced-motion`
-- **No nested `<button>` elements** — uses `role="button"` + `tabIndex` pattern for interactive wrappers
-- **Unique React keys** with component-specific prefixes (no bare `key={i}`)
+<div align="center">
 
-## License
+```
+ ╔══════════════════════════════════════════╗
+ ║                                          ║
+ ║   ██  SYSTEM ONLINE                      ║
+ ║   ██  23 SECTIONS LOADED                 ║
+ ║   ██  50+ TOOLS READY                    ║
+ ║   ██  AMBER THEME ACTIVE                 ║
+ ║   ██  █                                  ║
+ ║                                          ║
+ ╚══════════════════════════════════════════╝
+```
 
-Private project. All rights reserved.
+```c
+/* Built with ♥ and monospace fonts */
+printf("> Code Aesthetic Gallery v2.0\n");
+printf("> The Art of CODE AESTHETICS\n");
+```
+
+</div>
