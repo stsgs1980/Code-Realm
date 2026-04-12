@@ -113,12 +113,12 @@ const PRESETS: Preset[] = [
 ];
 
 const CUBE_FACES = [
-  { name: 'Front', transform: 'translateZ(50px)', bg: 'linear-gradient(135deg, rgba(16,185,129,0.85), rgba(5,150,105,0.85))', border: 'rgba(16,185,129,0.5)' },
-  { name: 'Back', transform: 'rotateY(180deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(6,182,212,0.85), rgba(8,145,178,0.85))', border: 'rgba(6,182,212,0.5)' },
-  { name: 'Right', transform: 'rotateY(90deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(168,85,247,0.85), rgba(147,51,234,0.85))', border: 'rgba(168,85,247,0.5)' },
-  { name: 'Left', transform: 'rotateY(-90deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(236,72,153,0.85), rgba(219,39,119,0.85))', border: 'rgba(236,72,153,0.5)' },
-  { name: 'Top', transform: 'rotateX(90deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(245,158,11,0.85), rgba(217,119,6,0.85))', border: 'rgba(245,158,11,0.5)' },
-  { name: 'Bottom', transform: 'rotateX(-90deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(20,184,166,0.85), rgba(13,148,136,0.85))', border: 'rgba(20,184,166,0.5)' },
+  { name: 'Front', transform: 'translateZ(50px)', bg: 'linear-gradient(135deg, rgba(212,160,23,0.85), rgba(184,134,11,0.85))', border: 'rgba(212,160,23,0.5)' },
+  { name: 'Back', transform: 'rotateY(180deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(184,134,11,0.85), rgba(139,90,6,0.85))', border: 'rgba(184,134,11,0.5)' },
+  { name: 'Right', transform: 'rotateY(90deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(212,160,23,0.85), rgba(180,128,23,0.85))', border: 'rgba(212,160,23,0.5)' },
+  { name: 'Left', transform: 'rotateY(-90deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(212,160,23,0.85), rgba(180,128,23,0.85))', border: 'rgba(212,160,23,0.5)' },
+  { name: 'Top', transform: 'rotateX(90deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(212,160,23,0.85), rgba(180,128,23,0.85))', border: 'rgba(212,160,23,0.5)' },
+  { name: 'Bottom', transform: 'rotateX(-90deg) translateZ(50px)', bg: 'linear-gradient(135deg, rgba(212,160,23,0.85), rgba(180,128,23,0.85))', border: 'rgba(212,160,23,0.5)' },
 ];
 
 /* ──────────────────────────────────────────────
@@ -197,12 +197,12 @@ function TransformSlider({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">
+        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">
           {config.label}
         </span>
         <span
           className={`text-[11px] font-mono tabular-nums ${
-            isDefault ? 'text-white/25' : 'text-emerald-400/80'
+            isDefault ? 'text-[#6b6356]' : 'text-[#d4a017]/80'
           }`}
         >
           {formatVal(value, config.step)}
@@ -218,7 +218,7 @@ function TransformSlider({
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
         style={{
-          background: `linear-gradient(to right, #10b981 0%, #06b6d4 ${pct}%, rgba(255,255,255,0.08) ${pct}%)`,
+          background: `linear-gradient(to right, #d4a017 0%, #b8860b ${pct}%, rgba(26,26,26,0.08) ${pct}%)`,
         }}
       />
     </div>
@@ -248,7 +248,7 @@ function FloatingDecorations() {
           style={{
             left: `${sym.x}%`,
             top: `${sym.y}%`,
-            color: 'rgba(168, 85, 247, 0.07)',
+            color: 'rgba(180, 128, 23, 0.12)',
           }}
           animate={{ y: [0, -10, 0], opacity: [0.04, 0.12, 0.04] }}
           transition={{
@@ -286,8 +286,8 @@ function ToggleGroup<T extends string>({
           onClick={() => onChange(opt.value)}
           className={`relative flex items-center px-3 py-1.5 rounded-md text-[10px] font-mono transition-colors cursor-pointer ${
             value === opt.value
-              ? 'text-white'
-              : 'text-white/35 hover:text-white/55'
+              ? 'text-[#1a1a1a]'
+              : 'text-[#6b6356] hover:text-[#6b6356]'
           }`}
         >
           {value === opt.value && (
@@ -525,15 +525,15 @@ export function Transform3dSection() {
   return (
     <section className="relative w-full min-h-screen py-16 md:py-24 overflow-hidden">
       {/* ──── Background ──── */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0d0d1a] to-[#0a0a0a]" />
+      <div className="absolute inset-0 bg-[#f5f0e1]" />
 
       {/* Grid */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)
+            linear-gradient(rgba(180,128,23,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(180,128,23,0.06) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -559,9 +559,9 @@ export function Transform3dSection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/[0.06] mb-4">
-            <Box className="w-3.5 h-3.5 text-purple-400" />
-            <span className="text-[11px] font-mono uppercase tracking-widest text-purple-400/70">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-none border border-[#1a1a1a] bg-[#ebe5d0] mb-4">
+            <Box className="w-3.5 h-3.5 text-[#6b6356]" />
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#6b6356]/70">
               Visual Tool
             </span>
           </div>
@@ -570,7 +570,7 @@ export function Transform3dSection() {
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage:
-                  'linear-gradient(135deg, #a855f7, #06b6d4, #a855f7)',
+                  'linear-gradient(135deg, #d4a017, #b8860b, #d4a017)',
                 backgroundSize: '200% 100%',
                 animation: 'gradient-shift 6s ease infinite',
               }}
@@ -578,16 +578,16 @@ export function Transform3dSection() {
               3D Transforms
             </span>
           </h2>
-          <p className="text-sm text-white/30 font-mono max-w-md mx-auto">
+          <p className="text-sm text-[#6b6356] font-mono max-w-md mx-auto">
             Master CSS 3D transforms with a live interactive cube, presets, and code export.
           </p>
-          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-white/25">
+          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-[#6b6356]">
             <span>9 Properties</span>
-            <span className="text-purple-500/40">/</span>
+            <span className="text-[#6b6356]">/</span>
             <span>8 Presets</span>
-            <span className="text-purple-500/40">/</span>
+            <span className="text-[#6b6356]">/</span>
             <span>Live 3D</span>
-            <span className="text-purple-500/40">/</span>
+            <span className="text-[#6b6356]">/</span>
             <span>CSS Export</span>
           </div>
         </motion.div>
@@ -606,8 +606,8 @@ export function Transform3dSection() {
               disabled={!hasChanges}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors cursor-pointer ${
                 hasChanges
-                  ? 'border-white/[0.08] bg-white/[0.03] text-white/50 hover:text-white/80 hover:border-white/[0.15]'
-                  : 'border-white/[0.04] bg-transparent text-white/15 cursor-not-allowed'
+                  ? 'border-white/[0.08] bg-white/[0.03] text-[#1a1a1a] hover:text-[#1a1a1a] hover:border-white/[0.15]'
+                  : 'border-white/[0.04] bg-transparent text-[#6b6356] cursor-not-allowed'
               }`}
               whileHover={hasChanges ? { y: -1 } : undefined}
               whileTap={hasChanges ? { scale: 0.97 } : undefined}
@@ -621,8 +621,8 @@ export function Transform3dSection() {
               onClick={() => setAutoRotate((p) => !p)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors cursor-pointer ${
                 autoRotate
-                  ? 'border-emerald-500/30 bg-emerald-500/[0.08] text-emerald-400/80'
-                  : 'border-white/[0.08] bg-white/[0.03] text-white/50 hover:text-white/80 hover:border-white/[0.15]'
+                  ? 'border-[#d4a017]/30 bg-[#d4a017]/10 text-[#d4a017]/80'
+                  : 'border-white/[0.08] bg-white/[0.03] text-[#1a1a1a] hover:text-[#1a1a1a] hover:border-white/[0.15]'
               }`}
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
@@ -645,7 +645,7 @@ export function Transform3dSection() {
                   transition={{ duration: 0.2 }}
                   className="flex items-center gap-2 overflow-hidden"
                 >
-                  <Gauge className="w-3 h-3 text-white/30 flex-shrink-0" />
+                  <Gauge className="w-3 h-3 text-[#6b6356] flex-shrink-0" />
                   <input
                     type="range"
                     min={0.1}
@@ -655,10 +655,10 @@ export function Transform3dSection() {
                     onChange={(e) => setAutoSpeed(Number(e.target.value))}
                     className="w-20 h-1.5 rounded-full appearance-none cursor-pointer"
                     style={{
-                      background: `linear-gradient(to right, #10b981 0%, #06b6d4 ${((autoSpeed - 0.1) / 4.9) * 100}%, rgba(255,255,255,0.08) ${((autoSpeed - 0.1) / 4.9) * 100}%)`,
+                      background: `linear-gradient(to right, #d4a017 0%, #b8860b ${((autoSpeed - 0.1) / 4.9) * 100}%, rgba(26,26,26,0.08) ${((autoSpeed - 0.1) / 4.9) * 100}%)`,
                     }}
                   />
-                  <span className="text-[10px] font-mono text-white/30 tabular-nums w-6">
+                  <span className="text-[10px] font-mono text-[#6b6356] tabular-nums w-6">
                     {autoSpeed.toFixed(1)}×
                   </span>
                 </motion.div>
@@ -669,14 +669,14 @@ export function Transform3dSection() {
           <div className="flex items-center gap-2">
             <motion.button
               onClick={copyCSS}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/50 hover:text-white/80 hover:border-white/[0.15] transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-[#1a1a1a] hover:text-[#1a1a1a] hover:border-white/[0.15] transition-colors cursor-pointer"
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
             >
               {copied ? (
                 <>
-                  <Check className="w-3 h-3 text-emerald-400" />
-                  <span className="text-emerald-400">Copied!</span>
+                  <Check className="w-3 h-3 text-[#d4a017]" />
+                  <span className="text-[#d4a017]">Copied!</span>
                 </>
               ) : (
                 <>
@@ -699,7 +699,7 @@ export function Transform3dSection() {
             transition={{ duration: 0.5, delay: 0.15 }}
           >
             {/* Animated gradient border wrapper */}
-            <div className="relative rounded-xl overflow-hidden p-[1.5px]">
+            <div className="relative overflow-hidden p-[1.5px]">
               {/* Rotating gradient border */}
               <motion.div
                 className="absolute -inset-[200%]"
@@ -712,13 +712,13 @@ export function Transform3dSection() {
                 }}
                 style={{
                   background:
-                    'conic-gradient(from 0deg, rgba(168,85,247,0.5), rgba(6,182,212,0.3), rgba(16,185,129,0.5), rgba(236,72,153,0.3), rgba(168,85,247,0.5))',
+                    'conic-gradient(from 0deg, rgba(212,160,23,0.5), rgba(184,134,11,0.3), rgba(212,160,23,0.5), rgba(236,72,153,0.3), rgba(212,160,23,0.5))',
                 }}
               />
               {/* Inner content */}
-              <div className="relative rounded-[10px] bg-[#0a0a12] z-10 overflow-hidden">
+              <div className="relative bg-[#0a0a12] z-10 overflow-hidden">
                 {/* VS Code chrome */}
-                <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1a1a1a] bg-[#ebe5d0]">
                   <div className="flex items-center gap-2">
                     <div className="flex items-center gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
@@ -726,8 +726,8 @@ export function Transform3dSection() {
                       <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                     </div>
                     <div className="flex items-center gap-1.5 ml-3">
-                      <Eye className="w-3 h-3 text-white/30" />
-                      <span className="text-[10px] font-mono text-white/25">
+                      <Eye className="w-3 h-3 text-[#6b6356]" />
+                      <span className="text-[10px] font-mono text-[#6b6356]">
                         Live 3D Preview
                       </span>
                     </div>
@@ -736,7 +736,7 @@ export function Transform3dSection() {
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
                       <div className="w-2.5 h-[2px] bg-red-500 rounded" />
-                      <span className="text-[9px] font-mono text-red-400/50 tabular-nums">
+                      <span className="text-[9px] font-mono text-[#c23616]/50 tabular-nums">
                         {values.rotateX}°
                       </span>
                     </div>
@@ -773,7 +773,7 @@ export function Transform3dSection() {
                     className="absolute inset-0"
                     style={{
                       background:
-                        'radial-gradient(ellipse at center, rgba(168,85,247,0.04) 0%, transparent 60%)',
+                        'radial-gradient(ellipse at center, rgba(212,160,23,0.04) 0%, transparent 60%)',
                     }}
                   />
 
@@ -790,13 +790,13 @@ export function Transform3dSection() {
                       transform: 'rotateX(90deg)',
                       transformOrigin: 'center top',
                       backgroundImage: `
-                        linear-gradient(rgba(168,85,247,0.06) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(168,85,247,0.06) 1px, transparent 1px)
+                        linear-gradient(rgba(212,160,23,0.06) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(212,160,23,0.06) 1px, transparent 1px)
                       `,
                       backgroundSize: '20px 20px',
-                      maskImage: 'radial-gradient(ellipse 70% 70% at center, black 20%, transparent 80%)',
+                      maskImage: 'radial-gradient(ellipse 70% 70% at center, rgba(26,26,26,0.2) 20%, transparent 80%)',
                       WebkitMaskImage:
-                        'radial-gradient(ellipse 70% 70% at center, black 20%, transparent 80%)',
+                        'radial-gradient(ellipse 70% 70% at center, rgba(26,26,26,0.2) 20%, transparent 80%)',
                     }}
                   />
 
@@ -811,7 +811,7 @@ export function Transform3dSection() {
                       marginLeft: '-70px',
                       marginTop: '72px',
                       background:
-                        'radial-gradient(ellipse, rgba(168,85,247,0.2) 0%, rgba(6,182,212,0.1) 40%, transparent 70%)',
+                        'radial-gradient(ellipse, rgba(212,160,23,0.2) 0%, rgba(184,134,11,0.1) 40%, transparent 70%)',
                       filter: 'blur(10px)',
                       transform: `translateX(${Math.sin((values.rotateY * Math.PI) / 180) * 20}px)`,
                     }}
@@ -842,7 +842,7 @@ export function Transform3dSection() {
                           backfaceVisibility: values.backfaceVisibility,
                         }}
                       >
-                        <span className="text-[10px] font-mono font-bold text-white/80 select-none drop-shadow-lg">
+                        <span className="text-[10px] font-mono font-bold text-[#1a1a1a] select-none drop-shadow-lg">
                           {face.name}
                         </span>
                       </div>
@@ -854,7 +854,7 @@ export function Transform3dSection() {
                 <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.06] bg-white/[0.02]">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[10px] font-mono text-white/25">
+                      <span className="text-[10px] font-mono text-[#6b6356]">
                         transform-style
                       </span>
                       <ToggleGroup
@@ -868,7 +868,7 @@ export function Transform3dSection() {
                     </div>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] font-mono text-white/25">
+                    <span className="text-[10px] font-mono text-[#6b6356]">
                       backface
                     </span>
                     <ToggleGroup
@@ -894,14 +894,14 @@ export function Transform3dSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             {/* Transform Controls */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
-                <Sparkles className="w-3.5 h-3.5 text-purple-400/70" />
-                <span className="text-xs font-mono text-white/50">
+            <div className="rounded-none border border-white/[0.06] bg-white/[0.02]  overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]">
+                <Sparkles className="w-3.5 h-3.5 text-[#6b6356]/70" />
+                <span className="text-xs font-mono text-[#1a1a1a]">
                   Transform Controls
                 </span>
                 {hasChanges && (
-                  <span className="ml-auto text-[10px] font-mono text-cyan-400/50">
+                  <span className="ml-auto text-[10px] font-mono text-[#b8860b]/50">
                     {activeCount} active
                   </span>
                 )}
@@ -913,21 +913,21 @@ export function Transform3dSection() {
                   return (
                     <div key={`t3d-slider-${config.key}`}>
                       {showGroup && (
-                        <div className="text-[10px] font-mono text-purple-400/40 uppercase tracking-wider mb-3 flex items-center gap-2">
-                          <div className="w-4 h-[1px] bg-purple-500/20" />
+                        <div className="text-[10px] font-mono text-[#6b6356]/40 uppercase tracking-wider mb-3 flex items-center gap-2">
+                          <div className="w-4 h-[1px] bg-[#d4a017]/20" />
                           {config.group}
                           {config.group === 'Rotation' && (
-                            <span className="text-white/15 normal-case">
+                            <span className="text-[#6b6356] normal-case">
                               — X / Y / Z
                             </span>
                           )}
                           {config.group === 'Translation' && (
-                            <span className="text-white/15 normal-case">
+                            <span className="text-[#6b6356] normal-case">
                               — X / Y / Z
                             </span>
                           )}
                           {config.group === 'Scale' && (
-                            <span className="text-white/15 normal-case">
+                            <span className="text-[#6b6356] normal-case">
                               — X / Y / Z
                             </span>
                           )}
@@ -946,16 +946,16 @@ export function Transform3dSection() {
 
             {/* Presets */}
             <motion.div
-              className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden"
+              className="rounded-none border border-white/[0.06] bg-white/[0.02]  overflow-hidden"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.3 }}
             >
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400/70" />
-                <span className="text-xs font-mono text-white/50">Presets</span>
-                <span className="text-[10px] font-mono text-white/20 ml-1">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]">
+                <Sparkles className="w-3.5 h-3.5 text-[#b8860b]/70" />
+                <span className="text-xs font-mono text-[#1a1a1a]">Presets</span>
+                <span className="text-[10px] font-mono text-[#6b6356] ml-1">
                   ({PRESETS.length})
                 </span>
               </div>
@@ -968,7 +968,7 @@ export function Transform3dSection() {
                       onClick={() => applyPreset(preset)}
                       className={`group flex flex-col items-center gap-2 p-2.5 rounded-lg border transition-all cursor-pointer ${
                         isActive
-                          ? 'border-purple-500/40 bg-purple-500/[0.08]'
+                          ? 'border-[#6b6356]/20 bg-[#ebe5d0]'
                           : 'border-white/[0.04] hover:border-white/[0.12] bg-white/[0.01] hover:bg-white/[0.04]'
                       }`}
                       whileHover={{ y: -2, scale: 1.02 }}
@@ -1009,8 +1009,8 @@ export function Transform3dSection() {
                             className="absolute inset-0 rounded-sm"
                             style={{
                               transform: 'translateZ(12px)',
-                              background: 'rgba(168,85,247,0.6)',
-                              border: '1px solid rgba(168,85,247,0.4)',
+                              background: 'rgba(212,160,23,0.6)',
+                              border: '1px solid rgba(212,160,23,0.4)',
                             }}
                           />
                           {/* Mini top face */}
@@ -1036,8 +1036,8 @@ export function Transform3dSection() {
                       <span
                         className={`text-[9px] font-mono truncate w-full text-center transition-colors ${
                           isActive
-                            ? 'text-purple-400'
-                            : 'text-white/30 group-hover:text-white/50'
+                            ? 'text-[#6b6356]'
+                            : 'text-[#6b6356] group-hover:text-[#1a1a1a]'
                         }`}
                       >
                         {preset.name}
@@ -1052,30 +1052,30 @@ export function Transform3dSection() {
 
         {/* ──── CSS Output Panel ──── */}
         <motion.div
-          className="mt-6 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden"
+          className="mt-6 rounded-none border border-white/[0.06] bg-white/[0.02]  overflow-hidden"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.25 }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1a1a1a] bg-[#ebe5d0]">
             <div className="flex items-center gap-2">
-              <Code2 className="w-3.5 h-3.5 text-purple-400/70" />
-              <span className="text-[10px] font-mono text-white/25">
+              <Code2 className="w-3.5 h-3.5 text-[#6b6356]/70" />
+              <span className="text-[10px] font-mono text-[#6b6356]">
                 Generated CSS
               </span>
             </div>
             <motion.button
               onClick={copyCSS}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-white/40 hover:text-white/70 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.06] transition-all cursor-pointer"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-[#6b6356] hover:text-[#1a1a1a] border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.06] transition-all cursor-pointer"
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.95 }}
             >
               {copied ? (
                 <>
-                  <Check className="w-3 h-3 text-emerald-400" />
-                  <span className="text-emerald-400">Copied!</span>
+                  <Check className="w-3 h-3 text-[#d4a017]" />
+                  <span className="text-[#d4a017]">Copied!</span>
                 </>
               ) : (
                 <>
@@ -1092,14 +1092,14 @@ export function Transform3dSection() {
               <code>
                 {codeLines.map((line, i) => (
                   <div key={`t3d-code-${i}`} className="flex">
-                    <span className="text-white/10 w-8 text-right mr-4 select-none">
+                    <span className="text-[#6b6356] w-8 text-right mr-4 select-none">
                       {i + 1}
                     </span>
                     <span>
                       {line.tokens.map((token, j) => (
                         <span
                           key={`t3d-token-${i}-${j}`}
-                          className={token.cls || 'text-white/50'}
+                          className={token.cls || 'text-[#1a1a1a]'}
                         >
                           {token.text}
                         </span>
@@ -1120,13 +1120,13 @@ export function Transform3dSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] text-[11px] font-mono text-white/25">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02] text-[11px] font-mono text-[#6b6356]">
             <span>9 Properties</span>
-            <span className="text-purple-500/40">/</span>
+            <span className="text-[#6b6356]">/</span>
             <span>8 Presets</span>
-            <span className="text-purple-500/40">/</span>
+            <span className="text-[#6b6356]">/</span>
             <span>Live 3D</span>
-            <span className="text-purple-500/40">/</span>
+            <span className="text-[#6b6356]">/</span>
             <span>CSS Export</span>
           </div>
         </motion.div>

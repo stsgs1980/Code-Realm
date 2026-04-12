@@ -157,7 +157,7 @@ function FloatingDecorations() {
             left: `${item.left}%`,
             top: `${item.top}%`,
             fontSize: `${item.size}px`,
-            color: 'rgba(255,255,255,0.022)',
+            color: 'rgba(180, 128, 23, 0.06)',
           }}
           animate={{
             y: [0, -10, 0, 7, 0],
@@ -200,7 +200,7 @@ function VisualRuler({ pxValue }: { pxValue: number }) {
   return (
     <div className="w-full space-y-2">
       {/* Ruler bar */}
-      <div className="relative w-full h-8 rounded-lg bg-white/[0.03] border border-white/[0.06] overflow-hidden">
+      <div className="relative w-full h-8 bg-[#ebe5d0] border border-[#1a1a1a] overflow-hidden">
         {/* Reference fill (baseline) */}
         <div className="absolute inset-y-0 left-0 right-0 bg-white/[0.02]" />
 
@@ -208,8 +208,8 @@ function VisualRuler({ pxValue }: { pxValue: number }) {
         <motion.div
           className="absolute inset-y-0 left-0 rounded-lg"
           style={{
-            background: 'linear-gradient(90deg, rgba(16,185,129,0.25), rgba(6,182,212,0.25))',
-            borderRight: '2px solid #10b981',
+            background: 'linear-gradient(90deg, rgba(212,160,23,0.3), rgba(184,134,11,0.3))',
+            borderRight: '2px solid #d4a017',
           }}
           animate={{ width: `${Math.min(percentage, 100)}%` }}
           transition={{ type: 'spring', stiffness: 200, damping: 25 }}
@@ -237,12 +237,12 @@ function VisualRuler({ pxValue }: { pxValue: number }) {
         {/* Value label on bar */}
         {clampedValue > 20 && (
           <motion.div
-            className="absolute top-1/2 -translate-y-1/2 flex items-center gap-1 text-[10px] font-mono text-white/80 whitespace-nowrap"
+            className="absolute top-1/2 -translate-y-1/2 flex items-center gap-1 text-[10px] font-mono text-[#1a1a1a] whitespace-nowrap"
             animate={{ left: `${Math.min(percentage, 100) - 2}%` }}
             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
           >
             <span
-              className="px-1.5 py-0.5 rounded bg-emerald-500/30 border border-emerald-500/40"
+              className="px-1.5 py-0.5 rounded bg-[#2d6a4f]/15 border border-[#d4a017]/40"
               style={{ transform: 'translateX(-100%)' }}
             >
               {formatValue(pxValue, 'px')}px
@@ -253,11 +253,11 @@ function VisualRuler({ pxValue }: { pxValue: number }) {
 
       {/* Labels */}
       <div className="flex justify-between px-0.5">
-        <span className="font-mono text-[10px] text-white/20">0px</span>
-        <span className="font-mono text-[10px] text-white/20">50px</span>
-        <span className="font-mono text-[10px] text-white/20">100px</span>
-        <span className="font-mono text-[10px] text-white/20">150px</span>
-        <span className="font-mono text-[10px] text-white/20">200px</span>
+        <span className="font-mono text-[10px] text-[#6b6356]">0px</span>
+        <span className="font-mono text-[10px] text-[#6b6356]">50px</span>
+        <span className="font-mono text-[10px] text-[#6b6356]">100px</span>
+        <span className="font-mono text-[10px] text-[#6b6356]">150px</span>
+        <span className="font-mono text-[10px] text-[#6b6356]">200px</span>
       </div>
     </div>
   );
@@ -284,10 +284,10 @@ function ConversionRow({
 
   return (
     <motion.div
-      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors group ${
+      className={`flex items-center gap-3 px-3 py-2.5 transition-colors group ${
         isInput
-          ? 'bg-emerald-500/[0.08] border border-emerald-500/20'
-          : 'bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] hover:border-white/[0.08]'
+          ? 'bg-[#d4a017]/10 border border-[#d4a017]/20'
+          : 'bg-white/[0.02] border border-white/[0.04] hover:bg-[#ebe5d0]/80 hover:border-[#1a1a1a]'
       }`}
       whileHover={!isInput ? { x: 2 } : undefined}
       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -296,8 +296,8 @@ function ConversionRow({
       <div
         className={`shrink-0 w-12 text-center font-mono text-xs font-bold px-2 py-1 rounded-md ${
           isInput
-            ? 'bg-emerald-500/20 text-emerald-400'
-            : 'bg-white/[0.05] text-white/50 group-hover:text-white/70'
+            ? 'bg-[#d4a017]/20 text-[#d4a017]'
+            : 'bg-white/[0.05] text-[#1a1a1a] group-hover:text-[#1a1a1a]'
         }`}
       >
         {result.unit}
@@ -305,10 +305,10 @@ function ConversionRow({
 
       {/* Value */}
       <div className="flex-1 min-w-0">
-        <div className={`font-mono text-sm truncate ${isInput ? 'text-white font-bold' : 'text-white/70'}`}>
+        <div className={`font-mono text-sm truncate ${isInput ? 'text-white font-bold' : 'text-[#1a1a1a]'}`}>
           {result.formatted}
         </div>
-        <div className="font-mono text-[10px] text-white/25 mt-0.5">
+        <div className="font-mono text-[10px] text-[#6b6356] mt-0.5">
           {unitInfo.description}
         </div>
       </div>
@@ -316,7 +316,7 @@ function ConversionRow({
       {/* PX equivalent hint */}
       {!isInput && (
         <div className="hidden sm:block shrink-0">
-          <span className="font-mono text-[10px] text-white/20 px-2 py-0.5 rounded bg-white/[0.03]">
+          <span className="font-mono text-[10px] text-[#6b6356] px-2 py-0.5 rounded bg-white/[0.03]">
             ≈ {formatValue(pxValue, 'px')}px
           </span>
         </div>
@@ -350,9 +350,9 @@ function CopyIcon({ unit }: { unit: CSSUnit }) {
   // Listen for parent-triggered copy events via a key trick
   // Instead, the parent passes the copiedUnit state
   return copied ? (
-    <Check className="w-3.5 h-3.5 text-emerald-400" />
+    <Check className="w-3.5 h-3.5 text-[#d4a017]" />
   ) : (
-    <Copy className="w-3.5 h-3.5 text-white/30" />
+    <Copy className="w-3.5 h-3.5 text-[#6b6356]" />
   );
 }
 
@@ -367,67 +367,67 @@ function TypographyScale({ pxValue }: { pxValue: number }) {
     <div className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {/* Font-size preview */}
-        <div className="rounded-xl p-4 border border-white/[0.06] bg-white/[0.02]">
+        <div className="p-4 border border-[#1a1a1a] bg-[#ebe5d0]">
           <div className="flex items-center gap-2 mb-3">
-            <Type className="w-3.5 h-3.5 text-emerald-400/60" />
-            <span className="font-mono text-[11px] text-white/35 uppercase tracking-wider">Font Size</span>
+            <Type className="w-3.5 h-3.5 text-[#d4a017]/60" />
+            <span className="font-mono text-[11px] text-[#6b6356] uppercase tracking-wider">Font Size</span>
           </div>
           <div
-            className="text-white/80 font-medium leading-tight overflow-hidden"
+            className="text-[#1a1a1a] font-medium leading-tight overflow-hidden"
             style={{ fontSize: `${clamped}px` }}
           >
             Aa Bb Cc
           </div>
-          <div className="font-mono text-[10px] text-white/20 mt-2">
+          <div className="font-mono text-[10px] text-[#6b6356] mt-2">
             font-size: {formatValue(clamped, 'px')}px
           </div>
         </div>
 
         {/* Padding preview */}
-        <div className="rounded-xl p-4 border border-white/[0.06] bg-white/[0.02]">
+        <div className="p-4 border border-[#1a1a1a] bg-[#ebe5d0]">
           <div className="flex items-center gap-2 mb-3">
-            <Maximize className="w-3.5 h-3.5 text-cyan-400/60" />
-            <span className="font-mono text-[11px] text-white/35 uppercase tracking-wider">Padding</span>
+            <Maximize className="w-3.5 h-3.5 text-[#b8860b]/60" />
+            <span className="font-mono text-[11px] text-[#6b6356] uppercase tracking-wider">Padding</span>
           </div>
           <div className="flex items-center justify-center">
             <div
-              className="rounded-lg bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/20 flex items-center justify-center min-h-[40px] transition-all duration-300"
+              className="rounded-lg bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-[#d4a017]/20 flex items-center justify-center min-h-[40px] transition-all duration-300"
               style={{ padding: `${Math.min(clamped, 48)}px` }}
             >
               <div className="w-6 h-6 rounded bg-white/10" />
             </div>
           </div>
-          <div className="font-mono text-[10px] text-white/20 mt-2">
+          <div className="font-mono text-[10px] text-[#6b6356] mt-2">
             padding: {formatValue(clamped, 'px')}px
           </div>
         </div>
 
         {/* Margin preview */}
-        <div className="rounded-xl p-4 border border-white/[0.06] bg-white/[0.02]">
+        <div className="p-4 border border-[#1a1a1a] bg-[#ebe5d0]">
           <div className="flex items-center gap-2 mb-3">
-            <ArrowRightLeft className="w-3.5 h-3.5 text-emerald-400/60" />
-            <span className="font-mono text-[11px] text-white/35 uppercase tracking-wider">Margin</span>
+            <ArrowRightLeft className="w-3.5 h-3.5 text-[#d4a017]/60" />
+            <span className="font-mono text-[11px] text-[#6b6356] uppercase tracking-wider">Margin</span>
           </div>
           <div className="flex items-center justify-center">
             <div
               className="relative"
               style={{ margin: `${Math.min(clamped, 48)}px` }}
             >
-              <div className="w-10 h-10 rounded bg-emerald-500/20 border border-emerald-500/20" />
+              <div className="w-10 h-10 rounded bg-[#d4a017]/20 border border-[#d4a017]/20" />
               {/* Margin visualization lines */}
               <div className="absolute inset-0 -z-10 border border-dashed border-white/[0.08] rounded" />
             </div>
           </div>
-          <div className="font-mono text-[10px] text-white/20 mt-2">
+          <div className="font-mono text-[10px] text-[#6b6356] mt-2">
             margin: {formatValue(clamped, 'px')}px
           </div>
         </div>
 
         {/* Border-radius preview */}
-        <div className="rounded-xl p-4 border border-white/[0.06] bg-white/[0.02]">
+        <div className="p-4 border border-[#1a1a1a] bg-[#ebe5d0]">
           <div className="flex items-center gap-2 mb-3">
-            <Settings2 className="w-3.5 h-3.5 text-cyan-400/60" />
-            <span className="font-mono text-[11px] text-white/35 uppercase tracking-wider">Border Radius</span>
+            <Settings2 className="w-3.5 h-3.5 text-[#b8860b]/60" />
+            <span className="font-mono text-[11px] text-[#6b6356] uppercase tracking-wider">Border Radius</span>
           </div>
           <div className="flex items-center justify-center">
             <div
@@ -435,7 +435,7 @@ function TypographyScale({ pxValue }: { pxValue: number }) {
               style={{ borderRadius: `${Math.min(clamped, 80)}px` }}
             />
           </div>
-          <div className="font-mono text-[10px] text-white/20 mt-2">
+          <div className="font-mono text-[10px] text-[#6b6356] mt-2">
             border-radius: {formatValue(clamped, 'px')}px
           </div>
         </div>
@@ -527,7 +527,7 @@ export function UnitConverterSection() {
       id="units"
       className="relative w-full overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0a0a0a 0%, #0a1418 50%, #0a0a0a 100%)',
+        background: '#f5f0e1',
         minHeight: '100vh',
       }}
     >
@@ -539,8 +539,8 @@ export function UnitConverterSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)
+            linear-gradient(rgba(180,128,23,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(180,128,23,0.06) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }}
@@ -550,7 +550,7 @@ export function UnitConverterSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 50%, rgba(180,128,23,0.06) 100%)',
         }}
       />
 
@@ -564,9 +564,9 @@ export function UnitConverterSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] mb-6 section-badge-glow">
-              <Ruler className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="text-xs font-mono text-cyan-400/80 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-none border border-[#1a1a1a] bg-[#ebe5d0] mb-6">
+              <Ruler className="w-3.5 h-3.5 text-[#b8860b]" />
+              <span className="text-xs font-mono text-[#b8860b]/80 uppercase tracking-widest">
                 CSS Tool
               </span>
             </div>
@@ -574,7 +574,7 @@ export function UnitConverterSection() {
             <h2
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
               style={{
-                background: 'linear-gradient(135deg, #10b981, #06b6d4, #10b981)',
+                background: 'linear-gradient(135deg, #d4a017, #b8860b, #d4a017)',
                 backgroundSize: '200% 200%',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -584,7 +584,7 @@ export function UnitConverterSection() {
               Unit Converter
             </h2>
 
-            <p className="font-mono text-sm sm:text-base text-white/30 tracking-wide max-w-lg mx-auto">
+            <p className="font-mono text-sm sm:text-base text-[#6b6356] tracking-wide max-w-lg mx-auto">
               Convert between CSS units with live preview and visual context
             </p>
           </motion.div>
@@ -602,12 +602,12 @@ export function UnitConverterSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <RotateCcw className="w-4 h-4 text-emerald-400/60" />
-              <h3 className="font-mono text-sm text-white/40 tracking-widest uppercase">Quick Presets</h3>
+              <RotateCcw className="w-4 h-4 text-[#d4a017]/60" />
+              <h3 className="font-mono text-sm text-[#6b6356] tracking-widest uppercase">Quick Presets</h3>
               <div className="flex-1 h-px bg-gradient-to-r from-emerald-500/20 to-transparent" />
               <motion.button
                 onClick={handleReset}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/40 hover:text-white/60 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-[#6b6356] hover:text-[#6b6356] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 aria-label="Reset all values"
@@ -624,8 +624,8 @@ export function UnitConverterSection() {
                   onClick={() => handlePreset(val)}
                   className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all ${
                     inputValue === String(val) && inputUnit === 'px'
-                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                      : 'bg-white/[0.03] text-white/40 border border-white/[0.06] hover:bg-white/[0.06] hover:text-white/60 hover:border-white/[0.12]'
+                      ? 'bg-[#d4a017]/20 text-[#d4a017] border border-[#d4a017]/30'
+                      : 'bg-white/[0.03] text-[#6b6356] border border-white/[0.06] hover:bg-white/[0.06] hover:text-[#6b6356] hover:border-white/[0.12]'
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -648,14 +648,14 @@ export function UnitConverterSection() {
               transition={{ duration: 0.5, delay: 0.15 }}
             >
               {/* Input Panel */}
-              <div className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col bg-white/[0.03] backdrop-blur-xl">
+              <div className="overflow-hidden border border-[#1a1a1a] flex flex-col bg-[#ebe5d0]">
                 {/* Panel header */}
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                  <span className="font-mono text-[11px] text-white/30 ml-2 flex items-center gap-1.5">
-                    <ArrowRightLeft className="w-3 h-3 text-white/25" />
+                  <span className="font-mono text-[11px] text-[#6b6356] ml-2 flex items-center gap-1.5">
+                    <ArrowRightLeft className="w-3 h-3 text-[#6b6356]" />
                     Input
                   </span>
 
@@ -666,8 +666,8 @@ export function UnitConverterSection() {
                     onClick={() => setShowSettings((p) => !p)}
                     className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono transition-colors ${
                       showSettings
-                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                        : 'text-white/30 hover:text-white/50 hover:bg-white/[0.06]'
+                        ? 'bg-[#d4a017]/10 text-[#d4a017] border border-[#d4a017]/20'
+                        : 'text-[#6b6356] hover:text-[#1a1a1a] hover:bg-white/[0.06]'
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -689,20 +689,20 @@ export function UnitConverterSection() {
                         transition={{ duration: 0.2 }}
                         className="overflow-hidden"
                       >
-                        <div className="rounded-xl p-4 bg-white/[0.02] border border-white/[0.06] space-y-4 mb-4">
-                          <div className="font-mono text-[11px] text-white/40 uppercase tracking-wider mb-3 flex items-center gap-2">
-                            <Settings2 className="w-3 h-3 text-cyan-400/50" />
+                        <div className="border border-[#1a1a1a] bg-[#ebe5d0] p-4 space-y-4 mb-4">
+                          <div className="font-mono text-[11px] text-[#6b6356] uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <Settings2 className="w-3 h-3 text-[#b8860b]/50" />
                             Base Settings
                           </div>
 
                           {/* Base Font Size */}
                           <div>
                             <div className="flex items-center justify-between mb-1.5">
-                              <label className="font-mono text-xs text-white/40 flex items-center gap-1.5">
-                                <Type className="w-3 h-3 text-emerald-400/50" />
+                              <label className="font-mono text-xs text-[#6b6356] flex items-center gap-1.5">
+                                <Type className="w-3 h-3 text-[#d4a017]/50" />
                                 Base Font Size
                               </label>
-                              <span className="font-mono text-xs text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                              <span className="font-mono text-xs text-[#d4a017]/80 bg-[#d4a017]/10 px-2 py-0.5 rounded-md">
                                 {baseFontSize}px
                               </span>
                             </div>
@@ -715,24 +715,24 @@ export function UnitConverterSection() {
                               onChange={(e) => setBaseFontSize(Number(e.target.value))}
                               className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                               style={{
-                                background: `linear-gradient(90deg, rgba(16,185,129,0.3), rgba(6,182,212,0.3))`,
+                                background: `linear-gradient(90deg, #d4a017, #b8860b)`,
                               }}
                               aria-label="Base font size"
                             />
                             <div className="flex justify-between mt-1">
-                              <span className="font-mono text-[10px] text-white/20">8px</span>
-                              <span className="font-mono text-[10px] text-white/20">32px</span>
+                              <span className="font-mono text-[10px] text-[#6b6356]">8px</span>
+                              <span className="font-mono text-[10px] text-[#6b6356]">32px</span>
                             </div>
                           </div>
 
                           {/* Viewport Width */}
                           <div>
                             <div className="flex items-center justify-between mb-1.5">
-                              <label className="font-mono text-xs text-white/40 flex items-center gap-1.5">
-                                <Maximize className="w-3 h-3 text-cyan-400/50" />
+                              <label className="font-mono text-xs text-[#6b6356] flex items-center gap-1.5">
+                                <Maximize className="w-3 h-3 text-[#b8860b]/50" />
                                 Viewport Width
                               </label>
-                              <span className="font-mono text-xs text-cyan-400/80 bg-cyan-500/10 px-2 py-0.5 rounded-md">
+                              <span className="font-mono text-xs text-[#b8860b]/80 bg-[#b8860b]/10 px-2 py-0.5 rounded-md">
                                 {viewportWidth}px
                               </span>
                             </div>
@@ -745,24 +745,24 @@ export function UnitConverterSection() {
                               onChange={(e) => setViewportWidth(Number(e.target.value))}
                               className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                               style={{
-                                background: `linear-gradient(90deg, rgba(6,182,212,0.3), rgba(16,185,129,0.3))`,
+                                background: `linear-gradient(90deg, #b8860b, #d4a017)`,
                               }}
                               aria-label="Viewport width"
                             />
                             <div className="flex justify-between mt-1">
-                              <span className="font-mono text-[10px] text-white/20">320px</span>
-                              <span className="font-mono text-[10px] text-white/20">3840px</span>
+                              <span className="font-mono text-[10px] text-[#6b6356]">320px</span>
+                              <span className="font-mono text-[10px] text-[#6b6356]">3840px</span>
                             </div>
                           </div>
 
                           {/* Viewport Height */}
                           <div>
                             <div className="flex items-center justify-between mb-1.5">
-                              <label className="font-mono text-xs text-white/40 flex items-center gap-1.5">
-                                <Maximize className="w-3 h-3 text-emerald-400/50" />
+                              <label className="font-mono text-xs text-[#6b6356] flex items-center gap-1.5">
+                                <Maximize className="w-3 h-3 text-[#d4a017]/50" />
                                 Viewport Height
                               </label>
-                              <span className="font-mono text-xs text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                              <span className="font-mono text-xs text-[#d4a017]/80 bg-[#d4a017]/10 px-2 py-0.5 rounded-md">
                                 {viewportHeight}px
                               </span>
                             </div>
@@ -775,13 +775,13 @@ export function UnitConverterSection() {
                               onChange={(e) => setViewportHeight(Number(e.target.value))}
                               className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                               style={{
-                                background: `linear-gradient(90deg, rgba(16,185,129,0.3), rgba(6,182,212,0.3))`,
+                                background: `linear-gradient(90deg, #d4a017, #b8860b)`,
                               }}
                               aria-label="Viewport height"
                             />
                             <div className="flex justify-between mt-1">
-                              <span className="font-mono text-[10px] text-white/20">240px</span>
-                              <span className="font-mono text-[10px] text-white/20">2160px</span>
+                              <span className="font-mono text-[10px] text-[#6b6356]">240px</span>
+                              <span className="font-mono text-[10px] text-[#6b6356]">2160px</span>
                             </div>
                           </div>
                         </div>
@@ -792,27 +792,27 @@ export function UnitConverterSection() {
                   {/* Value Input + Unit Selector */}
                   <div className="flex gap-3">
                     <div className="flex-1">
-                      <label className="font-mono text-[11px] text-white/30 uppercase tracking-wider mb-2 block">
+                      <label className="font-mono text-[11px] text-[#6b6356] uppercase tracking-wider mb-2 block">
                         Value
                       </label>
                       <input
                         type="number"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white font-mono text-lg focus:outline-none focus:border-emerald-500/40 focus:ring-1 focus:ring-emerald-500/20 transition-all placeholder:text-white/15"
+                        className="w-full px-4 py-3 rounded-xl bg-[#ebe5d0] border border-[#1a1a1a] text-[#1a1a1a] font-mono text-lg focus:outline-none focus:border-[#d4a017]/40 focus:ring-1 focus:ring-[#d4a017]/20 transition-all placeholder:text-[#6b6356]"
                         placeholder="Enter value..."
                         aria-label="Value to convert"
                       />
                     </div>
 
                     <div className="w-[140px]">
-                      <label className="font-mono text-[11px] text-white/30 uppercase tracking-wider mb-2 block">
+                      <label className="font-mono text-[11px] text-[#6b6356] uppercase tracking-wider mb-2 block">
                         Unit
                       </label>
                       <select
                         value={inputUnit}
                         onChange={(e) => setInputUnit(e.target.value as CSSUnit)}
-                        className="w-full px-3 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white font-mono text-sm focus:outline-none focus:border-emerald-500/40 focus:ring-1 focus:ring-emerald-500/20 transition-all appearance-none cursor-pointer"
+                        className="w-full px-3 py-3 rounded-xl bg-[#ebe5d0] border border-[#1a1a1a] text-[#1a1a1a] font-mono text-sm focus:outline-none focus:border-[#d4a017]/40 focus:ring-1 focus:ring-[#d4a017]/20 transition-all appearance-none cursor-pointer"
                         aria-label="Input unit"
                         style={{
                           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.3)' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
@@ -832,12 +832,12 @@ export function UnitConverterSection() {
                   {/* Copy input value button */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-                      <span className="font-mono text-[10px] text-white/20">Live conversion</span>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#d4a017]" />
+                      <span className="font-mono text-[10px] text-[#6b6356]">Live conversion</span>
                     </div>
                     <motion.button
                       onClick={() => handleCopy(inputText, inputUnit)}
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-mono text-white/40 hover:text-white/70 hover:bg-white/[0.06] transition-colors"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-mono text-[#6b6356] hover:text-[#1a1a1a] hover:bg-white/[0.06] transition-colors"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -848,7 +848,7 @@ export function UnitConverterSection() {
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0, opacity: 0 }}
-                            className="flex items-center gap-1.5 text-emerald-400"
+                            className="flex items-center gap-1.5 text-[#d4a017]"
                           >
                             <Check className="w-3.5 h-3.5" />
                             Copied!
@@ -872,13 +872,13 @@ export function UnitConverterSection() {
               </div>
 
               {/* Conversion Results */}
-              <div className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col bg-white/[0.03] backdrop-blur-xl">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+              <div className="overflow-hidden border border-[#1a1a1a] flex flex-col bg-[#ebe5d0]">
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                  <span className="font-mono text-[11px] text-white/30 ml-2 flex items-center gap-1.5">
-                    <Ruler className="w-3 h-3 text-white/25" />
+                  <span className="font-mono text-[11px] text-[#6b6356] ml-2 flex items-center gap-1.5">
+                    <Ruler className="w-3 h-3 text-[#6b6356]" />
                     Conversions
                   </span>
                 </div>
@@ -906,7 +906,7 @@ export function UnitConverterSection() {
                             exit={{ opacity: 0, y: -4, height: 0 }}
                             className="ml-[60px] mt-1 mb-1"
                           >
-                            <span className="font-mono text-[10px] text-emerald-400/70 flex items-center gap-1">
+                            <span className="font-mono text-[10px] text-[#d4a017]/70 flex items-center gap-1">
                               <Check className="w-3 h-3" />
                               Copied {result.formatted}{result.unit}
                             </span>
@@ -918,12 +918,12 @@ export function UnitConverterSection() {
                 </div>
 
                 {/* Panel footer */}
-                <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
+                <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a] bg-[#ebe5d0]">
                   <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-                    <span className="font-mono text-[10px] text-white/20">10 units</span>
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#d4a017]" />
+                    <span className="font-mono text-[10px] text-[#6b6356]">10 units</span>
                   </div>
-                  <span className="font-mono text-[10px] text-white/15">Click to copy</span>
+                  <span className="font-mono text-[10px] text-[#6b6356]">Click to copy</span>
                 </div>
               </div>
             </motion.div>
@@ -937,13 +937,13 @@ export function UnitConverterSection() {
               transition={{ duration: 0.5, delay: 0.25 }}
             >
               {/* Visual Ruler */}
-              <div className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col bg-white/[0.03] backdrop-blur-xl">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+              <div className="overflow-hidden border border-[#1a1a1a] flex flex-col bg-[#ebe5d0]">
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                  <span className="font-mono text-[11px] text-white/30 ml-2 flex items-center gap-1.5">
-                    <Ruler className="w-3 h-3 text-white/25" />
+                  <span className="font-mono text-[11px] text-[#6b6356] ml-2 flex items-center gap-1.5">
+                    <Ruler className="w-3 h-3 text-[#6b6356]" />
                     Visual Ruler
                   </span>
                 </div>
@@ -954,35 +954,35 @@ export function UnitConverterSection() {
                   {/* Size comparison info */}
                   <div className="mt-4 grid grid-cols-3 gap-2">
                     <div className="text-center p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                      <div className="font-mono text-lg font-bold text-emerald-400/80 counter-glow">
+                      <div className="font-mono text-lg font-bold text-[#d4a017]/80 counter-glow">
                         {formatValue(pxValue, 'px')}
                       </div>
-                      <div className="font-mono text-[10px] text-white/25 mt-0.5">pixels</div>
+                      <div className="font-mono text-[10px] text-[#6b6356] mt-0.5">pixels</div>
                     </div>
                     <div className="text-center p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                      <div className="font-mono text-lg font-bold text-cyan-400/80 counter-glow">
+                      <div className="font-mono text-lg font-bold text-[#b8860b]/80 counter-glow">
                         {formatValue(pxValue / baseFontSize, 'rem')}
                       </div>
-                      <div className="font-mono text-[10px] text-white/25 mt-0.5">rems</div>
+                      <div className="font-mono text-[10px] text-[#6b6356] mt-0.5">rems</div>
                     </div>
                     <div className="text-center p-2 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                      <div className="font-mono text-lg font-bold text-white/50 counter-glow">
+                      <div className="font-mono text-lg font-bold text-[#1a1a1a] counter-glow">
                         {formatValue(pxValue * 0.75, 'pt')}
                       </div>
-                      <div className="font-mono text-[10px] text-white/25 mt-0.5">points</div>
+                      <div className="font-mono text-[10px] text-[#6b6356] mt-0.5">points</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Typography Scale */}
-              <div className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col bg-white/[0.03] backdrop-blur-xl">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+              <div className="overflow-hidden border border-[#1a1a1a] flex flex-col bg-[#ebe5d0]">
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                  <span className="font-mono text-[11px] text-white/30 ml-2 flex items-center gap-1.5">
-                    <Type className="w-3 h-3 text-white/25" />
+                  <span className="font-mono text-[11px] text-[#6b6356] ml-2 flex items-center gap-1.5">
+                    <Type className="w-3 h-3 text-[#6b6356]" />
                     Typography Scale
                   </span>
                 </div>
@@ -1014,8 +1014,8 @@ export function UnitConverterSection() {
                 {i > 0 && (
                   <div className="w-1 h-1 rounded-full bg-white/10 mr-2" />
                 )}
-                <item.icon className="w-3.5 h-3.5 text-white/20" />
-                <span className="font-mono text-[11px] text-white/30">{item.text}</span>
+                <item.icon className="w-3.5 h-3.5 text-[#6b6356]" />
+                <span className="font-mono text-[11px] text-[#6b6356]">{item.text}</span>
               </div>
             ))}
           </motion.div>

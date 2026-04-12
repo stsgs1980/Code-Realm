@@ -585,20 +585,20 @@ export function TerminalSection() {
   // ─── Render ──────────────────────────────────────────────────────────────
 
   return (
-    <section className="w-full py-8 md:py-12" style={{ background: '#050505' }}>
+    <section className="w-full py-8 md:py-12" style={{ backgroundColor: '#f5f0e1' }}>
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-6 md:mb-8">
-          <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 rounded-full border border-[#1a1a1a] bg-[#0a0a0a]">
-            <Terminal className="w-4 h-4" style={{ color: tc.text }} />
-            <span className="text-xs font-mono uppercase tracking-widest" style={{ color: tc.dim }}>
+          <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 border-2 border-[#1a1a1a]" style={{ backgroundColor: '#ebe5d0' }}>
+            <Terminal className="w-4 h-4" style={{ color: '#d4a017' }} />
+            <span className="text-xs font-mono uppercase tracking-widest" style={{ color: '#6b6356' }}>
               Terminal Aesthetic
             </span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold font-mono" style={{ color: tc.text }}>
+          <h2 className="text-2xl md:text-3xl font-bold font-mono" style={{ color: '#1a1a1a' }}>
             Interactive Terminal
           </h2>
-          <p className="mt-2 text-sm font-mono" style={{ color: tc.dim }}>
+          <p className="mt-2 text-sm font-mono" style={{ color: '#6b6356' }}>
             A fully functional CLI experience — type, explore, interact
           </p>
         </div>
@@ -608,16 +608,16 @@ export function TerminalSection() {
           {/* Terminal Window */}
           <div className="flex-1 min-w-0">
             <div
-              className="rounded-lg overflow-hidden shadow-2xl scanlines crt-effect terminal-green-glow"
+              className="overflow-hidden shadow-2xl scanlines crt-effect"
               style={{
                 background: '#0a0a0a',
-                border: `1px solid ${tc.dim}`,
+                border: '2px solid #1a1a1a',
               }}
             >
               {/* Title Bar */}
               <div
                 className="flex items-center gap-2 px-4 py-2.5"
-                style={{ background: '#1a1a1a', borderBottom: `1px solid ${tc.dim}` }}
+                style={{ background: '#ebe5d0', borderBottom: '2px solid #1a1a1a' }}
               >
                 <div className="flex items-center gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-[#ff5f57] hover:brightness-110 transition-all cursor-pointer" />
@@ -625,13 +625,13 @@ export function TerminalSection() {
                   <div className="w-3 h-3 rounded-full bg-[#28c840] hover:brightness-110 transition-all cursor-pointer" />
                 </div>
                 <div className="flex-1 text-center">
-                  <span className="text-xs font-mono" style={{ color: tc.dim }}>
+                  <span className="text-xs font-mono" style={{ color: '#6b6356' }}>
                     user@z-ai:~
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-3 h-3" style={{ color: tc.dim }} />
-                  <span className="text-xs font-mono" style={{ color: tc.dim }}>
+                  <Clock className="w-3 h-3" style={{ color: '#6b6356' }} />
+                  <span className="text-xs font-mono" style={{ color: '#6b6356' }}>
                     {clock}
                   </span>
                 </div>
@@ -793,9 +793,9 @@ export function TerminalSection() {
               <div
                 className="flex items-center justify-between px-3 py-1.5 text-xs font-mono"
                 style={{
-                  background: '#111',
-                  borderTop: `1px solid ${tc.dim}`,
-                  color: tc.dim,
+                  background: '#ebe5d0',
+                  borderTop: '2px solid #1a1a1a',
+                  color: '#6b6356',
                 }}
               >
                 <div className="flex items-center gap-3">
@@ -815,8 +815,8 @@ export function TerminalSection() {
                   <span
                     className="px-1.5 py-0.5 rounded text-xs"
                     style={{
-                      background: `${tc.dim.replace('0.3', '0.15')}`,
-                      color: tc.text,
+                      background: '#f5f0e1',
+                      color: '#d4a017',
                     }}
                   >
                     {THEME_CONFIG[theme].label}

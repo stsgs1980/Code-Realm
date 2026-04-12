@@ -280,7 +280,7 @@ function FloatingDecorations() {
             left: `${item.left}%`,
             top: `${item.top}%`,
             fontSize: `${item.size}px`,
-            color: 'rgba(255,255,255,0.025)',
+            color: 'rgba(26,26,26,0.06)',
           }}
           animate={{
             y: [0, -12, 0, 8, 0],
@@ -326,7 +326,7 @@ function ColorStopEditor({
 }) {
   return (
     <motion.div
-      className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-xl border border-white/[0.06] bg-white/[0.02] group"
+      className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] group"
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 10, height: 0, padding: 0, marginBottom: 0, overflow: 'hidden' }}
@@ -337,22 +337,22 @@ function ColorStopEditor({
         <motion.button
           onClick={onMoveUp}
           disabled={index === 0}
-          className="p-0.5 rounded hover:bg-white/[0.08] disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+          className="p-0.5 rounded hover:bg-[#ebe5d0] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           aria-label="Move color stop up"
         >
-          <ChevronUp className="w-3 h-3 text-white/40" />
+          <ChevronUp className="w-3 h-3 text-[#6b6356]" />
         </motion.button>
         <motion.button
           onClick={onMoveDown}
           disabled={index === total - 1}
-          className="p-0.5 rounded hover:bg-white/[0.08] disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+          className="p-0.5 rounded hover:bg-[#ebe5d0] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           aria-label="Move color stop down"
         >
-          <ChevronDown className="w-3 h-3 text-white/40" />
+          <ChevronDown className="w-3 h-3 text-[#6b6356]" />
         </motion.button>
       </div>
 
@@ -362,17 +362,17 @@ function ColorStopEditor({
           type="color"
           value={stop.color}
           onChange={(e) => onUpdate({ ...stop, color: e.target.value })}
-          className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg border-2 border-white/[0.1] cursor-pointer bg-transparent appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-md [&::-webkit-color-swatch]:border-none"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg border-2 border-[#1a1a1a]/15 cursor-pointer bg-transparent appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-md [&::-webkit-color-swatch]:border-none"
           aria-label={`Color for stop ${index + 1}`}
         />
-        <span className="font-mono text-[10px] text-white/30 block text-center mt-0.5">{stop.color}</span>
+        <span className="font-mono text-[10px] text-[#6b6356] block text-center mt-0.5">{stop.color}</span>
       </div>
 
       {/* Position slider */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between mb-1">
-          <span className="font-mono text-[10px] text-white/30">Position</span>
-          <span className="font-mono text-[10px] text-emerald-400/70">{stop.position}%</span>
+          <span className="font-mono text-[10px] text-[#6b6356]/70">Position</span>
+          <span className="font-mono text-[10px] text-[#d4a017]">{stop.position}%</span>
         </div>
         <input
           type="range"
@@ -382,7 +382,7 @@ function ColorStopEditor({
           onChange={(e) => onUpdate({ ...stop, position: Number(e.target.value) })}
           className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
           style={{
-            background: `linear-gradient(90deg, ${stop.color}00 ${0}%, ${stop.color} ${stop.position}%, rgba(255,255,255,0.08) ${stop.position}%)`,
+            background: `linear-gradient(90deg, ${stop.color}00 ${0}%, ${stop.color} ${stop.position}%, rgba(26,26,26,0.1) ${stop.position}%)`,
           }}
           aria-label={`Position for stop ${index + 1}`}
         />
@@ -392,12 +392,12 @@ function ColorStopEditor({
       <motion.button
         onClick={onRemove}
         disabled={total <= 2}
-        className="p-1.5 rounded-lg hover:bg-red-500/10 disabled:opacity-20 disabled:cursor-not-allowed transition-colors shrink-0 opacity-0 group-hover:opacity-100"
+        className="p-1.5 rounded-lg hover:bg-[#c23616]/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0 opacity-0 group-hover:opacity-100"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         aria-label={`Remove color stop ${index + 1}`}
       >
-        <Minus className="w-3.5 h-3.5 text-red-400/60" />
+        <Minus className="w-3.5 h-3.5 text-[#c23616]/70" />
       </motion.button>
     </motion.div>
   );
@@ -429,10 +429,10 @@ function PresetButton({
       whileTap={{ scale: 0.95 }}
     >
       <div
-        className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl border border-white/[0.1] shadow-lg transition-shadow group-hover:shadow-xl group-hover:border-white/20"
+        className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl border border-[#1a1a1a]/15 shadow-lg transition-shadow group-hover:shadow-md group-hover:border-[#1a1a1a]/25"
         style={{ background: bgStyle }}
       />
-      <span className="font-mono text-[10px] sm:text-xs text-white/40 group-hover:text-white/60 transition-colors">
+      <span className="font-mono text-[10px] sm:text-xs text-[#6b6356] group-hover:text-[#1a1a1a]/80 transition-colors">
         {preset.name}
       </span>
     </motion.button>
@@ -452,9 +452,9 @@ export function GradientGeneratorSection() {
 
   // Gradient state
   const [stops, setStops] = useState<ColorStop[]>([
-    createStop('#10b981', 0),
-    createStop('#06b6d4', 50),
-    createStop('#8b5cf6', 100),
+    createStop('#d4a017', 0),
+    createStop('#b8860b', 50),
+    createStop('#6b6356', 100),
   ]);
   const [gradientType, setGradientType] = useState<GradientType>('linear');
   const [angle, setAngle] = useState(135);
@@ -580,7 +580,7 @@ export function GradientGeneratorSection() {
     <section
       className="relative w-full overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0a0a0a 0%, #0a1a15 50%, #0a0a0a 100%)',
+        background: 'linear-gradient(180deg, #f5f0e1 0%, #ede8d8 50%, #f5f0e1 100%)',
         minHeight: '100vh',
       }}
     >
@@ -592,8 +592,8 @@ export function GradientGeneratorSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)
+            linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }}
@@ -603,7 +603,7 @@ export function GradientGeneratorSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.06) 100%)',
         }}
       />
 
@@ -617,9 +617,9 @@ export function GradientGeneratorSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] mb-6">
-              <Palette className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="text-xs font-mono text-cyan-400/80 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#b8860b]/20 bg-[#b8860b]/10 mb-6">
+              <Palette className="w-3.5 h-3.5 text-[#b8860b]" />
+              <span className="text-xs font-mono text-[#b8860b] uppercase tracking-widest">
                 Design Tool
               </span>
             </div>
@@ -627,7 +627,7 @@ export function GradientGeneratorSection() {
             <h2
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
               style={{
-                background: 'linear-gradient(135deg, #10b981, #06b6d4, #10b981)',
+                background: 'linear-gradient(135deg, #b8860b, #d4a017, #b8860b)',
                 backgroundSize: '200% 200%',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -637,7 +637,7 @@ export function GradientGeneratorSection() {
               Gradient Lab
             </h2>
 
-            <p className="font-mono text-sm sm:text-base text-white/30 tracking-wide max-w-lg mx-auto">
+            <p className="font-mono text-sm sm:text-base text-[#6b6356]/70 tracking-wide max-w-lg mx-auto">
               Create, customize, and export beautiful gradients
             </p>
           </motion.div>
@@ -655,12 +655,12 @@ export function GradientGeneratorSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="flex items-center gap-3 mb-5">
-              <Sparkles className="w-4 h-4 text-emerald-400/60" />
-              <h3 className="font-mono text-sm text-white/40 tracking-widest uppercase">Presets</h3>
-              <div className="flex-1 h-px bg-gradient-to-r from-emerald-500/20 to-transparent" />
+              <Sparkles className="w-4 h-4 text-[#d4a017]/80" />
+              <h3 className="font-mono text-sm text-[#6b6356] tracking-widest uppercase">Presets</h3>
+              <div className="flex-1 h-px bg-gradient-to-r from-[#d4a017]/20 to-transparent" />
               <motion.button
                 onClick={handleRandomGradient}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/40 hover:text-white/60 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#6b6356] hover:text-[#1a1a1a]/80 hover:bg-[#ebe5d0] hover:border-[#1a1a1a]/15 transition-all"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -681,7 +681,7 @@ export function GradientGeneratorSection() {
 
             {/* ===== Controls Panel ===== */}
             <motion.div
-              className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col"
+              className="rounded-2xl overflow-hidden border border-[#1a1a1a]/10 flex flex-col"
               style={{ background: '#0d1117' }}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -689,17 +689,17 @@ export function GradientGeneratorSection() {
               transition={{ duration: 0.5, delay: 0.15 }}
             >
               {/* Panel header */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]/10">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                <span className="font-mono text-[11px] text-white/30 ml-2">gradient.config</span>
+                <span className="font-mono text-[11px] text-[#6b6356]/70 ml-2">gradient.config</span>
               </div>
 
               <div className="p-4 sm:p-5 space-y-5 flex-1">
                 {/* Gradient Type Selector */}
                 <div>
-                  <label className="font-mono text-xs text-white/40 mb-2.5 block">Gradient Type</label>
+                  <label className="font-mono text-xs text-[#6b6356] mb-2.5 block">Gradient Type</label>
                   <div className="flex gap-2">
                     {gradientTypeOptions.map((opt) => {
                       const isActive = gradientType === opt.id;
@@ -710,9 +710,9 @@ export function GradientGeneratorSection() {
                           onClick={() => setGradientType(opt.id)}
                           className="relative flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-mono transition-all"
                           style={{
-                            color: isActive ? '#ffffff' : 'rgba(255,255,255,0.35)',
-                            backgroundColor: isActive ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.03)',
-                            border: `1px solid ${isActive ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                            color: isActive ? '#1a1a1a' : 'rgba(26,26,26,0.5)',
+                            backgroundColor: isActive ? 'rgba(212,160,23,0.1)' : 'rgba(26,26,26,0.05)',
+                            border: `1px solid ${isActive ? 'rgba(212,160,23,0.3)' : 'rgba(26,26,26,0.08)'}`,
                           }}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
@@ -723,8 +723,8 @@ export function GradientGeneratorSection() {
                             <motion.div
                               className="absolute inset-0 rounded-xl"
                               style={{
-                                border: '1px solid rgba(16,185,129,0.2)',
-                                boxShadow: '0 0 15px rgba(16,185,129,0.08)',
+                                border: '1px solid rgba(212,160,23,0.2)',
+                                boxShadow: '0 0 15px rgba(212,160,23,0.08)',
                               }}
                               layoutId="gradTypeIndicator"
                               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -746,11 +746,11 @@ export function GradientGeneratorSection() {
                       transition={{ duration: 0.2 }}
                     >
                       <div className="flex items-center justify-between mb-2.5">
-                        <label className="font-mono text-xs text-white/40 flex items-center gap-2">
-                          <RotateCw className="w-3.5 h-3.5 text-cyan-400/50" />
+                        <label className="font-mono text-xs text-[#6b6356] flex items-center gap-2">
+                          <RotateCw className="w-3.5 h-3.5 text-[#b8860b]/70" />
                           Angle
                         </label>
-                        <span className="font-mono text-xs text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                        <span className="font-mono text-xs text-[#d4a017] bg-[#d4a017]/10 px-2 py-0.5 rounded-md">
                           {angle}°
                         </span>
                       </div>
@@ -762,13 +762,13 @@ export function GradientGeneratorSection() {
                         onChange={(e) => setAngle(Number(e.target.value))}
                         className="w-full h-2 rounded-full appearance-none cursor-pointer"
                         style={{
-                          background: `linear-gradient(90deg, rgba(16,185,129,0.3), rgba(6,182,212,0.3))`,
+                          background: `linear-gradient(90deg, rgba(212,160,23,0.3), rgba(184,134,11,0.3))`,
                         }}
                         aria-label="Gradient angle"
                       />
                       <div className="flex justify-between mt-1.5">
-                        <span className="font-mono text-[10px] text-white/20">0°</span>
-                        <span className="font-mono text-[10px] text-white/20">360°</span>
+                        <span className="font-mono text-[10px] text-[#6b6356]/50">0°</span>
+                        <span className="font-mono text-[10px] text-[#6b6356]/50">360°</span>
                       </div>
                     </motion.div>
                   )}
@@ -777,15 +777,15 @@ export function GradientGeneratorSection() {
                 {/* Color Stops */}
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <label className="font-mono text-xs text-white/40 flex items-center gap-2">
-                      <Layers className="w-3.5 h-3.5 text-cyan-400/50" />
+                    <label className="font-mono text-xs text-[#6b6356] flex items-center gap-2">
+                      <Layers className="w-3.5 h-3.5 text-[#b8860b]/70" />
                       Color Stops
-                      <span className="text-[10px] text-white/20">({stops.length}/4)</span>
+                      <span className="text-[10px] text-[#6b6356]/50">({stops.length}/4)</span>
                     </label>
                     <motion.button
                       onClick={handleAddStop}
                       disabled={stops.length >= 4}
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-mono text-white/40 hover:text-white/60 hover:bg-white/[0.06] disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/80 hover:bg-[#ebe5d0] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -796,7 +796,7 @@ export function GradientGeneratorSection() {
 
                   {/* Gradient preview bar */}
                   <div
-                    className="w-full h-3 rounded-full mb-4 border border-white/[0.06]"
+                    className="w-full h-3 rounded-full mb-4 border border-[#1a1a1a]/10"
                     style={{ background: gradientCSS }}
                   />
 
@@ -821,12 +821,12 @@ export function GradientGeneratorSection() {
               </div>
 
               {/* Panel footer */}
-              <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
+              <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-                  <span className="font-mono text-[10px] text-white/20">Live</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#d4a017]/70" />
+                  <span className="font-mono text-[10px] text-[#6b6356]/50">Live</span>
                 </div>
-                <span className="font-mono text-[10px] text-white/15">{stops.length} stops</span>
+                <span className="font-mono text-[10px] text-[#6b6356]/30">{stops.length} stops</span>
               </div>
             </motion.div>
 
@@ -839,13 +839,13 @@ export function GradientGeneratorSection() {
               transition={{ duration: 0.5, delay: 0.25 }}
             >
               {/* Preview */}
-              <div className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col" style={{ background: '#0d1117' }}>
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+              <div className="rounded-2xl overflow-hidden border border-[#1a1a1a]/10 flex flex-col" style={{ background: '#0d1117' }}>
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]/10">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                  <span className="font-mono text-[11px] text-white/30 ml-2 flex items-center gap-1.5">
-                    <Eye className="w-3 h-3 text-white/25" />
+                  <span className="font-mono text-[11px] text-[#6b6356]/70 ml-2 flex items-center gap-1.5">
+                    <Eye className="w-3 h-3 text-[#6b6356]/40" />
                     Preview
                   </span>
                 </div>
@@ -863,9 +863,9 @@ export function GradientGeneratorSection() {
               </div>
 
               {/* Code Output */}
-              <div className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col" style={{ background: '#0d1117' }}>
+              <div className="rounded-2xl overflow-hidden border border-[#1a1a1a]/10 flex flex-col" style={{ background: '#0d1117' }}>
                 {/* Code header with format tabs + actions */}
-                <div className="flex items-center border-b border-white/[0.06]">
+                <div className="flex items-center border-b border-[#1a1a1a]/10">
                   {/* Format tabs */}
                   <div className="flex items-center">
                     {exportFormatOptions.map((fmt) => {
@@ -877,15 +877,15 @@ export function GradientGeneratorSection() {
                           onClick={() => setExportFormat(fmt.id)}
                           className="relative flex items-center gap-1.5 px-3 py-2.5 text-[11px] font-mono transition-colors"
                           style={{
-                            color: isActive ? '#f8f8f2' : 'rgba(255,255,255,0.3)',
+                            color: isActive ? '#1a1a1a' : 'rgba(26,26,26,0.5)',
                           }}
                         >
-                          <FmtIcon className="w-3 h-3" style={{ color: isActive ? '#06b6d4' : undefined }} />
+                          <FmtIcon className="w-3 h-3" style={{ color: isActive ? '#b8860b' : undefined }} />
                           <span>{fmt.label}</span>
                           {isActive && (
                             <motion.div
                               className="absolute bottom-0 left-0 right-0 h-[2px]"
-                              style={{ background: '#06b6d4' }}
+                              style={{ background: '#b8860b' }}
                               layoutId="exportTabIndicator"
                               transition={{ type: 'spring', stiffness: 400, damping: 35 }}
                             />
@@ -901,7 +901,7 @@ export function GradientGeneratorSection() {
                   <div className="flex items-center gap-1 pr-2">
                     <motion.button
                       onClick={handleCopy}
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono text-white/40 hover:text-white/70 hover:bg-white/[0.06] transition-colors"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/90 hover:bg-[#ebe5d0] transition-colors"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       title="Copy to clipboard"
@@ -913,7 +913,7 @@ export function GradientGeneratorSection() {
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0, opacity: 0 }}
-                            className="flex items-center gap-1.5 text-emerald-400"
+                            className="flex items-center gap-1.5 text-[#d4a017]"
                           >
                             <Check className="w-3.5 h-3.5" />
                             <span className="hidden sm:inline">Copied!</span>
@@ -937,10 +937,10 @@ export function GradientGeneratorSection() {
                       onClick={handleExport}
                       className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono transition-colors"
                       style={{
-                        color: '#ffffff',
-                        background: 'linear-gradient(135deg, #10b981, #059669)',
+                        color: '#1a1a1a',
+                        background: 'linear-gradient(135deg, #b8860b, #d4a017, #b8860b)',
                       }}
-                      whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(16,185,129,0.3)' }}
+                      whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(212,160,23,0.3)' }}
                       whileTap={{ scale: 0.95 }}
                       title={`Export as ${exportFormat.toUpperCase()}`}
                     >
@@ -968,9 +968,9 @@ export function GradientGeneratorSection() {
                 </div>
 
                 {/* Code footer */}
-                <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
-                  <span className="font-mono text-[10px] text-white/20 uppercase">{exportFormat}</span>
-                  <span className="font-mono text-[10px] text-white/15">{exportCode.split('\n').length} lines</span>
+                <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a]/10 bg-[#ebe5d0]">
+                  <span className="font-mono text-[10px] text-[#6b6356] uppercase">{exportFormat}</span>
+                  <span className="font-mono text-[10px] text-[#6b6356]/30">{exportCode.split('\n').length} lines</span>
                 </div>
               </div>
             </motion.div>
@@ -990,10 +990,10 @@ export function GradientGeneratorSection() {
               { icon: Type, label: '3 Export Formats', sub: 'CSS / TAILWIND / SVG' },
             ].map((item, i) => (
               <div key={`grad-info-${i}`} className="flex items-center gap-3">
-                <item.icon className="w-4 h-4 text-emerald-400/50" />
+                <item.icon className="w-4 h-4 text-[#d4a017]/50" />
                 <div>
-                  <span className="font-mono text-xs text-white/50">{item.label}</span>
-                  <span className="font-mono text-[10px] text-white/15 ml-2 hidden sm:inline">{item.sub}</span>
+                  <span className="font-mono text-xs text-[#1a1a1a]/70">{item.label}</span>
+                  <span className="font-mono text-[10px] text-[#6b6356]/30 ml-2 hidden sm:inline">{item.sub}</span>
                 </div>
                 {i < 2 && (
                   <span className="hidden sm:block w-px h-4 bg-white/10 ml-4 sm:ml-8" />

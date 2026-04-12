@@ -307,7 +307,7 @@ function FloatingDecorations() {
             left: `${item.left}%`,
             top: `${item.top}%`,
             fontSize: `${item.size}px`,
-            color: 'rgba(255,255,255,0.025)',
+            color: 'rgba(26,26,26,0.06)',
           }}
           animate={{
             y: [0, -10, 0, 8, 0],
@@ -350,8 +350,8 @@ function HSLSliders({
       {/* Hue slider */}
       <div>
         <div className="flex items-center justify-between mb-1">
-          <span className="font-mono text-[10px] text-white/30">H (Hue)</span>
-          <span className="font-mono text-[10px] text-emerald-400/70">{hsl.h}°</span>
+          <span className="font-mono text-[10px] text-[#6b6356]">H (Hue)</span>
+          <span className="font-mono text-[10px] text-[#d4a017]">{hsl.h}°</span>
         </div>
         <input
           type="range"
@@ -369,8 +369,8 @@ function HSLSliders({
       {/* Saturation slider */}
       <div>
         <div className="flex items-center justify-between mb-1">
-          <span className="font-mono text-[10px] text-white/30">S (Saturation)</span>
-          <span className="font-mono text-[10px] text-emerald-400/70">{hsl.s}%</span>
+          <span className="font-mono text-[10px] text-[#6b6356]">S (Saturation)</span>
+          <span className="font-mono text-[10px] text-[#d4a017]">{hsl.s}%</span>
         </div>
         <input
           type="range"
@@ -388,8 +388,8 @@ function HSLSliders({
       {/* Lightness slider */}
       <div>
         <div className="flex items-center justify-between mb-1">
-          <span className="font-mono text-[10px] text-white/30">L (Lightness)</span>
-          <span className="font-mono text-[10px] text-emerald-400/70">{hsl.l}%</span>
+          <span className="font-mono text-[10px] text-[#6b6356]">L (Lightness)</span>
+          <span className="font-mono text-[10px] text-[#d4a017]">{hsl.l}%</span>
         </div>
         <input
           type="range"
@@ -425,22 +425,22 @@ function ShadesPanel({
 
   return (
     <motion.div
-      className="rounded-xl border border-white/[0.08] bg-[#0d1117] p-3 space-y-2"
+      className="rounded-xl border border-[#1a1a1a]/15 bg-[#0d1117] p-3 space-y-2"
       initial={{ opacity: 0, y: -5, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -5, scale: 0.95 }}
       transition={{ duration: 0.2 }}
     >
       <div className="flex items-center justify-between mb-1">
-        <span className="font-mono text-[10px] text-white/40">10 Shades</span>
+        <span className="font-mono text-[10px] text-[#6b6356]">10 Shades</span>
         <button
           onClick={onClose}
-          className="font-mono text-[10px] text-white/30 hover:text-white/60 transition-colors"
+          className="font-mono text-[10px] text-[#6b6356]/70 hover:text-[#1a1a1a]/80 transition-colors"
         >
           ✕ close
         </button>
       </div>
-      <div className="flex rounded-lg overflow-hidden border border-white/[0.04]">
+      <div className="flex rounded-lg overflow-hidden border border-[#1a1a1a]/10">
         {shades.map((shade, i) => (
           <motion.button
             key={`shade-${i}`}
@@ -451,7 +451,7 @@ function ShadesPanel({
             whileTap={{ scale: 0.95 }}
             title={`${shade} — click to copy`}
           >
-            <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 font-mono text-[8px] text-white/0 group-hover:text-white/60 whitespace-nowrap transition-colors">
+            <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 font-mono text-[8px] text-white/0 group-hover:text-[#1a1a1a]/80 whitespace-nowrap transition-colors">
               {shade}
             </span>
           </motion.button>
@@ -492,7 +492,7 @@ function ColorCard({
     >
       {/* Large swatch — use div instead of button to allow nested lock button */}
       <motion.div
-        className="relative w-full aspect-square rounded-xl border border-white/[0.08] cursor-pointer overflow-hidden"
+        className="relative w-full aspect-square rounded-xl border border-[#1a1a1a]/15 cursor-pointer overflow-hidden"
         style={{ backgroundColor: color.hex }}
         onClick={() => onShowShades(index)}
         whileHover={{ scale: 1.04, boxShadow: `0 0 30px ${color.hex}40` }}
@@ -506,7 +506,7 @@ function ColorCard({
         <motion.button
           className="absolute top-2 right-2 w-6 h-6 rounded-md flex items-center justify-center cursor-pointer border-0 p-0"
           style={{
-            backgroundColor: color.locked ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.15)',
+            backgroundColor: color.locked ? 'rgba(0,0,0,0.5)' : 'rgba(26,26,26,0.15)',
             backdropFilter: 'blur(4px)',
           }}
           onClick={(e) => {
@@ -518,7 +518,7 @@ function ColorCard({
           title={color.locked ? 'Unlock color' : 'Lock color'}
         >
           {color.locked
-            ? <Lock className="w-3 h-3" style={{ color: '#fbbf24' }} />
+            ? <Lock className="w-3 h-3" style={{ color: '#d4a017' }} />
             : <Unlock className="w-3 h-3" style={{ color: textColor, opacity: 0.7 }} />
           }
         </motion.button>
@@ -534,17 +534,17 @@ function ColorCard({
 
       {/* Copy hex button */}
       <motion.button
-        className="flex items-center gap-1 px-2 py-1 rounded-md bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] transition-colors cursor-pointer"
+        className="flex items-center gap-1 px-2 py-1 rounded-md bg-[#ebe5d0] border border-[#1a1a1a]/10 hover:bg-[#ebe5d0] transition-colors cursor-pointer"
         onClick={() => onCopy(color.hex)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <Copy className="w-2.5 h-2.5 text-white/30" />
-        <span className="font-mono text-[10px] text-white/40">{color.hex}</span>
+        <Copy className="w-2.5 h-2.5 text-[#6b6356]/70" />
+        <span className="font-mono text-[10px] text-[#6b6356]">{color.hex}</span>
       </motion.button>
 
       {/* HSL values */}
-      <span className="font-mono text-[9px] text-white/20">
+      <span className="font-mono text-[9px] text-[#6b6356]/50">
         {color.hsl.h}° {color.hsl.s}% {color.hsl.l}%
       </span>
 
@@ -552,17 +552,17 @@ function ColorCard({
       <div className="flex items-center gap-1.5">
         {/* White contrast */}
         <div className="flex items-center gap-0.5" title={`vs White: ${badges.whiteRatio}:1`}>
-          <Sun className="w-2.5 h-2.5 text-white/25" />
-          <span className="font-mono text-[9px] text-white/25">{badges.whiteRatio}</span>
-          {badges.whiteAAA && <span className="text-[8px] font-mono text-emerald-400/70 font-bold">AAA</span>}
-          {!badges.whiteAAA && badges.whiteAA && <span className="text-[8px] font-mono text-cyan-400/60 font-bold">AA</span>}
+          <Sun className="w-2.5 h-2.5 text-[#6b6356]/40" />
+          <span className="font-mono text-[9px] text-[#6b6356]/40">{badges.whiteRatio}</span>
+          {badges.whiteAAA && <span className="text-[8px] font-mono text-[#d4a017] font-bold">AAA</span>}
+          {!badges.whiteAAA && badges.whiteAA && <span className="text-[8px] font-mono text-[#b8860b]/80 font-bold">AA</span>}
         </div>
         {/* Black contrast */}
         <div className="flex items-center gap-0.5" title={`vs Black: ${badges.blackRatio}:1`}>
-          <Moon className="w-2.5 h-2.5 text-white/25" />
-          <span className="font-mono text-[9px] text-white/25">{badges.blackRatio}</span>
-          {badges.blackAAA && <span className="text-[8px] font-mono text-emerald-400/70 font-bold">AAA</span>}
-          {!badges.blackAAA && badges.blackAA && <span className="text-[8px] font-mono text-cyan-400/60 font-bold">AA</span>}
+          <Moon className="w-2.5 h-2.5 text-[#6b6356]/40" />
+          <span className="font-mono text-[9px] text-[#6b6356]/40">{badges.blackRatio}</span>
+          {badges.blackAAA && <span className="text-[8px] font-mono text-[#d4a017] font-bold">AAA</span>}
+          {!badges.blackAAA && badges.blackAA && <span className="text-[8px] font-mono text-[#b8860b]/80 font-bold">AA</span>}
         </div>
       </div>
 
@@ -571,7 +571,7 @@ function ColorCard({
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="w-1.5 h-1.5 rounded-full bg-cyan-400"
+          className="w-1.5 h-1.5 rounded-full bg-[#b8860b]"
         />
       )}
     </motion.div>
@@ -642,27 +642,27 @@ function ExportCodePanel({
   }, [code]);
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col" style={{ background: '#0d1117' }}>
+    <div className="rounded-2xl overflow-hidden border border-[#1a1a1a]/10 flex flex-col" style={{ background: '#0d1117' }}>
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06]">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1a1a1a]/10">
         <div className="flex items-center gap-2">
           <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
           <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
           <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-          <span className="font-mono text-[11px] text-white/30 ml-2 flex items-center gap-1.5">
-            <Code2 className="w-3 h-3 text-white/25" />
+          <span className="font-mono text-[11px] text-[#6b6356]/70 ml-2 flex items-center gap-1.5">
+            <Code2 className="w-3 h-3 text-[#6b6356]/40" />
             export.{format}
           </span>
         </div>
         <motion.button
           onClick={onCopy}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono text-white/40 hover:text-white/70 hover:bg-white/[0.06] transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/90 hover:bg-[#ebe5d0] transition-colors cursor-pointer"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           <AnimatePresence mode="wait">
             {copied ? (
-              <motion.span key="check" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} className="flex items-center gap-1.5 text-emerald-400">
+              <motion.span key="check" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} className="flex items-center gap-1.5 text-[#d4a017]">
                 <Check className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Copied!</span>
               </motion.span>
@@ -682,9 +682,9 @@ function ExportCodePanel({
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
-        <span className="font-mono text-[10px] text-white/20 uppercase">{format}</span>
-        <span className="font-mono text-[10px] text-white/15">{code.split('\n').length} lines</span>
+      <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a]/10 bg-[#ebe5d0]">
+        <span className="font-mono text-[10px] text-[#6b6356] uppercase">{format}</span>
+        <span className="font-mono text-[10px] text-[#6b6356]/30">{code.split('\n').length} lines</span>
       </div>
     </div>
   );
@@ -702,14 +702,14 @@ export function ColorPaletteSection() {
   );
 
   // State
-  const [baseHex, setBaseHex] = useState('#10b981');
+  const [baseHex, setBaseHex] = useState('#d4a017');
   const [harmonyMode, setHarmonyMode] = useState<HarmonyMode>('complementary');
   const [palette, setPalette] = useState<PaletteColor[]>(() => getComplementary(160, 74, 47));
   const [activeShadeIndex, setActiveShadeIndex] = useState<number | null>(null);
   const [exportFormat, setExportFormat] = useState<ExportFormat>('css');
   const [copiedAll, setCopiedAll] = useState(false);
   const [copiedExport, setCopiedExport] = useState(false);
-  const [hexInput, setHexInput] = useState('#10b981');
+  const [hexInput, setHexInput] = useState('#d4a017');
   const [hexError, setHexError] = useState(false);
 
   // Derived
@@ -915,7 +915,7 @@ export function ColorPaletteSection() {
     <section
       className="relative w-full overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0a0a0a 0%, #141420 50%, #0a0a0a 100%)',
+        background: 'linear-gradient(180deg, #f5f0e1 0%, #ebe5d0 50%, #f5f0e1 100%)',
         minHeight: '100vh',
       }}
     >
@@ -927,8 +927,8 @@ export function ColorPaletteSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)
+            linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }}
@@ -938,7 +938,7 @@ export function ColorPaletteSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.06) 100%)',
         }}
       />
 
@@ -952,9 +952,9 @@ export function ColorPaletteSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] mb-6">
-              <Droplets className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="text-xs font-mono text-cyan-400/80 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#b8860b]/20 bg-[#b8860b]/10 mb-6">
+              <Droplets className="w-3.5 h-3.5 text-[#b8860b]" />
+              <span className="text-xs font-mono text-[#b8860b] uppercase tracking-widest">
                 Color Tool
               </span>
             </div>
@@ -962,7 +962,7 @@ export function ColorPaletteSection() {
             <h2
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
               style={{
-                background: 'linear-gradient(135deg, #10b981, #06b6d4, #10b981)',
+                background: 'linear-gradient(135deg, #b8860b, #d4a017, #b8860b)',
                 backgroundSize: '200% 200%',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -972,7 +972,7 @@ export function ColorPaletteSection() {
               Palette Studio
             </h2>
 
-            <p className="font-mono text-sm sm:text-base text-white/30 tracking-wide max-w-lg mx-auto">
+            <p className="font-mono text-sm sm:text-base text-[#6b6356]/70 tracking-wide max-w-lg mx-auto">
               Generate harmonious color palettes with color theory algorithms
             </p>
           </motion.div>
@@ -990,12 +990,12 @@ export function ColorPaletteSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="flex items-center gap-3 mb-5">
-              <Brush className="w-4 h-4 text-emerald-400/60" />
-              <h3 className="font-mono text-sm text-white/40 tracking-widest uppercase">Presets</h3>
-              <div className="flex-1 h-px bg-gradient-to-r from-emerald-500/20 to-transparent" />
+              <Brush className="w-4 h-4 text-[#d4a017]/80" />
+              <h3 className="font-mono text-sm text-[#6b6356] tracking-widest uppercase">Presets</h3>
+              <div className="flex-1 h-px bg-gradient-to-r from-[#d4a017]/20 to-transparent" />
               <motion.button
                 onClick={handleRandom}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/40 hover:text-white/60 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#6b6356] hover:text-[#1a1a1a]/80 hover:bg-[#ebe5d0] hover:border-[#1a1a1a]/15 transition-all cursor-pointer"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -1014,7 +1014,7 @@ export function ColorPaletteSection() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <div
-                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl border border-white/[0.1] shadow-lg transition-shadow group-hover:shadow-xl group-hover:border-white/20 overflow-hidden flex"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl border border-[#1a1a1a]/15 shadow-lg transition-shadow group-hover:shadow-md group-hover:border-[#1a1a1a]/25 overflow-hidden flex"
                   >
                     {preset.colors.map((color, ci) => (
                       <div
@@ -1024,7 +1024,7 @@ export function ColorPaletteSection() {
                       />
                     ))}
                   </div>
-                  <span className="font-mono text-[10px] sm:text-xs text-white/40 group-hover:text-white/60 transition-colors">
+                  <span className="font-mono text-[10px] sm:text-xs text-[#6b6356] group-hover:text-[#1a1a1a]/80 transition-colors">
                     {preset.icon} {preset.name}
                   </span>
                 </motion.button>
@@ -1037,7 +1037,7 @@ export function ColorPaletteSection() {
 
             {/* ===== Controls Panel ===== */}
             <motion.div
-              className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col"
+              className="rounded-2xl overflow-hidden border border-[#1a1a1a]/10 flex flex-col"
               style={{ background: '#0d1117' }}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -1045,18 +1045,18 @@ export function ColorPaletteSection() {
               transition={{ duration: 0.5, delay: 0.15 }}
             >
               {/* Panel header */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]/10">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                <span className="font-mono text-[11px] text-white/30 ml-2">palette.config</span>
+                <span className="font-mono text-[11px] text-[#6b6356]/70 ml-2">palette.config</span>
               </div>
 
               <div className="p-4 sm:p-5 space-y-5 flex-1">
                 {/* Base Color Picker */}
                 <div>
-                  <label className="font-mono text-xs text-white/40 mb-2.5 block flex items-center gap-2">
-                    <Pipette className="w-3.5 h-3.5 text-cyan-400/50" />
+                  <label className="font-mono text-xs text-[#6b6356] mb-2.5 block flex items-center gap-2">
+                    <Pipette className="w-3.5 h-3.5 text-[#b8860b]/70" />
                     Base Color
                   </label>
                   <div className="flex items-center gap-3 mb-3">
@@ -1072,13 +1072,13 @@ export function ColorPaletteSection() {
                           const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
                           generatePalette(hsl.h, hsl.s, hsl.l, harmonyMode);
                         }}
-                        className="w-10 h-10 rounded-lg border-2 border-white/[0.1] cursor-pointer bg-transparent appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-md [&::-webkit-color-swatch]:border-none"
+                        className="w-10 h-10 rounded-lg border-2 border-[#1a1a1a]/15 cursor-pointer bg-transparent appearance-none [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-md [&::-webkit-color-swatch]:border-none"
                         aria-label="Base color picker"
                       />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-white/30">#</span>
+                        <span className="font-mono text-[10px] text-[#6b6356]/70">#</span>
                         <input
                           type="text"
                           value={hexInput.replace('#', '')}
@@ -1091,10 +1091,10 @@ export function ColorPaletteSection() {
                               handleHexSubmit(hexInput);
                             }
                           }}
-                          className={`flex-1 px-2.5 py-1.5 rounded-lg bg-white/[0.04] border font-mono text-xs text-white/80 focus:outline-none focus:ring-1 transition-colors ${
+                          className={`flex-1 px-2.5 py-1.5 rounded-lg bg-[#ebe5d0] border font-mono text-xs text-[#1a1a1a] focus:outline-none focus:ring-1 transition-colors ${
                             hexError
-                              ? 'border-red-500/50 focus:ring-red-500/30'
-                              : 'border-white/[0.08] focus:ring-emerald-500/30'
+                              ? 'border-[#c23616]/50 focus:ring-[#c23616]/30'
+                              : 'border-[#1a1a1a]/15 focus:ring-emerald-500/30'
                           }`}
                           placeholder="10b981"
                           maxLength={7}
@@ -1113,8 +1113,8 @@ export function ColorPaletteSection() {
 
                 {/* Harmony Mode Selector */}
                 <div>
-                  <label className="font-mono text-xs text-white/40 mb-2.5 block flex items-center gap-2">
-                    <Palette className="w-3.5 h-3.5 text-cyan-400/50" />
+                  <label className="font-mono text-xs text-[#6b6356] mb-2.5 block flex items-center gap-2">
+                    <Palette className="w-3.5 h-3.5 text-[#b8860b]/70" />
                     Harmony Mode
                   </label>
                   <div className="flex flex-wrap gap-1.5">
@@ -1126,9 +1126,9 @@ export function ColorPaletteSection() {
                           onClick={() => handleModeChange(mode.id)}
                           className="relative px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-mono transition-all cursor-pointer border-0"
                           style={{
-                            color: isActive ? '#ffffff' : 'rgba(255,255,255,0.35)',
-                            backgroundColor: isActive ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.03)',
-                            border: `1px solid ${isActive ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                            color: isActive ? '#1a1a1a' : 'rgba(26,26,26,0.5)',
+                            backgroundColor: isActive ? 'rgba(212,160,23,0.1)' : 'rgba(26,26,26,0.05)',
+                            border: `1px solid ${isActive ? 'rgba(212,160,23,0.3)' : 'rgba(26,26,26,0.08)'}`,
                           }}
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
@@ -1138,8 +1138,8 @@ export function ColorPaletteSection() {
                             <motion.div
                               className="absolute inset-0 rounded-lg"
                               style={{
-                                border: '1px solid rgba(16,185,129,0.2)',
-                                boxShadow: '0 0 12px rgba(16,185,129,0.08)',
+                                border: '1px solid rgba(212,160,23,0.2)',
+                                boxShadow: '0 0 12px rgba(212,160,23,0.08)',
                               }}
                               layoutId="harmonyModeIndicator"
                               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -1153,12 +1153,12 @@ export function ColorPaletteSection() {
               </div>
 
               {/* Panel footer */}
-              <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
+              <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-                  <span className="font-mono text-[10px] text-white/20">Live</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#d4a017]/70" />
+                  <span className="font-mono text-[10px] text-[#6b6356]/50">Live</span>
                 </div>
-                <span className="font-mono text-[10px] text-white/15">{palette.filter((c) => c.locked).length} locked</span>
+                <span className="font-mono text-[10px] text-[#6b6356]/30">{palette.filter((c) => c.locked).length} locked</span>
               </div>
             </motion.div>
 
@@ -1171,22 +1171,22 @@ export function ColorPaletteSection() {
               transition={{ duration: 0.5, delay: 0.25 }}
             >
               {/* Palette Display */}
-              <div className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col" style={{ background: '#0d1117' }}>
+              <div className="rounded-2xl overflow-hidden border border-[#1a1a1a]/10 flex flex-col" style={{ background: '#0d1117' }}>
                 {/* Header with actions */}
-                <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a]/10">
                   <div className="flex items-center gap-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                     <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                     <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                    <span className="font-mono text-[11px] text-white/30 ml-2 flex items-center gap-1.5">
-                      <Layers className="w-3 h-3 text-white/25" />
+                    <span className="font-mono text-[11px] text-[#6b6356]/70 ml-2 flex items-center gap-1.5">
+                      <Layers className="w-3 h-3 text-[#6b6356]/40" />
                       Palette
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <motion.button
                       onClick={handleRegenerate}
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono text-white/40 hover:text-white/70 hover:bg-white/[0.06] transition-colors cursor-pointer"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/90 hover:bg-[#ebe5d0] transition-colors cursor-pointer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       title="Regenerate palette"
@@ -1196,14 +1196,14 @@ export function ColorPaletteSection() {
                     </motion.button>
                     <motion.button
                       onClick={handleCopyAll}
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono text-white/40 hover:text-white/70 hover:bg-white/[0.06] transition-colors cursor-pointer"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/90 hover:bg-[#ebe5d0] transition-colors cursor-pointer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       title="Copy all colors"
                     >
                       <AnimatePresence mode="wait">
                         {copiedAll ? (
-                          <motion.span key="ca" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} className="flex items-center gap-1.5 text-emerald-400">
+                          <motion.span key="ca" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} className="flex items-center gap-1.5 text-[#d4a017]">
                             <Check className="w-3.5 h-3.5" />
                             <span className="hidden sm:inline">Copied!</span>
                           </motion.span>
@@ -1219,10 +1219,10 @@ export function ColorPaletteSection() {
                       onClick={handleRandom}
                       className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono transition-colors cursor-pointer"
                       style={{
-                        color: '#ffffff',
-                        background: 'linear-gradient(135deg, #10b981, #059669)',
+                        color: '#1a1a1a',
+                        background: 'linear-gradient(135deg, #b8860b, #d4a017, #b8860b)',
                       }}
-                      whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(16,185,129,0.3)' }}
+                      whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(212,160,23,0.3)' }}
                       whileTap={{ scale: 0.95 }}
                       title="Random palette"
                     >
@@ -1263,7 +1263,7 @@ export function ColorPaletteSection() {
                 </div>
 
                 {/* Full palette bar preview */}
-                <div className="mx-4 mb-4 h-6 rounded-lg overflow-hidden border border-white/[0.04] flex">
+                <div className="mx-4 mb-4 h-6 rounded-lg overflow-hidden border border-[#1a1a1a]/10 flex">
                   {palette.map((color, i) => (
                     <div
                       key={`palbar-${i}`}
@@ -1274,21 +1274,21 @@ export function ColorPaletteSection() {
                 </div>
 
                 {/* Panel footer */}
-                <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
+                <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a]/10 bg-[#ebe5d0]">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
-                      <Contrast className="w-3 h-3 text-white/20" />
-                      <span className="font-mono text-[10px] text-white/20">WCAG</span>
+                      <Contrast className="w-3 h-3 text-[#6b6356]/50" />
+                      <span className="font-mono text-[10px] text-[#6b6356]/50">WCAG</span>
                     </div>
                   </div>
-                  <span className="font-mono text-[10px] text-white/15">{palette.length} colors</span>
+                  <span className="font-mono text-[10px] text-[#6b6356]/30">{palette.length} colors</span>
                 </div>
               </div>
 
               {/* Export Section */}
-              <div className="rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col" style={{ background: '#0d1117' }}>
+              <div className="rounded-2xl overflow-hidden border border-[#1a1a1a]/10 flex flex-col" style={{ background: '#0d1117' }}>
                 {/* Export header */}
-                <div className="flex items-center border-b border-white/[0.06]">
+                <div className="flex items-center border-b border-[#1a1a1a]/10">
                   <div className="flex items-center">
                     {exportFormats.map((fmt) => {
                       const isActive = exportFormat === fmt.id;
@@ -1298,14 +1298,14 @@ export function ColorPaletteSection() {
                           onClick={() => setExportFormat(fmt.id)}
                           className="relative flex items-center gap-1.5 px-3 py-2.5 text-[11px] font-mono transition-colors cursor-pointer bg-transparent border-0"
                           style={{
-                            color: isActive ? '#f8f8f2' : 'rgba(255,255,255,0.3)',
+                            color: isActive ? '#1a1a1a' : 'rgba(26,26,26,0.5)',
                           }}
                         >
                           <span>{fmt.label}</span>
                           {isActive && (
                             <motion.div
                               className="absolute bottom-0 left-0 right-0 h-[2px]"
-                              style={{ background: '#06b6d4' }}
+                              style={{ background: '#b8860b' }}
                               layoutId="paletteExportTab"
                               transition={{ type: 'spring', stiffness: 400, damping: 35 }}
                             />
@@ -1319,10 +1319,10 @@ export function ColorPaletteSection() {
                     onClick={handleExportFile}
                     className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-mono transition-colors mr-2 cursor-pointer"
                     style={{
-                      color: '#ffffff',
-                      background: 'linear-gradient(135deg, #10b981, #059669)',
+                      color: '#1a1a1a',
+                      background: 'linear-gradient(135deg, #b8860b, #d4a017, #b8860b)',
                     }}
-                    whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(16,185,129,0.3)' }}
+                    whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(212,160,23,0.3)' }}
                     whileTap={{ scale: 0.95 }}
                     title="Export file"
                   >
@@ -1344,7 +1344,7 @@ export function ColorPaletteSection() {
 
           {/* ===== Info Bar ===== */}
           <motion.div
-            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 py-4 px-4 rounded-xl border border-white/[0.04] bg-white/[0.01]"
+            className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 py-4 px-4 rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1357,8 +1357,8 @@ export function ColorPaletteSection() {
               { icon: Contrast, label: 'WCAG Contrast' },
             ].map((item, i) => (
               <div key={`pal-info-${i}`} className="flex items-center gap-2">
-                <item.icon className="w-3.5 h-3.5 text-emerald-400/50" />
-                <span className="font-mono text-[11px] text-white/30">{item.label}</span>
+                <item.icon className="w-3.5 h-3.5 text-[#d4a017]/50" />
+                <span className="font-mono text-[11px] text-[#6b6356]/70">{item.label}</span>
               </div>
             ))}
           </motion.div>

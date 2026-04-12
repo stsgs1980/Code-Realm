@@ -77,18 +77,18 @@ function generateLayerCSS(layer: ShadowLayer): string {
    PRESETS
    ────────────────────────────────────────────── */
 const PRESETS: Preset[] = [
-  { name: 'Soft Glow', shadow: '0 0 20px 5px rgba(16, 185, 129, 0.3)' },
+  { name: 'Soft Glow', shadow: '0 0 20px 5px rgba(212, 160, 23, 0.3)' },
   { name: 'Hard Edge', shadow: '4px 4px 0px rgba(0, 0, 0, 1)' },
-  { name: 'Neon', shadow: '0 0 10px #10b981, 0 0 20px #10b981, 0 0 40px #06b6d4' },
+  { name: 'Neon', shadow: '0 0 10px #d4a017, 0 0 20px #d4a017, 0 0 40px #b8860b' },
   { name: 'Long Shadow', shadow: '6px 6px 0px rgba(0, 0, 0, 0.5), 12px 12px 0px rgba(0, 0, 0, 0.25)' },
   { name: 'Floating', shadow: '0 20px 60px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.2)' },
   { name: 'Pressed', shadow: 'inset 4px 4px 8px rgba(0, 0, 0, 0.5), inset -2px -2px 4px rgba(255, 255, 255, 0.1)' },
-  { name: 'Inner Glow', shadow: 'inset 0 0 20px rgba(16, 185, 129, 0.5)' },
+  { name: 'Inner Glow', shadow: 'inset 0 0 20px rgba(212, 160, 23, 0.5)' },
   { name: 'Multiple', shadow: '0 1px 2px rgba(0,0,0,0.07), 0 4px 8px rgba(0,0,0,0.07), 0 16px 32px rgba(0,0,0,0.07)' },
   { name: 'Crisp', shadow: '0 2px 0px rgba(0, 0, 0, 0.8)' },
-  { name: 'Dreamy', shadow: '0 0 30px 10px rgba(168, 85, 247, 0.3), 0 0 60px 20px rgba(236, 72, 153, 0.15)' },
+  { name: 'Dreamy', shadow: '0 0 30px 10px rgba(107, 99, 86, 0.3), 0 0 60px 20px rgba(194, 54, 22, 0.15)' },
   { name: 'Retro', shadow: '8px 8px 0px rgba(245, 158, 11, 0.8)' },
-  { name: 'Holographic', shadow: '0 0 15px rgba(6, 182, 212, 0.4), 0 0 30px rgba(168, 85, 247, 0.3), 0 0 45px rgba(236, 72, 153, 0.2)' },
+  { name: 'Holographic', shadow: '0 0 15px rgba(184, 134, 11, 0.4), 0 0 30px rgba(107, 99, 86, 0.3), 0 0 45px rgba(194, 54, 22, 0.2)' },
 ];
 
 /* ──────────────────────────────────────────────
@@ -102,7 +102,7 @@ function createDefaultLayer(): ShadowLayer {
     y: 4,
     blur: 12,
     spread: 0,
-    color: '#10b981',
+    color: '#d4a017',
     opacity: 40,
     inset: false,
   };
@@ -131,8 +131,8 @@ function ShadowSlider({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">{label}</span>
-        <span className="text-[11px] font-mono text-emerald-400/80 tabular-nums">
+        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">{label}</span>
+        <span className="text-[11px] font-mono text-[#d4a017] tabular-nums">
           {value}{unit}
         </span>
       </div>
@@ -145,7 +145,7 @@ function ShadowSlider({
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
         style={{
-          background: `linear-gradient(to right, #10b981 0%, #06b6d4 ${((value - min) / (max - min)) * 100}%, rgba(255,255,255,0.08) ${((value - min) / (max - min)) * 100}%)`,
+          background: `linear-gradient(to right, #d4a017 0%, #b8860b ${((value - min) / (max - min)) * 100}%, rgba(26,26,26,0.1) ${((value - min) / (max - min)) * 100}%`,
         }}
       />
     </div>
@@ -173,7 +173,7 @@ function FloatingDecorations() {
           style={{
             left: `${sym.x}%`,
             top: `${sym.y}%`,
-            color: 'rgba(16, 185, 129, 0.08)',
+            color: 'rgba(212,160,23,0.08)',
           }}
           animate={{ y: [0, -10, 0], opacity: [0.05, 0.14, 0.05] }}
           transition={{ duration: 7 + i * 0.9, repeatType: "loop", repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
@@ -201,7 +201,7 @@ export function ShadowGeneratorSection() {
     x: 2,
     y: 2,
     blur: 8,
-    color: '#10b981',
+    color: '#d4a017',
     opacity: 60,
   });
 
@@ -400,15 +400,15 @@ export function ShadowGeneratorSection() {
   return (
     <section className="relative w-full min-h-screen py-16 md:py-24 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0d0d15] to-[#141420]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#f5f0e1] via-[#ebe5d0] to-[#f5f0e1]" />
 
       {/* Grid background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
+            linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -420,7 +420,7 @@ export function ShadowGeneratorSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.08) 100%)',
         }}
       />
 
@@ -433,22 +433,22 @@ export function ShadowGeneratorSection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/[0.06] mb-4">
-            <Box className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400/70">CSS Tool</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#d4a017]/20 bg-[#d4a017]/10 mb-4">
+            <Box className="w-3.5 h-3.5 text-[#d4a017]" />
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#d4a017]">CSS Tool</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
-            <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent bg-[length:200%_100%]" style={{ animation: 'gradient-shift 6s ease infinite' }}>
+            <span className="bg-gradient-to-r from-[#d4a017] via-[#b8860b] to-emerald-400 bg-clip-text text-transparent bg-[length:200%_100%]" style={{ animation: 'gradient-shift 6s ease infinite' }}>
               Shadow Lab
             </span>
           </h2>
-          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-white/25">
+          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-[#6b6356]/40">
             <span>2 Modes</span>
-            <span className="text-emerald-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>12 Presets</span>
-            <span className="text-emerald-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>5 Layers</span>
-            <span className="text-emerald-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>Live Preview</span>
           </div>
         </motion.div>
@@ -462,19 +462,19 @@ export function ShadowGeneratorSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           {/* Mode tabs */}
-          <div className="relative flex items-center gap-1 p-1 rounded-xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm">
+          <div className="relative flex items-center gap-1 p-1 rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0]">
             {(['box', 'text'] as const).map((m) => (
               <button
                 key={`mode-${m}`}
                 onClick={() => setMode(m)}
                 className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer ${
-                  mode === m ? 'text-white' : 'text-white/40 hover:text-white/60'
+                  mode === m ? 'text-[#1a1a1a]' : 'text-[#6b6356] hover:text-[#1a1a1a]/80'
                 }`}
               >
                 {mode === m && (
                   <motion.div
                     layoutId="shadow-mode-bg"
-                    className="absolute inset-0 rounded-lg border border-white/10 bg-white/[0.08]"
+                    className="absolute inset-0 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0]"
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -492,7 +492,7 @@ export function ShadowGeneratorSection() {
           <div className="flex items-center gap-2">
             <motion.button
               onClick={randomShadow}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/50 hover:text-white/80 hover:border-white/[0.15] transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:border-[#1a1a1a]/20 transition-colors cursor-pointer"
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -501,7 +501,7 @@ export function ShadowGeneratorSection() {
             </motion.button>
             <motion.button
               onClick={exportFile}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/50 hover:text-white/80 hover:border-white/[0.15] transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:border-[#1a1a1a]/20 transition-colors cursor-pointer"
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -524,21 +524,21 @@ export function ShadowGeneratorSection() {
             {mode === 'box' ? (
               <>
                 {/* Layer System */}
-                <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
+                <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
                   {/* Layer header */}
-                  <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
+                  <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a]/10">
                     <div className="flex items-center gap-2">
-                      <Layers className="w-3.5 h-3.5 text-emerald-400/70" />
-                      <span className="text-xs font-mono text-white/50">Layers</span>
-                      <span className="text-[10px] font-mono text-white/20">({layers.length}/5)</span>
+                      <Layers className="w-3.5 h-3.5 text-[#d4a017]" />
+                      <span className="text-xs font-mono text-[#1a1a1a]/70">Layers</span>
+                      <span className="text-[10px] font-mono text-[#6b6356]/50">({layers.length}/5)</span>
                     </div>
                     <motion.button
                       onClick={addLayer}
                       disabled={layers.length >= 5}
                       className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono transition-colors cursor-pointer ${
                         layers.length >= 5
-                          ? 'text-white/15 cursor-not-allowed'
-                          : 'text-emerald-400/70 hover:text-emerald-400 hover:bg-emerald-500/10'
+                          ? 'text-[#6b6356]/30 cursor-not-allowed'
+                          : 'text-[#d4a017] hover:text-[#d4a017] hover:bg-[#d4a017]/10'
                       }`}
                       whileTap={layers.length < 5 ? { scale: 0.95 } : undefined}
                     >
@@ -561,29 +561,29 @@ export function ShadowGeneratorSection() {
                           onClick={() => setActiveLayerId(layer.id)}
                           className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
                             activeLayerId === layer.id
-                              ? 'bg-white/[0.06] border border-white/[0.08]'
-                              : 'hover:bg-white/[0.03] border border-transparent'
+                              ? 'bg-[#ebe5d0] border border-[#1a1a1a]/15'
+                              : 'hover:bg-[#ebe5d0] border border-transparent'
                           }`}
                         >
                           {/* Color dot */}
                           <div
-                            className="w-4 h-4 rounded-full flex-shrink-0 ring-1 ring-white/10"
+                            className="w-4 h-4 rounded-full flex-shrink-0 ring-1 ring-[#1a1a1a]/15"
                             style={{ backgroundColor: layer.color }}
                           />
                           {/* Layer info */}
                           <div className="flex-1 min-w-0">
-                            <div className="text-[11px] font-mono text-white/50 truncate">
+                            <div className="text-[11px] font-mono text-[#1a1a1a]/70 truncate">
                               {layer.inset && 'inset '}
                               {layer.x}px {layer.y}px {layer.blur}px {layer.spread}px
                             </div>
-                            <div className="text-[10px] font-mono text-white/20">
+                            <div className="text-[10px] font-mono text-[#6b6356]/50">
                               {layer.color} @ {layer.opacity}%
                             </div>
                           </div>
                           {/* Active indicator */}
                           {activeLayerId === layer.id && (
                             <motion.div
-                              className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"
+                              className="w-1.5 h-1.5 rounded-full bg-[#d4a017] flex-shrink-0"
                               layoutId="active-layer-dot"
                               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                             />
@@ -595,7 +595,7 @@ export function ShadowGeneratorSection() {
                                 e.stopPropagation();
                                 removeLayer(layer.id);
                               }}
-                              className="w-5 h-5 flex items-center justify-center rounded text-white/20 hover:text-red-400/80 hover:bg-red-500/10 transition-colors cursor-pointer"
+                              className="w-5 h-5 flex items-center justify-center rounded text-[#6b6356]/50 hover:text-[#c23616] hover:bg-[#c23616]/10 transition-colors cursor-pointer"
                               whileTap={{ scale: 0.9 }}
                             >
                               <Trash2 className="w-3 h-3" />
@@ -608,13 +608,13 @@ export function ShadowGeneratorSection() {
                 </div>
 
                 {/* Active Layer Controls */}
-                <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 space-y-4">
+                <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4 space-y-4">
                   <div className="flex items-center gap-2 mb-1">
                     <div
-                      className="w-3 h-3 rounded-full ring-1 ring-white/10"
+                      className="w-3 h-3 rounded-full ring-1 ring-[#1a1a1a]/15"
                       style={{ backgroundColor: activeLayer.color }}
                     />
-                    <span className="text-xs font-mono text-white/40">
+                    <span className="text-xs font-mono text-[#6b6356]">
                       Layer {layers.findIndex((l) => l.id === activeLayerId) + 1} Controls
                     </span>
                   </div>
@@ -631,7 +631,7 @@ export function ShadowGeneratorSection() {
                         type="color"
                         value={activeLayer.color}
                         onChange={(e) => updateLayer('color', e.target.value)}
-                        className="w-8 h-8 rounded-lg border border-white/10 cursor-pointer appearance-none bg-transparent"
+                        className="w-8 h-8 rounded-lg border border-[#1a1a1a]/15 cursor-pointer appearance-none bg-transparent"
                         style={{ padding: 0 }}
                       />
                     </div>
@@ -648,7 +648,7 @@ export function ShadowGeneratorSection() {
                             );
                           }
                         }}
-                        className="w-full px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/70 outline-none focus:border-emerald-500/30 transition-colors"
+                        className="w-full px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/90 outline-none focus:border-[#d4a017]/30 transition-colors"
                         maxLength={7}
                       />
                     </div>
@@ -666,24 +666,24 @@ export function ShadowGeneratorSection() {
                           onChange={(e) => updateLayer('inset', e.target.checked)}
                           className="sr-only peer"
                         />
-                        <div className="w-9 h-5 rounded-full bg-white/[0.08] peer-checked:bg-emerald-500/30 transition-colors" />
+                        <div className="w-9 h-5 rounded-full bg-[#ebe5d0] peer-checked:bg-[#d4a017]/20 transition-colors" />
                         <motion.div
-                          className="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white/40 peer-checked:bg-emerald-400 shadow-sm"
+                          className="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white/40 peer-checked:bg-[#d4a017] shadow-sm"
                           animate={{ x: activeLayer.inset ? 16 : 0 }}
                           transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                         />
                       </div>
-                      <span className="text-[11px] font-mono text-white/40 group-hover:text-white/60 transition-colors">Inset</span>
+                      <span className="text-[11px] font-mono text-[#6b6356] group-hover:text-[#1a1a1a]/80 transition-colors">Inset</span>
                     </label>
                   </div>
                 </div>
               </>
             ) : (
               /* Text Shadow Controls */
-              <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 space-y-4">
+              <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4 space-y-4">
                 <div className="flex items-center gap-2 mb-1">
-                  <Type className="w-3.5 h-3.5 text-cyan-400/70" />
-                  <span className="text-xs font-mono text-white/40">Text Shadow Controls</span>
+                  <Type className="w-3.5 h-3.5 text-[#b8860b]" />
+                  <span className="text-xs font-mono text-[#6b6356]">Text Shadow Controls</span>
                 </div>
 
                 <ShadowSlider label="X Offset" value={textShadow.x} min={-20} max={20} step={1} unit="px" onChange={(v) => setTextShadow((p) => ({ ...p, x: v }))} />
@@ -696,7 +696,7 @@ export function ShadowGeneratorSection() {
                     type="color"
                     value={textShadow.color}
                     onChange={(e) => setTextShadow((p) => ({ ...p, color: e.target.value }))}
-                    className="w-8 h-8 rounded-lg border border-white/10 cursor-pointer appearance-none bg-transparent"
+                    className="w-8 h-8 rounded-lg border border-[#1a1a1a]/15 cursor-pointer appearance-none bg-transparent"
                     style={{ padding: 0 }}
                   />
                   <input
@@ -713,7 +713,7 @@ export function ShadowGeneratorSection() {
                         }));
                       }
                     }}
-                    className="flex-1 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/70 outline-none focus:border-emerald-500/30 transition-colors"
+                    className="flex-1 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/90 outline-none focus:border-[#d4a017]/30 transition-colors"
                     maxLength={7}
                   />
                 </div>
@@ -724,22 +724,22 @@ export function ShadowGeneratorSection() {
 
             {/* Presets */}
             <motion.div
-              className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden"
+              className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
-                <Palette className="w-3.5 h-3.5 text-amber-400/70" />
-                <span className="text-xs font-mono text-white/50">Presets</span>
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]/10">
+                <Palette className="w-3.5 h-3.5 text-[#d4a017]" />
+                <span className="text-xs font-mono text-[#1a1a1a]/70">Presets</span>
               </div>
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 p-3">
                 {PRESETS.map((preset, i) => (
                   <motion.button
                     key={`preset-${i}`}
                     onClick={() => applyPreset(preset)}
-                    className="group flex flex-col items-center gap-2 p-2.5 rounded-lg border border-white/[0.04] hover:border-white/[0.12] bg-white/[0.01] hover:bg-white/[0.04] transition-all cursor-pointer"
+                    className="group flex flex-col items-center gap-2 p-2.5 rounded-lg border border-[#1a1a1a]/10 hover:border-[#1a1a1a]/15 bg-[#ebe5d0] hover:bg-[#ebe5d0] transition-all cursor-pointer"
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.97 }}
                   >
@@ -753,7 +753,7 @@ export function ShadowGeneratorSection() {
                     >
                       {mode === 'text' ? (
                         <span
-                          className="text-[10px] font-bold text-white/80"
+                          className="text-[10px] font-bold text-[#1a1a1a]"
                           style={{ textShadow: preset.shadow.split(', ')[0] }}
                         >
                           Aa
@@ -762,7 +762,7 @@ export function ShadowGeneratorSection() {
                         <div className="w-5 h-5 rounded bg-white/90" />
                       )}
                     </div>
-                    <span className="text-[9px] font-mono text-white/30 group-hover:text-white/50 transition-colors truncate w-full text-center">
+                    <span className="text-[9px] font-mono text-[#6b6356]/70 group-hover:text-[#1a1a1a]/70 transition-colors truncate w-full text-center">
                       {preset.name}
                     </span>
                   </motion.button>
@@ -780,17 +780,17 @@ export function ShadowGeneratorSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             {/* Preview Panel */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
+            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
               {/* VS Code chrome */}
-              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                 </div>
                 <div className="flex items-center gap-1.5 ml-3">
-                  <Eye className="w-3 h-3 text-white/30" />
-                  <span className="text-[10px] font-mono text-white/25">Live Preview</span>
+                  <Eye className="w-3 h-3 text-[#6b6356]/70" />
+                  <span className="text-[10px] font-mono text-[#6b6356]/40">Live Preview</span>
                 </div>
               </div>
 
@@ -825,7 +825,7 @@ export function ShadowGeneratorSection() {
                       className="relative z-10 w-40 h-40 sm:w-48 sm:h-48 rounded-2xl bg-white flex items-center justify-center"
                       style={{ boxShadow: boxShadowCSS }}
                     >
-                      <div className="w-6 h-6 rounded-md bg-gradient-to-br from-emerald-400 to-cyan-400" />
+                      <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#d4a017] to-cyan-400" />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -839,14 +839,14 @@ export function ShadowGeneratorSection() {
                       <div
                         className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight"
                         style={{
-                          color: '#ffffff',
+                          color: '#1a1a1a',
                           textShadow: textShadowCSS,
                         }}
                       >
                         The Art of Code
                       </div>
                       <div
-                        className="mt-2 text-sm font-mono text-white/40"
+                        className="mt-2 text-sm font-mono text-[#6b6356]"
                         style={{ textShadow: textShadowCSS }}
                       >
                         CSS Shadow Preview
@@ -858,28 +858,28 @@ export function ShadowGeneratorSection() {
             </div>
 
             {/* CSS Output */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
+            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
               {/* Header with format toggle */}
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-2">
-                  <Code2 className="w-3.5 h-3.5 text-emerald-400/70" />
-                  <span className="text-[10px] font-mono text-white/25">Output</span>
+                  <Code2 className="w-3.5 h-3.5 text-[#d4a017]" />
+                  <span className="text-[10px] font-mono text-[#6b6356]/40">Output</span>
                 </div>
                 <div className="flex items-center gap-2">
                   {/* Format toggle */}
-                  <div className="relative flex items-center gap-0.5 p-0.5 rounded-md border border-white/[0.06] bg-white/[0.02]">
+                  <div className="relative flex items-center gap-0.5 p-0.5 rounded-md border border-[#1a1a1a]/10 bg-[#ebe5d0]">
                     {(['css', 'tailwind'] as const).map((fmt) => (
                       <button
                         key={`fmt-${fmt}`}
                         onClick={() => setExportFormat(fmt)}
                         className={`relative px-2.5 py-1 rounded text-[10px] font-mono transition-colors cursor-pointer ${
-                          exportFormat === fmt ? 'text-white' : 'text-white/30 hover:text-white/50'
+                          exportFormat === fmt ? 'text-[#1a1a1a]' : 'text-[#6b6356]/70 hover:text-[#1a1a1a]/70'
                         }`}
                       >
                         {exportFormat === fmt && (
                           <motion.div
                             layoutId="fmt-bg"
-                            className="absolute inset-0 rounded bg-white/[0.08] border border-white/[0.06]"
+                            className="absolute inset-0 rounded bg-[#ebe5d0] border border-[#1a1a1a]/10"
                             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                           />
                         )}
@@ -890,14 +890,14 @@ export function ShadowGeneratorSection() {
                   {/* Copy button */}
                   <motion.button
                     onClick={copyCode}
-                    className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-white/40 hover:text-white/70 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.06] transition-all cursor-pointer"
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/90 border border-[#1a1a1a]/10 hover:border-[#1a1a1a]/15 bg-[#ebe5d0] hover:bg-[#ebe5d0] transition-all cursor-pointer"
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     {copied ? (
                       <>
-                        <Check className="w-3 h-3 text-emerald-400" />
-                        <span className="text-emerald-400">Copied!</span>
+                        <Check className="w-3 h-3 text-[#d4a017]" />
+                        <span className="text-[#d4a017]">Copied!</span>
                       </>
                     ) : (
                       <>
@@ -962,33 +962,33 @@ export function ShadowGeneratorSection() {
             </div>
 
             {/* Shadow specs summary */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4">
+            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4">
               <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400/70" />
-                <span className="text-xs font-mono text-white/40">Shadow Specs</span>
+                <Sparkles className="w-3.5 h-3.5 text-[#d4a017]" />
+                <span className="text-xs font-mono text-[#6b6356]">Shadow Specs</span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div className="space-y-1">
-                  <div className="text-[10px] font-mono text-white/20">Property</div>
-                  <div className="text-xs font-mono text-emerald-400/80">
+                  <div className="text-[10px] font-mono text-[#6b6356]/50">Property</div>
+                  <div className="text-xs font-mono text-[#d4a017]">
                     {mode === 'box' ? 'box-shadow' : 'text-shadow'}
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-[10px] font-mono text-white/20">Layers</div>
-                  <div className="text-xs font-mono text-cyan-400/80">
+                  <div className="text-[10px] font-mono text-[#6b6356]/50">Layers</div>
+                  <div className="text-xs font-mono text-[#b8860b]">
                     {mode === 'box' ? layers.length : 1}
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-[10px] font-mono text-white/20">Format</div>
-                  <div className="text-xs font-mono text-white/60">
+                  <div className="text-[10px] font-mono text-[#6b6356]/50">Format</div>
+                  <div className="text-xs font-mono text-[#1a1a1a]/80">
                     {exportFormat === 'css' ? 'CSS' : 'Tailwind'}
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-[10px] font-mono text-white/20">Chars</div>
-                  <div className="text-xs font-mono text-white/60">
+                  <div className="text-[10px] font-mono text-[#6b6356]/50">Chars</div>
+                  <div className="text-xs font-mono text-[#1a1a1a]/80">
                     {cssCode.length}
                   </div>
                 </div>
@@ -999,7 +999,7 @@ export function ShadowGeneratorSection() {
 
         {/* Info bar */}
         <motion.div
-          className="flex items-center justify-center gap-3 mt-10 text-[11px] font-mono text-white/20"
+          className="flex items-center justify-center gap-3 mt-10 text-[11px] font-mono text-[#6b6356]/50"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

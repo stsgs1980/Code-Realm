@@ -356,14 +356,14 @@ export function Base64ToolSection() {
 
   if (!mounted) {
     return (
-      <section className="relative w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#0a1014]" />
+      <section className="relative w-full min-h-[80vh] bg-[#f5f0e1]" />
     );
   }
 
   return (
-    <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0a0a0a] to-[#0a1014] overflow-hidden">
+    <section className="relative w-full py-20 md:py-28 bg-[#f5f0e1] overflow-hidden">
       {/* Background grid */}
-      <div className="absolute inset-0 pointer-events-none bg-grid-subtle" />
+      <div className="absolute inset-0 pointer-events-none" />
 
       {/* Floating decorative symbols */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -374,7 +374,7 @@ export function Base64ToolSection() {
             style={{
               left: `${sym.x}%`,
               top: `${sym.y}%`,
-              color: 'rgba(20, 184, 166, 0.08)',
+              color: 'rgba(180, 128, 23, 0.12)',
             }}
             animate={{ y: [0, -10, 0], opacity: [0.05, 0.12, 0.05] }}
             transition={{ duration: 7 + i * 0.9, repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
@@ -387,7 +387,7 @@ export function Base64ToolSection() {
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)' }}
+        style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(180,128,23,0.08) 100%)' }}
       />
 
       {/* Content */}
@@ -401,17 +401,17 @@ export function Base64ToolSection() {
           transition={{ duration: 0.7 }}
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm mb-6">
-            <Lock className="w-4 h-4 text-teal-400" />
-            <span className="text-sm text-white/60 font-mono">Dev Tool</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-none border border-[#1a1a1a] bg-[#ebe5d0] mb-6">
+            <Lock className="w-4 h-4 text-[#d4a017]" />
+            <span className="text-sm text-[#6b6356] font-mono">Dev Tool</span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient-text">
+            <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient-text">
               Encoder Lab
             </span>
           </h2>
-          <p className="text-base md:text-lg text-white/40 max-w-xl mx-auto font-mono">
+          <p className="text-base md:text-lg text-[#6b6356] max-w-xl mx-auto font-mono">
             Encode, decode, and transform text across multiple formats in real-time
           </p>
         </motion.div>
@@ -434,8 +434,8 @@ export function Base64ToolSection() {
                   onClick={() => { setMode(m.id); }}
                   className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-mono border transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-teal-500/15 border-teal-500/30 text-teal-300 shadow-lg shadow-teal-500/10'
-                      : 'bg-white/[0.02] border-white/[0.06] text-white/40 hover:text-white/60 hover:border-white/[0.12] hover:bg-white/[0.04]'
+                      ? 'bg-[#d4a017]/15 border-[#d4a017]/30 text-[#b8860b] shadow-lg shadow-[#d4a017]/10'
+                      : 'bg-white/[0.02] border-white/[0.06] text-[#6b6356] hover:text-[#6b6356] hover:border-white/[0.12] hover:bg-white/[0.04]'
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -459,10 +459,10 @@ export function Base64ToolSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-mono">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#b8860b]/10 border border-[#b8860b]/20 text-[#b8860b] text-xs font-mono">
                 <Sparkles className="w-3 h-3" />
                 Detected: <span className="font-bold">{detection.type}</span>
-                <span className="text-cyan-400/60">({Math.round(detection.confidence * 100)}%)</span>
+                <span className="text-[#b8860b]/60">({Math.round(detection.confidence * 100)}%)</span>
               </div>
             </motion.div>
           )}
@@ -480,23 +480,23 @@ export function Base64ToolSection() {
           >
             {/* Input Card */}
             <div
-              className={`rounded-xl border bg-white/[0.02] backdrop-blur-sm overflow-hidden transition-colors ${
-                isDragOver ? 'border-teal-500/50 bg-teal-500/5' : 'border-white/[0.08]'
+              className={`rounded-xl border bg-white/[0.02]  overflow-hidden transition-colors ${
+                isDragOver ? 'border-[#d4a017]/50 bg-[#d4a017]/5' : 'border-white/[0.08]'
               }`}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
             >
               {/* VS Code-style chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#ebe5d0]">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80" />
                 </div>
-                <span className="text-xs font-mono text-white/30 ml-2">input</span>
+                <span className="text-xs font-mono text-[#6b6356] ml-2">input</span>
                 <div className="flex-1" />
-                <span className="text-[10px] font-mono text-white/20">{inputText.length} chars · {stats.inputLen} B</span>
+                <span className="text-[10px] font-mono text-[#6b6356]">{inputText.length} chars · {stats.inputLen} B</span>
               </div>
 
               {/* Textarea */}
@@ -504,7 +504,7 @@ export function Base64ToolSection() {
                 <textarea
                   value={inputText}
                   onChange={(e) => { setInputText(e.target.value); setActivePresetId(null); }}
-                  className="w-full h-48 sm:h-56 bg-black/30 rounded-lg border border-white/[0.06] focus-within:border-teal-500/40 text-white font-mono text-sm p-3 outline-none resize-none placeholder:text-white/20 custom-scrollbar transition-colors"
+                  className="w-full h-48 sm:h-56 bg-black/30 rounded-lg border border-white/[0.06] focus-within:border-[#d4a017]/40 text-white font-mono text-sm p-3 outline-none resize-none placeholder:text-[#6b6356] custom-scrollbar transition-colors"
                   placeholder="Type or paste text here..."
                   spellCheck={false}
                   autoComplete="off"
@@ -521,8 +521,8 @@ export function Base64ToolSection() {
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="mx-4 mb-3 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20">
-                      <p className="text-xs font-mono text-red-400">{error}</p>
+                    <div className="mx-4 mb-3 px-3 py-2 rounded-lg bg-[#c23616]/10 border border-[#c23616]/20">
+                      <p className="text-xs font-mono text-[#c23616]">{error}</p>
                     </div>
                   </motion.div>
                 )}
@@ -530,10 +530,10 @@ export function Base64ToolSection() {
 
               {/* Drop zone overlay hint */}
               {isDragOver && (
-                <div className="absolute inset-0 flex items-center justify-center bg-teal-500/10 backdrop-blur-sm rounded-xl z-20">
+                <div className="absolute inset-0 flex items-center justify-center bg-[#d4a017]/10  rounded-xl z-20">
                   <div className="text-center">
-                    <FileUp className="w-10 h-10 text-teal-400 mx-auto mb-2" />
-                    <p className="text-sm font-mono text-teal-300">Drop file here</p>
+                    <FileUp className="w-10 h-10 text-[#d4a017] mx-auto mb-2" />
+                    <p className="text-sm font-mono text-[#b8860b]">Drop file here</p>
                   </div>
                 </div>
               )}
@@ -549,7 +549,7 @@ export function Base64ToolSection() {
             />
             <motion.button
               onClick={() => fileInputRef.current?.click()}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-white/50 border border-white/[0.06] bg-white/[0.02] hover:text-teal-400 hover:border-teal-500/30 hover:bg-teal-500/5 transition-all cursor-pointer"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.06] bg-white/[0.02] hover:text-[#d4a017] hover:border-[#d4a017]/30 hover:bg-[#d4a017]/5 transition-all cursor-pointer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               aria-label="Upload file"
@@ -562,16 +562,16 @@ export function Base64ToolSection() {
             <div className="flex gap-3">
               <motion.button
                 onClick={() => setShowPresets((prev) => !prev)}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-white/70 border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Zap className="w-4 h-4 text-teal-400" />
+                <Zap className="w-4 h-4 text-[#d4a017]" />
                 Sample Data ({PRESETS.length})
               </motion.button>
               <motion.button
                 onClick={clearAll}
-                className="px-4 py-2.5 rounded-xl text-sm font-mono text-white/50 border border-white/[0.06] bg-white/[0.02] hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/5 transition-all cursor-pointer"
+                className="px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.06] bg-white/[0.02] hover:text-[#c23616] hover:border-[#c23616]/30 hover:bg-[#c23616]/5 transition-all cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 aria-label="Clear all"
@@ -599,17 +599,17 @@ export function Base64ToolSection() {
                           onClick={() => loadPreset(preset)}
                           className={`flex flex-col items-center gap-2 p-3 rounded-xl border text-center transition-all cursor-pointer ${
                             isActive
-                              ? 'bg-teal-500/10 border-teal-500/30'
+                              ? 'bg-[#d4a017]/10 border-[#d4a017]/30'
                               : 'bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.12]'
                           }`}
                           whileHover={{ scale: 1.03, y: -2 }}
                           whileTap={{ scale: 0.97 }}
                         >
-                          <PresetIcon className={`w-5 h-5 ${isActive ? 'text-teal-400' : 'text-white/40'}`} />
-                          <span className={`text-xs font-mono ${isActive ? 'text-teal-300' : 'text-white/50'}`}>
+                          <PresetIcon className={`w-5 h-5 ${isActive ? 'text-[#d4a017]' : 'text-[#6b6356]'}`} />
+                          <span className={`text-xs font-mono ${isActive ? 'text-[#b8860b]' : 'text-[#1a1a1a]'}`}>
                             {preset.name}
                           </span>
-                          <span className="text-[10px] font-mono text-white/20">{preset.description}</span>
+                          <span className="text-[10px] font-mono text-[#6b6356]">{preset.description}</span>
                         </motion.button>
                       );
                     })}
@@ -628,31 +628,31 @@ export function Base64ToolSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             {/* Output Card */}
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm overflow-hidden flex-1">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+            <div className="border border-[#1a1a1a] bg-[#ebe5d0] overflow-hidden flex-1">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#ebe5d0]">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80" />
                 </div>
-                <span className="text-xs font-mono text-white/30 ml-2">output</span>
+                <span className="text-xs font-mono text-[#6b6356] ml-2">output</span>
                 <div className="flex-1" />
-                <span className="text-[10px] font-mono text-white/20">{outputText.length} chars · {stats.outputLen} B</span>
+                <span className="text-[10px] font-mono text-[#6b6356]">{outputText.length} chars · {stats.outputLen} B</span>
               </div>
 
               {/* Output area */}
               <div className="px-4 py-3">
                 <div
-                  className="w-full min-h-[200px] sm:min-h-[230px] bg-black/30 rounded-lg border border-white/[0.06] p-3 font-mono text-sm text-teal-200/90 whitespace-pre-wrap break-all custom-scrollbar max-h-[340px] overflow-y-auto"
+                  className="w-full min-h-[200px] sm:min-h-[230px] bg-black/30 rounded-lg border border-white/[0.06] p-3 font-mono text-sm text-[#1a1a1a] whitespace-pre-wrap break-all custom-scrollbar max-h-[340px] overflow-y-auto"
                   role="region"
                   aria-label="Output result"
                 >
                   {outputText ? (
                     outputText
                   ) : inputText ? (
-                    <span className="text-white/20 italic">Error in conversion...</span>
+                    <span className="text-[#6b6356] italic">Error in conversion...</span>
                   ) : (
-                    <span className="text-white/20 italic">Output will appear here...</span>
+                    <span className="text-[#6b6356] italic">Output will appear here...</span>
                   )}
                 </div>
               </div>
@@ -663,19 +663,19 @@ export function Base64ToolSection() {
               <motion.button
                 onClick={copyOutput}
                 disabled={!outputText}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-white/70 border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
                 whileHover={{ scale: outputText ? 1.02 : 1 }}
                 whileTap={{ scale: outputText ? 0.98 : 1 }}
                 aria-label="Copy output"
               >
-                {copied ? <Check className="w-4 h-4 text-teal-400" /> : <Copy className="w-4 h-4" />}
+                {copied ? <Check className="w-4 h-4 text-[#d4a017]" /> : <Copy className="w-4 h-4" />}
                 {copied ? 'Copied!' : 'Copy Output'}
               </motion.button>
 
               <motion.button
                 onClick={downloadOutput}
                 disabled={!outputText}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-white/70 border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
                 whileHover={{ scale: outputText ? 1.02 : 1 }}
                 whileTap={{ scale: outputText ? 0.98 : 1 }}
                 aria-label="Download output as file"
@@ -689,7 +689,7 @@ export function Base64ToolSection() {
             <motion.button
               onClick={swapOutput}
               disabled={!outputText}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-white/70 border border-white/[0.08] bg-white/[0.03] hover:bg-teal-500/5 hover:border-teal-500/30 hover:text-teal-300 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.08] bg-white/[0.03] hover:bg-[#d4a017]/5 hover:border-[#d4a017]/30 hover:text-[#b8860b] transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
               whileHover={{ scale: outputText ? 1.02 : 1 }}
               whileTap={{ scale: outputText ? 0.98 : 1 }}
               aria-label="Swap output to input"
@@ -701,23 +701,23 @@ export function Base64ToolSection() {
 
             {/* Statistics */}
             <div className="flex gap-3">
-              <div className="flex-1 rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm px-4 py-3 text-center">
-                <div className="text-2xl font-bold font-mono text-teal-400">{stats.inputLen}</div>
-                <div className="text-[10px] font-mono text-white/30 uppercase tracking-wider mt-1">Input B</div>
+              <div className="flex-1 border border-[#1a1a1a] bg-[#ebe5d0] px-4 py-3 text-center">
+                <div className="text-2xl font-bold font-mono text-[#d4a017]">{stats.inputLen}</div>
+                <div className="text-[10px] font-mono text-[#6b6356] uppercase tracking-wider mt-1">Input B</div>
               </div>
-              <div className="flex-1 rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm px-4 py-3 text-center">
-                <div className="text-2xl font-bold font-mono text-cyan-400">{stats.outputLen}</div>
-                <div className="text-[10px] font-mono text-white/30 uppercase tracking-wider mt-1">Output B</div>
+              <div className="flex-1 border border-[#1a1a1a] bg-[#ebe5d0] px-4 py-3 text-center">
+                <div className="text-2xl font-bold font-mono text-[#b8860b]">{stats.outputLen}</div>
+                <div className="text-[10px] font-mono text-[#6b6356] uppercase tracking-wider mt-1">Output B</div>
               </div>
-              <div className="flex-1 rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm px-4 py-3 text-center">
-                <div className={`text-2xl font-bold font-mono ${stats.diff > 0 ? 'text-amber-400' : stats.diff < 0 ? 'text-emerald-400' : 'text-white/50'}`}>
+              <div className="flex-1 border border-[#1a1a1a] bg-[#ebe5d0] px-4 py-3 text-center">
+                <div className={`text-2xl font-bold font-mono ${stats.diff > 0 ? 'text-[#d4a017]' : stats.diff < 0 ? 'text-[#d4a017]' : 'text-[#1a1a1a]'}`}>
                   {stats.diff > 0 ? '+' : ''}{stats.diff}
                 </div>
-                <div className="text-[10px] font-mono text-white/30 uppercase tracking-wider mt-1">Diff</div>
+                <div className="text-[10px] font-mono text-[#6b6356] uppercase tracking-wider mt-1">Diff</div>
               </div>
-              <div className="flex-1 rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm px-4 py-3 text-center">
-                <div className="text-lg font-bold font-mono text-purple-400">{stats.ratio || '—'}</div>
-                <div className="text-[10px] font-mono text-white/30 uppercase tracking-wider mt-1">Ratio</div>
+              <div className="flex-1 border border-[#1a1a1a] bg-[#ebe5d0] px-4 py-3 text-center">
+                <div className="text-lg font-bold font-mono text-[#6b6356]">{stats.ratio || '—'}</div>
+                <div className="text-[10px] font-mono text-[#6b6356] uppercase tracking-wider mt-1">Ratio</div>
               </div>
             </div>
 
@@ -725,8 +725,8 @@ export function Base64ToolSection() {
             <div className="flex justify-center">
               {currentMode && (
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06]">
-                  <currentMode.icon className="w-3.5 h-3.5 text-teal-400" />
-                  <span className="text-xs font-mono text-teal-300">{currentMode.label}</span>
+                  <currentMode.icon className="w-3.5 h-3.5 text-[#d4a017]" />
+                  <span className="text-xs font-mono text-[#b8860b]">{currentMode.label}</span>
                 </div>
               )}
             </div>
@@ -735,7 +735,7 @@ export function Base64ToolSection() {
 
         {/* Info bar */}
         <motion.div
-          className="max-w-7xl mx-auto mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-white/25"
+          className="max-w-7xl mx-auto mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-[#6b6356]"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

@@ -330,14 +330,14 @@ export function RegexTesterSection() {
 
   if (!mounted) {
     return (
-      <section className="relative w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#141420]" />
+      <section className="relative w-full min-h-[80vh] bg-[#f5f0e1]" />
     );
   }
 
   return (
-    <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0a0a0a] to-[#141420] overflow-hidden">
+    <section className="relative w-full py-20 md:py-28 bg-[#f5f0e1] overflow-hidden">
       {/* Background grid */}
-      <div className="absolute inset-0 pointer-events-none bg-grid-subtle" />
+      <div className="absolute inset-0 pointer-events-none" />
 
       {/* Floating decorative symbols */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -348,7 +348,7 @@ export function RegexTesterSection() {
             style={{
               left: `${sym.x}%`,
               top: `${sym.y}%`,
-              color: 'rgba(16, 185, 129, 0.08)',
+              color: 'rgba(180, 128, 23, 0.12)',
             }}
             animate={{ y: [0, -10, 0], opacity: [0.05, 0.12, 0.05] }}
             transition={{ duration: 7 + i * 0.9, repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
@@ -361,7 +361,7 @@ export function RegexTesterSection() {
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)' }}
+        style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(180,128,23,0.08) 100%)' }}
       />
 
       {/* Content */}
@@ -375,17 +375,17 @@ export function RegexTesterSection() {
           transition={{ duration: 0.7 }}
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm mb-6">
-            <ScanSearch className="w-4 h-4 text-amber-400" />
-            <span className="text-sm text-white/60 font-mono">Pattern Tool</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-none border border-[#1a1a1a] bg-[#ebe5d0] mb-6">
+            <ScanSearch className="w-4 h-4 text-[#d4a017]" />
+            <span className="text-sm text-[#6b6356] font-mono">Pattern Tool</span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-emerald-400 via-amber-400 to-emerald-400 bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient-text">
+            <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient-text">
               Regex Lab
             </span>
           </h2>
-          <p className="text-base md:text-lg text-white/40 max-w-xl mx-auto font-mono">
+          <p className="text-base md:text-lg text-[#6b6356] max-w-xl mx-auto font-mono">
             Test, debug, and learn regular expressions in real-time
           </p>
         </motion.div>
@@ -401,24 +401,24 @@ export function RegexTesterSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             {/* Pattern Input Card */}
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
+            <div className="border border-[#1a1a1a] bg-[#ebe5d0] overflow-hidden">
               {/* VS Code-style chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#ebe5d0]">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80" />
                 </div>
-                <span className="text-xs font-mono text-white/30 ml-2">regex-pattern</span>
+                <span className="text-xs font-mono text-[#6b6356] ml-2">regex-pattern</span>
                 <div className="flex-1" />
                 <motion.button
                   onClick={copyRegex}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono text-white/50 hover:text-white/80 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] transition-all cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono text-[#1a1a1a] hover:text-[#1a1a1a] border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] transition-all cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Copy regex pattern"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-3.5 h-3.5 text-[#d4a017]" /> : <Copy className="w-3.5 h-3.5" />}
                   {copied ? 'Copied!' : 'Copy'}
                 </motion.button>
               </div>
@@ -426,19 +426,19 @@ export function RegexTesterSection() {
               {/* Regex input with delimiters */}
               <div className="px-4 py-3">
                 <div className="flex items-center gap-0 bg-black/30 rounded-lg border border-white/[0.06] focus-within:border-amber-500/40 transition-colors">
-                  <span className="text-amber-400 font-mono text-lg font-bold pl-3 select-none">/</span>
+                  <span className="text-[#d4a017] font-mono text-lg font-bold pl-3 select-none">/</span>
                   <input
                     type="text"
                     value={pattern}
                     onChange={(e) => { setPattern(e.target.value); setActivePresetId(null); }}
-                    className="flex-1 bg-transparent text-white font-mono text-sm py-2.5 px-1 outline-none placeholder:text-white/20 min-w-0"
+                    className="flex-1 bg-transparent text-white font-mono text-sm py-2.5 px-1 outline-none placeholder:text-[#6b6356] min-w-0"
                     placeholder="Enter regex pattern..."
                     spellCheck={false}
                     autoComplete="off"
                     aria-label="Regex pattern"
                   />
-                  <span className="text-amber-400 font-mono text-lg font-bold pr-1 select-none">/</span>
-                  <span className="text-emerald-400 font-mono text-sm pr-3 select-none">
+                  <span className="text-[#d4a017] font-mono text-lg font-bold pr-1 select-none">/</span>
+                  <span className="text-[#d4a017] font-mono text-sm pr-3 select-none">
                     {Array.from(flags).sort().join('')}
                   </span>
                 </div>
@@ -455,8 +455,8 @@ export function RegexTesterSection() {
                         onClick={() => toggleFlag(flag)}
                         className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-mono border transition-all cursor-pointer ${
                           isActive
-                            ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'
-                            : 'bg-white/[0.02] border-white/[0.06] text-white/40 hover:text-white/60 hover:border-white/[0.12]'
+                            ? 'bg-[#d4a017]/15 border-[#d4a017]/30 text-[#b8860b]'
+                            : 'bg-white/[0.02] border-white/[0.06] text-[#6b6356] hover:text-[#6b6356] hover:border-white/[0.12]'
                         }`}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -480,8 +480,8 @@ export function RegexTesterSection() {
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="mx-4 mb-3 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20">
-                      <p className="text-xs font-mono text-red-400">{error}</p>
+                    <div className="mx-4 mb-3 px-3 py-2 rounded-lg bg-[#c23616]/10 border border-[#c23616]/20">
+                      <p className="text-xs font-mono text-[#c23616]">{error}</p>
                     </div>
                   </motion.div>
                 )}
@@ -489,22 +489,22 @@ export function RegexTesterSection() {
             </div>
 
             {/* Test String Card */}
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm overflow-hidden flex-1">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+            <div className="border border-[#1a1a1a] bg-[#ebe5d0] overflow-hidden flex-1">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#ebe5d0]">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80" />
                 </div>
-                <span className="text-xs font-mono text-white/30 ml-2">test-string</span>
+                <span className="text-xs font-mono text-[#6b6356] ml-2">test-string</span>
                 <div className="flex-1" />
-                <span className="text-[10px] font-mono text-white/20">{testString.length} chars</span>
+                <span className="text-[10px] font-mono text-[#6b6356]">{testString.length} chars</span>
               </div>
               <div className="px-4 py-3">
                 <textarea
                   value={testString}
                   onChange={(e) => setTestString(e.target.value)}
-                  className="w-full h-36 sm:h-44 bg-black/30 rounded-lg border border-white/[0.06] focus-within:border-emerald-500/40 text-white font-mono text-sm p-3 outline-none resize-none placeholder:text-white/20 custom-scrollbar transition-colors"
+                  className="w-full h-36 sm:h-44 bg-black/30 rounded-lg border border-white/[0.06] focus-within:border-[#d4a017]/40 text-white font-mono text-sm p-3 outline-none resize-none placeholder:text-[#6b6356] custom-scrollbar transition-colors"
                   placeholder="Enter test string here..."
                   spellCheck={false}
                   aria-label="Test string"
@@ -513,10 +513,10 @@ export function RegexTesterSection() {
             </div>
 
             {/* Quick Patterns */}
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
-                <Braces className="w-3.5 h-3.5 text-white/40" />
-                <span className="text-xs font-mono text-white/40">Common Patterns</span>
+            <div className="border border-[#1a1a1a] bg-[#ebe5d0] overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#ebe5d0]">
+                <Braces className="w-3.5 h-3.5 text-[#6b6356]" />
+                <span className="text-xs font-mono text-[#6b6356]">Common Patterns</span>
               </div>
               <div className="px-4 py-3">
                 <div className="flex flex-wrap gap-1.5">
@@ -524,7 +524,7 @@ export function RegexTesterSection() {
                     <motion.button
                       key={`qp-${qp.label}`}
                       onClick={() => insertPattern(qp.insert)}
-                      className="px-2.5 py-1 rounded-md text-xs font-mono text-white/40 border border-white/[0.06] bg-white/[0.02] hover:text-amber-300 hover:border-amber-500/30 hover:bg-amber-500/5 transition-all cursor-pointer"
+                      className="px-2.5 py-1 rounded-md text-xs font-mono text-[#6b6356] border border-white/[0.06] bg-white/[0.02] hover:text-[#b8860b] hover:border-[#d4a017]/30 hover:bg-amber-500/5 transition-all cursor-pointer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       aria-label={`Insert pattern ${qp.label}`}
@@ -540,17 +540,17 @@ export function RegexTesterSection() {
             <div className="flex gap-3">
               <motion.button
                 onClick={() => setShowPresets(prev => !prev)}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-white/70 border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Zap className="w-4 h-4 text-amber-400" />
+                <Zap className="w-4 h-4 text-[#d4a017]" />
                 Presets ({PRESETS.length})
                 {showPresets ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
               </motion.button>
               <motion.button
                 onClick={clearAll}
-                className="px-4 py-2.5 rounded-xl text-sm font-mono text-white/50 border border-white/[0.06] bg-white/[0.02] hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/5 transition-all cursor-pointer"
+                className="px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.06] bg-white/[0.02] hover:text-[#c23616] hover:border-[#c23616]/30 hover:bg-[#c23616]/5 transition-all cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 aria-label="Clear all"
@@ -578,14 +578,14 @@ export function RegexTesterSection() {
                           onClick={() => loadPreset(preset)}
                           className={`flex flex-col items-center gap-2 p-3 rounded-xl border text-center transition-all cursor-pointer ${
                             isActive
-                              ? 'bg-amber-500/10 border-amber-500/30'
+                              ? 'bg-amber-500/10 border-[#d4a017]/30'
                               : 'bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.12]'
                           }`}
                           whileHover={{ scale: 1.03, y: -2 }}
                           whileTap={{ scale: 0.97 }}
                         >
-                          <PresetIcon className={`w-5 h-5 ${isActive ? 'text-amber-400' : 'text-white/40'}`} />
-                          <span className={`text-xs font-mono ${isActive ? 'text-amber-300' : 'text-white/50'}`}>
+                          <PresetIcon className={`w-5 h-5 ${isActive ? 'text-[#d4a017]' : 'text-[#6b6356]'}`} />
+                          <span className={`text-xs font-mono ${isActive ? 'text-[#b8860b]' : 'text-[#1a1a1a]'}`}>
                             {preset.name}
                           </span>
                         </motion.button>
@@ -606,16 +606,16 @@ export function RegexTesterSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             {/* Match Highlighting Card */}
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+            <div className="border border-[#1a1a1a] bg-[#ebe5d0] overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#ebe5d0]">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80" />
                 </div>
-                <span className="text-xs font-mono text-white/30 ml-2">match-highlight</span>
+                <span className="text-xs font-mono text-[#6b6356] ml-2">match-highlight</span>
                 <div className="flex-1" />
-                <span className="text-xs font-mono text-emerald-400/60">
+                <span className="text-xs font-mono text-[#d4a017]/60">
                   {matches.length} {matches.length === 1 ? 'match' : 'matches'}
                 </span>
               </div>
@@ -629,7 +629,7 @@ export function RegexTesterSection() {
                     highlightedParts.map((part, i) => {
                       if (part.type === 'text') {
                         return (
-                          <span key={`hl-text-${i}`} className="text-white/70">
+                          <span key={`hl-text-${i}`} className="text-[#1a1a1a]">
                             {part.content}
                           </span>
                         );
@@ -650,7 +650,7 @@ export function RegexTesterSection() {
                       );
                     })
                   ) : (
-                    <span className="text-white/20 italic">No test string provided...</span>
+                    <span className="text-[#6b6356] italic">No test string provided...</span>
                   )}
                 </div>
               </div>
@@ -658,39 +658,39 @@ export function RegexTesterSection() {
 
             {/* Match Stats */}
             <div className="flex gap-3">
-              <div className="flex-1 rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm px-4 py-3 text-center">
-                <div className="text-2xl font-bold font-mono text-emerald-400">{matches.length}</div>
-                <div className="text-[10px] font-mono text-white/30 uppercase tracking-wider mt-1">Matches</div>
+              <div className="flex-1 border border-[#1a1a1a] bg-[#ebe5d0] px-4 py-3 text-center">
+                <div className="text-2xl font-bold font-mono text-[#d4a017]">{matches.length}</div>
+                <div className="text-[10px] font-mono text-[#6b6356] uppercase tracking-wider mt-1">Matches</div>
               </div>
-              <div className="flex-1 rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm px-4 py-3 text-center">
-                <div className="text-2xl font-bold font-mono text-amber-400">
+              <div className="flex-1 border border-[#1a1a1a] bg-[#ebe5d0] px-4 py-3 text-center">
+                <div className="text-2xl font-bold font-mono text-[#d4a017]">
                   {matches.reduce((acc, m) => acc + m.groups.length, 0)}
                 </div>
-                <div className="text-[10px] font-mono text-white/30 uppercase tracking-wider mt-1">Groups</div>
+                <div className="text-[10px] font-mono text-[#6b6356] uppercase tracking-wider mt-1">Groups</div>
               </div>
-              <div className="flex-1 rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm px-4 py-3 text-center">
-                <div className="text-2xl font-bold font-mono text-purple-400">
+              <div className="flex-1 border border-[#1a1a1a] bg-[#ebe5d0] px-4 py-3 text-center">
+                <div className="text-2xl font-bold font-mono text-[#6b6356]">
                   {matches.reduce((acc, m) => acc + m.match.length, 0)}
                 </div>
-                <div className="text-[10px] font-mono text-white/30 uppercase tracking-wider mt-1">Chars</div>
+                <div className="text-[10px] font-mono text-[#6b6356] uppercase tracking-wider mt-1">Chars</div>
               </div>
             </div>
 
             {/* Match Details Table */}
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm overflow-hidden flex-1">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
-                <Terminal className="w-3.5 h-3.5 text-white/40" />
-                <span className="text-xs font-mono text-white/40">Match Details</span>
+            <div className="border border-[#1a1a1a] bg-[#ebe5d0] overflow-hidden flex-1">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#ebe5d0]">
+                <Terminal className="w-3.5 h-3.5 text-[#6b6356]" />
+                <span className="text-xs font-mono text-[#6b6356]">Match Details</span>
               </div>
               <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
                 {matches.length > 0 ? (
                   <table className="w-full text-xs font-mono">
                     <thead>
-                      <tr className="border-b border-white/[0.06]">
-                        <th className="text-left px-4 py-2.5 text-white/40 font-normal">#</th>
-                        <th className="text-left px-4 py-2.5 text-white/40 font-normal">Match</th>
-                        <th className="text-left px-4 py-2.5 text-white/40 font-normal hidden sm:table-cell">Index</th>
-                        <th className="text-left px-4 py-2.5 text-white/40 font-normal hidden md:table-cell">Groups</th>
+                      <tr className="border-b border-[#1a1a1a]">
+                        <th className="text-left px-4 py-2.5 text-[#6b6356] font-normal">#</th>
+                        <th className="text-left px-4 py-2.5 text-[#6b6356] font-normal">Match</th>
+                        <th className="text-left px-4 py-2.5 text-[#6b6356] font-normal hidden sm:table-cell">Index</th>
+                        <th className="text-left px-4 py-2.5 text-[#6b6356] font-normal hidden md:table-cell">Groups</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -720,23 +720,23 @@ export function RegexTesterSection() {
                                 {match.match.length > 50 ? match.match.slice(0, 50) + '...' : match.match}
                               </code>
                             </td>
-                            <td className="px-4 py-2.5 text-white/40 hidden sm:table-cell">
+                            <td className="px-4 py-2.5 text-[#6b6356] hidden sm:table-cell">
                               [{match.index}:{match.endIndex}]
                             </td>
-                            <td className="px-4 py-2.5 text-white/40 hidden md:table-cell">
+                            <td className="px-4 py-2.5 text-[#6b6356] hidden md:table-cell">
                               {match.groups.length > 0 ? (
                                 <div className="flex flex-wrap gap-1">
                                   {match.groups.map((g, gi) => (
                                     <span
                                       key={`group-${i}-${gi}`}
-                                      className="px-1.5 py-0.5 rounded bg-white/[0.04] text-white/50"
+                                      className="px-1.5 py-0.5 rounded bg-white/[0.04] text-[#1a1a1a]"
                                     >
                                       ${gi + 1}: &quot;{g.length > 20 ? g.slice(0, 20) + '...' : g}&quot;
                                     </span>
                                   ))}
                                 </div>
                               ) : (
-                                <span className="text-white/20">—</span>
+                                <span className="text-[#6b6356]">—</span>
                               )}
                             </td>
                           </motion.tr>
@@ -746,7 +746,7 @@ export function RegexTesterSection() {
                   </table>
                 ) : (
                   <div className="px-4 py-12 text-center">
-                    <div className="text-white/20 text-sm">
+                    <div className="text-[#6b6356] text-sm">
                       {pattern && !error ? 'No matches found' : 'Enter a pattern to see matches'}
                     </div>
                   </div>
@@ -758,7 +758,7 @@ export function RegexTesterSection() {
 
         {/* Info bar */}
         <motion.div
-          className="max-w-7xl mx-auto mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-white/25"
+          className="max-w-7xl mx-auto mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-[#6b6356]"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

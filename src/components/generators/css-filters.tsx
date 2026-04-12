@@ -166,10 +166,10 @@ function FilterSlider({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">
+        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">
           {config.label}
         </span>
-        <span className={`text-[11px] font-mono tabular-nums ${isDefault ? 'text-white/25' : 'text-emerald-400/80'}`}>
+        <span className={`text-[11px] font-mono tabular-nums ${isDefault ? 'text-[#6b6356]/40' : 'text-[#d4a017]'}`}>
           {value}
           {config.unit}
         </span>
@@ -183,7 +183,7 @@ function FilterSlider({
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
         style={{
-          background: `linear-gradient(to right, #10b981 0%, #06b6d4 ${pct}%, rgba(255,255,255,0.08) ${pct}%)`,
+          background: `linear-gradient(to right, #d4a017 0%, #b8860b ${pct}%, rgba(26,26,26,0.1) ${pct}%`,
         }}
       />
     </div>
@@ -213,7 +213,7 @@ function FloatingDecorations() {
           style={{
             left: `${sym.x}%`,
             top: `${sym.y}%`,
-            color: 'rgba(6, 182, 212, 0.07)',
+            color: 'rgba(184,134,11,0.07)',
           }}
           animate={{ y: [0, -10, 0], opacity: [0.04, 0.12, 0.04] }}
           transition={{ duration: 7 + i * 0.8, repeatType: "loop", repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
@@ -302,20 +302,20 @@ function CompareSlider({
         className="absolute top-0 bottom-0 w-0.5 z-10"
         style={{
           left: `${position}%`,
-          background: 'linear-gradient(to bottom, transparent, #10b981, #06b6d4, transparent)',
+          background: 'linear-gradient(to bottom, transparent, #d4a017, #b8860b, transparent)',
         }}
       >
         {/* Handle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 border border-white/20 backdrop-blur-sm flex items-center justify-center">
-          <ArrowLeftRight className="w-3.5 h-3.5 text-white/70" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 border border-[#1a1a1a]/25 flex items-center justify-center">
+          <ArrowLeftRight className="w-3.5 h-3.5 text-[#1a1a1a]/90" />
         </div>
       </div>
 
       {/* Labels */}
-      <div className="absolute top-3 left-3 z-10 px-2 py-1 rounded bg-black/50 backdrop-blur-sm text-[10px] font-mono text-white/60">
+      <div className="absolute top-3 left-3 z-10 px-2 py-1 rounded bg-black/50 text-[10px] font-mono text-[#1a1a1a]/80">
         Before
       </div>
-      <div className="absolute top-3 right-3 z-10 px-2 py-1 rounded bg-black/50 backdrop-blur-sm text-[10px] font-mono text-emerald-400/80">
+      <div className="absolute top-3 right-3 z-10 px-2 py-1 rounded bg-black/50 text-[10px] font-mono text-[#d4a017]">
         After
       </div>
     </div>
@@ -365,7 +365,7 @@ function ExportDropdown({
     <div className="relative">
       <motion.button
         onClick={() => setOpen((p) => !p)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/50 hover:text-white/80 hover:border-white/[0.15] transition-colors cursor-pointer"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:border-[#1a1a1a]/20 transition-colors cursor-pointer"
         whileHover={{ y: -1 }}
         whileTap={{ scale: 0.97 }}
       >
@@ -381,7 +381,7 @@ function ExportDropdown({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 top-full mt-1.5 z-50 min-w-[180px] rounded-lg border border-white/[0.1] bg-[#1a1a2e]/95 backdrop-blur-xl shadow-xl overflow-hidden"
+            className="absolute right-0 top-full mt-1.5 z-50 min-w-[180px] rounded-lg border border-[#1a1a1a]/15 bg-[#1a1a2e]/95 shadow-xl overflow-hidden"
           >
             {options.map((opt) => (
               <button
@@ -390,11 +390,11 @@ function ExportDropdown({
                   onCopy(opt.id, opt.text);
                   setOpen(false);
                 }}
-                className="flex items-center gap-2.5 w-full px-3 py-2.5 text-left text-xs font-mono text-white/60 hover:text-white/90 hover:bg-white/[0.06] transition-colors cursor-pointer"
+                className="flex items-center gap-2.5 w-full px-3 py-2.5 text-left text-xs font-mono text-[#1a1a1a]/80 hover:text-[#1a1a1a] hover:bg-[#ebe5d0] transition-colors cursor-pointer"
               >
-                <span className="text-emerald-400/60">{opt.icon}</span>
+                <span className="text-[#d4a017]/80">{opt.icon}</span>
                 <span className="flex-1">{opt.label}</span>
-                {copiedType === opt.id && <Check className="w-3.5 h-3.5 text-emerald-400" />}
+                {copiedType === opt.id && <Check className="w-3.5 h-3.5 text-[#d4a017]" />}
               </button>
             ))}
           </motion.div>
@@ -464,15 +464,15 @@ export function CssFiltersSection() {
   return (
     <section className="relative w-full min-h-screen py-16 md:py-24 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a1210] to-[#0a1a15]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#f5f0e1] via-[#ebe5d0] to-[#f5f0e1]" />
 
       {/* Grid background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)
+            linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -484,7 +484,7 @@ export function CssFiltersSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.08) 100%)',
         }}
       />
 
@@ -497,30 +497,30 @@ export function CssFiltersSection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.06] mb-4">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-[11px] font-mono uppercase tracking-widest text-cyan-400/70">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#b8860b]/20 bg-[#b8860b]/10 mb-4">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#b8860b]" />
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#b8860b]">
               Image Tool
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
             <span
-              className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent"
+              className="bg-gradient-to-r from-[#d4a017] via-[#b8860b] to-emerald-400 bg-clip-text text-transparent"
               style={{ backgroundSize: '200% 100%', animation: 'gradient-shift 6s ease infinite' }}
             >
               Filters Lab
             </span>
           </h2>
-          <p className="text-sm text-white/30 font-mono max-w-md mx-auto">
+          <p className="text-sm text-[#6b6356]/70 font-mono max-w-md mx-auto">
             Explore CSS filter functions with real-time preview, curated presets, and code export.
           </p>
-          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-white/25">
+          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-[#6b6356]/40">
             <span>8 Filters</span>
-            <span className="text-emerald-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>12 Presets</span>
-            <span className="text-emerald-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>Real-time Preview</span>
-            <span className="text-emerald-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>CSS Export</span>
           </div>
         </motion.div>
@@ -534,17 +534,17 @@ export function CssFiltersSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           {/* Compare mode toggle */}
-          <div className="relative flex items-center gap-1 p-1 rounded-xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm">
+          <div className="relative flex items-center gap-1 p-1 rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0]">
             <button
               onClick={() => setCompareMode(false)}
               className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer ${
-                !compareMode ? 'text-white' : 'text-white/40 hover:text-white/60'
+                !compareMode ? 'text-[#1a1a1a]' : 'text-[#6b6356] hover:text-[#1a1a1a]/80'
               }`}
             >
               {!compareMode && (
                 <motion.div
                   layoutId="filter-mode-bg"
-                  className="absolute inset-0 rounded-lg border border-white/10 bg-white/[0.08]"
+                  className="absolute inset-0 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0]"
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 />
               )}
@@ -554,13 +554,13 @@ export function CssFiltersSection() {
             <button
               onClick={() => setCompareMode(true)}
               className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer ${
-                compareMode ? 'text-white' : 'text-white/40 hover:text-white/60'
+                compareMode ? 'text-[#1a1a1a]' : 'text-[#6b6356] hover:text-[#1a1a1a]/80'
               }`}
             >
               {compareMode && (
                 <motion.div
                   layoutId="filter-mode-bg"
-                  className="absolute inset-0 rounded-lg border border-white/10 bg-white/[0.08]"
+                  className="absolute inset-0 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0]"
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 />
               )}
@@ -576,8 +576,8 @@ export function CssFiltersSection() {
               disabled={!hasFilters}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors cursor-pointer ${
                 hasFilters
-                  ? 'border-white/[0.08] bg-white/[0.03] text-white/50 hover:text-white/80 hover:border-white/[0.15]'
-                  : 'border-white/[0.04] bg-transparent text-white/15 cursor-not-allowed'
+                  ? 'border-[#1a1a1a]/15 bg-[#ebe5d0] text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:border-[#1a1a1a]/20'
+                  : 'border-[#1a1a1a]/10 bg-transparent text-[#6b6356]/30 cursor-not-allowed'
               }`}
               whileHover={hasFilters ? { y: -1 } : undefined}
               whileTap={hasFilters ? { scale: 0.97 } : undefined}
@@ -588,14 +588,14 @@ export function CssFiltersSection() {
 
             <motion.button
               onClick={quickCopyCSS}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/50 hover:text-white/80 hover:border-white/[0.15] transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:border-[#1a1a1a]/20 transition-colors cursor-pointer"
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
             >
               {copiedType === 'css' ? (
                 <>
-                  <Check className="w-3 h-3 text-emerald-400" />
-                  <span className="text-emerald-400">Copied!</span>
+                  <Check className="w-3 h-3 text-[#d4a017]" />
+                  <span className="text-[#d4a017]">Copied!</span>
                 </>
               ) : (
                 <>
@@ -619,24 +619,24 @@ export function CssFiltersSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15 }}
           >
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
+            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
               {/* VS Code chrome */}
-              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                 </div>
                 <div className="flex items-center gap-1.5 ml-3">
-                  <Eye className="w-3 h-3 text-white/30" />
-                  <span className="text-[10px] font-mono text-white/25">
+                  <Eye className="w-3 h-3 text-[#6b6356]/70" />
+                  <span className="text-[10px] font-mono text-[#6b6356]/40">
                     {compareMode ? 'Before / After Comparison' : 'Live Preview'}
                   </span>
                 </div>
                 {hasFilters && (
                   <div className="ml-auto flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 status-pulse" />
-                    <span className="text-[10px] font-mono text-emerald-400/50">Filters Active</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#d4a017] status-pulse" />
+                    <span className="text-[10px] font-mono text-[#d4a017]/50">Filters Active</span>
                   </div>
                 )}
               </div>
@@ -709,12 +709,12 @@ export function CssFiltersSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             {/* Filter Controls */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400/70" />
-                <span className="text-xs font-mono text-white/50">Filter Controls</span>
+            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]/10">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-[#d4a017]" />
+                <span className="text-xs font-mono text-[#1a1a1a]/70">Filter Controls</span>
                 {hasFilters && (
-                  <span className="ml-auto text-[10px] font-mono text-cyan-400/50">
+                  <span className="ml-auto text-[10px] font-mono text-[#b8860b]/70">
                     {allFunctions.length} active
                   </span>
                 )}
@@ -733,16 +733,16 @@ export function CssFiltersSection() {
 
             {/* Presets */}
             <motion.div
-              className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden"
+              className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.3 }}
             >
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
-                <Palette className="w-3.5 h-3.5 text-cyan-400/70" />
-                <span className="text-xs font-mono text-white/50">Presets</span>
-                <span className="text-[10px] font-mono text-white/20 ml-1">({PRESETS.length})</span>
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]/10">
+                <Palette className="w-3.5 h-3.5 text-[#b8860b]" />
+                <span className="text-xs font-mono text-[#1a1a1a]/70">Presets</span>
+                <span className="text-[10px] font-mono text-[#6b6356]/50 ml-1">({PRESETS.length})</span>
               </div>
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 p-3 max-h-[240px] overflow-y-auto custom-scrollbar">
                 {PRESETS.map((preset) => {
@@ -754,8 +754,8 @@ export function CssFiltersSection() {
                       onClick={() => applyPreset(preset)}
                       className={`group flex flex-col items-center gap-2 p-2 rounded-lg border transition-all cursor-pointer ${
                         isActive
-                          ? 'border-emerald-500/40 bg-emerald-500/[0.08]'
-                          : 'border-white/[0.04] hover:border-white/[0.12] bg-white/[0.01] hover:bg-white/[0.04]'
+                          ? 'border-[#d4a017]/40 bg-[#d4a017]/10'
+                          : 'border-[#1a1a1a]/10 hover:border-[#1a1a1a]/15 bg-[#ebe5d0] hover:bg-[#ebe5d0]'
                       }`}
                       whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.97 }}
@@ -772,11 +772,11 @@ export function CssFiltersSection() {
                           draggable={false}
                         />
                         {/* Overlay on hover */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                        <div className="absolute inset-0 bg-transparent group-hover:bg-[#1a1a1a]/10 transition-colors" />
                       </div>
                       <span
                         className={`text-[9px] font-mono truncate w-full text-center transition-colors ${
-                          isActive ? 'text-emerald-400' : 'text-white/30 group-hover:text-white/50'
+                          isActive ? 'text-[#d4a017]' : 'text-[#6b6356]/70 group-hover:text-[#1a1a1a]/70'
                         }`}
                       >
                         {preset.name}
@@ -791,28 +791,28 @@ export function CssFiltersSection() {
 
         {/* ──── CSS Output Panel ──── */}
         <motion.div
-          className="mt-6 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden"
+          className="mt-6 rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.25 }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1a1a1a]/10 bg-[#ebe5d0]">
             <div className="flex items-center gap-2">
-              <Code2 className="w-3.5 h-3.5 text-emerald-400/70" />
-              <span className="text-[10px] font-mono text-white/25">Generated CSS</span>
+              <Code2 className="w-3.5 h-3.5 text-[#d4a017]" />
+              <span className="text-[10px] font-mono text-[#6b6356]/40">Generated CSS</span>
             </div>
             <motion.button
               onClick={quickCopyCSS}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-white/40 hover:text-white/70 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.06] transition-all cursor-pointer"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/90 border border-[#1a1a1a]/10 hover:border-[#1a1a1a]/15 bg-[#ebe5d0] hover:bg-[#ebe5d0] transition-all cursor-pointer"
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.95 }}
             >
               {copiedType === 'css' ? (
                 <>
-                  <Check className="w-3 h-3 text-emerald-400" />
-                  <span className="text-emerald-400">Copied!</span>
+                  <Check className="w-3 h-3 text-[#d4a017]" />
+                  <span className="text-[#d4a017]">Copied!</span>
                 </>
               ) : (
                 <>
@@ -934,7 +934,7 @@ export function CssFiltersSection() {
 
         {/* ──── Info Bar ──── */}
         <motion.div
-          className="mt-8 flex items-center justify-center gap-4 text-[10px] font-mono text-white/20"
+          className="mt-8 flex items-center justify-center gap-4 text-[10px] font-mono text-[#6b6356]/50"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

@@ -31,7 +31,7 @@ interface StyleConfig {
 }
 
 const STYLES: StyleConfig[] = [
-  { id: 'clean', label: 'Clean / Modern', icon: Sparkles, description: 'Minimal, polished, SaaS-ready', accent: '#a78bfa' },
+  { id: 'clean', label: 'Clean / Modern', icon: Sparkles, description: 'Minimal, polished, SaaS-ready', accent: '#d4a017' },
   { id: 'terminal', label: 'Terminal / Hacker', icon: Terminal, description: 'Monospace, green on black, raw', accent: '#00ff41' },
   { id: 'brutalist', label: 'Brutalist', icon: Palette, description: 'Thick borders, Times, unpolished', accent: '#ff6b35' },
   { id: 'glitch', label: 'Glitch / Cyberpunk', icon: Code2, description: 'Neon glow, RGB split, scanlines', accent: '#00ffff' },
@@ -80,7 +80,7 @@ function FloatingDecorations() {
             left: `${item.left}%`,
             top: `${item.top}%`,
             fontSize: `${item.size}px`,
-            color: 'rgba(255,255,255,0.04)',
+            color: 'rgba(212,160,23,0.08)',
           }}
           animate={{
             y: [0, -20, 0, 10, 0],
@@ -362,7 +362,7 @@ function highlightLine(line: string) {
     if (prop) {
       return (
         <>
-          <span className="text-white/30">{prop[1]}</span>
+          <span style={{ color: '#6b6356' }}>{prop[1]}</span>
           <span className="syn-property">{prop[2]}</span>
           <span className="syn-punctuation">{prop[3]}</span>
           <span className="syn-value">{prop[4]}</span>
@@ -392,7 +392,7 @@ function highlightLine(line: string) {
     return <span className="syn-bracket">{line}</span>;
   }
 
-  return <span className="text-white/70">{line}</span>;
+  return <span style={{ color: '#1a1a1a' }}>{line}</span>;
 }
 
 // ============================================================
@@ -412,7 +412,7 @@ function QuoteSection() {
   return (
     <div className="relative py-20 px-4">
       {/* Decorative gradient line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-12 bg-gradient-to-b from-transparent via-purple-500/50 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-12" style={{ background: 'linear-gradient(to bottom, transparent, #b8860b, transparent)' }} />
 
       <div className="max-w-3xl mx-auto text-center">
         {/* Decorative quote marks */}
@@ -420,7 +420,7 @@ function QuoteSection() {
           <span
             className="font-mono text-6xl sm:text-7xl leading-none select-none"
             style={{
-              background: 'linear-gradient(135deg, rgba(168,85,247,0.3), rgba(236,72,153,0.3))',
+              background: 'linear-gradient(135deg, rgba(184,134,11,0.3), rgba(212,160,23,0.3))',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}
@@ -441,7 +441,7 @@ function QuoteSection() {
               <p
                 className="text-lg sm:text-xl md:text-2xl font-light leading-relaxed"
                 style={{
-                  background: 'linear-gradient(to right, rgba(255,255,255,0.6), rgba(255,255,255,0.4))',
+                  background: 'linear-gradient(to right, #1a1a1a, #6b6356)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
@@ -451,10 +451,10 @@ function QuoteSection() {
             </blockquote>
 
             <div className="space-y-1">
-              <p className="font-mono text-sm text-purple-400/80">
+              <p className="font-mono text-sm" style={{ color: '#b8860b' }}>
                 {QUOTES[currentQuote].author}
               </p>
-              <p className="font-mono text-xs text-white/25">
+              <p className="font-mono text-xs" style={{ color: '#6b6356' }}>
                 {QUOTES[currentQuote].role}
               </p>
             </div>
@@ -469,14 +469,14 @@ function QuoteSection() {
               onClick={() => setCurrentQuote(i)}
               className="relative w-2 h-2 rounded-full transition-colors"
               style={{
-                backgroundColor: i === currentQuote ? 'rgba(168,85,247,0.8)' : 'rgba(255,255,255,0.15)',
+                backgroundColor: i === currentQuote ? '#d4a017' : 'rgba(26,26,26,0.15)',
               }}
               aria-label={`Go to quote ${i + 1}`}
             >
               {i === currentQuote && (
                 <motion.div
                   className="absolute inset-0 rounded-full"
-                  style={{ backgroundColor: 'rgba(168,85,247,0.3)' }}
+                  style={{ backgroundColor: 'rgba(212,160,23,0.3)' }}
                   layoutId="quoteIndicator"
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 />
@@ -490,12 +490,12 @@ function QuoteSection() {
           <span
             className="font-mono text-6xl sm:text-7xl leading-none select-none"
             style={{
-              background: 'linear-gradient(135deg, rgba(249,115,22,0.3), rgba(168,85,247,0.3))',
+              background: 'linear-gradient(135deg, rgba(212,160,23,0.3), rgba(184,134,11,0.3))',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}
           >
-            {'}'}
+            {'}'} 
           </span>
         </div>
       </div>
@@ -515,17 +515,17 @@ function StatsBar() {
   ];
 
   return (
-    <div className="border-t border-b border-white/[0.06] py-6 px-4">
+    <div className="py-6 px-4" style={{ borderTop: '1px solid rgba(26,26,26,0.1)', borderBottom: '1px solid rgba(26,26,26,0.1)' }}>
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0">
         {stats.map((stat, i) => (
           <div key={`stat-${i}`} className="flex items-center gap-3 px-4 sm:px-6">
-            <stat.icon className="w-4 h-4 text-purple-400/60" />
+            <stat.icon className="w-4 h-4" style={{ color: '#6b6356' }} />
             <div>
-              <span className="font-mono text-xs text-white/60">{stat.label}</span>
-              <span className="font-mono text-[10px] text-white/20 ml-2 hidden sm:inline">{stat.value}</span>
+              <span className="font-mono text-xs" style={{ color: '#1a1a1a' }}>{stat.label}</span>
+              <span className="font-mono text-[10px] ml-2 hidden sm:inline" style={{ color: '#6b6356' }}>{stat.value}</span>
             </div>
             {i < stats.length - 1 && (
-              <span className="hidden sm:block w-px h-4 bg-white/10 ml-4 sm:ml-6" />
+              <span className="hidden sm:block w-px h-4 ml-4 sm:ml-6" style={{ backgroundColor: 'rgba(26,26,26,0.1)' }} />
             )}
           </div>
         ))}
@@ -609,18 +609,18 @@ function StyleSwitcher({
           <motion.button
             key={style.id}
             onClick={() => onChange(style.id)}
-            className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-mono transition-colors"
+            className="relative flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-mono transition-colors"
             style={{
-              color: isActive ? '#ffffff' : 'rgba(255,255,255,0.4)',
-              backgroundColor: isActive ? `${style.accent}18` : 'rgba(255,255,255,0.03)',
-              border: `1px solid ${isActive ? `${style.accent}40` : 'rgba(255,255,255,0.06)'}`,
+              color: isActive ? '#1a1a1a' : '#6b6356',
+              backgroundColor: isActive ? `${style.accent}18` : '#ebe5d0',
+              border: `1px solid ${isActive ? `${style.accent}40` : 'rgba(26,26,26,0.1)'}`,
             }}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
             {isActive && (
               <motion.div
-                className="absolute inset-0 rounded-xl"
+                className="absolute inset-0"
                 style={{
                   border: `1px solid ${style.accent}30`,
                   boxShadow: `0 0 15px ${style.accent}15`,
@@ -666,25 +666,25 @@ function CodeEditorPanel({ style }: { style: StyleName }) {
         className="h-full flex flex-col"
       >
         {/* Editor header */}
-        <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+        <div className="flex items-center gap-2 px-4 py-3" style={{ borderBottom: '1px solid rgba(26,26,26,0.1)' }}>
           <div className="w-3 h-3 rounded-full bg-red-500/60" />
           <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
           <div className="w-3 h-3 rounded-full bg-green-500/60" />
-          <span className="font-mono text-[11px] text-white/30 ml-2">
+          <span className="font-mono text-[11px] ml-2" style={{ color: '#6b6356' }}>
             {style}.styles.css
           </span>
           <div className="ml-auto flex items-center gap-1.5">
             <div className="w-2 h-2 rounded-full" style={{ backgroundColor: config.accent, opacity: 0.6 }} />
-            <span className="font-mono text-[10px] text-white/20 uppercase tracking-wider">{config.label}</span>
+            <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: '#6b6356' }}>{config.label}</span>
           </div>
         </div>
 
         {/* Code content */}
-        <div className="flex-1 p-4 overflow-y-auto custom-scrollbar font-mono text-xs sm:text-sm leading-relaxed">
+        <div className="flex-1 p-4 overflow-y-auto custom-scrollbar font-mono text-xs sm:text-sm leading-relaxed" style={{ background: '#0d1117', color: '#f8f8f2' }}>
           <div className="space-y-0">
             {lines.map((line, i) => (
               <div key={`code-line-${i}`} className="flex">
-                <span className="select-none text-white/15 w-8 text-right mr-4 shrink-0">{i + 1}</span>
+                <span className="select-none w-8 text-right mr-4 shrink-0" style={{ color: 'rgba(255,255,255,0.15)' }}>{i + 1}</span>
                 <span className="whitespace-pre">{highlightLine(line)}</span>
               </div>
             ))}
@@ -692,9 +692,9 @@ function CodeEditorPanel({ style }: { style: StyleName }) {
         </div>
 
         {/* Editor footer */}
-        <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.06]">
-          <span className="font-mono text-[10px] text-white/20">CSS</span>
-          <span className="font-mono text-[10px] text-white/20">{lines.length} lines</span>
+        <div className="flex items-center justify-between px-4 py-2" style={{ borderTop: '1px solid rgba(26,26,26,0.1)' }}>
+          <span className="font-mono text-[10px]" style={{ color: '#6b6356' }}>CSS</span>
+          <span className="font-mono text-[10px]" style={{ color: '#6b6356' }}>{lines.length} lines</span>
         </div>
       </motion.div>
     </AnimatePresence>
@@ -710,24 +710,25 @@ function ComparisonGridCard({ style }: { style: StyleConfig }) {
 
   return (
     <motion.div
-      className="group relative rounded-2xl overflow-hidden border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm"
+      className="group relative overflow-hidden flex flex-col"
       style={{
+        border: '1px solid rgba(26,26,26,0.1)',
+        background: '#ebe5d0',
         boxShadow: `0 0 20px ${style.accent}05`,
       }}
       whileHover={{
         scale: 1.02,
         boxShadow: `0 0 30px ${style.accent}15`,
-        borderColor: `${style.accent}25`,
       }}
       transition={{ duration: 0.3 }}
     >
       {/* Card header */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+      <div className="flex items-center gap-2 px-4 py-3" style={{ borderBottom: '1px solid rgba(26,26,26,0.1)' }}>
         <div
           className="w-2.5 h-2.5 rounded-full"
           style={{ backgroundColor: style.accent, boxShadow: `0 0 6px ${style.accent}50` }}
         />
-        <span className="font-mono text-xs text-white/50">{style.label}</span>
+        <span className="font-mono text-xs" style={{ color: '#1a1a1a' }}>{style.label}</span>
       </div>
 
       {/* Card preview area */}
@@ -738,9 +739,9 @@ function ComparisonGridCard({ style }: { style: StyleConfig }) {
       </div>
 
       {/* Card footer */}
-      <div className="px-4 py-2.5 border-t border-white/[0.06] flex items-center justify-between">
-        <span className="font-mono text-[10px] text-white/20">{style.description}</span>
-        <MousePointerClick className="w-3 h-3 text-white/15 group-hover:text-white/40 transition-colors" />
+      <div className="px-4 py-2.5 flex items-center justify-between" style={{ borderTop: '1px solid rgba(26,26,26,0.1)' }}>
+        <span className="font-mono text-[10px]" style={{ color: '#6b6356' }}>{style.description}</span>
+        <MousePointerClick className="w-3 h-3 transition-colors" style={{ color: '#6b6356' }} />
       </div>
     </motion.div>
   );
@@ -768,7 +769,7 @@ export function CodeComparisonSection() {
     <section
       className="relative w-full overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0d0d0d 0%, #141428 50%, #0d0d0d 100%)',
+        background: 'linear-gradient(180deg, #f5f0e1 0%, #ebe5d0 50%, #f5f0e1 100%)',
         minHeight: '100vh',
       }}
     >
@@ -780,18 +781,18 @@ export function CodeComparisonSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
+            linear-gradient(rgba(26,26,26,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(26,26,26,0.05) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px',
         }}
       />
 
-      {/* Vignette */}
+      {/* Vignette - very subtle */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.5) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 60%, rgba(26,26,26,0.06) 100%)',
         }}
       />
 
@@ -805,9 +806,9 @@ export function CodeComparisonSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/20 bg-purple-500/[0.06] mb-6">
-              <Braces className="w-3.5 h-3.5 text-purple-400" />
-              <span className="text-xs font-mono text-purple-400/80 uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-4 py-2 border mb-6" style={{ borderColor: 'rgba(212,160,23,0.2)', backgroundColor: 'rgba(212,160,23,0.06)' }}>
+              <Braces className="w-3.5 h-3.5" style={{ color: '#d4a017' }} />
+              <span className="text-xs font-mono uppercase tracking-widest" style={{ color: '#d4a017' }}>
                 Creative Coding
               </span>
             </div>
@@ -815,7 +816,7 @@ export function CodeComparisonSection() {
             <h2
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
               style={{
-                background: 'linear-gradient(135deg, #a78bfa, #f472b6, #fb923c)',
+                background: 'linear-gradient(135deg, #d4a017, #b8860b, #d4a017)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -823,7 +824,7 @@ export function CodeComparisonSection() {
               Code Art
             </h2>
 
-            <p className="font-mono text-sm sm:text-base text-white/30 tracking-wide">
+            <p className="font-mono text-sm sm:text-base tracking-wide" style={{ color: '#6b6356' }}>
               When code becomes the canvas
             </p>
           </motion.div>
@@ -839,9 +840,9 @@ export function CodeComparisonSection() {
           >
             {/* Section label */}
             <div className="flex items-center gap-3 mb-6">
-              <MousePointerClick className="w-4 h-4 text-purple-400/60" />
-              <h3 className="font-mono text-sm text-white/40 tracking-widest uppercase">Live Preview</h3>
-              <div className="flex-1 h-px bg-gradient-to-r from-purple-500/20 to-transparent" />
+              <MousePointerClick className="w-4 h-4" style={{ color: '#6b6356' }} />
+              <h3 className="font-mono text-sm tracking-widest uppercase" style={{ color: '#6b6356' }}>Live Preview</h3>
+              <div className="flex-1 h-px" style={{ background: 'linear-gradient(to right, rgba(212,160,23,0.2), transparent)' }} />
             </div>
 
             {/* Switcher buttons */}
@@ -852,21 +853,21 @@ export function CodeComparisonSection() {
             {/* Side-by-side: Preview + Code */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Preview panel */}
-              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+              <div className="overflow-hidden" style={{ border: '1px solid rgba(26,26,26,0.1)', background: '#ebe5d0' }}>
+                <div className="flex items-center gap-2 px-4 py-3" style={{ borderBottom: '1px solid rgba(26,26,26,0.1)' }}>
                   <div className="w-3 h-3 rounded-full bg-red-500/60" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
                   <div className="w-3 h-3 rounded-full bg-green-500/60" />
-                  <span className="font-mono text-[11px] text-white/30 ml-2">
+                  <span className="font-mono text-[11px] ml-2" style={{ color: '#6b6356' }}>
                     preview — {STYLES.find(s => s.id === activeStyle)?.label}
                   </span>
-                  <ChevronRight className="w-3 h-3 text-white/15 ml-auto" />
+                  <ChevronRight className="w-3 h-3 ml-auto" style={{ color: '#6b6356' }} />
                 </div>
                 <LivePreviewCard style={activeStyle} />
               </div>
 
               {/* Code editor panel */}
-              <div className="rounded-2xl border border-white/[0.06] bg-[#0d0d0d]/80 backdrop-blur-sm overflow-hidden">
+              <div className="overflow-hidden" style={{ border: '1px solid rgba(26,26,26,0.1)', background: '#0d1117' }}>
                 <CodeEditorPanel style={activeStyle} />
               </div>
             </div>
@@ -882,12 +883,12 @@ export function CodeComparisonSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="flex items-center gap-3 mb-6">
-              <Hash className="w-4 h-4 text-purple-400/60" />
-              <h3 className="font-mono text-sm text-white/40 tracking-widest uppercase">Style Comparison</h3>
-              <div className="flex-1 h-px bg-gradient-to-r from-purple-500/20 to-transparent" />
+              <Hash className="w-4 h-4" style={{ color: '#6b6356' }} />
+              <h3 className="font-mono text-sm tracking-widest uppercase" style={{ color: '#6b6356' }}>Style Comparison</h3>
+              <div className="flex-1 h-px" style={{ background: 'linear-gradient(to right, rgba(212,160,23,0.2), transparent)' }} />
             </div>
 
-            <p className="font-mono text-xs text-white/25 mb-8 max-w-xl">
+            <p className="font-mono text-xs mb-8 max-w-xl" style={{ color: '#6b6356' }}>
               {'>'} The same &quot;Hello World&quot; component, rendered in 4 distinct aesthetic styles. Each one tells a different story.
             </p>
 

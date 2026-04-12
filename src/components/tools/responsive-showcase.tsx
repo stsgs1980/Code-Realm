@@ -169,7 +169,7 @@ function highlightCSS(css: string): React.ReactNode[] {
     if (!line.trim()) {
       return (
         <div key={`rc-css-${i}`} className="flex leading-[1.625rem]">
-          <span className="select-none text-white/[0.12] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
+          <span className="select-none text-[#6b6356] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
           <span className="whitespace-pre text-xs">&nbsp;</span>
         </div>
       );
@@ -220,7 +220,7 @@ function highlightCSS(css: string): React.ReactNode[] {
 
     return (
       <div key={`rc-css-${i}`} className="flex leading-[1.625rem]">
-        <span className="select-none text-white/[0.12] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
+        <span className="select-none text-[#6b6356] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
         <span className="whitespace-pre text-xs">{parts}</span>
       </div>
     );
@@ -253,7 +253,7 @@ function FloatingDecorations() {
             left: `${item.left}%`,
             top: `${item.top}%`,
             fontSize: `${item.size}px`,
-            color: 'rgba(255,255,255,0.025)',
+            color: 'rgba(180, 128, 23, 0.06)',
           }}
           animate={{
             y: [0, -12, 0, 8, 0],
@@ -506,7 +506,7 @@ export function ResponsiveShowcaseSection() {
       id="responsive-showcase"
       className="relative w-full overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0a0a0a 0%, #0a0f14 50%, #0a0a0a 100%)',
+        background: '#f5f0e1',
         minHeight: '100vh',
       }}
     >
@@ -518,8 +518,8 @@ export function ResponsiveShowcaseSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)
+            linear-gradient(rgba(180,128,23,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(180,128,23,0.06) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }}
@@ -529,7 +529,7 @@ export function ResponsiveShowcaseSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 50%, rgba(180,128,23,0.06) 100%)',
         }}
       />
 
@@ -543,15 +543,15 @@ export function ResponsiveShowcaseSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] mb-6">
-              <Monitor className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-xs font-mono text-emerald-400/80 uppercase tracking-widest">Layout Tool</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-none border border-[#1a1a1a] bg-[#ebe5d0] mb-6">
+              <Monitor className="w-3.5 h-3.5 text-[#d4a017]" />
+              <span className="text-xs font-mono text-[#d4a017]/80 uppercase tracking-widest">Layout Tool</span>
             </div>
 
             <h2
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
               style={{
-                background: 'linear-gradient(135deg, #10b981, #06b6d4, #10b981)',
+                background: 'linear-gradient(135deg, #d4a017, #b8860b, #d4a017)',
                 backgroundSize: '200% 200%',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -561,25 +561,25 @@ export function ResponsiveShowcaseSection() {
               Responsive Lab
             </h2>
 
-            <p className="font-mono text-sm sm:text-base text-white/30 tracking-wide max-w-lg mx-auto mb-6">
+            <p className="font-mono text-sm sm:text-base text-[#6b6356] tracking-wide max-w-lg mx-auto mb-6">
               Master responsive design with live previews, breakpoint visualization, and unit conversion
             </p>
 
             <div className="flex items-center justify-center gap-4 sm:gap-6 flex-wrap">
-              <span className="flex items-center gap-1.5 text-[11px] font-mono text-white/25">
-                <Smartphone className="w-3 h-3 text-cyan-400/40" /> 6 Device Presets
+              <span className="flex items-center gap-1.5 text-[11px] font-mono text-[#6b6356]">
+                <Smartphone className="w-3 h-3 text-[#b8860b]/40" /> 6 Device Presets
               </span>
-              <span className="text-white/10">|</span>
-              <span className="flex items-center gap-1.5 text-[11px] font-mono text-white/25">
-                <Ruler className="w-3 h-3 text-emerald-400/40" /> 5 Breakpoints
+              <span className="text-[#6b6356]">|</span>
+              <span className="flex items-center gap-1.5 text-[11px] font-mono text-[#6b6356]">
+                <Ruler className="w-3 h-3 text-[#d4a017]/40" /> 5 Breakpoints
               </span>
-              <span className="text-white/10">|</span>
-              <span className="flex items-center gap-1.5 text-[11px] font-mono text-white/25">
-                <LayoutGrid className="w-3 h-3 text-cyan-400/40" /> 4 Live Demos
+              <span className="text-[#6b6356]">|</span>
+              <span className="flex items-center gap-1.5 text-[11px] font-mono text-[#6b6356]">
+                <LayoutGrid className="w-3 h-3 text-[#b8860b]/40" /> 4 Live Demos
               </span>
-              <span className="text-white/10">|</span>
-              <span className="flex items-center gap-1.5 text-[11px] font-mono text-white/25">
-                <Layers className="w-3 h-3 text-emerald-400/40" /> Unit Converter
+              <span className="text-[#6b6356]">|</span>
+              <span className="flex items-center gap-1.5 text-[11px] font-mono text-[#6b6356]">
+                <Layers className="w-3 h-3 text-[#d4a017]/40" /> Unit Converter
               </span>
             </div>
           </motion.div>
@@ -587,14 +587,14 @@ export function ResponsiveShowcaseSection() {
 
         {/* ===== Tab Navigation ===== */}
         <div className="px-4 sm:px-6 lg:px-8 mb-6">
-          <div className="flex gap-1 p-1 rounded-xl border border-white/[0.06] bg-white/[0.02] max-w-3xl mx-auto overflow-x-auto custom-scrollbar">
+          <div className="flex gap-1 p-1 rounded-none border border-white/[0.06] bg-white/[0.02] max-w-3xl mx-auto overflow-x-auto custom-scrollbar">
             {tabs.map((tab) => (
               <motion.button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className="relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] sm:text-xs font-mono whitespace-nowrap transition-colors"
                 style={{
-                  color: activeTab === tab.id ? '#ffffff' : 'rgba(255,255,255,0.35)',
+                  color: activeTab === tab.id ? '#1a1a1a' : 'rgba(26,26,26,0.4)',
                 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -605,8 +605,8 @@ export function ResponsiveShowcaseSection() {
                   <motion.div
                     className="absolute inset-0 rounded-lg"
                     style={{
-                      background: 'rgba(16,185,129,0.1)',
-                      border: '1px solid rgba(16,185,129,0.25)',
+                      background: '#d4a017',
+                      border: '1px solid #1a1a1a',
                     }}
                     layoutId="responsiveTabIndicator"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -638,22 +638,22 @@ export function ResponsiveShowcaseSection() {
                       onClick={() => handlePreset(preset)}
                       className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-mono border transition-all ${
                         activePreset === preset.name
-                          ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                          : 'border-white/[0.06] bg-white/[0.02] text-white/40 hover:text-white/60 hover:bg-white/[0.06]'
+                          ? 'border-[#d4a017]/30 bg-[#d4a017]/10 text-[#d4a017]'
+                          : 'border-white/[0.06] bg-white/[0.02] text-[#6b6356] hover:text-[#6b6356] hover:bg-white/[0.06]'
                       }`}
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.96 }}
                     >
                       {preset.icon}
                       {preset.name}
-                      <span className="text-white/20">{orientation === 'portrait' ? preset.width : preset.height}px</span>
+                      <span className="text-[#6b6356]">{orientation === 'portrait' ? preset.width : preset.height}px</span>
                     </motion.button>
                   ))}
 
                   {/* Orientation toggle */}
                   <motion.button
                     onClick={handleOrientationToggle}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-mono border border-cyan-500/20 bg-cyan-500/[0.06] text-cyan-400/80 hover:bg-cyan-500/10 transition-all"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-mono border border-[#b8860b]/20 bg-[#b8860b]/10 text-[#b8860b]/80 hover:bg-[#b8860b]/10 transition-all"
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
                   >
@@ -663,10 +663,10 @@ export function ResponsiveShowcaseSection() {
                 </div>
 
                 {/* Width slider */}
-                <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
+                <div className="border border-[#1a1a1a] bg-[#ebe5d0] p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[11px] text-white/40">Viewport Width</span>
-                    <span className="font-mono text-sm text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md">
+                    <span className="font-mono text-[11px] text-[#6b6356]">Viewport Width</span>
+                    <span className="font-mono text-sm text-[#d4a017] bg-[#d4a017]/10 px-2.5 py-0.5 rounded-md">
                       {viewportWidth}px
                     </span>
                   </div>
@@ -686,15 +686,15 @@ export function ResponsiveShowcaseSection() {
                     aria-label="Viewport width"
                   />
                   <div className="flex justify-between mt-1">
-                    <span className="text-[9px] font-mono text-white/15">320px</span>
-                    <span className="text-[9px] font-mono text-white/15">1920px</span>
+                    <span className="text-[9px] font-mono text-[#6b6356]">320px</span>
+                    <span className="text-[9px] font-mono text-[#6b6356]">1920px</span>
                   </div>
                 </div>
 
                 {/* Preview frame */}
                 <div className="flex justify-center">
                   <div
-                    className="rounded-2xl overflow-hidden border-2 border-white/[0.08] relative"
+                    className="rounded-none overflow-hidden border-2 border-white/[0.08] relative"
                     style={{
                       width: `${deviceFrameWidth}px`,
                       height: `${deviceFrameHeight}px`,
@@ -703,11 +703,11 @@ export function ResponsiveShowcaseSection() {
                     }}
                   >
                     {/* Browser chrome */}
-                    <div className="flex items-center gap-1.5 px-3 py-2 border-b border-white/[0.06] bg-white/[0.02]">
+                    <div className="flex items-center gap-1.5 px-3 py-2 border-b border-[#1a1a1a] bg-[#ebe5d0]">
                       <div className="w-2 h-2 rounded-full bg-[#ff5f57]" />
                       <div className="w-2 h-2 rounded-full bg-[#febc2e]" />
                       <div className="w-2 h-2 rounded-full bg-[#28c840]" />
-                      <div className="flex-1 mx-2 px-2 py-0.5 rounded bg-white/[0.04] text-[9px] font-mono text-white/20 text-center truncate">
+                      <div className="flex-1 mx-2 px-2 py-0.5 rounded bg-white/[0.04] text-[9px] font-mono text-[#6b6356] text-center truncate">
                         {activePreset ? `${activePreset.toLowerCase()}.dev` : `localhost:${viewportWidth}`}
                       </div>
                       <span
@@ -725,14 +725,14 @@ export function ResponsiveShowcaseSection() {
                     <div className="overflow-auto custom-scrollbar h-[calc(100%-32px)]" style={{ fontSize: `${Math.max(10, viewportWidth / 80)}px` }}>
                       {/* Nav */}
                       <div
-                        className="border-b border-white/[0.06] px-3 py-2 flex items-center"
+                        className="border-b border-[#1a1a1a] px-3 py-2 flex items-center"
                         style={{
                           flexDirection: navCollapsed ? 'row' : 'row',
                           justifyContent: 'space-between',
                           flexWrap: navCollapsed ? 'wrap' : 'nowrap',
                         }}
                       >
-                        <span className="font-mono text-emerald-400/80 font-bold" style={{ fontSize: `${Math.max(10, viewportWidth / 60)}px` }}>
+                        <span className="font-mono text-[#d4a017]/80 font-bold" style={{ fontSize: `${Math.max(10, viewportWidth / 60)}px` }}>
                           DevSite
                         </span>
                         {navCollapsed ? (
@@ -744,7 +744,7 @@ export function ResponsiveShowcaseSection() {
                         ) : (
                           <div className="flex items-center gap-3">
                             {['Home', 'About', 'Blog', 'Contact'].map((item) => (
-                              <span key={item} className="font-mono text-white/30 hover:text-white/50 cursor-pointer" style={{ fontSize: `${Math.max(8, viewportWidth / 100)}px` }}>
+                              <span key={item} className="font-mono text-[#6b6356] hover:text-[#1a1a1a] cursor-pointer" style={{ fontSize: `${Math.max(8, viewportWidth / 100)}px` }}>
                                 {item}
                               </span>
                             ))}
@@ -754,13 +754,13 @@ export function ResponsiveShowcaseSection() {
 
                       {/* Hero */}
                       <div className="px-4 py-6 text-center">
-                        <h1 className="font-bold text-white/80 mb-2" style={{ fontSize: `${heroFontSize * (Math.max(10, viewportWidth / 80) / 10)}px` }}>
+                        <h1 className="font-bold text-[#1a1a1a] mb-2" style={{ fontSize: `${heroFontSize * (Math.max(10, viewportWidth / 80) / 10)}px` }}>
                           Build Better UIs
                         </h1>
-                        <p className="font-mono text-white/25" style={{ fontSize: `${Math.max(8, viewportWidth / 120)}px` }}>
+                        <p className="font-mono text-[#6b6356]" style={{ fontSize: `${Math.max(8, viewportWidth / 120)}px` }}>
                           Responsive design tools for modern developers
                         </p>
-                        <div className="mt-3 inline-flex px-3 py-1.5 rounded-lg text-emerald-400 text-[10px] font-mono border border-emerald-500/20 bg-emerald-500/10">
+                        <div className="mt-3 inline-flex px-3 py-1.5 rounded-lg text-[#d4a017] text-[10px] font-mono border border-[#d4a017]/20 bg-[#d4a017]/10">
                           Get Started
                         </div>
                       </div>
@@ -773,8 +773,8 @@ export function ResponsiveShowcaseSection() {
                         }}
                       >
                         {[
-                          { title: 'Design', color: '#10b981' },
-                          { title: 'Develop', color: '#06b6d4' },
+                          { title: 'Design', color: '#d4a017' },
+                          { title: 'Develop', color: '#b8860b' },
                           { title: 'Deploy', color: '#a855f7' },
                           { title: 'Scale', color: '#f59e0b' },
                         ].map((card) => (
@@ -784,7 +784,7 @@ export function ResponsiveShowcaseSection() {
                             style={{ minHeight: '60px' }}
                           >
                             <div className="w-6 h-1 rounded mb-2" style={{ backgroundColor: `${card.color}40` }} />
-                            <div className="font-mono text-white/40 text-[9px] font-bold">{card.title}</div>
+                            <div className="font-mono text-[#6b6356] text-[9px] font-bold">{card.title}</div>
                             <div className="mt-1.5 space-y-0.5">
                               <div className="h-0.5 bg-white/[0.06] rounded w-full" />
                               <div className="h-0.5 bg-white/[0.06] rounded w-3/4" />
@@ -801,11 +801,11 @@ export function ResponsiveShowcaseSection() {
                           style={{ flexDirection: sidebarHidden ? 'column' : 'row' }}
                         >
                           {sidebarHidden && (
-                            <div className="font-mono text-[8px] text-white/15 text-center">Sidebar hidden</div>
+                            <div className="font-mono text-[8px] text-[#6b6356] text-center">Sidebar hidden</div>
                           )}
                           {!sidebarHidden && (
                             <div className="w-1/4 border-r border-white/[0.06] pr-2">
-                              <div className="font-mono text-[8px] text-white/20 mb-1">Sidebar</div>
+                              <div className="font-mono text-[8px] text-[#6b6356] mb-1">Sidebar</div>
                               <div className="space-y-1">
                                 {[1, 2, 3].map((i) => (
                                   <div key={i} className="h-0.5 bg-white/[0.06] rounded" style={{ width: `${60 + i * 10}%` }} />
@@ -814,7 +814,7 @@ export function ResponsiveShowcaseSection() {
                             </div>
                           )}
                           <div className={sidebarHidden ? 'w-full' : 'flex-1'}>
-                            <div className="font-mono text-[8px] text-white/20 mb-1">Content</div>
+                            <div className="font-mono text-[8px] text-[#6b6356] mb-1">Content</div>
                             <div className="space-y-0.5">
                               {[1, 2, 3, 4].map((i) => (
                                 <div key={i} className="h-0.5 bg-white/[0.06] rounded" style={{ width: `${90 - i * 10}%` }} />
@@ -826,7 +826,7 @@ export function ResponsiveShowcaseSection() {
                     </div>
 
                     {/* Width indicator */}
-                    <div className="absolute bottom-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded bg-black/60 backdrop-blur-sm text-[9px] font-mono text-white/40">
+                    <div className="absolute bottom-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded bg-black/60  text-[9px] font-mono text-[#6b6356]">
                       <Maximize2 className="w-2.5 h-2.5" />
                       {viewportWidth} &times; {orientation === 'portrait' && activePreset ? DEVICE_PRESETS.find((d) => d.name === activePreset)?.height || '---' : '---'}
                     </div>
@@ -846,10 +846,10 @@ export function ResponsiveShowcaseSection() {
                 className="space-y-6"
               >
                 {/* Breakpoint Visualizer */}
-                <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5">
+                <div className="border border-[#1a1a1a] bg-[#ebe5d0] p-5">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-mono text-sm text-white/50 flex items-center gap-2">
-                      <Ruler className="w-4 h-4 text-emerald-400/50" />
+                    <h3 className="font-mono text-sm text-[#1a1a1a] flex items-center gap-2">
+                      <Ruler className="w-4 h-4 text-[#d4a017]/50" />
                       CSS Breakpoint Map
                     </h3>
                     <span
@@ -870,7 +870,7 @@ export function ResponsiveShowcaseSection() {
                       {BREAKPOINTS.map((bp) => (
                         <div
                           key={bp.name}
-                          className="flex items-center justify-center font-mono text-[10px] font-bold text-white/70"
+                          className="flex items-center justify-center font-mono text-[10px] font-bold text-[#1a1a1a]"
                           style={{
                             backgroundColor: `${bp.color}25`,
                             width: `${((bp.max - bp.min) / 2000) * 100}%`,
@@ -888,7 +888,7 @@ export function ResponsiveShowcaseSection() {
                     >
                       <div
                         className="w-0.5 h-full"
-                        style={{ backgroundColor: '#ffffff', boxShadow: '0 0 8px rgba(255,255,255,0.3)' }}
+                        style={{ backgroundColor: '#1a1a1a', boxShadow: '0 0 8px rgba(26,26,26,0.2)' }}
                       />
                       <div className="absolute -top-7 px-1.5 py-0.5 rounded bg-white text-black text-[9px] font-mono font-bold whitespace-nowrap">
                         {viewportWidth}px
@@ -901,7 +901,7 @@ export function ResponsiveShowcaseSection() {
                     {BREAKPOINTS.map((bp) => (
                       <div
                         key={bp.name}
-                        className="font-mono text-[9px] text-white/20"
+                        className="font-mono text-[9px] text-[#6b6356]"
                         style={{ width: `${((bp.max - bp.min) / 2000) * 100}%` }}
                       >
                         {bp.min}-{bp.max}px
@@ -952,7 +952,7 @@ export function ResponsiveShowcaseSection() {
                           >
                             {bp.name}
                           </div>
-                          <div className="font-mono text-[10px] text-white/25">
+                          <div className="font-mono text-[10px] text-[#6b6356]">
                             {bp.min}-{bp.max}px
                           </div>
                           {isActive && (
@@ -982,8 +982,8 @@ export function ResponsiveShowcaseSection() {
                 className="space-y-6"
               >
                 {/* Width control for demos */}
-                <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                  <span className="font-mono text-[11px] text-white/40 shrink-0">Demo Width</span>
+                <div className="border border-[#1a1a1a] bg-[#ebe5d0] p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                  <span className="font-mono text-[11px] text-[#6b6356] shrink-0">Demo Width</span>
                   <input
                     type="range"
                     min={320}
@@ -995,21 +995,21 @@ export function ResponsiveShowcaseSection() {
                     }}
                     className="flex-1 h-2 rounded-full appearance-none cursor-pointer w-full sm:w-auto"
                     style={{
-                      background: 'linear-gradient(90deg, rgba(16,185,129,0.3), rgba(6,182,212,0.3))',
+                      background: 'linear-gradient(90deg, rgba(212,160,23,0.3), rgba(184,134,11,0.3))',
                     }}
                     aria-label="Demo viewport width"
                   />
-                  <span className="font-mono text-sm text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md shrink-0">
+                  <span className="font-mono text-sm text-[#d4a017] bg-[#d4a017]/10 px-2.5 py-0.5 rounded-md shrink-0">
                     {viewportWidth}px &middot; {currentBreakpoint}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Demo 1: Card Grid */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.01]">
-                      <Grid3X3 className="w-3.5 h-3.5 text-emerald-400/60" />
-                      <span className="font-mono text-[11px] text-white/50">Card Grid</span>
+                  <div className="rounded-none border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#1a1a1a] bg-white/[0.01]">
+                      <Grid3X3 className="w-3.5 h-3.5 text-[#d4a017]/60" />
+                      <span className="font-mono text-[11px] text-[#1a1a1a]">Card Grid</span>
                       <span
                         className="ml-auto font-mono text-[10px] px-1.5 py-0.5 rounded"
                         style={{ color: currentBreakpointColor, backgroundColor: `${currentBreakpointColor}15` }}
@@ -1033,7 +1033,7 @@ export function ResponsiveShowcaseSection() {
                             layout
                             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                           >
-                            <div className="w-8 h-1.5 rounded mb-2" style={{ backgroundColor: `${['#10b981', '#06b6d4', '#a855f7', '#f59e0b'][i % 4]}40` }} />
+                            <div className="w-8 h-1.5 rounded mb-2" style={{ backgroundColor: `${['#d4a017', '#b8860b', '#a855f7', '#f59e0b'][i % 4]}40` }} />
                             <div className="space-y-0.5">
                               <div className="h-0.5 bg-white/[0.08] rounded w-full" />
                               <div className="h-0.5 bg-white/[0.06] rounded w-3/4" />
@@ -1041,17 +1041,17 @@ export function ResponsiveShowcaseSection() {
                           </motion.div>
                         ))}
                       </div>
-                      <div className="mt-3 font-mono text-[10px] text-white/15 text-center">
+                      <div className="mt-3 font-mono text-[10px] text-[#6b6356] text-center">
                         grid-template-columns: repeat({previewCols}, 1fr)
                       </div>
                     </div>
                   </div>
 
                   {/* Demo 2: Navigation */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.01]">
-                      <Menu className="w-3.5 h-3.5 text-cyan-400/60" />
-                      <span className="font-mono text-[11px] text-white/50">Navigation</span>
+                  <div className="rounded-none border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#1a1a1a] bg-white/[0.01]">
+                      <Menu className="w-3.5 h-3.5 text-[#b8860b]/60" />
+                      <span className="font-mono text-[11px] text-[#1a1a1a]">Navigation</span>
                       <span
                         className="ml-auto font-mono text-[10px] px-1.5 py-0.5 rounded"
                         style={{ color: currentBreakpointColor, backgroundColor: `${currentBreakpointColor}15` }}
@@ -1064,10 +1064,10 @@ export function ResponsiveShowcaseSection() {
                         className="rounded-lg border border-white/[0.06] p-3 bg-white/[0.02] flex items-center justify-between"
                       >
                         <div className="flex items-center gap-2">
-                          <div className="w-5 h-5 rounded bg-emerald-500/20 flex items-center justify-center">
-                            <Zap className="w-3 h-3 text-emerald-400" />
+                          <div className="w-5 h-5 rounded bg-[#d4a017]/20 flex items-center justify-center">
+                            <Zap className="w-3 h-3 text-[#d4a017]" />
                           </div>
-                          <span className="font-mono text-[11px] text-white/50 font-bold">Brand</span>
+                          <span className="font-mono text-[11px] text-[#1a1a1a] font-bold">Brand</span>
                         </div>
                         <AnimatePresence mode="wait">
                           {navCollapsed ? (
@@ -1093,28 +1093,28 @@ export function ResponsiveShowcaseSection() {
                               className="flex items-center gap-3"
                             >
                               {['Home', 'About', 'Services', 'Contact'].map((item) => (
-                                <span key={item} className="font-mono text-[10px] text-white/30 hover:text-white/50 cursor-pointer">
+                                <span key={item} className="font-mono text-[10px] text-[#6b6356] hover:text-[#1a1a1a] cursor-pointer">
                                   {item}
                                 </span>
                               ))}
-                              <div className="px-2 py-1 rounded text-[9px] font-mono text-emerald-400 border border-emerald-500/20 bg-emerald-500/10">
+                              <div className="px-2 py-1 rounded text-[9px] font-mono text-[#d4a017] border border-[#d4a017]/20 bg-[#d4a017]/10">
                                 CTA
                               </div>
                             </motion.div>
                           )}
                         </AnimatePresence>
                       </div>
-                      <div className="mt-3 font-mono text-[10px] text-white/15 text-center">
+                      <div className="mt-3 font-mono text-[10px] text-[#6b6356] text-center">
                         flex-direction: {navCollapsed ? 'column (collapsed)' : 'row (expanded)'}
                       </div>
                     </div>
                   </div>
 
                   {/* Demo 3: Hero Section */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.01]">
-                      <Type className="w-3.5 h-3.5 text-emerald-400/60" />
-                      <span className="font-mono text-[11px] text-white/50">Hero Section</span>
+                  <div className="rounded-none border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#1a1a1a] bg-white/[0.01]">
+                      <Type className="w-3.5 h-3.5 text-[#d4a017]/60" />
+                      <span className="font-mono text-[11px] text-[#1a1a1a]">Hero Section</span>
                       <span
                         className="ml-auto font-mono text-[10px] px-1.5 py-0.5 rounded"
                         style={{ color: currentBreakpointColor, backgroundColor: `${currentBreakpointColor}15` }}
@@ -1125,7 +1125,7 @@ export function ResponsiveShowcaseSection() {
                     <div className="p-4">
                       <div className="rounded-lg border border-white/[0.06] p-6 bg-white/[0.02] text-center">
                         <motion.h2
-                          className="font-bold text-white/70 mb-2"
+                          className="font-bold text-[#1a1a1a] mb-2"
                           style={{ fontSize: `${heroFontSize}px` }}
                           layout
                           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
@@ -1133,7 +1133,7 @@ export function ResponsiveShowcaseSection() {
                           Hero Title
                         </motion.h2>
                         <motion.p
-                          className="font-mono text-white/25 mb-4"
+                          className="font-mono text-[#6b6356] mb-4"
                           style={{ fontSize: `${Math.max(10, heroFontSize * 0.45)}px` }}
                           layout
                           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
@@ -1146,25 +1146,25 @@ export function ResponsiveShowcaseSection() {
                           layout
                           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                         >
-                          <div className="px-4 py-2 rounded-lg text-emerald-400 text-[10px] font-mono border border-emerald-500/20 bg-emerald-500/10">
+                          <div className="px-4 py-2 rounded-lg text-[#d4a017] text-[10px] font-mono border border-[#d4a017]/20 bg-[#d4a017]/10">
                             Primary CTA
                           </div>
-                          <div className="px-4 py-2 rounded-lg text-white/30 text-[10px] font-mono border border-white/[0.06]">
+                          <div className="px-4 py-2 rounded-lg text-[#6b6356] text-[10px] font-mono border border-white/[0.06]">
                             Secondary CTA
                           </div>
                         </motion.div>
                       </div>
-                      <div className="mt-3 font-mono text-[10px] text-white/15 text-center">
+                      <div className="mt-3 font-mono text-[10px] text-[#6b6356] text-center">
                         font-size: {heroFontSize}px &middot; CTA layout: {viewportWidth < 640 ? 'stacked' : 'inline'}
                       </div>
                     </div>
                   </div>
 
                   {/* Demo 4: Sidebar Layout */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.01]">
-                      <PanelLeft className="w-3.5 h-3.5 text-cyan-400/60" />
-                      <span className="font-mono text-[11px] text-white/50">Sidebar Layout</span>
+                  <div className="rounded-none border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#1a1a1a] bg-white/[0.01]">
+                      <PanelLeft className="w-3.5 h-3.5 text-[#b8860b]/60" />
+                      <span className="font-mono text-[11px] text-[#1a1a1a]">Sidebar Layout</span>
                       <span
                         className="ml-auto font-mono text-[10px] px-1.5 py-0.5 rounded"
                         style={{ color: currentBreakpointColor, backgroundColor: `${currentBreakpointColor}15` }}
@@ -1189,7 +1189,7 @@ export function ResponsiveShowcaseSection() {
                               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                               className="shrink-0 border-r border-white/[0.06] pr-2 overflow-hidden"
                             >
-                              <div className="font-mono text-[8px] text-white/20 mb-2">Nav</div>
+                              <div className="font-mono text-[8px] text-[#6b6356] mb-2">Nav</div>
                               {[1, 2, 3, 4].map((i) => (
                                 <div key={i} className="h-0.5 bg-white/[0.06] rounded mb-1" style={{ width: `${50 + i * 10}%` }} />
                               ))}
@@ -1197,7 +1197,7 @@ export function ResponsiveShowcaseSection() {
                           )}
                         </AnimatePresence>
                         <div className="flex-1 min-w-0">
-                          <div className="font-mono text-[8px] text-white/20 mb-2">Content Area</div>
+                          <div className="font-mono text-[8px] text-[#6b6356] mb-2">Content Area</div>
                           <div className="space-y-1.5">
                             <div className="h-3 bg-white/[0.04] rounded" />
                             <div className="h-3 bg-white/[0.04] rounded w-4/5" />
@@ -1206,7 +1206,7 @@ export function ResponsiveShowcaseSection() {
                           </div>
                         </div>
                       </motion.div>
-                      <div className="mt-3 font-mono text-[10px] text-white/15 text-center">
+                      <div className="mt-3 font-mono text-[10px] text-[#6b6356] text-center">
                         flex-direction: {sidebarHidden ? 'column' : 'row'} &middot; sidebar: {sidebarHidden ? 'hidden' : 'visible'}
                       </div>
                     </div>
@@ -1228,13 +1228,13 @@ export function ResponsiveShowcaseSection() {
                 {/* Rules list */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-mono text-sm text-white/50 flex items-center gap-2">
-                      <Code2 className="w-4 h-4 text-emerald-400/50" />
+                    <h3 className="font-mono text-sm text-[#1a1a1a] flex items-center gap-2">
+                      <Code2 className="w-4 h-4 text-[#d4a017]/50" />
                       Media Query Rules
                     </h3>
                     <motion.button
                       onClick={handleAddRule}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-500/20 bg-emerald-500/[0.06] text-emerald-400/80 text-[11px] font-mono hover:bg-emerald-500/10 transition-all"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#d4a017]/20 bg-[#d4a017]/[0.06] text-[#d4a017]/80 text-[11px] font-mono hover:bg-[#d4a017]/10 transition-all"
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.96 }}
                     >
@@ -1247,16 +1247,16 @@ export function ResponsiveShowcaseSection() {
                     <motion.div
                       key={rule.id}
                       layout
-                      className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 space-y-3"
+                      className="border border-[#1a1a1a] bg-[#ebe5d0] p-4 space-y-3"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.2 }}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-[10px] text-white/20">{rule.id.split('-')[0]}-{rule.id.split('-')[1]}</span>
+                        <span className="font-mono text-[10px] text-[#6b6356]">{rule.id.split('-')[0]}-{rule.id.split('-')[1]}</span>
                         <motion.button
                           onClick={() => handleRemoveRule(rule.id)}
-                          className="p-1 rounded hover:bg-red-500/10 text-white/20 hover:text-red-400 transition-colors"
+                          className="p-1 rounded hover:bg-[#c23616]/10 text-[#6b6356] hover:text-[#c23616] transition-colors"
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                         >
@@ -1267,11 +1267,11 @@ export function ResponsiveShowcaseSection() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         {/* Property */}
                         <div>
-                          <label className="font-mono text-[10px] text-white/30 mb-1 block">Property</label>
+                          <label className="font-mono text-[10px] text-[#6b6356] mb-1 block">Property</label>
                           <select
                             value={rule.property}
                             onChange={(e) => handleUpdateRule(rule.id, { property: e.target.value })}
-                            className="w-full px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.03] text-[11px] font-mono text-white/60 focus:outline-none focus:border-emerald-500/30 appearance-none cursor-pointer"
+                            className="w-full px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.03] text-[11px] font-mono text-[#6b6356] focus:outline-none focus:border-[#d4a017]/30 appearance-none cursor-pointer"
                           >
                             {CSS_PROPERTIES.map((prop) => (
                               <option key={prop} value={prop}>{prop}</option>
@@ -1281,37 +1281,37 @@ export function ResponsiveShowcaseSection() {
 
                         {/* Value */}
                         <div>
-                          <label className="font-mono text-[10px] text-white/30 mb-1 block">Value</label>
+                          <label className="font-mono text-[10px] text-[#6b6356] mb-1 block">Value</label>
                           <input
                             type="text"
                             value={rule.value}
                             onChange={(e) => handleUpdateRule(rule.id, { value: e.target.value })}
                             placeholder="e.g. 16px, flex, block"
-                            className="w-full px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.03] text-[11px] font-mono text-white/60 placeholder:text-white/15 focus:outline-none focus:border-emerald-500/30"
+                            className="w-full px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.03] text-[11px] font-mono text-[#6b6356] placeholder:text-[#6b6356] focus:outline-none focus:border-[#d4a017]/30"
                           />
                         </div>
 
                         {/* Min Width */}
                         <div>
-                          <label className="font-mono text-[10px] text-white/30 mb-1 block">Min Width</label>
+                          <label className="font-mono text-[10px] text-[#6b6356] mb-1 block">Min Width</label>
                           <input
                             type="text"
                             value={rule.minWidth}
                             onChange={(e) => handleUpdateRule(rule.id, { minWidth: e.target.value })}
                             placeholder="e.g. 768px"
-                            className="w-full px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.03] text-[11px] font-mono text-white/60 placeholder:text-white/15 focus:outline-none focus:border-emerald-500/30"
+                            className="w-full px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.03] text-[11px] font-mono text-[#6b6356] placeholder:text-[#6b6356] focus:outline-none focus:border-[#d4a017]/30"
                           />
                         </div>
 
                         {/* Max Width */}
                         <div>
-                          <label className="font-mono text-[10px] text-white/30 mb-1 block">Max Width</label>
+                          <label className="font-mono text-[10px] text-[#6b6356] mb-1 block">Max Width</label>
                           <input
                             type="text"
                             value={rule.maxWidth}
                             onChange={(e) => handleUpdateRule(rule.id, { maxWidth: e.target.value })}
                             placeholder="e.g. 1024px (optional)"
-                            className="w-full px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.03] text-[11px] font-mono text-white/60 placeholder:text-white/15 focus:outline-none focus:border-emerald-500/30"
+                            className="w-full px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.03] text-[11px] font-mono text-[#6b6356] placeholder:text-[#6b6356] focus:outline-none focus:border-[#d4a017]/30"
                           />
                         </div>
                       </div>
@@ -1320,7 +1320,7 @@ export function ResponsiveShowcaseSection() {
                       {rule.value.trim() && (rule.minWidth.trim() || rule.maxWidth.trim()) && (
                         <div className="rounded-lg border border-white/[0.04] bg-black/30 p-3 overflow-x-auto custom-scrollbar">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="font-mono text-[9px] text-white/20">Generated CSS</span>
+                            <span className="font-mono text-[9px] text-[#6b6356]">Generated CSS</span>
                             <motion.button
                               onClick={() => {
                                 const conditions: string[] = [];
@@ -1329,11 +1329,11 @@ export function ResponsiveShowcaseSection() {
                                 const code = `@media ${conditions.join(' and ')} {\n  .element {\n    ${rule.property}: ${rule.value};\n  }\n}`;
                                 handleCopy(code, rule.id);
                               }}
-                              className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-mono text-white/30 hover:text-white/50 transition-colors"
+                              className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[9px] font-mono text-[#6b6356] hover:text-[#1a1a1a] transition-colors"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
-                              {copiedIdx === rule.id ? <Check className="w-2.5 h-2.5 text-emerald-400" /> : <Copy className="w-2.5 h-2.5" />}
+                              {copiedIdx === rule.id ? <Check className="w-2.5 h-2.5 text-[#d4a017]" /> : <Copy className="w-2.5 h-2.5" />}
                             </motion.button>
                           </div>
                           <pre className="font-mono text-[11px] leading-relaxed">
@@ -1371,26 +1371,26 @@ export function ResponsiveShowcaseSection() {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {/* Converter panel */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.01]">
-                      <Layers className="w-3.5 h-3.5 text-emerald-400/60" />
-                      <span className="font-mono text-[11px] text-white/50">Responsive Unit Converter</span>
+                  <div className="rounded-none border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#1a1a1a] bg-white/[0.01]">
+                      <Layers className="w-3.5 h-3.5 text-[#d4a017]/60" />
+                      <span className="font-mono text-[11px] text-[#1a1a1a]">Responsive Unit Converter</span>
                     </div>
                     <div className="p-5 space-y-4">
                       {/* Value input */}
                       <div>
-                        <label className="font-mono text-[10px] text-white/30 mb-1.5 block">Value</label>
+                        <label className="font-mono text-[10px] text-[#6b6356] mb-1.5 block">Value</label>
                         <input
                           type="number"
                           value={convertValue}
                           onChange={(e) => setConvertValue(Number(e.target.value) || 0)}
-                          className="w-full px-3 py-2.5 rounded-lg border border-white/[0.06] bg-white/[0.03] text-sm font-mono text-white/70 focus:outline-none focus:border-emerald-500/30"
+                          className="w-full px-3 py-2.5 rounded-lg border border-white/[0.06] bg-white/[0.03] text-sm font-mono text-[#1a1a1a] focus:outline-none focus:border-[#d4a017]/30"
                         />
                       </div>
 
                       {/* From unit */}
                       <div>
-                        <label className="font-mono text-[10px] text-white/30 mb-1.5 block">From Unit</label>
+                        <label className="font-mono text-[10px] text-[#6b6356] mb-1.5 block">From Unit</label>
                         <div className="flex gap-1.5">
                           {UNIT_OPTIONS.map((unit) => (
                             <motion.button
@@ -1398,8 +1398,8 @@ export function ResponsiveShowcaseSection() {
                               onClick={() => setConvertFrom(unit)}
                               className={`px-3 py-2 rounded-lg text-[11px] font-mono border transition-all ${
                                 convertFrom === unit
-                                  ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                                  : 'border-white/[0.06] bg-white/[0.02] text-white/30 hover:text-white/50'
+                                  ? 'border-[#d4a017]/30 bg-[#d4a017]/10 text-[#d4a017]'
+                                  : 'border-white/[0.06] bg-white/[0.02] text-[#6b6356] hover:text-[#1a1a1a]'
                               }`}
                               whileHover={{ scale: 1.03 }}
                               whileTap={{ scale: 0.97 }}
@@ -1413,8 +1413,8 @@ export function ResponsiveShowcaseSection() {
                       {/* Base font size */}
                       <div>
                         <div className="flex items-center justify-between mb-1.5">
-                          <label className="font-mono text-[10px] text-white/30">Base Font Size (for em/rem)</label>
-                          <span className="font-mono text-xs text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                          <label className="font-mono text-[10px] text-[#6b6356]">Base Font Size (for em/rem)</label>
+                          <span className="font-mono text-xs text-[#d4a017] bg-[#d4a017]/10 px-2 py-0.5 rounded">
                             {baseFontSize}px
                           </span>
                         </div>
@@ -1426,7 +1426,7 @@ export function ResponsiveShowcaseSection() {
                           onChange={(e) => setBaseFontSize(Number(e.target.value))}
                           className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                           style={{
-                            background: 'linear-gradient(90deg, rgba(16,185,129,0.3), rgba(6,182,212,0.3))',
+                            background: 'linear-gradient(90deg, rgba(212,160,23,0.3), rgba(184,134,11,0.3))',
                           }}
                           aria-label="Base font size"
                         />
@@ -1434,13 +1434,13 @@ export function ResponsiveShowcaseSection() {
 
                       {/* Conversion results */}
                       <div className="rounded-lg border border-white/[0.06] bg-black/20 p-4 space-y-2.5">
-                        <div className="font-mono text-[10px] text-white/20 mb-2">Conversions</div>
+                        <div className="font-mono text-[10px] text-[#6b6356] mb-2">Conversions</div>
                         {UNIT_OPTIONS.map((unit) => {
                           const val = convertUnit(convertValue, convertFrom, unit, baseFontSize, viewportWidth, viewportHeight_for_calc);
                           return (
                             <div key={unit} className="flex items-center justify-between">
-                              <span className="font-mono text-[11px] text-white/30 w-8">{unit}</span>
-                              <span className={`font-mono text-sm ${unit === convertFrom ? 'text-white/20' : 'text-emerald-400/80'}`}>
+                              <span className="font-mono text-[11px] text-[#6b6356] w-8">{unit}</span>
+                              <span className={`font-mono text-sm ${unit === convertFrom ? 'text-[#6b6356]' : 'text-[#d4a017]/80'}`}>
                                 {val.toFixed(unit === '%' || unit === 'vw' || unit === 'vh' ? 2 : 4)}
                               </span>
                             </div>
@@ -1451,22 +1451,22 @@ export function ResponsiveShowcaseSection() {
                   </div>
 
                   {/* Quick reference */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.01]">
-                      <Palette className="w-3.5 h-3.5 text-cyan-400/60" />
-                      <span className="font-mono text-[11px] text-white/50">Quick Reference</span>
+                  <div className="rounded-none border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#1a1a1a] bg-white/[0.01]">
+                      <Palette className="w-3.5 h-3.5 text-[#b8860b]/60" />
+                      <span className="font-mono text-[11px] text-[#1a1a1a]">Quick Reference</span>
                     </div>
                     <div className="p-5 space-y-4">
                       {/* Common conversions */}
                       <div>
-                        <div className="font-mono text-[10px] text-white/20 mb-2">Common Conversions (base: 16px)</div>
+                        <div className="font-mono text-[10px] text-[#6b6356] mb-2">Common Conversions (base: 16px)</div>
                         <div className="rounded-lg border border-white/[0.04] overflow-hidden">
                           <table className="w-full">
                             <thead>
                               <tr className="border-b border-white/[0.04]">
-                                <th className="text-left font-mono text-[9px] text-white/25 px-3 py-2 uppercase tracking-wider">From</th>
-                                <th className="text-left font-mono text-[9px] text-white/25 px-3 py-2 uppercase tracking-wider">To</th>
-                                <th className="text-left font-mono text-[9px] text-white/25 px-3 py-2 uppercase tracking-wider hidden sm:table-cell">Note</th>
+                                <th className="text-left font-mono text-[9px] text-[#6b6356] px-3 py-2 uppercase tracking-wider">From</th>
+                                <th className="text-left font-mono text-[9px] text-[#6b6356] px-3 py-2 uppercase tracking-wider">To</th>
+                                <th className="text-left font-mono text-[9px] text-[#6b6356] px-3 py-2 uppercase tracking-wider hidden sm:table-cell">Note</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -1475,9 +1475,9 @@ export function ResponsiveShowcaseSection() {
                                   key={i}
                                   className="border-b border-white/[0.02] last:border-0"
                                 >
-                                  <td className="px-3 py-2 font-mono text-[11px] text-emerald-400/60">{conv.from}</td>
-                                  <td className="px-3 py-2 font-mono text-[11px] text-cyan-400/60">{conv.to}</td>
-                                  <td className="px-3 py-2 font-mono text-[10px] text-white/15 hidden sm:table-cell">{conv.note}</td>
+                                  <td className="px-3 py-2 font-mono text-[11px] text-[#d4a017]/60">{conv.from}</td>
+                                  <td className="px-3 py-2 font-mono text-[11px] text-[#b8860b]/60">{conv.to}</td>
+                                  <td className="px-3 py-2 font-mono text-[10px] text-[#6b6356] hidden sm:table-cell">{conv.note}</td>
                                 </tr>
                               ))}
                             </tbody>
@@ -1487,7 +1487,7 @@ export function ResponsiveShowcaseSection() {
 
                       {/* Unit explanation */}
                       <div>
-                        <div className="font-mono text-[10px] text-white/20 mb-2">Unit Guide</div>
+                        <div className="font-mono text-[10px] text-[#6b6356] mb-2">Unit Guide</div>
                         <div className="space-y-2">
                           {[
                             { unit: 'px', desc: 'Absolute unit — pixels on screen', color: '#ef4444' },
@@ -1504,7 +1504,7 @@ export function ResponsiveShowcaseSection() {
                               >
                                 {item.unit}
                               </span>
-                              <span className="font-mono text-[10px] text-white/25 leading-relaxed">{item.desc}</span>
+                              <span className="font-mono text-[10px] text-[#6b6356] leading-relaxed">{item.desc}</span>
                             </div>
                           ))}
                         </div>
@@ -1525,26 +1525,26 @@ export function ResponsiveShowcaseSection() {
                 transition={{ duration: 0.3 }}
                 className="space-y-4"
               >
-                <div className="rounded-xl border border-white/[0.06] overflow-hidden" style={{ background: '#0d1117' }}>
+                <div className="rounded-none border border-white/[0.06] overflow-hidden" style={{ background: '#0d1117' }}>
                   {/* Editor chrome */}
-                  <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
+                  <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a]">
                     <div className="flex items-center gap-2">
                       <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                       <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                       <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                      <span className="font-mono text-[11px] text-white/30 ml-2">responsive-styles.css</span>
+                      <span className="font-mono text-[11px] text-[#6b6356] ml-2">responsive-styles.css</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <motion.button
                         onClick={() => handleCopy(generatedCSS, 'main')}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono text-white/40 hover:text-white/60 hover:bg-white/[0.06] transition-all border border-white/[0.06]"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-mono text-[#6b6356] hover:text-[#6b6356] hover:bg-white/[0.06] transition-all border border-white/[0.06]"
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
                       >
                         {copiedIdx === 'main' ? (
                           <>
-                            <Check className="w-3 h-3 text-emerald-400" />
-                            <span className="text-emerald-400">Copied!</span>
+                            <Check className="w-3 h-3 text-[#d4a017]" />
+                            <span className="text-[#d4a017]">Copied!</span>
                           </>
                         ) : (
                           <>
@@ -1563,8 +1563,8 @@ export function ResponsiveShowcaseSection() {
 
                   {/* Status bar */}
                   <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.06] bg-white/[0.01]">
-                    <span className="font-mono text-[10px] text-white/20">CSS</span>
-                    <span className="font-mono text-[10px] text-white/20">{generatedCSS.split('\n').length} lines</span>
+                    <span className="font-mono text-[10px] text-[#6b6356]">CSS</span>
+                    <span className="font-mono text-[10px] text-[#6b6356]">{generatedCSS.split('\n').length} lines</span>
                   </div>
                 </div>
               </motion.div>
@@ -1575,19 +1575,19 @@ export function ResponsiveShowcaseSection() {
         {/* ===== Section Footer Info ===== */}
         <div className="pb-12 px-4 text-center">
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <span className="flex items-center gap-1.5 text-[10px] font-mono text-white/15">
+            <span className="flex items-center gap-1.5 text-[10px] font-mono text-[#6b6356]">
               <Monitor className="w-3 h-3" /> Responsive Design
             </span>
             <span className="text-white/[0.06]">&bull;</span>
-            <span className="flex items-center gap-1.5 text-[10px] font-mono text-white/15">
+            <span className="flex items-center gap-1.5 text-[10px] font-mono text-[#6b6356]">
               <Code2 className="w-3 h-3" /> Media Queries
             </span>
             <span className="text-white/[0.06]">&bull;</span>
-            <span className="flex items-center gap-1.5 text-[10px] font-mono text-white/15">
+            <span className="flex items-center gap-1.5 text-[10px] font-mono text-[#6b6356]">
               <Ruler className="w-3 h-3" /> Breakpoints
             </span>
             <span className="text-white/[0.06]">&bull;</span>
-            <span className="flex items-center gap-1.5 text-[10px] font-mono text-white/15">
+            <span className="flex items-center gap-1.5 text-[10px] font-mono text-[#6b6356]">
               <Layers className="w-3 h-3" /> Unit Conversion
             </span>
           </div>

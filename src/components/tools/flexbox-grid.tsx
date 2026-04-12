@@ -77,9 +77,9 @@ interface LayoutPreset {
 // ============================================================
 
 const ITEM_COLORS = [
-  '#10b981', '#06b6d4', '#8b5cf6', '#f59e0b', '#ec4899',
-  '#14b8a6', '#f472b6', '#34d399', '#a78bfa', '#fbbf24',
-  '#f87171', '#60a5fa',
+  '#d4a017', '#b8860b', '#6b6356', '#d4a017', '#c23616',
+  '#d4a017', '#c23616', '#b8860b', '#6b6356', '#d4a017',
+  '#c23616', '#6b6356',
 ];
 
 let itemIdCounter = 0;
@@ -162,7 +162,7 @@ function highlightCSS(css: string): React.ReactNode[] {
     if (!line.trim()) {
       return (
         <div key={`fg-css-${i}`} className="flex leading-[1.625rem]">
-          <span className="select-none text-white/[0.12] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
+          <span className="select-none text-[#6b6356] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
           <span className="whitespace-pre text-xs">&nbsp;</span>
         </div>
       );
@@ -226,7 +226,7 @@ function highlightCSS(css: string): React.ReactNode[] {
 
     return (
       <div key={`fg-css-${i}`} className="flex leading-[1.625rem]">
-        <span className="select-none text-white/[0.12] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
+        <span className="select-none text-[#6b6356] w-8 text-right mr-4 shrink-0 text-xs">{i + 1}</span>
         <span className="whitespace-pre text-xs">{parts}</span>
       </div>
     );
@@ -259,7 +259,7 @@ function FloatingDecorations() {
             left: `${item.left}%`,
             top: `${item.top}%`,
             fontSize: `${item.size}px`,
-            color: 'rgba(255,255,255,0.025)',
+            color: 'rgba(180, 128, 23, 0.06)',
           }}
           animate={{
             y: [0, -12, 0, 8, 0],
@@ -299,7 +299,7 @@ function ToggleButtonGroup({
 }) {
   return (
     <div>
-      <label className="font-mono text-[11px] text-white/40 mb-2 block tracking-wide">{label}</label>
+      <label className="font-mono text-[11px] text-[#6b6356] mb-2 block tracking-wide">{label}</label>
       <div className="flex flex-wrap gap-1.5">
         {options.map((opt) => {
           const isActive = value === opt.id;
@@ -309,9 +309,9 @@ function ToggleButtonGroup({
               onClick={() => onChange(opt.id)}
               className="relative px-2.5 py-1.5 rounded-lg text-[10px] sm:text-[11px] font-mono transition-colors"
               style={{
-                color: isActive ? '#ffffff' : 'rgba(255,255,255,0.35)',
-                backgroundColor: isActive ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.03)',
-                border: `1px solid ${isActive ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                color: isActive ? '#1a1a1a' : 'rgba(107,99,86,0.6)',
+                backgroundColor: isActive ? 'rgba(212,160,23,0.1)' : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${isActive ? 'rgba(212,160,23,0.3)' : 'rgba(255,255,255,0.06)'}`,
               }}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
@@ -610,7 +610,7 @@ export function FlexboxGridSection() {
       id="flexbox-grid"
       className="relative w-full overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0a0a0a 0%, #0a1a10 50%, #0a0a0a 100%)',
+        background: '#f5f0e1',
         minHeight: '100vh',
       }}
     >
@@ -622,8 +622,8 @@ export function FlexboxGridSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)
+            linear-gradient(rgba(180,128,23,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(180,128,23,0.06) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }}
@@ -633,7 +633,7 @@ export function FlexboxGridSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 50%, rgba(180,128,23,0.06) 100%)',
         }}
       />
 
@@ -647,15 +647,15 @@ export function FlexboxGridSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] mb-6">
-              <LayoutGrid className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-xs font-mono text-emerald-400/80 uppercase tracking-widest">CSS Tool</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-none border border-[#1a1a1a] bg-[#ebe5d0] mb-6">
+              <LayoutGrid className="w-3.5 h-3.5 text-[#d4a017]" />
+              <span className="text-xs font-mono text-[#d4a017]/80 uppercase tracking-widest">CSS Tool</span>
             </div>
 
             <h2
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
               style={{
-                background: 'linear-gradient(135deg, #10b981, #06b6d4, #10b981)',
+                background: 'linear-gradient(135deg, #d4a017, #b8860b, #d4a017)',
                 backgroundSize: '200% 200%',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -665,7 +665,7 @@ export function FlexboxGridSection() {
               Layout Lab
             </h2>
 
-            <p className="font-mono text-sm sm:text-base text-white/30 tracking-wide max-w-lg mx-auto">
+            <p className="font-mono text-sm sm:text-base text-[#6b6356] tracking-wide max-w-lg mx-auto">
               Interactive Flexbox &amp; CSS Grid playground with live preview
             </p>
           </motion.div>
@@ -681,7 +681,7 @@ export function FlexboxGridSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="relative inline-flex items-center p-1 rounded-xl border border-white/[0.08] bg-white/[0.03]">
+            <div className="relative inline-flex items-center p-1 rounded-none border border-white/[0.08] bg-white/[0.03]">
               {(['flexbox', 'grid'] as LayoutMode[]).map((m) => {
                 const isActive = mode === m;
                 const Icon = m === 'flexbox' ? AlignJustify : Grid3x3;
@@ -691,7 +691,7 @@ export function FlexboxGridSection() {
                     onClick={() => setMode(m)}
                     className="relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs sm:text-sm font-mono capitalize transition-colors"
                     style={{
-                      color: isActive ? '#ffffff' : 'rgba(255,255,255,0.4)',
+                      color: isActive ? '#1a1a1a' : 'rgba(107,99,86,0.7)',
                     }}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
@@ -702,9 +702,8 @@ export function FlexboxGridSection() {
                       <motion.div
                         className="absolute inset-0 rounded-lg"
                         style={{
-                          background: 'rgba(16,185,129,0.12)',
-                          border: '1px solid rgba(16,185,129,0.3)',
-                          boxShadow: '0 0 15px rgba(16,185,129,0.08)',
+                          background: '#d4a017',
+                          border: '1px solid #1a1a1a',
                         }}
                         layoutId="modeIndicator"
                         transition={{ type: 'spring', stiffness: 400, damping: 30 }}
@@ -725,12 +724,12 @@ export function FlexboxGridSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <Sparkles className="w-4 h-4 text-emerald-400/60" />
-              <h3 className="font-mono text-sm text-white/40 tracking-widest uppercase">Presets</h3>
-              <div className="flex-1 h-px bg-gradient-to-r from-emerald-500/20 to-transparent" />
+              <Sparkles className="w-4 h-4 text-[#d4a017]/60" />
+              <h3 className="font-mono text-sm text-[#6b6356] tracking-widest uppercase">Presets</h3>
+              <div className="flex-1 h-px bg-gradient-to-r from-[#d4a017]/20 to-transparent" />
               <motion.button
                 onClick={handleReset}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/40 hover:text-white/60 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-[#6b6356] hover:text-[#6b6356] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -744,7 +743,7 @@ export function FlexboxGridSection() {
                 <motion.button
                   key={preset.name}
                   onClick={() => handleApplyPreset(preset)}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.02] text-[11px] font-mono text-white/40 hover:text-white/70 hover:bg-white/[0.06] hover:border-emerald-500/20 transition-all"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.02] text-[11px] font-mono text-[#6b6356] hover:text-[#1a1a1a] hover:bg-white/[0.06] hover:border-[#d4a017]/20 transition-all"
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.96 }}
                 >
@@ -764,7 +763,7 @@ export function FlexboxGridSection() {
 
             {/* ===== Controls Panel ===== */}
             <motion.div
-              className="lg:col-span-4 rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col"
+              className="lg:col-span-4 overflow-hidden border border-[#1a1a1a] flex flex-col"
               style={{ background: '#0d1117' }}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -772,11 +771,11 @@ export function FlexboxGridSection() {
               transition={{ duration: 0.5, delay: 0.15 }}
             >
               {/* Panel header */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                <span className="font-mono text-[11px] text-white/30 ml-2">
+                <span className="font-mono text-[11px] text-[#6b6356] ml-2">
                   {mode === 'flexbox' ? 'flexbox.config' : 'grid.config'}
                 </span>
               </div>
@@ -828,11 +827,11 @@ export function FlexboxGridSection() {
                       {/* Gap slider */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <label className="font-mono text-[11px] text-white/40 flex items-center gap-2">
-                            <Columns3 className="w-3 h-3 text-cyan-400/50" />
+                          <label className="font-mono text-[11px] text-[#6b6356] flex items-center gap-2">
+                            <Columns3 className="w-3 h-3 text-[#b8860b]/50" />
                             gap
                           </label>
-                          <span className="font-mono text-xs text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                          <span className="font-mono text-xs text-[#d4a017]/80 bg-[#d4a017]/10 px-2 py-0.5 rounded-md">
                             {flexConfig.gap}px
                           </span>
                         </div>
@@ -847,7 +846,7 @@ export function FlexboxGridSection() {
                           className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                           style={{
                             background:
-                              'linear-gradient(90deg, rgba(16,185,129,0.3), rgba(6,182,212,0.3))',
+                              'linear-gradient(90deg, rgba(212,160,23,0.3), rgba(184,134,11,0.3))',
                           }}
                           aria-label="Flex gap"
                         />
@@ -856,7 +855,7 @@ export function FlexboxGridSection() {
                       {/* Item count */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <label className="font-mono text-[11px] text-white/40">Items</label>
+                          <label className="font-mono text-[11px] text-[#6b6356]">Items</label>
                           <div className="flex items-center gap-1.5">
                             <motion.button
                               onClick={() => {
@@ -871,9 +870,9 @@ export function FlexboxGridSection() {
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
                             >
-                              <Minus className="w-3.5 h-3.5 text-white/40" />
+                              <Minus className="w-3.5 h-3.5 text-[#6b6356]" />
                             </motion.button>
-                            <span className="font-mono text-xs text-white/50 w-6 text-center">{items.length}</span>
+                            <span className="font-mono text-xs text-[#1a1a1a] w-6 text-center">{items.length}</span>
                             <motion.button
                               onClick={handleAddItem}
                               disabled={items.length >= 12}
@@ -881,7 +880,7 @@ export function FlexboxGridSection() {
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
                             >
-                              <Plus className="w-3.5 h-3.5 text-white/40" />
+                              <Plus className="w-3.5 h-3.5 text-[#6b6356]" />
                             </motion.button>
                           </div>
                         </div>
@@ -899,11 +898,11 @@ export function FlexboxGridSection() {
                       {/* Columns */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <label className="font-mono text-[11px] text-white/40 flex items-center gap-2">
-                            <Columns3 className="w-3 h-3 text-cyan-400/50" />
+                          <label className="font-mono text-[11px] text-[#6b6356] flex items-center gap-2">
+                            <Columns3 className="w-3 h-3 text-[#b8860b]/50" />
                             Grid Columns
                           </label>
-                          <span className="font-mono text-xs text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                          <span className="font-mono text-xs text-[#d4a017]/80 bg-[#d4a017]/10 px-2 py-0.5 rounded-md">
                             {gridConfig.columns}
                           </span>
                         </div>
@@ -918,11 +917,11 @@ export function FlexboxGridSection() {
                           className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                           style={{
                             background:
-                              'linear-gradient(90deg, rgba(16,185,129,0.3), rgba(6,182,212,0.3))',
+                              'linear-gradient(90deg, rgba(212,160,23,0.3), rgba(184,134,11,0.3))',
                           }}
                           aria-label="Grid columns"
                         />
-                        <p className="font-mono text-[10px] text-white/20 mt-1">
+                        <p className="font-mono text-[10px] text-[#6b6356] mt-1">
                           repeat({gridConfig.columns}, 1fr)
                         </p>
                       </div>
@@ -930,11 +929,11 @@ export function FlexboxGridSection() {
                       {/* Rows */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <label className="font-mono text-[11px] text-white/40 flex items-center gap-2">
-                            <Rows3 className="w-3 h-3 text-cyan-400/50" />
+                          <label className="font-mono text-[11px] text-[#6b6356] flex items-center gap-2">
+                            <Rows3 className="w-3 h-3 text-[#b8860b]/50" />
                             Grid Rows
                           </label>
-                          <span className="font-mono text-xs text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                          <span className="font-mono text-xs text-[#d4a017]/80 bg-[#d4a017]/10 px-2 py-0.5 rounded-md">
                             {gridConfig.rows}
                           </span>
                         </div>
@@ -949,7 +948,7 @@ export function FlexboxGridSection() {
                           className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                           style={{
                             background:
-                              'linear-gradient(90deg, rgba(16,185,129,0.3), rgba(6,182,212,0.3))',
+                              'linear-gradient(90deg, rgba(212,160,23,0.3), rgba(184,134,11,0.3))',
                           }}
                           aria-label="Grid rows"
                         />
@@ -958,11 +957,11 @@ export function FlexboxGridSection() {
                       {/* Gap slider */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <label className="font-mono text-[11px] text-white/40 flex items-center gap-2">
-                            <StretchHorizontal className="w-3 h-3 text-cyan-400/50" />
+                          <label className="font-mono text-[11px] text-[#6b6356] flex items-center gap-2">
+                            <StretchHorizontal className="w-3 h-3 text-[#b8860b]/50" />
                             gap
                           </label>
-                          <span className="font-mono text-xs text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                          <span className="font-mono text-xs text-[#d4a017]/80 bg-[#d4a017]/10 px-2 py-0.5 rounded-md">
                             {gridConfig.gap}px
                           </span>
                         </div>
@@ -977,7 +976,7 @@ export function FlexboxGridSection() {
                           className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                           style={{
                             background:
-                              'linear-gradient(90deg, rgba(16,185,129,0.3), rgba(6,182,212,0.3))',
+                              'linear-gradient(90deg, rgba(212,160,23,0.3), rgba(184,134,11,0.3))',
                           }}
                           aria-label="Grid gap"
                         />
@@ -1003,7 +1002,7 @@ export function FlexboxGridSection() {
                       {/* Item count */}
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <label className="font-mono text-[11px] text-white/40">Items</label>
+                          <label className="font-mono text-[11px] text-[#6b6356]">Items</label>
                           <div className="flex items-center gap-1.5">
                             <motion.button
                               onClick={() => {
@@ -1018,9 +1017,9 @@ export function FlexboxGridSection() {
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
                             >
-                              <Minus className="w-3.5 h-3.5 text-white/40" />
+                              <Minus className="w-3.5 h-3.5 text-[#6b6356]" />
                             </motion.button>
-                            <span className="font-mono text-xs text-white/50 w-6 text-center">{items.length}</span>
+                            <span className="font-mono text-xs text-[#1a1a1a] w-6 text-center">{items.length}</span>
                             <motion.button
                               onClick={handleAddItem}
                               disabled={items.length >= 12}
@@ -1028,7 +1027,7 @@ export function FlexboxGridSection() {
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
                             >
-                              <Plus className="w-3.5 h-3.5 text-white/40" />
+                              <Plus className="w-3.5 h-3.5 text-[#6b6356]" />
                             </motion.button>
                           </div>
                         </div>
@@ -1046,13 +1045,13 @@ export function FlexboxGridSection() {
                     className="border-t border-white/[0.06] pt-4 mt-4"
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <span className="font-mono text-[11px] text-emerald-400/80 flex items-center gap-2">
+                      <span className="font-mono text-[11px] text-[#d4a017]/80 flex items-center gap-2">
                         <Eye className="w-3 h-3" />
                         Item {items.indexOf(selectedItem) + 1} Properties
                       </span>
                       <motion.button
                         onClick={() => setSelectedItemId(null)}
-                        className="text-white/30 hover:text-white/60 transition-colors"
+                        className="text-[#6b6356] hover:text-[#6b6356] transition-colors"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                       >
@@ -1066,8 +1065,8 @@ export function FlexboxGridSection() {
                           {/* flex-grow */}
                           <div>
                             <div className="flex items-center justify-between mb-1">
-                              <label className="font-mono text-[10px] text-white/30">flex-grow</label>
-                              <span className="font-mono text-[10px] text-emerald-400/60">{selectedItem.flexGrow}</span>
+                              <label className="font-mono text-[10px] text-[#6b6356]">flex-grow</label>
+                              <span className="font-mono text-[10px] text-[#d4a017]/60">{selectedItem.flexGrow}</span>
                             </div>
                             <input
                               type="range"
@@ -1079,14 +1078,14 @@ export function FlexboxGridSection() {
                                 handleUpdateItem(selectedItem.id, { flexGrow: Number(e.target.value) })
                               }
                               className="w-full h-1 rounded-full appearance-none cursor-pointer"
-                              style={{ background: 'rgba(16,185,129,0.2)' }}
+                              style={{ background: 'rgba(212,160,23,0.2)' }}
                             />
                           </div>
                           {/* flex-shrink */}
                           <div>
                             <div className="flex items-center justify-between mb-1">
-                              <label className="font-mono text-[10px] text-white/30">flex-shrink</label>
-                              <span className="font-mono text-[10px] text-emerald-400/60">{selectedItem.flexShrink}</span>
+                              <label className="font-mono text-[10px] text-[#6b6356]">flex-shrink</label>
+                              <span className="font-mono text-[10px] text-[#d4a017]/60">{selectedItem.flexShrink}</span>
                             </div>
                             <input
                               type="range"
@@ -1098,7 +1097,7 @@ export function FlexboxGridSection() {
                                 handleUpdateItem(selectedItem.id, { flexShrink: Number(e.target.value) })
                               }
                               className="w-full h-1 rounded-full appearance-none cursor-pointer"
-                              style={{ background: 'rgba(16,185,129,0.2)' }}
+                              style={{ background: 'rgba(212,160,23,0.2)' }}
                             />
                           </div>
                           {/* flex-basis */}
@@ -1119,7 +1118,7 @@ export function FlexboxGridSection() {
                         <>
                           {/* grid-column span */}
                           <div>
-                            <label className="font-mono text-[10px] text-white/30 mb-1.5 block">grid-column</label>
+                            <label className="font-mono text-[10px] text-[#6b6356] mb-1.5 block">grid-column</label>
                             <div className="flex flex-wrap gap-1.5">
                               {['auto', 'span 2', 'span 3', '1 / 3', '1 / -1'].map((opt) => (
                                 <motion.button
@@ -1128,8 +1127,8 @@ export function FlexboxGridSection() {
                                   className="px-2 py-1 rounded-md text-[10px] font-mono transition-colors"
                                   style={{
                                     color: selectedItem.gridColumn === opt ? '#ffffff' : 'rgba(255,255,255,0.35)',
-                                    backgroundColor: selectedItem.gridColumn === opt ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.03)',
-                                    border: `1px solid ${selectedItem.gridColumn === opt ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                                    backgroundColor: selectedItem.gridColumn === opt ? 'rgba(212,160,23,0.1)' : 'rgba(255,255,255,0.03)',
+                                    border: `1px solid ${selectedItem.gridColumn === opt ? 'rgba(212,160,23,0.3)' : 'rgba(255,255,255,0.06)'}`,
                                   }}
                                   whileHover={{ scale: 1.04 }}
                                   whileTap={{ scale: 0.96 }}
@@ -1141,7 +1140,7 @@ export function FlexboxGridSection() {
                           </div>
                           {/* grid-row span */}
                           <div>
-                            <label className="font-mono text-[10px] text-white/30 mb-1.5 block">grid-row</label>
+                            <label className="font-mono text-[10px] text-[#6b6356] mb-1.5 block">grid-row</label>
                             <div className="flex flex-wrap gap-1.5">
                               {['auto', 'span 2', 'span 3', '1 / 3', '1 / -1'].map((opt) => (
                                 <motion.button
@@ -1150,8 +1149,8 @@ export function FlexboxGridSection() {
                                   className="px-2 py-1 rounded-md text-[10px] font-mono transition-colors"
                                   style={{
                                     color: selectedItem.gridRow === opt ? '#ffffff' : 'rgba(255,255,255,0.35)',
-                                    backgroundColor: selectedItem.gridRow === opt ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.03)',
-                                    border: `1px solid ${selectedItem.gridRow === opt ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                                    backgroundColor: selectedItem.gridRow === opt ? 'rgba(212,160,23,0.1)' : 'rgba(255,255,255,0.03)',
+                                    border: `1px solid ${selectedItem.gridRow === opt ? 'rgba(212,160,23,0.3)' : 'rgba(255,255,255,0.06)'}`,
                                   }}
                                   whileHover={{ scale: 1.04 }}
                                   whileTap={{ scale: 0.96 }}
@@ -1169,41 +1168,41 @@ export function FlexboxGridSection() {
               </div>
 
               {/* Panel footer */}
-              <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
+              <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a] bg-[#ebe5d0]">
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-                  <span className="font-mono text-[10px] text-white/20">Live</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#d4a017]" />
+                  <span className="font-mono text-[10px] text-[#6b6356]">Live</span>
                 </div>
-                <span className="font-mono text-[10px] text-white/15">{items.length} items</span>
+                <span className="font-mono text-[10px] text-[#6b6356]">{items.length} items</span>
               </div>
             </motion.div>
 
             {/* ===== Preview Panel ===== */}
             <motion.div
-              className="lg:col-span-5 rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col"
+              className="lg:col-span-5 overflow-hidden border border-[#1a1a1a] flex flex-col"
               style={{ background: '#0d1117' }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                <span className="font-mono text-[11px] text-white/30 ml-2 flex items-center gap-1.5">
-                  <Eye className="w-3 h-3 text-white/25" />
+                <span className="font-mono text-[11px] text-[#6b6356] ml-2 flex items-center gap-1.5">
+                  <Eye className="w-3 h-3 text-[#6b6356]" />
                   Preview
                 </span>
                 <div className="flex-1" />
-                <span className="font-mono text-[10px] text-white/15 uppercase">
+                <span className="font-mono text-[10px] text-[#6b6356] uppercase">
                   {mode === 'flexbox' ? 'display: flex' : 'display: grid'}
                 </span>
               </div>
 
               <div className="flex-1 p-4 sm:p-6">
                 <div
-                  className="w-full min-h-[300px] sm:min-h-[400px] p-3 sm:p-4 rounded-xl border border-dashed border-white/[0.1] bg-white/[0.01]"
+                  className="w-full min-h-[300px] sm:min-h-[400px] p-3 sm:p-4 rounded-none border border-dashed border-white/[0.1] bg-white/[0.01]"
                   style={containerStyle}
                 >
                   <AnimatePresence mode="popLayout">
@@ -1229,7 +1228,7 @@ export function FlexboxGridSection() {
                           style={{
                             ...getItemStyle(item),
                             backgroundColor: `${color}20`,
-                            border: `2px solid ${isSelected ? '#10b981' : isDragOver ? '#06b6d4' : `${color}40`}`,
+                            border: `2px solid ${isSelected ? '#d4a017' : isDragOver ? '#b8860b' : `${color}40`}`,
                             color: color,
                             boxShadow: isSelected
                               ? `0 0 20px ${color}30, inset 0 0 20px ${color}10`
@@ -1250,8 +1249,8 @@ export function FlexboxGridSection() {
                             <motion.div
                               className="absolute inset-0 rounded-lg"
                               style={{
-                                border: '2px solid #10b981',
-                                boxShadow: '0 0 12px rgba(16,185,129,0.3)',
+                                border: '2px solid #d4a017',
+                                boxShadow: '0 0 12px rgba(212,160,23,0.3)',
                               }}
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
@@ -1265,37 +1264,37 @@ export function FlexboxGridSection() {
               </div>
 
               {/* Preview footer */}
-              <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
-                <span className="font-mono text-[10px] text-white/20">
+              <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a] bg-[#ebe5d0]">
+                <span className="font-mono text-[10px] text-[#6b6356]">
                   {mode === 'flexbox' ? 'Flexbox' : 'CSS Grid'} · {items.length} items
                 </span>
-                <span className="font-mono text-[10px] text-white/15">Drag to reorder</span>
+                <span className="font-mono text-[10px] text-[#6b6356]">Drag to reorder</span>
               </div>
             </motion.div>
 
             {/* ===== Code Output Panel ===== */}
             <motion.div
-              className="lg:col-span-3 rounded-2xl overflow-hidden border border-white/[0.06] flex flex-col"
+              className="lg:col-span-3 overflow-hidden border border-[#1a1a1a] flex flex-col"
               style={{ background: '#0d1117' }}
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.25 }}
             >
-              <div className="flex items-center border-b border-white/[0.06]">
+              <div className="flex items-center border-b border-[#1a1a1a]">
                 <div className="flex items-center gap-2 px-4 py-3 border-r border-white/[0.04]">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
                 </div>
-                <span className="font-mono text-[11px] text-white/30 px-3 flex items-center gap-1.5">
-                  <Code2 className="w-3 h-3 text-white/25" />
+                <span className="font-mono text-[11px] text-[#6b6356] px-3 flex items-center gap-1.5">
+                  <Code2 className="w-3 h-3 text-[#6b6356]" />
                   Generated CSS
                 </span>
                 <div className="flex-1" />
                 <motion.button
                   onClick={handleCopy}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-mono text-white/40 hover:text-white/70 hover:bg-white/[0.06] transition-colors"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-mono text-[#6b6356] hover:text-[#1a1a1a] hover:bg-white/[0.06] transition-colors"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   title="Copy to clipboard"
@@ -1307,7 +1306,7 @@ export function FlexboxGridSection() {
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0, opacity: 0 }}
-                        className="flex items-center gap-1.5 text-emerald-400"
+                        className="flex items-center gap-1.5 text-[#d4a017]"
                       >
                         <Check className="w-3.5 h-3.5" />
                       </motion.span>
@@ -1341,9 +1340,9 @@ export function FlexboxGridSection() {
               </div>
 
               {/* Code footer */}
-              <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
-                <span className="font-mono text-[10px] text-white/20 uppercase">CSS</span>
-                <span className="font-mono text-[10px] text-white/15">{cssCode.split('\n').length} lines</span>
+              <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a] bg-[#ebe5d0]">
+                <span className="font-mono text-[10px] text-[#6b6356] uppercase">CSS</span>
+                <span className="font-mono text-[10px] text-[#6b6356]">{cssCode.split('\n').length} lines</span>
               </div>
             </motion.div>
           </div>
@@ -1368,8 +1367,8 @@ export function FlexboxGridSection() {
                   key={`fg-info-${i}`}
                   className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.06] bg-white/[0.02]"
                 >
-                  <InfoIcon className="w-3.5 h-3.5 text-emerald-400/50" />
-                  <span className="font-mono text-[11px] sm:text-xs text-white/40">{info.label}</span>
+                  <InfoIcon className="w-3.5 h-3.5 text-[#d4a017]/50" />
+                  <span className="font-mono text-[11px] sm:text-xs text-[#6b6356]">{info.label}</span>
                 </div>
               );
             })}

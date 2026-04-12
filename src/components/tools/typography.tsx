@@ -79,8 +79,8 @@ const SHADOW_MAP: Record<TextShadowPreset, string> = {
   none: 'none',
   subtle: '1px 1px 2px rgba(0,0,0,0.3)',
   hard: '3px 3px 0px rgba(0,0,0,0.8)',
-  neon: '0 0 7px #10b981, 0 0 20px #10b981, 0 0 42px #06b6d4',
-  retro: '2px 2px 0px #34d399, 4px 4px 0px #06b6d4, 6px 6px 0px #0a0a0a',
+  neon: '0 0 7px #d4a017, 0 0 20px #d4a017, 0 0 42px #b8860b',
+  retro: '2px 2px 0px #d4a017, 4px 4px 0px #b8860b, 6px 6px 0px #0a0a0a',
 };
 
 const DEFAULT_STATE: TypoState = {
@@ -94,7 +94,7 @@ const DEFAULT_STATE: TypoState = {
   textAlign: 'left',
   textDecoration: 'none',
   textShadow: 'none',
-  color: '#ffffff',
+  color: '#1a1a1a',
   italic: false,
 };
 
@@ -119,7 +119,7 @@ const PRESETS: Preset[] = [
       textShadow: 'none',
     },
     extraStyle: {
-      background: 'linear-gradient(135deg, #10b981, #06b6d4, #a855f7)',
+      background: 'linear-gradient(135deg, #d4a017, #b8860b, #d4a017)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent',
       backgroundClip: 'text',
@@ -148,7 +148,7 @@ const PRESETS: Preset[] = [
       lineHeight: 1.5,
       letterSpacing: 0.5,
       fontFamily: '"Courier New", Courier, monospace',
-      color: '#34d399',
+      color: '#d4a017',
     },
   },
   {
@@ -173,7 +173,7 @@ const PRESETS: Preset[] = [
       fontSize: 48,
       fontWeight: 800,
       fontFamily: 'Inter, system-ui, sans-serif',
-      color: '#10b981',
+      color: '#d4a017',
       textShadow: 'neon',
       letterSpacing: 2,
     },
@@ -361,8 +361,8 @@ function ToggleGroup<T extends string>({
           onClick={() => onChange(opt.value)}
           className={`relative px-2.5 py-1.5 rounded-lg text-xs font-mono transition-colors duration-200 cursor-pointer ${
             value === opt.value
-              ? 'text-emerald-300'
-              : 'text-white/40 hover:text-white/60'
+              ? 'text-[#b8860b]'
+              : 'text-[#6b6356] hover:text-[#6b6356]'
           }`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -370,7 +370,7 @@ function ToggleGroup<T extends string>({
           {value === opt.value && (
             <motion.div
               layoutId="typo-toggle-bg"
-              className="absolute inset-0 rounded-lg bg-emerald-500/15 border border-emerald-500/30"
+              className="absolute inset-0 rounded-lg bg-[#d4a017]/15 border border-[#d4a017]/30"
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             />
           )}
@@ -406,8 +406,8 @@ function SliderControl({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-mono text-white/50">{label}</span>
-        <span className="text-xs font-mono text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded">
+        <span className="text-xs font-mono text-[#1a1a1a]">{label}</span>
+        <span className="text-xs font-mono text-[#d4a017]/80 bg-[#d4a017]/10 px-2 py-0.5 rounded">
           {display ?? `${value}${unit}`}
         </span>
       </div>
@@ -418,10 +418,10 @@ function SliderControl({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-1.5 rounded-full appearance-none cursor-pointer bg-white/10
+        className="w-full h-1.5 rounded-full appearance-none cursor-pointer bg-[#d4a017]/10
           [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3.5 [&::-webkit-slider-thumb]:h-3.5
-          [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-emerald-400 [&::-webkit-slider-thumb]:shadow-[0_0_8px_rgba(16,185,129,0.4)]
-          [&::-webkit-slider-thumb]:hover:bg-emerald-300 [&::-webkit-slider-thumb]:transition-colors"
+          [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#d4a017] [&::-webkit-slider-thumb]:shadow-[0_0_8px_rgba(212,160,23,0.4)]
+          [&::-webkit-slider-thumb]:hover:bg-[#b8860b] [&::-webkit-slider-thumb]:transition-colors"
       />
     </div>
   );
@@ -485,7 +485,7 @@ export function TypographySection() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#0a0a12]" />
+      <div className="min-h-screen bg-[#f5f0e1]" />
     );
   }
 
@@ -494,10 +494,10 @@ export function TypographySection() {
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-grid-subtle" />
-        <div className="glowing-orb" style={{ top: '10%', right: '10%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(16,185,129,0.12), transparent 70%)', animationDelay: '-3s' }} />
-        <div className="glowing-orb" style={{ bottom: '20%', left: '5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(6,182,212,0.1), transparent 70%)', animationDelay: '-8s' }} />
+        <div className="glowing-orb" style={{ top: '10%', right: '10%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(212,160,23,0.12), transparent 70%)', animationDelay: '-3s' }} />
+        <div className="glowing-orb" style={{ bottom: '20%', left: '5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(184,134,11,0.1), transparent 70%)', animationDelay: '-8s' }} />
       </div>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)' }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(180,128,23,0.08) 100%)' }} />
 
       {/* Content */}
       <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -508,15 +508,15 @@ export function TypographySection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 mb-4">
-            <Type className="w-4 h-4 text-emerald-400" />
-            <span className="text-xs font-mono text-emerald-400/80">Design Tool</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-none border border-[#d4a017]/20 bg-[#d4a017]/5 mb-4">
+            <Type className="w-4 h-4 text-[#d4a017]" />
+            <span className="text-xs font-mono text-[#d4a017]/80">Design Tool</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
-            <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">Typography</span>
-            <span className="text-white"> Playground</span>
+            <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent">Typography</span>
+            <span className="text-[#1a1a1a]"> Playground</span>
           </h2>
-          <p className="text-sm text-white/40 font-mono max-w-xl mx-auto">
+          <p className="text-sm text-[#6b6356] font-mono max-w-xl mx-auto">
             Experiment with CSS typography properties in real-time. Type, style, preview, and export.
           </p>
         </motion.div>
@@ -528,7 +528,7 @@ export function TypographySection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+          <div className="inline-flex items-center gap-1 p-1 border border-[#1a1a1a] bg-[#f5f0e1]">
             {[
               { id: 'controls' as const, label: 'Controls', icon: <Palette className="w-3.5 h-3.5" /> },
               { id: 'presets' as const, label: 'Presets', icon: <Sparkles className="w-3.5 h-3.5" /> },
@@ -538,13 +538,13 @@ export function TypographySection() {
                 key={`typo-tab-${tab.id}`}
                 onClick={() => setActiveTab(tab.id)}
                 className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-mono transition-colors duration-200 cursor-pointer ${
-                  activeTab === tab.id ? 'text-white' : 'text-white/40 hover:text-white/60'
+                  activeTab === tab.id ? 'text-[#1a1a1a]' : 'text-[#6b6356] hover:text-[#6b6356]'
                 }`}
               >
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="typo-tab-bg"
-                    className="absolute inset-0 rounded-lg bg-white/[0.08] border border-white/[0.08]"
+                    className="absolute inset-0 rounded-lg bg-[#d4a017]/15 border border-[#d4a017]/30"
                     transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                   />
                 )}
@@ -569,17 +569,17 @@ export function TypographySection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className="glass-card-premium p-5 space-y-5 max-h-[80vh] overflow-y-auto custom-scrollbar"
+                className="p-5 space-y-5 max-h-[80vh] overflow-y-auto custom-scrollbar"
               >
                 {/* Reset button */}
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-mono text-white/60 flex items-center gap-2">
-                    <Palette className="w-4 h-4 text-emerald-400" />
+                  <h3 className="text-sm font-mono text-[#6b6356] flex items-center gap-2">
+                    <Palette className="w-4 h-4 text-[#d4a017]" />
                     Typography Controls
                   </h3>
                   <motion.button
                     onClick={resetAll}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-white/40 hover:text-white/70 bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.1] transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-[#6b6356] hover:text-[#1a1a1a] bg-[#ebe5d0] border border-[#1a1a1a]/[0.08] hover:border-[#1a1a1a]/[0.15] transition-colors cursor-pointer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -590,7 +590,7 @@ export function TypographySection() {
 
                 {/* Text editor */}
                 <div className="space-y-2">
-                  <label className="text-xs font-mono text-white/50 flex items-center gap-1.5">
+                  <label className="text-xs font-mono text-[#1a1a1a] flex items-center gap-1.5">
                     <ArrowDownToLine className="w-3 h-3" />
                     Preview Text
                   </label>
@@ -598,10 +598,10 @@ export function TypographySection() {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     rows={3}
-                    className="w-full px-3 py-2.5 rounded-lg bg-black/40 border border-white/[0.08] text-white/80 text-sm font-mono resize-y focus:outline-none focus:border-emerald-500/40 focus:ring-1 focus:ring-emerald-500/20 transition-colors placeholder:text-white/20"
+                    className="w-full px-3 py-2.5 rounded-lg bg-[#ebe5d0] border border-[#1a1a1a]/[0.08] text-[#1a1a1a] text-sm font-mono resize-y focus:outline-none focus:border-[#d4a017]/40 focus:ring-1 focus:ring-[#d4a017]/20 transition-colors placeholder:text-[#6b6356]"
                     placeholder="Type your text here..."
                   />
-                  <div className="flex gap-3 text-[10px] font-mono text-white/30">
+                  <div className="flex gap-3 text-[10px] font-mono text-[#6b6356]">
                     <span>{charCount} chars</span>
                     <span>{wordCount} words</span>
                   </div>
@@ -609,7 +609,7 @@ export function TypographySection() {
 
                 {/* Font Family */}
                 <div className="space-y-1.5">
-                  <span className="text-xs font-mono text-white/50">Font Family</span>
+                  <span className="text-xs font-mono text-[#1a1a1a]">Font Family</span>
                   <div className="grid grid-cols-2 gap-1.5">
                     {FONT_OPTIONS.map((font) => (
                       <motion.button
@@ -617,8 +617,8 @@ export function TypographySection() {
                         onClick={() => updateState({ fontFamily: font.value })}
                         className={`px-2.5 py-2 rounded-lg text-left text-xs font-mono transition-colors cursor-pointer ${
                           state.fontFamily === font.value
-                            ? 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300'
-                            : 'bg-white/[0.03] border border-white/[0.06] text-white/50 hover:text-white/70 hover:border-white/[0.1]'
+                            ? 'bg-[#d4a017]/15 border border-[#d4a017]/30 text-[#b8860b]'
+                            : 'bg-[#ebe5d0] border border-[#1a1a1a]/[0.08] text-[#1a1a1a] hover:text-[#1a1a1a] hover:border-[#1a1a1a]/[0.15]'
                         }`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -655,18 +655,18 @@ export function TypographySection() {
 
                 {/* Italic toggle */}
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono text-white/50">Italic</span>
+                  <span className="text-xs font-mono text-[#1a1a1a]">Italic</span>
                   <button
                     onClick={() => updateState({ italic: !state.italic })}
                     className={`w-10 h-5 rounded-full transition-colors relative cursor-pointer ${
-                      state.italic ? 'bg-emerald-500/30' : 'bg-white/10'
+                      state.italic ? 'bg-[#2d6a4f]/15' : 'bg-[#d4a017]/10'
                     }`}
                   >
                     <motion.div
                       className="absolute top-0.5 w-4 h-4 rounded-full"
                       animate={{
                         left: state.italic ? '22px' : '2px',
-                        backgroundColor: state.italic ? '#34d399' : 'rgba(255,255,255,0.3)',
+                        backgroundColor: state.italic ? '#d4a017' : 'rgba(212,160,23,0.4)',
                       }}
                       transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                     />
@@ -709,7 +709,7 @@ export function TypographySection() {
 
                 {/* Text Transform */}
                 <div className="space-y-1.5">
-                  <span className="text-xs font-mono text-white/50">Text Transform</span>
+                  <span className="text-xs font-mono text-[#1a1a1a]">Text Transform</span>
                   <ToggleGroup<TextTransform>
                     options={[
                       { label: 'None', value: 'none' },
@@ -724,7 +724,7 @@ export function TypographySection() {
 
                 {/* Text Alignment */}
                 <div className="space-y-1.5">
-                  <span className="text-xs font-mono text-white/50">Text Alignment</span>
+                  <span className="text-xs font-mono text-[#1a1a1a]">Text Alignment</span>
                   <ToggleGroup<TextAlign>
                     options={[
                       { label: 'Left', value: 'left' },
@@ -745,7 +745,7 @@ export function TypographySection() {
 
                 {/* Text Decoration */}
                 <div className="space-y-1.5">
-                  <span className="text-xs font-mono text-white/50">Text Decoration</span>
+                  <span className="text-xs font-mono text-[#1a1a1a]">Text Decoration</span>
                   <ToggleGroup<TextDecoration>
                     options={[
                       { label: 'None', value: 'none' },
@@ -763,7 +763,7 @@ export function TypographySection() {
 
                 {/* Text Shadow */}
                 <div className="space-y-2">
-                  <span className="text-xs font-mono text-white/50">Text Shadow</span>
+                  <span className="text-xs font-mono text-[#1a1a1a]">Text Shadow</span>
                   <ToggleGroup<TextShadowPreset>
                     options={[
                       { label: 'None', value: 'none' },
@@ -780,26 +780,26 @@ export function TypographySection() {
                 {/* Color picker */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-white/50 flex items-center gap-1.5">
+                    <span className="text-xs font-mono text-[#1a1a1a] flex items-center gap-1.5">
                       <Palette className="w-3 h-3" />
                       Text Color
                     </span>
-                    <span className="text-xs font-mono text-white/40">{state.color}</span>
+                    <span className="text-xs font-mono text-[#6b6356]">{state.color}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <input
                       type="color"
                       value={state.color}
                       onChange={(e) => updateState({ color: e.target.value })}
-                      className="w-10 h-10 rounded-lg border border-white/[0.1] cursor-pointer bg-transparent"
+                      className="w-10 h-10 rounded-lg border border-[#1a1a1a]/[0.15] cursor-pointer bg-transparent"
                     />
                     <div className="flex gap-1.5 flex-wrap">
-                      {['#ffffff', '#d4d4d8', '#737373', '#10b981', '#06b6d4', '#f59e0b', '#ec4899', '#f87171', '#a78bfa', '#22c55e'].map((c) => (
+                      {['#ffffff', '#d4d4d8', '#737373', '#d4a017', '#b8860b', '#f59e0b', '#ec4899', '#f87171', '#a78bfa', '#22c55e'].map((c) => (
                         <button
                           key={`color-swatch-${c}`}
                           onClick={() => updateState({ color: c })}
                           className={`w-6 h-6 rounded-md border transition-transform cursor-pointer hover:scale-110 ${
-                            state.color === c ? 'border-white scale-110' : 'border-white/10'
+                            state.color === c ? 'border-[#1a1a1a] scale-110' : 'border-[#1a1a1a]/10'
                           }`}
                           style={{ backgroundColor: c }}
                           aria-label={`Set color to ${c}`}
@@ -819,10 +819,10 @@ export function TypographySection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className="glass-card-premium p-5 max-h-[80vh] overflow-y-auto custom-scrollbar"
+                className="p-5 max-h-[80vh] overflow-y-auto custom-scrollbar"
               >
-                <h3 className="text-sm font-mono text-white/60 flex items-center gap-2 mb-5">
-                  <Sparkles className="w-4 h-4 text-emerald-400" />
+                <h3 className="text-sm font-mono text-[#6b6356] flex items-center gap-2 mb-5">
+                  <Sparkles className="w-4 h-4 text-[#d4a017]" />
                   Preset Gallery
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -831,10 +831,10 @@ export function TypographySection() {
                       <motion.button
                         key={`preset-${preset.name}`}
                         onClick={() => applyPreset(preset)}
-                        className={`relative group text-left p-4 rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden ${
+                        className={`relative group text-left p-4 rounded-none border transition-all duration-300 cursor-pointer overflow-hidden ${
                           activePreset === preset.name
-                            ? 'border-emerald-500/40 bg-emerald-500/[0.08]'
-                            : 'border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]'
+                            ? 'border-[#d4a017]/40 bg-[#d4a017]/10'
+                            : 'border-[#1a1a1a]/[0.08] bg-[#ebe5d0] hover:border-[#1a1a1a]/[0.12] hover:bg-[#ebe5d0]'
                         }`}
                         whileHover={{ scale: 1.02, y: -2 }}
                         whileTap={{ scale: 0.98 }}
@@ -843,7 +843,7 @@ export function TypographySection() {
                         {activePreset === preset.name && (
                           <motion.div
                             layoutId="preset-active-border"
-                            className="absolute inset-0 rounded-xl border-2 border-emerald-400/50"
+                            className="absolute inset-0 rounded-none border-2 border-[#d4a017]/50"
                             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                           />
                         )}
@@ -855,7 +855,7 @@ export function TypographySection() {
                               fontFamily: preset.state.fontFamily ?? DEFAULT_STATE.fontFamily,
                               fontSize: Math.min((preset.state.fontSize ?? DEFAULT_STATE.fontSize), 24),
                               fontWeight: preset.state.fontWeight ?? DEFAULT_STATE.fontWeight,
-                              color: preset.state.color ?? '#ffffff',
+                              color: preset.state.color ?? '#1a1a1a',
                               letterSpacing: `${(preset.state.letterSpacing ?? 0)}px`,
                               fontStyle: (preset.state.italic) ? 'italic' : 'normal',
                               textTransform: (preset.state.textTransform as 'uppercase' | 'lowercase' | 'capitalize') ?? 'none',
@@ -867,12 +867,12 @@ export function TypographySection() {
                           </span>
                         </div>
                         <div className="flex items-center gap-2 relative z-10">
-                          <span className="text-[10px] font-mono font-bold text-emerald-400/70 bg-emerald-500/10 px-2 py-0.5 rounded">
+                          <span className="text-[10px] font-mono font-bold text-[#d4a017]/70 bg-[#d4a017]/10 px-2 py-0.5 rounded">
                             {preset.icon}
                           </span>
                           <div>
-                            <div className="text-xs font-mono text-white/70 font-medium">{preset.name}</div>
-                            <div className="text-[10px] font-mono text-white/30">{preset.desc}</div>
+                            <div className="text-xs font-mono text-[#1a1a1a] font-medium">{preset.name}</div>
+                            <div className="text-[10px] font-mono text-[#6b6356]">{preset.desc}</div>
                           </div>
                         </div>
                       </motion.button>
@@ -890,10 +890,10 @@ export function TypographySection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className="glass-card-premium p-5 max-h-[80vh] overflow-y-auto custom-scrollbar"
+                className="p-5 max-h-[80vh] overflow-y-auto custom-scrollbar"
               >
-                <h3 className="text-sm font-mono text-white/60 flex items-center gap-2 mb-5">
-                  <Eye className="w-4 h-4 text-emerald-400" />
+                <h3 className="text-sm font-mono text-[#6b6356] flex items-center gap-2 mb-5">
+                  <Eye className="w-4 h-4 text-[#d4a017]" />
                   Font Pairing Suggestions
                 </h3>
                 <div className="space-y-3">
@@ -901,35 +901,35 @@ export function TypographySection() {
                     <motion.button
                       key={`pairing-${i}`}
                       onClick={() => updateState({ fontFamily: pairing.headingFont })}
-                      className="w-full text-left p-4 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04] transition-all duration-300 cursor-pointer group"
+                      className="w-full text-left p-4 rounded-none border border-[#1a1a1a]/[0.08] bg-[#ebe5d0] hover:border-[#1a1a1a]/[0.12] hover:bg-[#ebe5d0] transition-all duration-300 cursor-pointer group"
                       whileHover={{ scale: 1.01, x: 4 }}
                       whileTap={{ scale: 0.99 }}
                     >
                       <div className="mb-3 space-y-1.5">
                         {/* Heading preview */}
                         <div
-                          className="text-lg font-bold text-white/80 truncate"
+                          className="text-lg font-bold text-[#1a1a1a] truncate"
                           style={{ fontFamily: pairing.headingFont }}
                         >
                           {text.slice(0, 35)}{text.length > 35 ? '...' : ''}
                         </div>
                         {/* Body preview */}
                         <div
-                          className="text-xs text-white/40 truncate"
+                          className="text-xs text-[#6b6356] truncate"
                           style={{ fontFamily: pairing.bodyFont }}
                         >
                           {text.slice(0, 60)}{text.length > 60 ? '...' : ''}
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-mono text-emerald-400/70 bg-emerald-500/10 px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-mono text-[#d4a017]/70 bg-[#d4a017]/10 px-2 py-0.5 rounded">
                           {pairing.heading}
                         </span>
-                        <span className="text-[10px] font-mono text-white/20">+</span>
-                        <span className="text-[10px] font-mono text-cyan-400/70 bg-cyan-500/10 px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-mono text-[#6b6356]">+</span>
+                        <span className="text-[10px] font-mono text-[#b8860b]/70 bg-[#b8860b]/10 px-2 py-0.5 rounded">
                           {pairing.body}
                         </span>
-                        <span className="text-[10px] font-mono text-white/25 ml-auto">{pairing.desc}</span>
+                        <span className="text-[10px] font-mono text-[#6b6356] ml-auto">{pairing.desc}</span>
                       </div>
                     </motion.button>
                   ))}
@@ -942,17 +942,17 @@ export function TypographySection() {
           <div className="space-y-6">
             {/* Live Preview */}
             <motion.div
-              className="glass-card-premium p-5"
+              className="p-5"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.15 }}
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-mono text-white/60 flex items-center gap-2">
-                  <Eye className="w-4 h-4 text-emerald-400" />
+                <h3 className="text-sm font-mono text-[#6b6356] flex items-center gap-2">
+                  <Eye className="w-4 h-4 text-[#d4a017]" />
                   Live Preview
                 </h3>
-                <div className="flex gap-2 text-[10px] font-mono text-white/30">
+                <div className="flex gap-2 text-[10px] font-mono text-[#6b6356]">
                   <span>{charCount} chars</span>
                   <span>·</span>
                   <span>{wordCount} words</span>
@@ -966,7 +966,7 @@ export function TypographySection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.25 }}
-                  className="relative min-h-[200px] max-h-[400px] overflow-y-auto p-6 rounded-xl bg-[#0d0d14] border border-white/[0.05] custom-scrollbar"
+                  className="relative min-h-[200px] max-h-[400px] overflow-y-auto p-6 rounded-none bg-[#ebe5d0] border border-[#1a1a1a]/[0.08] custom-scrollbar"
                   style={{
                     /* Retro Terminal scanlines overlay */
                     ...(activePreset === 'Retro Terminal' ? { overflow: 'hidden' } : {}),
@@ -998,7 +998,7 @@ export function TypographySection() {
                       ...extraStyle,
                     }}
                   >
-                    {text || <span className="text-white/20 italic">Start typing to preview...</span>}
+                    {text || <span className="text-[#6b6356] italic">Start typing to preview...</span>}
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -1006,26 +1006,26 @@ export function TypographySection() {
 
             {/* CSS Code Output */}
             <motion.div
-              className="glass-card-premium p-5"
+              className="p-5"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.25 }}
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-mono text-white/60 flex items-center gap-2">
-                  <Code2 className="w-4 h-4 text-emerald-400" />
+                <h3 className="text-sm font-mono text-[#6b6356] flex items-center gap-2">
+                  <Code2 className="w-4 h-4 text-[#d4a017]" />
                   CSS Output
                 </h3>
                 <motion.button
                   onClick={copyCSS}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-white/40 hover:text-white/70 bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.1] transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-[#6b6356] hover:text-[#1a1a1a] bg-[#ebe5d0] border border-[#1a1a1a]/[0.08] hover:border-[#1a1a1a]/[0.15] transition-colors cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3 h-3 text-emerald-400" />
-                      <span className="text-emerald-400">Copied!</span>
+                      <Check className="w-3 h-3 text-[#d4a017]" />
+                      <span className="text-[#d4a017]">Copied!</span>
                     </>
                   ) : (
                     <>
@@ -1036,13 +1036,13 @@ export function TypographySection() {
                 </motion.button>
               </div>
               {/* Code display */}
-              <div className="p-4 rounded-xl bg-[#0d1117] border border-white/[0.05] font-mono text-xs leading-relaxed max-h-[300px] overflow-y-auto custom-scrollbar">
+              <div className="p-4 rounded-none bg-[#0d1117] border border-white/[0.05] font-mono text-xs leading-relaxed max-h-[300px] overflow-y-auto custom-scrollbar">
                 {/* Window chrome */}
-                <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-white/[0.06]">
+                <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-[#1a1a1a]">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-                  <span className="ml-2 text-[10px] text-white/20">typography.css</span>
+                  <span className="ml-2 text-[10px] text-[#6b6356]">typography.css</span>
                 </div>
                 <div className="space-y-0.5">
                   {highlightCSS(cssCode)}
@@ -1060,7 +1060,7 @@ export function TypographySection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <div className="flex items-center justify-center gap-4 sm:gap-6 text-xs font-mono text-white/25">
+          <div className="flex items-center justify-center gap-4 sm:gap-6 text-xs font-mono text-[#6b6356]">
             {[
               '8 Font Families',
               '11 Controls',
@@ -1069,7 +1069,7 @@ export function TypographySection() {
               'Live CSS Export',
             ].map((info, i) => (
               <div key={`typo-info-${i}`} className="flex items-center gap-1.5">
-                <div className="w-1 h-1 rounded-full bg-emerald-500/40" />
+                <div className="w-1 h-1 rounded-full bg-[#d4a017]/40" />
                 {info}
               </div>
             ))}
@@ -1087,7 +1087,7 @@ export function TypographySection() {
           ].map((item) => (
             <motion.div
               key={`typo-deco-${item.symbol}`}
-              className="absolute font-mono text-[10px] text-white/[0.06] select-none"
+              className="absolute font-mono text-[10px] text-[#6b6356]/[0.08] select-none"
               style={{ left: `${item.x}%`, top: `${item.y}%` }}
               animate={{ y: [0, -8, 0], opacity: [0.04, 0.1, 0.04] }}
               transition={{ duration: 5 + item.delay, repeat: Infinity, ease: 'easeInOut', delay: item.delay }}

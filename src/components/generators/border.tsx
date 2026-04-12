@@ -101,16 +101,16 @@ const BORDER_STYLES: BorderStyle[] = ['solid', 'dashed', 'dotted', 'double', 'gr
 const defaultBorder: BorderConfig = {
   width: 2,
   style: 'solid',
-  color: '#10b981',
+  color: '#d4a017',
   perSide: false,
   topWidth: 2,
   rightWidth: 2,
   bottomWidth: 2,
   leftWidth: 2,
-  topColor: '#10b981',
-  rightColor: '#10b981',
-  bottomColor: '#10b981',
-  leftColor: '#10b981',
+  topColor: '#d4a017',
+  rightColor: '#d4a017',
+  bottomColor: '#d4a017',
+  leftColor: '#d4a017',
   topStyle: 'solid',
   rightStyle: 'solid',
   bottomStyle: 'solid',
@@ -130,16 +130,16 @@ const defaultOutline: OutlineConfig = {
   enabled: false,
   width: 2,
   style: 'solid',
-  color: '#06b6d4',
+  color: '#b8860b',
   offset: 4,
 };
 
 const defaultGradient: GradientBorderConfig = {
   enabled: false,
   angle: 90,
-  stop1: '#10b981',
-  stop2: '#06b6d4',
-  stop3: '#8b5cf6',
+  stop1: '#d4a017',
+  stop2: '#b8860b',
+  stop3: '#6b6356',
   useThreeStops: false,
 };
 
@@ -150,17 +150,17 @@ const PRESETS: Preset[] = [
   {
     name: 'Card',
     icon: '□',
-    border: { width: 1, style: 'solid', color: 'rgba(255,255,255,0.1)' },
+    border: { width: 1, style: 'solid', color: 'rgba(26,26,26,0.1)' },
     radius: { all: 16 },
     outline: { enabled: false },
   },
   {
     name: 'Neon Glow',
     icon: '✦',
-    border: { width: 2, style: 'solid', color: '#10b981' },
+    border: { width: 2, style: 'solid', color: '#d4a017' },
     radius: { all: 12 },
     outline: { enabled: false },
-    extraStyle: { boxShadow: '0 0 10px #10b981, 0 0 20px #10b98140, 0 0 40px #10b98120' },
+    extraStyle: { boxShadow: '0 0 10px #d4a017, 0 0 20px #d4a01740, 0 0 40px #d4a01720' },
   },
   {
     name: 'Dashed Tag',
@@ -171,20 +171,20 @@ const PRESETS: Preset[] = [
   {
     name: 'Double Frame',
     icon: '▤',
-    border: { width: 4, style: 'double', color: '#06b6d4' },
+    border: { width: 4, style: 'double', color: '#b8860b' },
     radius: { all: 12 },
   },
   {
     name: 'Gradient',
     icon: '◈',
-    border: { width: 3, style: 'solid', color: '#10b981' },
+    border: { width: 3, style: 'solid', color: '#d4a017' },
     radius: { all: 16 },
-    gradient: { enabled: true, angle: 135, stop1: '#10b981', stop2: '#06b6d4', stop3: '#8b5cf6', useThreeStops: true },
+    gradient: { enabled: true, angle: 135, stop1: '#d4a017', stop2: '#b8860b', stop3: '#6b6356', useThreeStops: true },
   },
   {
     name: 'Dotted Circle',
     icon: '○',
-    border: { width: 3, style: 'dotted', color: '#ec4899' },
+    border: { width: 3, style: 'dotted', color: '#c23616' },
     radius: { all: 100 },
   },
   {
@@ -196,20 +196,20 @@ const PRESETS: Preset[] = [
   {
     name: 'Ridge Badge',
     icon: '△',
-    border: { width: 4, style: 'ridge', color: '#a855f7' },
+    border: { width: 4, style: 'ridge', color: '#6b6356' },
     radius: { all: 24 },
   },
   {
     name: 'Glassmorphism',
     icon: '◇',
-    border: { width: 1, style: 'solid', color: 'rgba(255,255,255,0.18)' },
+    border: { width: 1, style: 'solid', color: 'rgba(26,26,26,0.18)' },
     radius: { all: 16 },
-    extraStyle: { background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' },
+    extraStyle: { background: 'rgba(26,26,26,0.05)', backdropFilter: 'blur(12px)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' },
   },
   {
     name: 'Underline',
     icon: '▁',
-    border: { width: 0, style: 'none', color: '#10b981', perSide: true, topWidth: 0, rightWidth: 0, bottomWidth: 3, leftWidth: 0, topStyle: 'none', rightStyle: 'none', bottomStyle: 'solid', leftStyle: 'none', topColor: '#10b981', rightColor: '#10b981', bottomColor: '#10b981', leftColor: '#10b981' },
+    border: { width: 0, style: 'none', color: '#d4a017', perSide: true, topWidth: 0, rightWidth: 0, bottomWidth: 3, leftWidth: 0, topStyle: 'none', rightStyle: 'none', bottomStyle: 'solid', leftStyle: 'none', topColor: '#d4a017', rightColor: '#d4a017', bottomColor: '#d4a017', leftColor: '#d4a017' },
     radius: { all: 4 },
   },
 ];
@@ -319,7 +319,7 @@ function FloatingDecorations() {
           style={{
             left: `${sym.x}%`,
             top: `${sym.y}%`,
-            color: 'rgba(245, 158, 11, 0.07)',
+            color: 'rgba(212,160,23,0.07)',
           }}
           animate={{ y: [0, -10, 0], opacity: [0.04, 0.12, 0.04] }}
           transition={{ duration: 7 + i * 1.1, repeatType: 'loop', repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
@@ -358,8 +358,8 @@ function ControlSlider({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">{label}</span>
-        <span className="text-[11px] font-mono text-emerald-400/80 tabular-nums">{value}{unit}</span>
+        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">{label}</span>
+        <span className="text-[11px] font-mono text-[#d4a017] tabular-nums">{value}{unit}</span>
       </div>
       <input
         type="range"
@@ -370,7 +370,7 @@ function ControlSlider({
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
         style={{
-          background: `linear-gradient(to right, ${color} 0%, ${color}88 ${pct}%, rgba(255,255,255,0.08) ${pct}%)`,
+          background: `linear-gradient(to right, ${color} 0%, ${color}88 ${pct}%, rgba(26,26,26,0.1) ${pct}%`,
         }}
       />
     </div>
@@ -570,15 +570,15 @@ export function BorderGeneratorSection() {
   return (
     <section className="relative w-full min-h-screen py-16 md:py-24 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#14100a] to-[#0a0a0a]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#f5f0e1] via-[#ebe5d0] to-[#f5f0e1]" />
 
       {/* Grid */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
+            linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -589,7 +589,7 @@ export function BorderGeneratorSection() {
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%)' }}
+        style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.08) 100%)' }}
       />
 
       <div className="relative z-10 w-full mx-auto px-4 sm:px-6">
@@ -601,15 +601,15 @@ export function BorderGeneratorSection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/[0.06] mb-4">
-            <Square className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400/70">Style Tool</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#d4a017]/20 bg-[#d4a017]/10 mb-4">
+            <Square className="w-3.5 h-3.5 text-[#d4a017]" />
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#d4a017]">Style Tool</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
             <span
               className="bg-clip-text text-transparent"
               style={{
-                background: 'linear-gradient(135deg, #f59e0b, #10b981)',
+                background: 'linear-gradient(135deg, #f59e0b, #d4a017)',
                 backgroundSize: '200% 100%',
                 animation: 'gradient-shift 6s ease infinite',
               }}
@@ -617,13 +617,13 @@ export function BorderGeneratorSection() {
               Border Lab
             </span>
           </h2>
-          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-white/25">
+          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-[#6b6356]/40">
             <span>10 Presets</span>
-            <span className="text-amber-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>Per-Side Control</span>
-            <span className="text-amber-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>Border-Image</span>
-            <span className="text-amber-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>Outline</span>
           </div>
         </motion.div>
@@ -640,7 +640,7 @@ export function BorderGeneratorSection() {
             transition={{ duration: 0.5, delay: 0.15 }}
           >
             {/* Panel Tabs */}
-            <div className="flex items-center gap-1 p-1 rounded-xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm">
+            <div className="flex items-center gap-1 p-1 rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0]">
               {([
                 { id: 'border' as const, label: 'Border', icon: Square },
                 { id: 'radius' as const, label: 'Radius', icon: RotateCw },
@@ -653,13 +653,13 @@ export function BorderGeneratorSection() {
                     key={tab.id}
                     onClick={() => setActivePanel(tab.id)}
                     className={`relative flex items-center gap-1.5 flex-1 justify-center px-3 py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer ${
-                      activePanel === tab.id ? 'text-white' : 'text-white/40 hover:text-white/60'
+                      activePanel === tab.id ? 'text-[#1a1a1a]' : 'text-[#6b6356] hover:text-[#1a1a1a]/80'
                     }`}
                   >
                     {activePanel === tab.id && (
                       <motion.div
                         layoutId="border-panel-bg"
-                        className="absolute inset-0 rounded-lg border border-white/10 bg-white/[0.08]"
+                        className="absolute inset-0 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0]"
                         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                       />
                     )}
@@ -679,11 +679,11 @@ export function BorderGeneratorSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2 }}
-                  className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 space-y-4"
+                  className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4 space-y-4"
                 >
                   {/* Per-side toggle */}
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-white/40">Per-Side Control</span>
+                    <span className="text-xs font-mono text-[#6b6356]">Per-Side Control</span>
                     <motion.button
                       onClick={() => setBorder((p) => {
                         const next = { ...p, perSide: !p.perSide };
@@ -718,9 +718,9 @@ export function BorderGeneratorSection() {
                       })}
                       className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-mono transition-colors cursor-pointer"
                       style={{
-                        color: border.perSide ? '#f59e0b' : 'rgba(255,255,255,0.35)',
-                        backgroundColor: border.perSide ? 'rgba(245,158,11,0.1)' : 'rgba(255,255,255,0.03)',
-                        border: `1px solid ${border.perSide ? 'rgba(245,158,11,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                        color: border.perSide ? '#f59e0b' : 'rgba(26,26,26,0.5)',
+                        backgroundColor: border.perSide ? 'rgba(245,158,11,0.1)' : 'rgba(26,26,26,0.05)',
+                        border: `1px solid ${border.perSide ? 'rgba(245,158,11,0.3)' : 'rgba(26,26,26,0.08)'}`,
                       }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -734,7 +734,7 @@ export function BorderGeneratorSection() {
                       {/* Unified controls */}
                       <ControlSlider label="Width" value={border.width} min={0} max={20} step={1} unit="px" onChange={(v) => setBorder((p) => ({ ...p, width: v }))} />
                       <div className="space-y-1.5">
-                        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Style</span>
+                        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Style</span>
                         <div className="grid grid-cols-5 gap-1">
                           {BORDER_STYLES.map((s) => (
                             <button
@@ -742,8 +742,8 @@ export function BorderGeneratorSection() {
                               onClick={() => setBorder((p) => ({ ...p, style: s }))}
                               className={`px-1.5 py-1.5 rounded-md text-[10px] font-mono transition-all cursor-pointer ${
                                 border.style === s
-                                  ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
-                                  : 'bg-white/[0.03] text-white/40 border border-white/[0.04] hover:text-white/60 hover:border-white/[0.1]'
+                                  ? 'bg-[#d4a017]/15 text-[#d4a017] border border-[#d4a017]/30'
+                                  : 'bg-[#ebe5d0] text-[#6b6356] border border-[#1a1a1a]/10 hover:text-[#1a1a1a]/80 hover:border-[#1a1a1a]/15'
                               }`}
                             >
                               {s}
@@ -752,13 +752,13 @@ export function BorderGeneratorSection() {
                         </div>
                       </div>
                       <div className="space-y-1.5">
-                        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Color</span>
+                        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Color</span>
                         <div className="flex items-center gap-3">
                           <input
                             type="color"
                             value={border.color}
                             onChange={(e) => setBorder((p) => ({ ...p, color: e.target.value }))}
-                            className="w-8 h-8 rounded-lg border border-white/10 cursor-pointer appearance-none bg-transparent"
+                            className="w-8 h-8 rounded-lg border border-[#1a1a1a]/15 cursor-pointer appearance-none bg-transparent"
                             style={{ padding: 0 }}
                           />
                           <input
@@ -768,7 +768,7 @@ export function BorderGeneratorSection() {
                               const val = e.target.value;
                               if (/^#[0-9a-fA-F]{0,6}$/.test(val)) setBorder((p) => ({ ...p, color: val }));
                             }}
-                            className="flex-1 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/70 outline-none focus:border-amber-500/30 transition-colors"
+                            className="flex-1 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/90 outline-none focus:border-[#d4a017]/30 transition-colors"
                             maxLength={7}
                           />
                         </div>
@@ -778,8 +778,8 @@ export function BorderGeneratorSection() {
                     <>
                       {/* Per-side controls */}
                       {(['top', 'right', 'bottom', 'left'] as BorderSide[]).map((side) => (
-                        <div key={side} className="rounded-lg border border-white/[0.04] bg-white/[0.01] p-3 space-y-2">
-                          <span className="text-[11px] font-mono text-white/50 capitalize flex items-center gap-2">
+                        <div key={side} className="rounded-lg border border-[#1a1a1a]/10 bg-[#ebe5d0] p-3 space-y-2">
+                          <span className="text-[11px] font-mono text-[#1a1a1a]/70 capitalize flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: border[`${side}Color` as keyof BorderConfig] as string }} />
                             {side}
                           </span>
@@ -799,8 +799,8 @@ export function BorderGeneratorSection() {
                                 onClick={() => updateBorderSide(side, 'style', s)}
                                 className={`px-1 py-1 rounded text-[9px] font-mono transition-all cursor-pointer ${
                                   border[`${side}Style` as keyof BorderConfig] === s
-                                    ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
-                                    : 'bg-white/[0.03] text-white/35 border border-white/[0.04] hover:text-white/55'
+                                    ? 'bg-[#d4a017]/15 text-[#d4a017] border border-[#d4a017]/30'
+                                    : 'bg-[#ebe5d0] text-[#6b6356]/60 border border-[#1a1a1a]/10 hover:text-[#1a1a1a]/60'
                                 }`}
                               >
                                 {s.slice(0, 4)}
@@ -812,7 +812,7 @@ export function BorderGeneratorSection() {
                               type="color"
                               value={border[`${side}Color` as keyof BorderConfig] as string}
                               onChange={(e) => updateBorderSide(side, 'color', e.target.value)}
-                              className="w-6 h-6 rounded border border-white/10 cursor-pointer appearance-none bg-transparent"
+                              className="w-6 h-6 rounded border border-[#1a1a1a]/15 cursor-pointer appearance-none bg-transparent"
                               style={{ padding: 0 }}
                             />
                             <input
@@ -822,7 +822,7 @@ export function BorderGeneratorSection() {
                                 const val = e.target.value;
                                 if (/^#[0-9a-fA-F]{0,6}$/.test(val)) updateBorderSide(side, 'color', val);
                               }}
-                              className="flex-1 px-2 py-1 rounded border border-white/[0.06] bg-white/[0.02] text-[10px] font-mono text-white/60 outline-none focus:border-amber-500/30 transition-colors"
+                              className="flex-1 px-2 py-1 rounded border border-[#1a1a1a]/10 bg-[#ebe5d0] text-[10px] font-mono text-[#1a1a1a]/80 outline-none focus:border-[#d4a017]/30 transition-colors"
                               maxLength={7}
                             />
                           </div>
@@ -841,18 +841,18 @@ export function BorderGeneratorSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2 }}
-                  className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 space-y-4"
+                  className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4 space-y-4"
                 >
                   {/* Link/Unlink toggle */}
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-white/40">Per-Corner Control</span>
+                    <span className="text-xs font-mono text-[#6b6356]">Per-Corner Control</span>
                     <motion.button
                       onClick={() => setRadius((p) => ({ ...p, linked: !p.linked }))}
                       className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-mono transition-colors cursor-pointer"
                       style={{
-                        color: radius.linked ? '#10b981' : 'rgba(255,255,255,0.35)',
-                        backgroundColor: radius.linked ? 'rgba(16,185,129,0.1)' : 'rgba(255,255,255,0.03)',
-                        border: `1px solid ${radius.linked ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                        color: radius.linked ? '#d4a017' : 'rgba(26,26,26,0.5)',
+                        backgroundColor: radius.linked ? 'rgba(212,160,23,0.1)' : 'rgba(26,26,26,0.05)',
+                        border: `1px solid ${radius.linked ? 'rgba(212,160,23,0.3)' : 'rgba(26,26,26,0.08)'}`,
                       }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -862,13 +862,13 @@ export function BorderGeneratorSection() {
                   </div>
 
                   {radius.linked ? (
-                    <ControlSlider label="Border Radius" value={radius.all} min={0} max={100} step={1} unit="px" onChange={updateRadiusAll} accentColor="#10b981" />
+                    <ControlSlider label="Border Radius" value={radius.all} min={0} max={100} step={1} unit="px" onChange={updateRadiusAll} accentColor="#d4a017" />
                   ) : (
                     <div className="grid grid-cols-2 gap-3">
-                      <ControlSlider label="Top Left" value={radius.topLeft} min={0} max={100} step={1} unit="px" onChange={(v) => setRadius((p) => ({ ...p, topLeft: v }))} accentColor="#10b981" />
-                      <ControlSlider label="Top Right" value={radius.topRight} min={0} max={100} step={1} unit="px" onChange={(v) => setRadius((p) => ({ ...p, topRight: v }))} accentColor="#06b6d4" />
+                      <ControlSlider label="Top Left" value={radius.topLeft} min={0} max={100} step={1} unit="px" onChange={(v) => setRadius((p) => ({ ...p, topLeft: v }))} accentColor="#d4a017" />
+                      <ControlSlider label="Top Right" value={radius.topRight} min={0} max={100} step={1} unit="px" onChange={(v) => setRadius((p) => ({ ...p, topRight: v }))} accentColor="#b8860b" />
                       <ControlSlider label="Bottom Left" value={radius.bottomLeft} min={0} max={100} step={1} unit="px" onChange={(v) => setRadius((p) => ({ ...p, bottomLeft: v }))} accentColor="#f59e0b" />
-                      <ControlSlider label="Bottom Right" value={radius.bottomRight} min={0} max={100} step={1} unit="px" onChange={(v) => setRadius((p) => ({ ...p, bottomRight: v }))} accentColor="#ec4899" />
+                      <ControlSlider label="Bottom Right" value={radius.bottomRight} min={0} max={100} step={1} unit="px" onChange={(v) => setRadius((p) => ({ ...p, bottomRight: v }))} accentColor="#c23616" />
                     </div>
                   )}
 
@@ -884,7 +884,7 @@ export function BorderGeneratorSection() {
                           rx={radius.linked ? Math.min(radius.all, 56) : 0}
                           ry={radius.linked ? Math.min(radius.all, 56) : 0}
                           fill="none"
-                          stroke="rgba(255,255,255,0.1)"
+                          stroke="rgba(26,26,26,0.15)"
                           strokeWidth="1"
                           style={radius.linked ? {} : {
                             borderTopLeftRadius: `${Math.min(radius.topLeft, 56)}px`,
@@ -896,14 +896,14 @@ export function BorderGeneratorSection() {
                         {/* Corner labels */}
                         {!radius.linked && (
                           <>
-                            <text x="16" y="22" fill="rgba(16,185,129,0.6)" fontSize="8" fontFamily="monospace">{radius.topLeft}</text>
-                            <text x="96" y="22" fill="rgba(6,182,212,0.6)" fontSize="8" fontFamily="monospace" textAnchor="end">{radius.topRight}</text>
+                            <text x="16" y="22" fill="rgba(212,160,23,0.6)" fontSize="8" fontFamily="monospace">{radius.topLeft}</text>
+                            <text x="96" y="22" fill="rgba(184,134,11,0.6)" fontSize="8" fontFamily="monospace" textAnchor="end">{radius.topRight}</text>
                             <text x="16" y="122" fill="rgba(245,158,11,0.6)" fontSize="8" fontFamily="monospace">{radius.bottomLeft}</text>
-                            <text x="96" y="122" fill="rgba(236,72,153,0.6)" fontSize="8" fontFamily="monospace" textAnchor="end">{radius.bottomRight}</text>
+                            <text x="96" y="122" fill="rgba(194,54,22,0.6)" fontSize="8" fontFamily="monospace" textAnchor="end">{radius.bottomRight}</text>
                           </>
                         )}
                         {radius.linked && (
-                          <text x="64" y="68" fill="rgba(16,185,129,0.5)" fontSize="10" fontFamily="monospace" textAnchor="middle">{radius.all}px</text>
+                          <text x="64" y="68" fill="rgba(212,160,23,0.5)" fontSize="10" fontFamily="monospace" textAnchor="middle">{radius.all}px</text>
                         )}
                       </svg>
                     </div>
@@ -919,11 +919,11 @@ export function BorderGeneratorSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2 }}
-                  className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 space-y-4"
+                  className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4 space-y-4"
                 >
                   {/* Enable toggle */}
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-white/40">Enable Outline</span>
+                    <span className="text-xs font-mono text-[#6b6356]">Enable Outline</span>
                     <label className="relative flex items-center gap-2 cursor-pointer group">
                       <div className="relative">
                         <input
@@ -932,14 +932,14 @@ export function BorderGeneratorSection() {
                           onChange={(e) => setOutline((p) => ({ ...p, enabled: e.target.checked }))}
                           className="sr-only peer"
                         />
-                        <div className="w-9 h-5 rounded-full bg-white/[0.08] peer-checked:bg-cyan-500/30 transition-colors" />
+                        <div className="w-9 h-5 rounded-full bg-[#ebe5d0] peer-checked:bg-cyan-500/30 transition-colors" />
                         <motion.div
-                          className="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white/40 peer-checked:bg-cyan-400 shadow-sm"
+                          className="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white/40 peer-checked:bg-[#b8860b] shadow-sm"
                           animate={{ x: outline.enabled ? 16 : 0 }}
                           transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                         />
                       </div>
-                      <span className="text-[11px] font-mono text-white/40 group-hover:text-white/60 transition-colors">
+                      <span className="text-[11px] font-mono text-[#6b6356] group-hover:text-[#1a1a1a]/80 transition-colors">
                         {outline.enabled ? 'On' : 'Off'}
                       </span>
                     </label>
@@ -951,9 +951,9 @@ export function BorderGeneratorSection() {
                       animate={{ opacity: 1 }}
                       className="space-y-4"
                     >
-                      <ControlSlider label="Width" value={outline.width} min={0} max={20} step={1} unit="px" onChange={(v) => setOutline((p) => ({ ...p, width: v }))} accentColor="#06b6d4" />
+                      <ControlSlider label="Width" value={outline.width} min={0} max={20} step={1} unit="px" onChange={(v) => setOutline((p) => ({ ...p, width: v }))} accentColor="#b8860b" />
                       <div className="space-y-1.5">
-                        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Style</span>
+                        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Style</span>
                         <div className="grid grid-cols-5 gap-1">
                           {(['solid', 'dashed', 'dotted', 'double', 'groove', 'ridge', 'inset', 'outset', 'none', 'hidden'] as BorderStyle[]).map((s) => (
                             <button
@@ -961,8 +961,8 @@ export function BorderGeneratorSection() {
                               onClick={() => setOutline((p) => ({ ...p, style: s }))}
                               className={`px-1.5 py-1.5 rounded-md text-[10px] font-mono transition-all cursor-pointer ${
                                 outline.style === s
-                                  ? 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/30'
-                                  : 'bg-white/[0.03] text-white/40 border border-white/[0.04] hover:text-white/60'
+                                  ? 'bg-[#b8860b]/15 text-[#b8860b] border border-[#b8860b]/30'
+                                  : 'bg-[#ebe5d0] text-[#6b6356] border border-[#1a1a1a]/10 hover:text-[#1a1a1a]/80'
                               }`}
                             >
                               {s}
@@ -971,13 +971,13 @@ export function BorderGeneratorSection() {
                         </div>
                       </div>
                       <div className="space-y-1.5">
-                        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Color</span>
+                        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Color</span>
                         <div className="flex items-center gap-3">
                           <input
                             type="color"
                             value={outline.color}
                             onChange={(e) => setOutline((p) => ({ ...p, color: e.target.value }))}
-                            className="w-8 h-8 rounded-lg border border-white/10 cursor-pointer appearance-none bg-transparent"
+                            className="w-8 h-8 rounded-lg border border-[#1a1a1a]/15 cursor-pointer appearance-none bg-transparent"
                             style={{ padding: 0 }}
                           />
                           <input
@@ -987,12 +987,12 @@ export function BorderGeneratorSection() {
                               const val = e.target.value;
                               if (/^#[0-9a-fA-F]{0,6}$/.test(val)) setOutline((p) => ({ ...p, color: val }));
                             }}
-                            className="flex-1 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/70 outline-none focus:border-cyan-500/30 transition-colors"
+                            className="flex-1 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/90 outline-none focus:border-[#b8860b]/30 transition-colors"
                             maxLength={7}
                           />
                         </div>
                       </div>
-                      <ControlSlider label="Offset" value={outline.offset} min={-20} max={20} step={1} unit="px" onChange={(v) => setOutline((p) => ({ ...p, offset: v }))} accentColor="#06b6d4" />
+                      <ControlSlider label="Offset" value={outline.offset} min={-20} max={20} step={1} unit="px" onChange={(v) => setOutline((p) => ({ ...p, offset: v }))} accentColor="#b8860b" />
                     </motion.div>
                   )}
                 </motion.div>
@@ -1006,11 +1006,11 @@ export function BorderGeneratorSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2 }}
-                  className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 space-y-4"
+                  className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4 space-y-4"
                 >
                   {/* Enable toggle */}
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono text-white/40">Gradient Border</span>
+                    <span className="text-xs font-mono text-[#6b6356]">Gradient Border</span>
                     <label className="relative flex items-center gap-2 cursor-pointer group">
                       <div className="relative">
                         <input
@@ -1019,14 +1019,14 @@ export function BorderGeneratorSection() {
                           onChange={(e) => setGradient((p) => ({ ...p, enabled: e.target.checked }))}
                           className="sr-only peer"
                         />
-                        <div className="w-9 h-5 rounded-full bg-white/[0.08] peer-checked:bg-purple-500/30 transition-colors" />
+                        <div className="w-9 h-5 rounded-full bg-[#ebe5d0] peer-checked:bg-purple-500/30 transition-colors" />
                         <motion.div
                           className="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white/40 peer-checked:bg-purple-400 shadow-sm"
                           animate={{ x: gradient.enabled ? 16 : 0 }}
                           transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                         />
                       </div>
-                      <span className="text-[11px] font-mono text-white/40 group-hover:text-white/60 transition-colors">
+                      <span className="text-[11px] font-mono text-[#6b6356] group-hover:text-[#1a1a1a]/80 transition-colors">
                         {gradient.enabled ? 'On' : 'Off'}
                       </span>
                     </label>
@@ -1040,7 +1040,7 @@ export function BorderGeneratorSection() {
                     >
                       {/* Gradient preview bar */}
                       <div
-                        className="w-full h-4 rounded-lg border border-white/[0.06]"
+                        className="w-full h-4 rounded-lg border border-[#1a1a1a]/10"
                         style={{
                           background: `linear-gradient(${gradient.angle}deg, ${gradient.stop1}${gradient.useThreeStops ? `, ${gradient.stop2}, ${gradient.stop3}` : `, ${gradient.stop2}`})`,
                         }}
@@ -1054,29 +1054,29 @@ export function BorderGeneratorSection() {
                         step={1}
                         unit="°"
                         onChange={(v) => setGradient((p) => ({ ...p, angle: v }))}
-                        accentColor="#a855f7"
+                        accentColor="#6b6356"
                       />
 
                       {/* Color stops */}
                       <div className="space-y-3">
                         <div className="space-y-1.5">
-                          <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Stop 1</span>
+                          <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Stop 1</span>
                           <div className="flex items-center gap-3">
-                            <input type="color" value={gradient.stop1} onChange={(e) => setGradient((p) => ({ ...p, stop1: e.target.value }))} className="w-7 h-7 rounded border border-white/10 cursor-pointer appearance-none bg-transparent" style={{ padding: 0 }} />
-                            <input type="text" value={gradient.stop1} onChange={(e) => { if (/^#[0-9a-fA-F]{0,6}$/.test(e.target.value)) setGradient((p) => ({ ...p, stop1: e.target.value })); }} className="flex-1 px-2 py-1 rounded border border-white/[0.06] bg-white/[0.02] text-[10px] font-mono text-white/60 outline-none focus:border-purple-500/30 transition-colors" maxLength={7} />
+                            <input type="color" value={gradient.stop1} onChange={(e) => setGradient((p) => ({ ...p, stop1: e.target.value }))} className="w-7 h-7 rounded border border-[#1a1a1a]/15 cursor-pointer appearance-none bg-transparent" style={{ padding: 0 }} />
+                            <input type="text" value={gradient.stop1} onChange={(e) => { if (/^#[0-9a-fA-F]{0,6}$/.test(e.target.value)) setGradient((p) => ({ ...p, stop1: e.target.value })); }} className="flex-1 px-2 py-1 rounded border border-[#1a1a1a]/10 bg-[#ebe5d0] text-[10px] font-mono text-[#1a1a1a]/80 outline-none focus:border-purple-500/30 transition-colors" maxLength={7} />
                           </div>
                         </div>
                         <div className="space-y-1.5">
-                          <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Stop 2</span>
+                          <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Stop 2</span>
                           <div className="flex items-center gap-3">
-                            <input type="color" value={gradient.stop2} onChange={(e) => setGradient((p) => ({ ...p, stop2: e.target.value }))} className="w-7 h-7 rounded border border-white/10 cursor-pointer appearance-none bg-transparent" style={{ padding: 0 }} />
-                            <input type="text" value={gradient.stop2} onChange={(e) => { if (/^#[0-9a-fA-F]{0,6}$/.test(e.target.value)) setGradient((p) => ({ ...p, stop2: e.target.value })); }} className="flex-1 px-2 py-1 rounded border border-white/[0.06] bg-white/[0.02] text-[10px] font-mono text-white/60 outline-none focus:border-purple-500/30 transition-colors" maxLength={7} />
+                            <input type="color" value={gradient.stop2} onChange={(e) => setGradient((p) => ({ ...p, stop2: e.target.value }))} className="w-7 h-7 rounded border border-[#1a1a1a]/15 cursor-pointer appearance-none bg-transparent" style={{ padding: 0 }} />
+                            <input type="text" value={gradient.stop2} onChange={(e) => { if (/^#[0-9a-fA-F]{0,6}$/.test(e.target.value)) setGradient((p) => ({ ...p, stop2: e.target.value })); }} className="flex-1 px-2 py-1 rounded border border-[#1a1a1a]/10 bg-[#ebe5d0] text-[10px] font-mono text-[#1a1a1a]/80 outline-none focus:border-purple-500/30 transition-colors" maxLength={7} />
                           </div>
                         </div>
 
                         {/* Third stop toggle */}
                         <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-mono text-white/40">Third Stop</span>
+                          <span className="text-[11px] font-mono text-[#6b6356]">Third Stop</span>
                           <label className="relative flex items-center gap-2 cursor-pointer group">
                             <div className="relative">
                               <input
@@ -1085,7 +1085,7 @@ export function BorderGeneratorSection() {
                                 onChange={(e) => setGradient((p) => ({ ...p, useThreeStops: e.target.checked }))}
                                 className="sr-only peer"
                               />
-                              <div className="w-8 h-4 rounded-full bg-white/[0.08] peer-checked:bg-purple-500/30 transition-colors" />
+                              <div className="w-8 h-4 rounded-full bg-[#ebe5d0] peer-checked:bg-purple-500/30 transition-colors" />
                               <motion.div
                                 className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white/40 peer-checked:bg-purple-400 shadow-sm"
                                 animate={{ x: gradient.useThreeStops ? 14 : 0 }}
@@ -1104,10 +1104,10 @@ export function BorderGeneratorSection() {
                               transition={{ duration: 0.2 }}
                               className="space-y-1.5 overflow-hidden"
                             >
-                              <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Stop 3</span>
+                              <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Stop 3</span>
                               <div className="flex items-center gap-3">
-                                <input type="color" value={gradient.stop3} onChange={(e) => setGradient((p) => ({ ...p, stop3: e.target.value }))} className="w-7 h-7 rounded border border-white/10 cursor-pointer appearance-none bg-transparent" style={{ padding: 0 }} />
-                                <input type="text" value={gradient.stop3} onChange={(e) => { if (/^#[0-9a-fA-F]{0,6}$/.test(e.target.value)) setGradient((p) => ({ ...p, stop3: e.target.value })); }} className="flex-1 px-2 py-1 rounded border border-white/[0.06] bg-white/[0.02] text-[10px] font-mono text-white/60 outline-none focus:border-purple-500/30 transition-colors" maxLength={7} />
+                                <input type="color" value={gradient.stop3} onChange={(e) => setGradient((p) => ({ ...p, stop3: e.target.value }))} className="w-7 h-7 rounded border border-[#1a1a1a]/15 cursor-pointer appearance-none bg-transparent" style={{ padding: 0 }} />
+                                <input type="text" value={gradient.stop3} onChange={(e) => { if (/^#[0-9a-fA-F]{0,6}$/.test(e.target.value)) setGradient((p) => ({ ...p, stop3: e.target.value })); }} className="flex-1 px-2 py-1 rounded border border-[#1a1a1a]/10 bg-[#ebe5d0] text-[10px] font-mono text-[#1a1a1a]/80 outline-none focus:border-purple-500/30 transition-colors" maxLength={7} />
                               </div>
                             </motion.div>
                           )}
@@ -1115,8 +1115,8 @@ export function BorderGeneratorSection() {
                       </div>
 
                       {/* border-image CSS */}
-                      <div className="rounded-lg bg-white/[0.02] border border-white/[0.04] p-3">
-                        <span className="text-[10px] font-mono text-white/25 block mb-1">border-image output:</span>
+                      <div className="rounded-lg bg-[#ebe5d0] border border-[#1a1a1a]/10 p-3">
+                        <span className="text-[10px] font-mono text-[#6b6356]/40 block mb-1">border-image output:</span>
                         <code className="text-[10px] font-mono text-purple-400/80 break-all">
                           border-image: linear-gradient({gradient.angle}deg, {gradient.stop1}{gradient.useThreeStops ? `, ${gradient.stop2}, ${gradient.stop3}` : `, ${gradient.stop2}`}) 1;
                         </code>
@@ -1129,15 +1129,15 @@ export function BorderGeneratorSection() {
 
             {/* ── Presets ── */}
             <motion.div
-              className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden"
+              className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
-                <Palette className="w-3.5 h-3.5 text-amber-400/70" />
-                <span className="text-xs font-mono text-white/50">Presets</span>
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]/10">
+                <Palette className="w-3.5 h-3.5 text-[#d4a017]" />
+                <span className="text-xs font-mono text-[#1a1a1a]/70">Presets</span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 p-3">
                 {PRESETS.map((preset, i) => (
@@ -1146,8 +1146,8 @@ export function BorderGeneratorSection() {
                     onClick={() => applyPreset(preset, i)}
                     className={`group flex flex-col items-center gap-2 p-2.5 rounded-lg border transition-all cursor-pointer ${
                       activePresetIdx === i
-                        ? 'border-amber-500/30 bg-amber-500/[0.08]'
-                        : 'border-white/[0.04] hover:border-white/[0.12] bg-white/[0.01] hover:bg-white/[0.04]'
+                        ? 'border-[#d4a017]/30 bg-amber-500/[0.08]'
+                        : 'border-[#1a1a1a]/10 hover:border-[#1a1a1a]/15 bg-[#ebe5d0] hover:bg-[#ebe5d0]'
                     }`}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.97 }}
@@ -1157,10 +1157,10 @@ export function BorderGeneratorSection() {
                       <div
                         className="w-8 h-8 flex items-center justify-center text-[14px]"
                         style={{
-                          border: `${preset.border?.width || 2}px ${preset.border?.style || 'solid'} ${preset.border?.color || '#10b981'}`,
+                          border: `${preset.border?.width || 2}px ${preset.border?.style || 'solid'} ${preset.border?.color || '#d4a017'}`,
                           borderRadius: `${preset.radius?.all || 4}px`,
                           ...(preset.gradient?.enabled ? {
-                            borderImage: `linear-gradient(${preset.gradient.angle || 90}deg, ${preset.gradient.stop1 || '#10b981'}, ${preset.gradient.stop2 || '#06b6d4'}${preset.gradient.useThreeStops ? `, ${preset.gradient.stop3}` : ''}) 1`,
+                            borderImage: `linear-gradient(${preset.gradient.angle || 90}deg, ${preset.gradient.stop1 || '#d4a017'}, ${preset.gradient.stop2 || '#b8860b'}${preset.gradient.useThreeStops ? `, ${preset.gradient.stop3}` : ''}) 1`,
                           } : {}),
                           ...(preset.extraStyle || {}),
                         }}
@@ -1168,7 +1168,7 @@ export function BorderGeneratorSection() {
                         {preset.icon}
                       </div>
                     </div>
-                    <span className="text-[9px] font-mono text-white/30 group-hover:text-white/50 transition-colors truncate w-full text-center">
+                    <span className="text-[9px] font-mono text-[#6b6356]/70 group-hover:text-[#1a1a1a]/70 transition-colors truncate w-full text-center">
                       {preset.name}
                     </span>
                   </motion.button>
@@ -1186,17 +1186,17 @@ export function BorderGeneratorSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             {/* ── Preview Panel ── */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
+            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
               {/* VS Code chrome */}
-              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                 </div>
                 <div className="flex items-center gap-1.5 ml-3">
-                  <Eye className="w-3 h-3 text-white/30" />
-                  <span className="text-[10px] font-mono text-white/25">Live Preview</span>
+                  <Eye className="w-3 h-3 text-[#6b6356]/70" />
+                  <span className="text-[10px] font-mono text-[#6b6356]/40">Live Preview</span>
                 </div>
                 {/* Size buttons */}
                 <div className="ml-auto flex items-center gap-1">
@@ -1206,8 +1206,8 @@ export function BorderGeneratorSection() {
                       onClick={() => setBoxSize(size)}
                       className={`px-2 py-0.5 rounded text-[9px] font-mono transition-all cursor-pointer ${
                         boxSize === size
-                          ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
-                          : 'text-white/30 hover:text-white/50 border border-transparent'
+                          ? 'bg-[#d4a017]/15 text-[#d4a017] border border-[#d4a017]/30'
+                          : 'text-[#6b6356]/70 hover:text-[#1a1a1a]/70 border border-transparent'
                       }`}
                     >
                       {size.charAt(0).toUpperCase()}
@@ -1240,7 +1240,7 @@ export function BorderGeneratorSection() {
 
                 {/* Preview box */}
                 <motion.div
-                  className={`relative z-10 ${boxDimensions.w} flex flex-col items-center justify-center gap-2 bg-white/90 transition-all duration-300 ${
+                  className={`relative z-10 ${boxDimensions.w} flex flex-col items-center justify-center gap-2 bg-[#f5f0e1]/90 transition-all duration-300 ${
                     hoverPreview ? 'bg-white' : ''
                   }`}
                   style={{
@@ -1267,10 +1267,10 @@ export function BorderGeneratorSection() {
                       initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 5 }}
-                      className="absolute bottom-3 right-3 z-20 flex items-center gap-1 px-2 py-1 rounded-md bg-white/[0.06] border border-white/[0.08]"
+                      className="absolute bottom-3 right-3 z-20 flex items-center gap-1 px-2 py-1 rounded-md bg-[#ebe5d0] border border-[#1a1a1a]/15"
                     >
-                      <MousePointer2 className="w-3 h-3 text-amber-400/60" />
-                      <span className="text-[9px] font-mono text-white/40">Hover State</span>
+                      <MousePointer2 className="w-3 h-3 text-[#d4a017]/60" />
+                      <span className="text-[9px] font-mono text-[#6b6356]">Hover State</span>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -1278,22 +1278,22 @@ export function BorderGeneratorSection() {
             </div>
 
             {/* ── CSS Output ── */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-2">
-                  <Code2 className="w-3.5 h-3.5 text-emerald-400/70" />
-                  <span className="text-[10px] font-mono text-white/25">Output — CSS</span>
+                  <Code2 className="w-3.5 h-3.5 text-[#d4a017]" />
+                  <span className="text-[10px] font-mono text-[#6b6356]/40">Output — CSS</span>
                 </div>
                 <motion.button
                   onClick={copyCode}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-white/40 hover:text-white/70 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.06] transition-all cursor-pointer"
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/90 border border-[#1a1a1a]/10 hover:border-[#1a1a1a]/15 bg-[#ebe5d0] hover:bg-[#ebe5d0] transition-all cursor-pointer"
                   whileHover={{ y: -1 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3 h-3 text-emerald-400" />
-                      <span className="text-emerald-400">Copied!</span>
+                      <Check className="w-3 h-3 text-[#d4a017]" />
+                      <span className="text-[#d4a017]">Copied!</span>
                     </>
                   ) : (
                     <>
@@ -1312,12 +1312,12 @@ export function BorderGeneratorSection() {
               </div>
 
               {/* Footer */}
-              <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.04] bg-white/[0.01]">
+              <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/60" />
-                  <span className="font-mono text-[10px] text-white/20">Live</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#d4a017]/70" />
+                  <span className="font-mono text-[10px] text-[#6b6356]/50">Live</span>
                 </div>
-                <span className="font-mono text-[10px] text-white/15">{cssCode.split('\n').length} lines</span>
+                <span className="font-mono text-[10px] text-[#6b6356]/30">{cssCode.split('\n').length} lines</span>
               </div>
             </div>
           </motion.div>

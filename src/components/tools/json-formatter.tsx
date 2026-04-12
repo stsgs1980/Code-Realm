@@ -294,7 +294,7 @@ function TreeNode({ keyName, value, path, collapsed, toggleCollapse, selectedPat
           onClick={() => toggleCollapse(pathStr)}
         >
           <motion.span
-            className="mr-1 text-white/30 inline-block w-4 text-center"
+            className="mr-1 text-[#6b6356] inline-block w-4 text-center"
             animate={{ rotate: isCollapsed ? 0 : 90 }}
             transition={{ duration: 0.15 }}
           >
@@ -302,25 +302,25 @@ function TreeNode({ keyName, value, path, collapsed, toggleCollapse, selectedPat
           </motion.span>
           {keyName !== null && (
             <>
-              <span className="text-emerald-400 mr-1.5">&quot;{keyName}&quot;</span>
-              <span className="text-white/40">:</span>
+              <span className="text-[#d4a017] mr-1.5">&quot;{keyName}&quot;</span>
+              <span className="text-[#6b6356]">:</span>
               <span className="ml-1.5" />
             </>
           )}
-          <span className="text-white/60">{bracket[0]}</span>
+          <span className="text-[#6b6356]">{bracket[0]}</span>
           {isCollapsed && (
             <>
-              <span className="ml-1.5 text-white/30 text-xs italic">
+              <span className="ml-1.5 text-[#6b6356] text-xs italic">
                 {count} {isArray ? 'items' : 'keys'}
               </span>
-              <span className="text-white/60">{bracket[1]}{comma}</span>
+              <span className="text-[#6b6356]">{bracket[1]}{comma}</span>
             </>
           )}
           <span
             className={`ml-2 text-[10px] font-mono px-1.5 py-0.5 rounded ${
               isArray
-                ? 'bg-cyan-500/10 text-cyan-400/70 border border-cyan-500/20'
-                : 'bg-amber-500/10 text-amber-400/70 border border-amber-500/20'
+                ? 'bg-[#b8860b]/10 text-[#b8860b]/70 border border-[#b8860b]/20'
+                : 'bg-amber-500/10 text-[#d4a017]/70 border border-[#d4a017]/20'
             }`}
           >
             {isArray ? 'Array' : 'Object'}
@@ -357,7 +357,7 @@ function TreeNode({ keyName, value, path, collapsed, toggleCollapse, selectedPat
 
         {/* Closing bracket */}
         {isCollapsed ? null : (
-          <div style={{ paddingLeft: indent }} className="text-white/60">
+          <div style={{ paddingLeft: indent }} className="text-[#6b6356]">
             {bracket[1]}{comma}
           </div>
         )}
@@ -367,12 +367,12 @@ function TreeNode({ keyName, value, path, collapsed, toggleCollapse, selectedPat
 
   // Primitive value
   const valColor = type === 'string'
-    ? 'text-amber-300'
+    ? 'text-[#b8860b]'
     : type === 'number'
-      ? 'text-cyan-400'
+      ? 'text-[#b8860b]'
       : type === 'boolean'
-        ? 'text-purple-400'
-        : 'text-red-400';
+        ? 'text-[#6b6356]'
+        : 'text-[#c23616]';
 
   const displayVal = type === 'string'
     ? `&quot;${String(value)}&quot;`
@@ -392,22 +392,22 @@ function TreeNode({ keyName, value, path, collapsed, toggleCollapse, selectedPat
       <span className="mr-1.5 w-4 inline-block" />
       {keyName !== null && (
         <>
-          <span className="text-emerald-400 mr-1.5">&quot;{keyName}&quot;</span>
-          <span className="text-white/40">:</span>
+          <span className="text-[#d4a017] mr-1.5">&quot;{keyName}&quot;</span>
+          <span className="text-[#6b6356]">:</span>
           <span className="ml-1.5" />
         </>
       )}
       <span className={valColor} dangerouslySetInnerHTML={{ __html: displayVal }} />
-      <span className="text-white/40">{comma}</span>
+      <span className="text-[#6b6356]">{comma}</span>
       <span
         className={`ml-2 text-[10px] font-mono px-1.5 py-0.5 rounded ${
           type === 'string'
-            ? 'bg-amber-500/10 text-amber-400/70 border border-amber-500/20'
+            ? 'bg-amber-500/10 text-[#d4a017]/70 border border-[#d4a017]/20'
             : type === 'number'
-              ? 'bg-cyan-500/10 text-cyan-400/70 border border-cyan-500/20'
+              ? 'bg-[#b8860b]/10 text-[#b8860b]/70 border border-[#b8860b]/20'
               : type === 'boolean'
-                ? 'bg-purple-500/10 text-purple-400/70 border border-purple-500/20'
-                : 'bg-red-500/10 text-red-400/70 border border-red-500/20'
+                ? 'bg-purple-500/10 text-[#6b6356]/70 border border-purple-500/20'
+                : 'bg-[#c23616]/10 text-[#c23616]/70 border border-[#c23616]/20'
         }`}
       >
         {type}
@@ -492,15 +492,15 @@ export function JsonFormatterSection() {
       const keyRegex = /^(\s*)(&quot;[^&]*&quot;|"[^"]*")(\s*:\s*)/;
       const keyMatch = remaining.match(keyRegex);
       if (keyMatch) {
-        parts.push({ text: keyMatch[1], color: 'text-white/20' }); // indent
-        parts.push({ text: keyMatch[2], color: 'text-emerald-400' }); // key
-        parts.push({ text: keyMatch[3], color: 'text-white/50' }); // colon
+        parts.push({ text: keyMatch[1], color: 'text-[#6b6356]' }); // indent
+        parts.push({ text: keyMatch[2], color: 'text-[#d4a017]' }); // key
+        parts.push({ text: keyMatch[3], color: 'text-[#1a1a1a]' }); // colon
         remaining = remaining.slice(keyMatch[0].length);
       } else {
         // Check for leading whitespace
         const wsMatch = remaining.match(/^(\s*)/);
         if (wsMatch && wsMatch[1]) {
-          parts.push({ text: wsMatch[1], color: 'text-white/20' });
+          parts.push({ text: wsMatch[1], color: 'text-[#6b6356]' });
           remaining = remaining.slice(wsMatch[1].length);
         }
       }
@@ -509,32 +509,32 @@ export function JsonFormatterSection() {
         // String value
         if (remaining.match(/^(&quot;[^&]*&quot;|"[^"]*")/)) {
           const strMatch = remaining.match(/^(&quot;[^&]*&quot;|"[^"]*")/);
-          parts.push({ text: strMatch![0], color: 'text-amber-300' });
+          parts.push({ text: strMatch![0], color: 'text-[#b8860b]' });
           remaining = remaining.slice(strMatch![0].length);
           // comma
-          if (remaining) parts.push({ text: remaining, color: 'text-white/50' });
+          if (remaining) parts.push({ text: remaining, color: 'text-[#1a1a1a]' });
         } else if (remaining.match(/^\s*true/)) {
           const m = remaining.match(/^(true)/);
-          parts.push({ text: m![0], color: 'text-purple-400' });
+          parts.push({ text: m![0], color: 'text-[#6b6356]' });
           remaining = remaining.slice(m![0].length);
-          if (remaining) parts.push({ text: remaining, color: 'text-white/50' });
+          if (remaining) parts.push({ text: remaining, color: 'text-[#1a1a1a]' });
         } else if (remaining.match(/^\s*false/)) {
           const m = remaining.match(/^(false)/);
-          parts.push({ text: m![0], color: 'text-purple-400' });
+          parts.push({ text: m![0], color: 'text-[#6b6356]' });
           remaining = remaining.slice(m![0].length);
-          if (remaining) parts.push({ text: remaining, color: 'text-white/50' });
+          if (remaining) parts.push({ text: remaining, color: 'text-[#1a1a1a]' });
         } else if (remaining.match(/^\s*null/)) {
           const m = remaining.match(/^(null)/);
-          parts.push({ text: m![0], color: 'text-red-400' });
+          parts.push({ text: m![0], color: 'text-[#c23616]' });
           remaining = remaining.slice(m![0].length);
-          if (remaining) parts.push({ text: remaining, color: 'text-white/50' });
+          if (remaining) parts.push({ text: remaining, color: 'text-[#1a1a1a]' });
         } else if (remaining.match(/^\s*-?\d+(\.\d+)?/)) {
           const m = remaining.match(/^(-?\d+(\.\d+)?)/);
-          parts.push({ text: m![0], color: 'text-cyan-400' });
+          parts.push({ text: m![0], color: 'text-[#b8860b]' });
           remaining = remaining.slice(m![0].length);
-          if (remaining) parts.push({ text: remaining, color: 'text-white/50' });
+          if (remaining) parts.push({ text: remaining, color: 'text-[#1a1a1a]' });
         } else {
-          parts.push({ text: remaining, color: 'text-white/60' });
+          parts.push({ text: remaining, color: 'text-[#6b6356]' });
         }
       }
       return { parts, lineNum: idx + 1, raw: line };
@@ -644,14 +644,14 @@ export function JsonFormatterSection() {
 
   if (!mounted) {
     return (
-      <section className="relative w-full min-h-[80vh] bg-gradient-to-b from-[#0a0a0a] to-[#0f0f1a]" />
+      <section className="relative w-full min-h-[80vh] bg-[#f5f0e1]" />
     );
   }
 
   return (
-    <section className="relative w-full py-20 md:py-28 bg-gradient-to-b from-[#0a0a0a] to-[#0f0f1a] overflow-hidden">
+    <section className="relative w-full py-20 md:py-28 bg-[#f5f0e1] overflow-hidden">
       {/* Background grid */}
-      <div className="absolute inset-0 pointer-events-none bg-grid-subtle" />
+      <div className="absolute inset-0 pointer-events-none" />
 
       {/* Floating decorative symbols */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -662,7 +662,7 @@ export function JsonFormatterSection() {
             style={{
               left: `${sym.x}%`,
               top: `${sym.y}%`,
-              color: 'rgba(245, 158, 11, 0.07)',
+              color: 'rgba(180, 128, 23, 0.12)',
             }}
             animate={{ y: [0, -12, 0], opacity: [0.04, 0.1, 0.04] }}
             transition={{ duration: 8 + i * 1.1, repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
@@ -675,7 +675,7 @@ export function JsonFormatterSection() {
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)' }}
+        style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(180,128,23,0.08) 100%)' }}
       />
 
       {/* Content */}
@@ -689,17 +689,17 @@ export function JsonFormatterSection() {
           transition={{ duration: 0.7 }}
         >
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm mb-6">
-            <Braces className="w-4 h-4 text-amber-400" />
-            <span className="text-sm text-white/60 font-mono">Data Tool</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-none border border-[#1a1a1a] bg-[#ebe5d0] mb-6">
+            <Braces className="w-4 h-4 text-[#d4a017]" />
+            <span className="text-sm text-[#6b6356] font-mono">Data Tool</span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient-text">
+            <span className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient-text">
               JSON Studio
             </span>
           </h2>
-          <p className="text-base md:text-lg text-white/40 max-w-xl mx-auto font-mono">
+          <p className="text-base md:text-lg text-[#6b6356] max-w-xl mx-auto font-mono">
             Format, validate, explore, and transform JSON data
           </p>
         </motion.div>
@@ -715,18 +715,18 @@ export function JsonFormatterSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             {/* JSON Input Card */}
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
+            <div className="border border-[#1a1a1a] bg-[#ebe5d0] overflow-hidden">
               {/* VS Code-style chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#ebe5d0]">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80" />
                 </div>
-                <span className="text-xs font-mono text-white/30 ml-2">json-input</span>
+                <span className="text-xs font-mono text-[#6b6356] ml-2">json-input</span>
                 <div className="flex-1" />
                 {/* Stats */}
-                <span className="text-[10px] font-mono text-white/20 mr-2">
+                <span className="text-[10px] font-mono text-[#6b6356] mr-2">
                   {lineCount} lines · {charCount} chars
                 </span>
               </div>
@@ -740,7 +740,7 @@ export function JsonFormatterSection() {
                     setValidationResult(null);
                     setSelectedPath(null);
                   }}
-                  className="w-full h-56 sm:h-72 bg-black/30 rounded-lg border border-white/[0.06] focus-within:border-amber-500/40 text-white font-mono text-sm p-3 outline-none resize-none placeholder:text-white/20 custom-scrollbar transition-colors"
+                  className="w-full h-56 sm:h-72 bg-black/30 rounded-lg border border-white/[0.06] focus-within:border-amber-500/40 text-white font-mono text-sm p-3 outline-none resize-none placeholder:text-[#6b6356] custom-scrollbar transition-colors"
                   placeholder="Paste or type JSON here..."
                   spellCheck={false}
                   autoComplete="off"
@@ -757,15 +757,15 @@ export function JsonFormatterSection() {
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="mx-4 mb-3 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20">
+                    <div className="mx-4 mb-3 px-3 py-2 rounded-lg bg-[#c23616]/10 border border-[#c23616]/20">
                       <div className="flex items-center gap-2 mb-0.5">
-                        <XCircle className="w-3.5 h-3.5 text-red-400" />
-                        <span className="text-xs font-mono text-red-400 font-semibold">Parse Error</span>
+                        <XCircle className="w-3.5 h-3.5 text-[#c23616]" />
+                        <span className="text-xs font-mono text-[#c23616] font-semibold">Parse Error</span>
                       </div>
-                      <p className="text-xs font-mono text-red-300/70">
+                      <p className="text-xs font-mono text-[#c23616]/80">
                         {jsonError.message}
                         {jsonError.line && (
-                          <span className="text-white/40"> (line {jsonError.line}, col {jsonError.column})</span>
+                          <span className="text-[#6b6356]"> (line {jsonError.line}, col {jsonError.column})</span>
                         )}
                       </p>
                     </div>
@@ -784,18 +784,18 @@ export function JsonFormatterSection() {
                   >
                     <div className={`mx-4 mb-3 px-3 py-2 rounded-lg border ${
                       validationResult.valid
-                        ? 'bg-emerald-500/10 border-emerald-500/20'
-                        : 'bg-red-500/10 border-red-500/20'
+                        ? 'bg-[#d4a017]/10 border-[#d4a017]/20'
+                        : 'bg-[#c23616]/10 border-[#c23616]/20'
                     }`}>
                       <div className="flex items-center gap-2">
                         {validationResult.valid
-                          ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                          : <XCircle className="w-3.5 h-3.5 text-red-400" />
+                          ? <CheckCircle2 className="w-3.5 h-3.5 text-[#d4a017]" />
+                          : <XCircle className="w-3.5 h-3.5 text-[#c23616]" />
                         }
-                        <span className={`text-xs font-mono ${validationResult.valid ? 'text-emerald-300' : 'text-red-300'}`}>
+                        <span className={`text-xs font-mono ${validationResult.valid ? 'text-[#b8860b]' : 'text-[#c23616]'}`}>
                           {validationResult.message}
                           {validationResult.valid && stats && (
-                            <span className="text-white/40 ml-2">
+                            <span className="text-[#6b6356] ml-2">
                               · {stats.totalKeys} keys · depth {stats.maxDepth}
                             </span>
                           )}
@@ -811,7 +811,7 @@ export function JsonFormatterSection() {
             <div className="flex flex-wrap gap-2">
               <motion.button
                 onClick={handleClear}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-white/50 border border-white/[0.06] bg-white/[0.02] hover:text-red-400 hover:border-red-500/30 hover:bg-red-500/5 transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-[#1a1a1a] border border-white/[0.06] bg-white/[0.02] hover:text-[#c23616] hover:border-[#c23616]/30 hover:bg-[#c23616]/5 transition-all cursor-pointer"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 aria-label="Clear input"
@@ -821,7 +821,7 @@ export function JsonFormatterSection() {
               </motion.button>
               <motion.button
                 onClick={handlePaste}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-white/50 border border-white/[0.06] bg-white/[0.02] hover:text-emerald-400 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-[#1a1a1a] border border-white/[0.06] bg-white/[0.02] hover:text-[#d4a017] hover:border-[#d4a017]/30 hover:bg-[#d4a017]/5 transition-all cursor-pointer"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 aria-label="Paste from clipboard"
@@ -831,7 +831,7 @@ export function JsonFormatterSection() {
               </motion.button>
               <motion.button
                 onClick={handleMinify}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-white/50 border border-white/[0.06] bg-white/[0.02] hover:text-cyan-400 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-[#1a1a1a] border border-white/[0.06] bg-white/[0.02] hover:text-[#b8860b] hover:border-[#b8860b]/30 hover:bg-[#b8860b]/5 transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 disabled={!jsonValid}
@@ -842,7 +842,7 @@ export function JsonFormatterSection() {
               </motion.button>
               <motion.button
                 onClick={handleValidate}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-white/50 border border-white/[0.06] bg-white/[0.02] hover:text-emerald-400 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-[#1a1a1a] border border-white/[0.06] bg-white/[0.02] hover:text-[#d4a017] hover:border-[#d4a017]/30 hover:bg-[#d4a017]/5 transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 disabled={!input.trim()}
@@ -853,7 +853,7 @@ export function JsonFormatterSection() {
               </motion.button>
               <motion.button
                 onClick={handleSortKeys}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-white/50 border border-white/[0.06] bg-white/[0.02] hover:text-amber-400 hover:border-amber-500/30 hover:bg-amber-500/5 transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-mono text-[#1a1a1a] border border-white/[0.06] bg-white/[0.02] hover:text-[#d4a017] hover:border-[#d4a017]/30 hover:bg-amber-500/5 transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 disabled={!jsonValid}
@@ -868,23 +868,23 @@ export function JsonFormatterSection() {
             <div className="flex gap-2">
               <motion.button
                 onClick={() => setShowSamples(prev => !prev)}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-white/70 border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <FileJson className="w-4 h-4 text-amber-400" />
+                <FileJson className="w-4 h-4 text-[#d4a017]" />
                 Sample Data
                 {showSamples ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
               </motion.button>
               <motion.button
                 onClick={() => setShowStats(prev => !prev)}
-                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-white/70 border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-mono text-[#1a1a1a] border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.12] transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={!jsonValid}
                 aria-label="Toggle statistics panel"
               >
-                <BarChart3 className="w-4 h-4 text-cyan-400" />
+                <BarChart3 className="w-4 h-4 text-[#b8860b]" />
                 Stats
               </motion.button>
             </div>
@@ -909,8 +909,8 @@ export function JsonFormatterSection() {
                           whileHover={{ scale: 1.03, y: -2 }}
                           whileTap={{ scale: 0.97 }}
                         >
-                          <SampleIcon className="w-5 h-5 text-amber-400/70" />
-                          <span className="text-xs font-mono text-white/50">{sample.name}</span>
+                          <SampleIcon className="w-5 h-5 text-[#d4a017]/70" />
+                          <span className="text-xs font-mono text-[#1a1a1a]">{sample.name}</span>
                         </motion.button>
                       );
                     })}
@@ -928,26 +928,26 @@ export function JsonFormatterSection() {
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm p-4 pt-1">
+                  <div className="border border-[#1a1a1a] bg-[#ebe5d0] p-4 pt-1">
                     <div className="flex items-center gap-2 mb-3 pt-2">
-                      <BarChart3 className="w-3.5 h-3.5 text-cyan-400" />
-                      <span className="text-xs font-mono text-white/40">JSON Statistics</span>
+                      <BarChart3 className="w-3.5 h-3.5 text-[#b8860b]" />
+                      <span className="text-xs font-mono text-[#6b6356]">JSON Statistics</span>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {[
-                        { icon: Database, label: 'Total Keys', value: stats.totalKeys, color: 'text-emerald-400' },
-                        { icon: Layers, label: 'Max Depth', value: stats.maxDepth, color: 'text-amber-400' },
+                        { icon: Database, label: 'Total Keys', value: stats.totalKeys, color: 'text-[#d4a017]' },
+                        { icon: Layers, label: 'Max Depth', value: stats.maxDepth, color: 'text-[#d4a017]' },
                         { icon: Braces, label: 'Objects', value: stats.objectCount, color: 'text-orange-400' },
-                        { icon: Eye, label: 'Arrays', value: stats.arrayCount, color: 'text-cyan-400' },
-                        { icon: Type, label: 'Strings', value: stats.stringCount, color: 'text-amber-300' },
-                        { icon: Hash, label: 'Numbers', value: stats.numberCount, color: 'text-cyan-400' },
-                        { icon: ToggleLeft, label: 'Booleans', value: stats.booleanCount, color: 'text-purple-400' },
-                        { icon: CircleDot, label: 'Nulls', value: stats.nullCount, color: 'text-red-400' },
+                        { icon: Eye, label: 'Arrays', value: stats.arrayCount, color: 'text-[#b8860b]' },
+                        { icon: Type, label: 'Strings', value: stats.stringCount, color: 'text-[#b8860b]' },
+                        { icon: Hash, label: 'Numbers', value: stats.numberCount, color: 'text-[#b8860b]' },
+                        { icon: ToggleLeft, label: 'Booleans', value: stats.booleanCount, color: 'text-[#6b6356]' },
+                        { icon: CircleDot, label: 'Nulls', value: stats.nullCount, color: 'text-[#c23616]' },
                       ].map((stat) => (
                         <div key={`stat-${stat.label}`} className="text-center p-2 rounded-lg bg-white/[0.02]">
                           <stat.icon className={`w-4 h-4 mx-auto mb-1 ${stat.color} opacity-70`} />
                           <div className={`text-lg font-bold font-mono ${stat.color}`}>{stat.value}</div>
-                          <div className="text-[10px] font-mono text-white/30 uppercase tracking-wider mt-0.5">
+                          <div className="text-[10px] font-mono text-[#6b6356] uppercase tracking-wider mt-0.5">
                             {stat.label}
                           </div>
                         </div>
@@ -956,8 +956,8 @@ export function JsonFormatterSection() {
 
                     {/* Type breakdown bar */}
                     <div className="mt-3">
-                      <div className="text-[10px] font-mono text-white/30 mb-1.5">Type Distribution</div>
-                      <div className="flex h-2 rounded-full overflow-hidden bg-white/[0.05]">
+                      <div className="text-[10px] font-mono text-[#6b6356] mb-1.5">Type Distribution</div>
+                      <div className="flex h-2 overflow-hidden bg-[#1a1a1a]/10">
                         {(() => {
                           const total = Math.max(1, stats.stringCount + stats.numberCount + stats.booleanCount + stats.nullCount);
                           const segments = [
@@ -983,16 +983,16 @@ export function JsonFormatterSection() {
                         })()}
                       </div>
                       <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1.5">
-                        <span className="text-[10px] font-mono text-amber-300/60 flex items-center gap-1">
+                        <span className="text-[10px] font-mono text-[#b8860b]/60 flex items-center gap-1">
                           <span className="w-2 h-2 rounded-full bg-amber-300/60 inline-block" /> Strings
                         </span>
-                        <span className="text-[10px] font-mono text-cyan-400/60 flex items-center gap-1">
+                        <span className="text-[10px] font-mono text-[#b8860b]/60 flex items-center gap-1">
                           <span className="w-2 h-2 rounded-full bg-cyan-400/60 inline-block" /> Numbers
                         </span>
-                        <span className="text-[10px] font-mono text-purple-400/60 flex items-center gap-1">
+                        <span className="text-[10px] font-mono text-[#6b6356]/60 flex items-center gap-1">
                           <span className="w-2 h-2 rounded-full bg-purple-400/60 inline-block" /> Booleans
                         </span>
-                        <span className="text-[10px] font-mono text-red-400/60 flex items-center gap-1">
+                        <span className="text-[10px] font-mono text-[#c23616]/60 flex items-center gap-1">
                           <span className="w-2 h-2 rounded-full bg-red-400/60 inline-block" /> Nulls
                         </span>
                       </div>
@@ -1012,15 +1012,15 @@ export function JsonFormatterSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             {/* Formatted Output Card */}
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm overflow-hidden flex-1">
+            <div className="border border-[#1a1a1a] bg-[#ebe5d0] overflow-hidden flex-1">
               {/* VS Code-style chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#ebe5d0]">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80" />
                 </div>
-                <span className="text-xs font-mono text-white/30 ml-2">
+                <span className="text-xs font-mono text-[#6b6356] ml-2">
                   {treeView ? 'tree-view' : 'formatted'}
                 </span>
                 <div className="flex-1" />
@@ -1030,7 +1030,7 @@ export function JsonFormatterSection() {
                   <motion.button
                     onClick={() => setTreeView(true)}
                     className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono transition-all cursor-pointer ${
-                      treeView ? 'bg-white/[0.1] text-white/80' : 'text-white/30 hover:text-white/50'
+                      treeView ? 'bg-white/[0.1] text-[#1a1a1a]' : 'text-[#6b6356] hover:text-[#1a1a1a]'
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -1042,7 +1042,7 @@ export function JsonFormatterSection() {
                   <motion.button
                     onClick={() => setTreeView(false)}
                     className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono transition-all cursor-pointer ${
-                      !treeView ? 'bg-white/[0.1] text-white/80' : 'text-white/30 hover:text-white/50'
+                      !treeView ? 'bg-white/[0.1] text-[#1a1a1a]' : 'text-[#6b6356] hover:text-[#1a1a1a]'
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -1058,7 +1058,7 @@ export function JsonFormatterSection() {
                   <>
                     <motion.button
                       onClick={collapseAll}
-                      className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono text-white/30 hover:text-white/60 bg-white/[0.02] border border-white/[0.06] transition-all cursor-pointer"
+                      className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono text-[#6b6356] hover:text-[#6b6356] bg-white/[0.02] border border-white/[0.06] transition-all cursor-pointer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       aria-label="Collapse all"
@@ -1068,7 +1068,7 @@ export function JsonFormatterSection() {
                     </motion.button>
                     <motion.button
                       onClick={expandAll}
-                      className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono text-white/30 hover:text-white/60 bg-white/[0.02] border border-white/[0.06] transition-all cursor-pointer mr-1"
+                      className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono text-[#6b6356] hover:text-[#6b6356] bg-white/[0.02] border border-white/[0.06] transition-all cursor-pointer mr-1"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       aria-label="Expand all"
@@ -1082,13 +1082,13 @@ export function JsonFormatterSection() {
                 {/* Copy button */}
                 <motion.button
                   onClick={handleCopyFormatted}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono text-white/50 hover:text-white/80 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono text-[#1a1a1a] hover:text-[#1a1a1a] border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   disabled={!jsonValid}
                   aria-label="Copy formatted JSON"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-3.5 h-3.5 text-[#d4a017]" /> : <Copy className="w-3.5 h-3.5" />}
                   {copied ? 'Copied!' : 'Copy'}
                 </motion.button>
               </div>
@@ -1118,7 +1118,7 @@ export function JsonFormatterSection() {
                         {/* Line numbers */}
                         <div className="select-none text-right pr-4 border-r border-white/[0.06] mr-4 min-w-[2.5rem]">
                           {highlightedLines.map((hl) => (
-                            <div key={`ln-${hl.lineNum}`} className="text-white/20 text-xs leading-relaxed">
+                            <div key={`ln-${hl.lineNum}`} className="text-[#6b6356] text-xs leading-relaxed">
                               {hl.lineNum}
                             </div>
                           ))}
@@ -1138,12 +1138,12 @@ export function JsonFormatterSection() {
                       </div>
                     )
                   ) : input.trim() ? (
-                    <div className="text-red-400/60 italic text-sm py-8 text-center">
+                    <div className="text-[#c23616]/60 italic text-sm py-8 text-center">
                       <XCircle className="w-8 h-8 mx-auto mb-2 opacity-40" />
                       Invalid JSON — fix errors to see output
                     </div>
                   ) : (
-                    <div className="text-white/20 italic text-sm py-8 text-center">
+                    <div className="text-[#6b6356] italic text-sm py-8 text-center">
                       <Braces className="w-8 h-8 mx-auto mb-2 opacity-30" />
                       Paste JSON or load a sample to get started
                     </div>
@@ -1160,16 +1160,16 @@ export function JsonFormatterSection() {
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="mx-4 mb-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                    <div className="mx-4 mb-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-[#d4a017]/20">
                       <div className="flex-1 flex items-center gap-2 overflow-x-auto">
-                        <span className="text-[10px] font-mono text-amber-400/60 shrink-0">PATH:</span>
-                        <code className="text-xs font-mono text-amber-300 break-all">
+                        <span className="text-[10px] font-mono text-[#d4a017]/60 shrink-0">PATH:</span>
+                        <code className="text-xs font-mono text-[#b8860b] break-all">
                           {selectedPath}
                         </code>
                       </div>
                       <button
                         onClick={() => setSelectedPath(null)}
-                        className="shrink-0 text-white/30 hover:text-white/60 transition-colors cursor-pointer"
+                        className="shrink-0 text-[#6b6356] hover:text-[#6b6356] transition-colors cursor-pointer"
                         aria-label="Dismiss path"
                       >
                         <X className="w-3.5 h-3.5" />
@@ -1184,7 +1184,7 @@ export function JsonFormatterSection() {
 
         {/* Info bar */}
         <motion.div
-          className="max-w-7xl mx-auto mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-white/25"
+          className="max-w-7xl mx-auto mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-[#6b6356]"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

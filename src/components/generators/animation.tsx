@@ -251,9 +251,9 @@ const ANIMATION_PRESETS: AnimationPreset[] = [
   {
     name: 'Glow Pulse', category: 'Effects',
     keyframes: [
-      { percentage: 0, properties: { 'box-shadow': '0 0 5px rgba(16, 185, 129, 0.3)' } },
-      { percentage: 50, properties: { 'box-shadow': '0 0 20px rgba(16, 185, 129, 0.6), 0 0 40px rgba(6, 182, 212, 0.3)' } },
-      { percentage: 100, properties: { 'box-shadow': '0 0 5px rgba(16, 185, 129, 0.3)' } },
+      { percentage: 0, properties: { 'box-shadow': '0 0 5px rgba(212, 160, 23, 0.3)' } },
+      { percentage: 50, properties: { 'box-shadow': '0 0 20px rgba(212, 160, 23, 0.6), 0 0 40px rgba(184, 134, 11, 0.3)' } },
+      { percentage: 100, properties: { 'box-shadow': '0 0 5px rgba(212, 160, 23, 0.3)' } },
     ],
     duration: 2, timingFunction: 'ease-in-out', iterationCount: 'infinite', direction: 'normal', fillMode: 'none',
   },
@@ -349,7 +349,7 @@ function FloatingDecorations() {
         <motion.div
           key={`anim-deco-${i}`}
           className="absolute font-mono text-[10px] whitespace-nowrap select-none"
-          style={{ left: `${sym.x}%`, top: `${sym.y}%`, color: 'rgba(16, 185, 129, 0.07)' }}
+          style={{ left: `${sym.x}%`, top: `${sym.y}%`, color: 'rgba(212,160,23,0.07)' }}
           animate={{ y: [0, -10, 0], opacity: [0.04, 0.12, 0.04] }}
           transition={{ duration: 7 + i * 1.1, repeatType: "loop", repeat: Infinity, ease: 'easeInOut', delay: sym.delay }}
         >
@@ -371,8 +371,8 @@ function AnimSlider({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">{label}</span>
-        <span className="text-[11px] font-mono text-emerald-400/80 tabular-nums">{value}{unit}</span>
+        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">{label}</span>
+        <span className="text-[11px] font-mono text-[#d4a017] tabular-nums">{value}{unit}</span>
       </div>
       <input
         type="range"
@@ -380,7 +380,7 @@ function AnimSlider({
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
         style={{
-          background: `linear-gradient(to right, #10b981 0%, #06b6d4 ${((value - min) / (max - min)) * 100}%, rgba(255,255,255,0.08) ${((value - min) / (max - min)) * 100}%)`,
+          background: `linear-gradient(to right, #d4a017 0%, #b8860b ${((value - min) / (max - min)) * 100}%, rgba(26,26,26,0.1) ${((value - min) / (max - min)) * 100}%`,
         }}
       />
     </div>
@@ -707,15 +707,15 @@ export function AnimationGeneratorSection() {
   return (
     <section className="relative w-full min-h-screen py-16 md:py-24 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0d0d18] to-[#0a0a0a]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#f5f0e1] via-[#ebe5d0] to-[#f5f0e1]" />
 
       {/* Grid background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
+            linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -726,7 +726,7 @@ export function AnimationGeneratorSection() {
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%)' }}
+        style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.08) 100%)' }}
       />
 
       <div className="relative z-10 w-full mx-auto px-4 sm:px-6">
@@ -738,25 +738,25 @@ export function AnimationGeneratorSection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] mb-4">
-            <Film className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400/70">Animation Tool</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#d4a017]/20 bg-[#d4a017]/10 mb-4">
+            <Film className="w-3.5 h-3.5 text-[#d4a017]" />
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#d4a017]">Animation Tool</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
             <span
-              className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent bg-[length:200%_100%]"
+              className="bg-gradient-to-r from-[#d4a017] via-[#b8860b] to-[#d4a017] bg-clip-text text-transparent bg-[length:200%_100%]"
               style={{ animation: 'gradient-shift 6s ease infinite' }}
             >
               Animation Lab
             </span>
           </h2>
-          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-white/25">
+          <div className="flex items-center justify-center gap-3 mt-4 text-[11px] font-mono text-[#6b6356]/40">
             <span>16 Presets</span>
-            <span className="text-emerald-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>Custom Builder</span>
-            <span className="text-emerald-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>Live Preview</span>
-            <span className="text-emerald-500/40">/</span>
+            <span className="text-[#d4a017]/50">/</span>
             <span>Export CSS</span>
           </div>
         </motion.div>
@@ -769,19 +769,19 @@ export function AnimationGeneratorSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="relative flex items-center gap-1 p-1 rounded-xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm">
+          <div className="relative flex items-center gap-1 p-1 rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0]">
             {(['presets', 'custom'] as const).map((m) => (
               <button
                 key={`tab-${m}`}
                 onClick={() => { setTabMode(m); setIsPlaying(true); setAnimKey((k) => k + 1); }}
                 className={`relative flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-mono transition-colors cursor-pointer ${
-                  tabMode === m ? 'text-white' : 'text-white/40 hover:text-white/60'
+                  tabMode === m ? 'text-[#1a1a1a]' : 'text-[#6b6356] hover:text-[#1a1a1a]/80'
                 }`}
               >
                 {tabMode === m && (
                   <motion.div
                     layoutId="anim-tab-bg"
-                    className="absolute inset-0 rounded-lg border border-white/10 bg-white/[0.08]"
+                    className="absolute inset-0 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0]"
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -800,7 +800,7 @@ export function AnimationGeneratorSection() {
             <motion.button
               onClick={() => setShowEasing((s) => !s)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono transition-colors cursor-pointer ${
-                showEasing ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-400' : 'border-white/[0.08] bg-white/[0.03] text-white/50 hover:text-white/80 hover:border-white/[0.15]'
+                showEasing ? 'border-[#b8860b]/30 bg-[#b8860b]/10 text-[#b8860b]' : 'border-[#1a1a1a]/15 bg-[#ebe5d0] text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:border-[#1a1a1a]/20'
               }`}
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
@@ -810,7 +810,7 @@ export function AnimationGeneratorSection() {
             </motion.button>
             <motion.button
               onClick={exportCSS}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/50 hover:text-white/80 hover:border-white/[0.15] transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:border-[#1a1a1a]/20 transition-colors cursor-pointer"
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -830,10 +830,10 @@ export function AnimationGeneratorSection() {
               transition={{ duration: 0.3 }}
               className="overflow-hidden mb-6"
             >
-              <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4">
+              <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <Zap className="w-3.5 h-3.5 text-cyan-400/70" />
-                  <span className="text-xs font-mono text-white/50">Timing Function Curves</span>
+                  <Zap className="w-3.5 h-3.5 text-[#b8860b]" />
+                  <span className="text-xs font-mono text-[#1a1a1a]/70">Timing Function Curves</span>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {TIMING_FUNCTIONS.map((tf) => {
@@ -851,29 +851,29 @@ export function AnimationGeneratorSection() {
                           }
                         }}
                         className={`flex flex-col items-center gap-1.5 p-2.5 rounded-lg border transition-colors cursor-pointer ${
-                          isActive ? 'border-emerald-500/40 bg-emerald-500/10' : 'border-white/[0.04] hover:border-white/[0.12] bg-white/[0.01] hover:bg-white/[0.04]'
+                          isActive ? 'border-[#d4a017]/40 bg-[#d4a017]/10' : 'border-[#1a1a1a]/10 hover:border-[#1a1a1a]/15 bg-[#ebe5d0] hover:bg-[#ebe5d0]'
                         }`}
                         whileHover={{ y: -2 }}
                         whileTap={{ scale: 0.97 }}
                       >
                         <svg width={80} height={50} className="opacity-80">
                           {/* Grid */}
-                          <line x1={0} y1={50} x2={80} y2={50} stroke="rgba(255,255,255,0.1)" strokeWidth={0.5} />
-                          <line x1={0} y1={0} x2={0} y2={50} stroke="rgba(255,255,255,0.1)" strokeWidth={0.5} />
+                          <line x1={0} y1={50} x2={80} y2={50} stroke="rgba(26,26,26,0.15)" strokeWidth={0.5} />
+                          <line x1={0} y1={0} x2={0} y2={50} stroke="rgba(26,26,26,0.15)" strokeWidth={0.5} />
                           {/* Diagonal reference */}
-                          <line x1={0} y1={50} x2={80} y2={0} stroke="rgba(255,255,255,0.06)" strokeWidth={0.5} strokeDasharray="3,3" />
+                          <line x1={0} y1={50} x2={80} y2={0} stroke="rgba(26,26,26,0.1)" strokeWidth={0.5} strokeDasharray="3,3" />
                           {/* Curve */}
                           <path
                             d={timingToSVGPath(tf.name)}
                             fill="none"
-                            stroke={isActive ? '#10b981' : '#06b6d4'}
+                            stroke={isActive ? '#d4a017' : '#b8860b'}
                             strokeWidth={2}
                             strokeLinecap="round"
                           />
                           {/* Dot at end */}
-                          <circle cx={78} cy={1} r={2.5} fill={isActive ? '#10b981' : '#06b6d4'} />
+                          <circle cx={78} cy={1} r={2.5} fill={isActive ? '#d4a017' : '#b8860b'} />
                         </svg>
-                        <span className="text-[9px] font-mono text-white/40">{tf.label}</span>
+                        <span className="text-[9px] font-mono text-[#6b6356]">{tf.label}</span>
                       </motion.button>
                     );
                   })}
@@ -905,22 +905,22 @@ export function AnimationGeneratorSection() {
                   className="space-y-4"
                 >
                   {/* Category filter */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06]">
-                      <Sparkles className="w-3.5 h-3.5 text-emerald-400/70" />
-                      <span className="text-xs font-mono text-white/50">Preset Animations</span>
-                      <span className="text-[10px] font-mono text-white/20">({filteredPresets.length})</span>
+                  <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
+                    <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a]/10">
+                      <Sparkles className="w-3.5 h-3.5 text-[#d4a017]" />
+                      <span className="text-xs font-mono text-[#1a1a1a]/70">Preset Animations</span>
+                      <span className="text-[10px] font-mono text-[#6b6356]/50">({filteredPresets.length})</span>
                     </div>
                     {/* Category pills */}
-                    <div className="flex flex-wrap gap-1.5 p-3 border-b border-white/[0.04]">
+                    <div className="flex flex-wrap gap-1.5 p-3 border-b border-[#1a1a1a]/10">
                       {categories.map((cat) => (
                         <motion.button
                           key={`cat-${cat}`}
                           onClick={() => setPresetCategory(cat)}
                           className={`px-2.5 py-1 rounded-md text-[10px] font-mono transition-colors cursor-pointer ${
                             presetCategory === cat
-                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                              : 'text-white/35 hover:text-white/55 border border-transparent hover:border-white/[0.08]'
+                              ? 'bg-[#d4a017]/15 text-[#d4a017] border border-[#d4a017]/30'
+                              : 'text-[#6b6356]/60 hover:text-[#1a1a1a]/60 border border-transparent hover:border-[#1a1a1a]/15'
                           }`}
                           whileTap={{ scale: 0.95 }}
                         >
@@ -939,16 +939,16 @@ export function AnimationGeneratorSection() {
                             onClick={() => applyPreset(idx)}
                             className={`group flex flex-col items-center gap-2 p-2.5 rounded-lg border transition-all cursor-pointer ${
                               isActive
-                                ? 'border-emerald-500/40 bg-emerald-500/[0.08]'
-                                : 'border-white/[0.04] hover:border-white/[0.12] bg-white/[0.01] hover:bg-white/[0.04]'
+                                ? 'border-[#d4a017]/40 bg-[#d4a017]/10'
+                                : 'border-[#1a1a1a]/10 hover:border-[#1a1a1a]/15 bg-[#ebe5d0] hover:bg-[#ebe5d0]'
                             }`}
                             whileHover={{ y: -2 }}
                             whileTap={{ scale: 0.97 }}
                           >
                             {/* Mini preview */}
-                            <div className="w-full h-12 rounded-md flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#141420] to-[#0f0f1a]">
+                            <div className="w-full h-12 rounded-md flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#3d3828] to-[#2a2518]">
                               <div
-                                className="w-6 h-6 rounded bg-gradient-to-br from-emerald-400 to-cyan-400"
+                                className="w-6 h-6 rounded bg-gradient-to-br from-[#d4a017] to-[#b8860b]"
                                 style={{
                                   animation: `${preset.name.toLowerCase().replace(/\s+/g, '-')}-mini ${preset.duration}s ${preset.timingFunction} ${preset.iterationCount} ${preset.direction} ${preset.fillMode}`,
                                 }}
@@ -961,8 +961,8 @@ export function AnimationGeneratorSection() {
                               `}</style>
                             </div>
                             <div className="text-center">
-                              <div className="text-[10px] font-mono text-white/50 group-hover:text-white/70 transition-colors">{preset.name}</div>
-                              <div className="text-[9px] font-mono text-white/20">{preset.category}</div>
+                              <div className="text-[10px] font-mono text-[#1a1a1a]/70 group-hover:text-[#1a1a1a]/90 transition-colors">{preset.name}</div>
+                              <div className="text-[9px] font-mono text-[#6b6356]/50">{preset.category}</div>
                             </div>
                           </motion.button>
                         );
@@ -981,20 +981,20 @@ export function AnimationGeneratorSection() {
                   className="space-y-4"
                 >
                   {/* Keyframe Steps */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
+                  <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a]/10">
                       <div className="flex items-center gap-2">
-                        <Layers className="w-3.5 h-3.5 text-emerald-400/70" />
-                        <span className="text-xs font-mono text-white/50">Keyframes</span>
-                        <span className="text-[10px] font-mono text-white/20">({customKeyframes.length}/8)</span>
+                        <Layers className="w-3.5 h-3.5 text-[#d4a017]" />
+                        <span className="text-xs font-mono text-[#1a1a1a]/70">Keyframes</span>
+                        <span className="text-[10px] font-mono text-[#6b6356]/50">({customKeyframes.length}/8)</span>
                       </div>
                       <motion.button
                         onClick={addKeyframeStep}
                         disabled={customKeyframes.length >= 8}
                         className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-mono transition-colors cursor-pointer ${
                           customKeyframes.length >= 8
-                            ? 'text-white/15 cursor-not-allowed'
-                            : 'text-emerald-400/70 hover:text-emerald-400 hover:bg-emerald-500/10'
+                            ? 'text-[#6b6356]/30 cursor-not-allowed'
+                            : 'text-[#d4a017] hover:text-[#d4a017] hover:bg-[#d4a017]/10'
                         }`}
                         whileTap={customKeyframes.length < 8 ? { scale: 0.95 } : undefined}
                       >
@@ -1003,10 +1003,10 @@ export function AnimationGeneratorSection() {
                     </div>
 
                     {/* Interactive Timeline */}
-                    <div className="px-4 py-3 border-b border-white/[0.04]">
+                    <div className="px-4 py-3 border-b border-[#1a1a1a]/10">
                       <div className="relative h-8 flex items-center">
                         {/* Timeline track */}
-                        <div className="absolute left-0 right-0 h-1 rounded-full bg-white/[0.06]">
+                        <div className="absolute left-0 right-0 h-1 rounded-full bg-[#ebe5d0]">
                           {customKeyframes.map((kf) => (
                             <motion.button
                               key={`kf-dot-${kf.percentage}`}
@@ -1014,8 +1014,8 @@ export function AnimationGeneratorSection() {
                               className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 cursor-pointer transition-colors"
                               style={{
                                 left: `${kf.percentage}%`,
-                                borderColor: customKeyframes.indexOf(kf) === activeKeyframeIdx ? '#10b981' : 'rgba(255,255,255,0.2)',
-                                backgroundColor: customKeyframes.indexOf(kf) === activeKeyframeIdx ? '#10b981' : 'transparent',
+                                borderColor: customKeyframes.indexOf(kf) === activeKeyframeIdx ? '#d4a017' : 'rgba(26,26,26,0.15)',
+                                backgroundColor: customKeyframes.indexOf(kf) === activeKeyframeIdx ? '#d4a017' : 'transparent',
                               }}
                               whileHover={{ scale: 1.4 }}
                               whileTap={{ scale: 0.9 }}
@@ -1025,7 +1025,7 @@ export function AnimationGeneratorSection() {
                         {/* Percentage labels */}
                         <div className="absolute -bottom-1 left-0 right-0 flex justify-between pointer-events-none">
                           {[0, 25, 50, 75, 100].map((p) => (
-                            <span key={`tl-label-${p}`} className="text-[8px] font-mono text-white/15">{p}%</span>
+                            <span key={`tl-label-${p}`} className="text-[8px] font-mono text-[#6b6356]/30">{p}%</span>
                           ))}
                         </div>
                       </div>
@@ -1040,24 +1040,24 @@ export function AnimationGeneratorSection() {
                           onClick={() => selectKeyframe(idx)}
                           className={`flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
                             idx === activeKeyframeIdx
-                              ? 'bg-white/[0.06] border border-white/[0.08]'
-                              : 'hover:bg-white/[0.03] border border-transparent'
+                              ? 'bg-[#ebe5d0] border border-[#1a1a1a]/15'
+                              : 'hover:bg-[#ebe5d0] border border-transparent'
                           }`}
                         >
                           {/* Percentage */}
-                          <div className="w-10 text-[11px] font-mono text-emerald-400/80 tabular-nums">
+                          <div className="w-10 text-[11px] font-mono text-[#d4a017] tabular-nums">
                             {kf.percentage}%
                           </div>
                           {/* Properties preview */}
                           <div className="flex-1 min-w-0">
-                            <div className="text-[10px] font-mono text-white/40 truncate">
+                            <div className="text-[10px] font-mono text-[#6b6356] truncate">
                               {Object.entries(kf.properties).map(([p, v]) => `${p}: ${v}`).join('; ') || '(empty)'}
                             </div>
                           </div>
                           {/* Active indicator */}
                           {idx === activeKeyframeIdx && (
                             <motion.div
-                              className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"
+                              className="w-1.5 h-1.5 rounded-full bg-[#d4a017] flex-shrink-0"
                               layoutId="active-kf-dot"
                               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                             />
@@ -1066,7 +1066,7 @@ export function AnimationGeneratorSection() {
                           {customKeyframes.length > 2 && (
                             <motion.button
                               onClick={(e) => { e.stopPropagation(); removeKeyframeStep(idx); }}
-                              className="w-5 h-5 flex items-center justify-center rounded text-white/20 hover:text-red-400/80 hover:bg-red-500/10 transition-colors cursor-pointer"
+                              className="w-5 h-5 flex items-center justify-center rounded text-[#6b6356]/50 hover:text-[#c23616] hover:bg-[#c23616]/10 transition-colors cursor-pointer"
                               whileTap={{ scale: 0.9 }}
                             >
                               <RotateCcw className="w-3 h-3" />
@@ -1078,11 +1078,11 @@ export function AnimationGeneratorSection() {
                   </div>
 
                   {/* Active Keyframe Editor */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 space-y-4">
+                  <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4 space-y-4">
                     <div className="flex items-center gap-2 mb-1">
-                      <PenTool className="w-3.5 h-3.5 text-cyan-400/70" />
-                      <span className="text-xs font-mono text-white/40">
-                        Edit Keyframe @ <span className="text-emerald-400">{activeKeyframe.percentage}%</span>
+                      <PenTool className="w-3.5 h-3.5 text-[#b8860b]" />
+                      <span className="text-xs font-mono text-[#6b6356]">
+                        Edit Keyframe @ <span className="text-[#d4a017]">{activeKeyframe.percentage}%</span>
                       </span>
                     </div>
 
@@ -1096,7 +1096,7 @@ export function AnimationGeneratorSection() {
 
                     {/* Property selector */}
                     <div className="space-y-2">
-                      <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Property</span>
+                      <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Property</span>
                       <div className="flex flex-wrap gap-1">
                         {ANIM_PROPERTIES.map((prop) => (
                           <motion.button
@@ -1104,8 +1104,8 @@ export function AnimationGeneratorSection() {
                             onClick={() => handlePropertyChange(prop.value)}
                             className={`px-2.5 py-1 rounded-md text-[10px] font-mono transition-colors cursor-pointer ${
                               editProperty === prop.value
-                                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                                : 'text-white/35 hover:text-white/55 border border-transparent hover:border-white/[0.08]'
+                                ? 'bg-[#d4a017]/15 text-[#d4a017] border border-[#d4a017]/30'
+                                : 'text-[#6b6356]/60 hover:text-[#1a1a1a]/60 border border-transparent hover:border-[#1a1a1a]/15'
                             }`}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -1117,7 +1117,7 @@ export function AnimationGeneratorSection() {
 
                     {/* Value input */}
                     <div className="space-y-1.5">
-                      <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Value</span>
+                      <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Value</span>
                       <div className="flex items-center gap-2">
                         <input
                           type="text"
@@ -1125,12 +1125,12 @@ export function AnimationGeneratorSection() {
                           onChange={(e) => setEditValue(e.target.value)}
                           onBlur={applyEditValue}
                           onKeyDown={(e) => { if (e.key === 'Enter') applyEditValue(); }}
-                          className="flex-1 px-3 py-2 rounded-lg border border-white/[0.08] bg-white/[0.03] text-xs font-mono text-white/70 outline-none focus:border-emerald-500/30 transition-colors"
+                          className="flex-1 px-3 py-2 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-xs font-mono text-[#1a1a1a]/90 outline-none focus:border-[#d4a017]/30 transition-colors"
                           placeholder="e.g., translateY(20px)"
                         />
                         <motion.button
                           onClick={applyEditValue}
-                          className="px-3 py-2 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-[10px] font-mono text-emerald-400 hover:bg-emerald-500/30 transition-colors cursor-pointer"
+                          className="px-3 py-2 rounded-lg bg-[#d4a017]/15 border border-[#d4a017]/30 text-[10px] font-mono text-[#d4a017] hover:bg-[#d4a017]/20 transition-colors cursor-pointer"
                           whileTap={{ scale: 0.95 }}
                         >
                           Set
@@ -1140,15 +1140,15 @@ export function AnimationGeneratorSection() {
 
                     {/* Current properties of this keyframe */}
                     <div className="space-y-1.5">
-                      <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Applied Properties</span>
+                      <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Applied Properties</span>
                       <div className="flex flex-wrap gap-1.5">
                         {Object.entries(activeKeyframe.properties).map(([prop, val]) => (
                           <div
                             key={`applied-${prop}`}
-                            className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/[0.04] border border-white/[0.06]"
+                            className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#ebe5d0] border border-[#1a1a1a]/10"
                           >
-                            <span className="text-[9px] font-mono text-cyan-400/70">{prop}:</span>
-                            <span className="text-[9px] font-mono text-white/50">{val}</span>
+                            <span className="text-[9px] font-mono text-[#b8860b]">{prop}:</span>
+                            <span className="text-[9px] font-mono text-[#1a1a1a]/70">{val}</span>
                             <button
                               onClick={() => {
                                 setCustomKeyframes((prev) => prev.map((kf, i) => {
@@ -1158,24 +1158,24 @@ export function AnimationGeneratorSection() {
                                   return { ...kf, properties: newProps };
                                 }));
                               }}
-                              className="text-white/20 hover:text-red-400 transition-colors cursor-pointer ml-0.5"
+                              className="text-[#6b6356]/50 hover:text-red-400 transition-colors cursor-pointer ml-0.5"
                             >
                               ×
                             </button>
                           </div>
                         ))}
                         {Object.keys(activeKeyframe.properties).length === 0 && (
-                          <span className="text-[9px] font-mono text-white/15 italic">No properties set</span>
+                          <span className="text-[9px] font-mono text-[#6b6356]/30 italic">No properties set</span>
                         )}
                       </div>
                     </div>
                   </div>
 
                   {/* Animation Settings */}
-                  <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm p-4 space-y-4">
+                  <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] p-4 space-y-4">
                     <div className="flex items-center gap-2 mb-1">
-                      <Gauge className="w-3.5 h-3.5 text-amber-400/70" />
-                      <span className="text-xs font-mono text-white/40">Animation Settings</span>
+                      <Gauge className="w-3.5 h-3.5 text-[#d4a017]" />
+                      <span className="text-xs font-mono text-[#6b6356]">Animation Settings</span>
                     </div>
 
                     <AnimSlider label="Duration" value={customSettings.duration} min={0.1} max={10} step={0.1} unit="s" onChange={(v) => setCustomSettings((s) => ({ ...s, duration: v }))} />
@@ -1184,7 +1184,7 @@ export function AnimationGeneratorSection() {
                     {/* Timing Function */}
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Timing</span>
+                        <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Timing</span>
                       </div>
                       <div className="flex flex-wrap gap-1">
                         {TIMING_FUNCTIONS.map((tf) => (
@@ -1193,8 +1193,8 @@ export function AnimationGeneratorSection() {
                             onClick={() => setCustomSettings((s) => ({ ...s, timingFunction: tf.name }))}
                             className={`px-2 py-1 rounded-md text-[9px] font-mono transition-colors cursor-pointer ${
                               customSettings.timingFunction === tf.name
-                                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                                : 'text-white/30 hover:text-white/50 border border-transparent hover:border-white/[0.08]'
+                                ? 'bg-[#d4a017]/15 text-[#d4a017] border border-[#d4a017]/30'
+                                : 'text-[#6b6356]/70 hover:text-[#1a1a1a]/70 border border-transparent hover:border-[#1a1a1a]/15'
                             }`}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -1206,7 +1206,7 @@ export function AnimationGeneratorSection() {
 
                     {/* Iteration */}
                     <div className="space-y-1.5">
-                      <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Iteration</span>
+                      <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Iteration</span>
                       <div className="flex gap-1">
                         {ITERATION_OPTIONS.map((opt) => (
                           <motion.button
@@ -1214,8 +1214,8 @@ export function AnimationGeneratorSection() {
                             onClick={() => setCustomSettings((s) => ({ ...s, iterationCount: opt.value }))}
                             className={`flex-1 px-2 py-1.5 rounded-md text-[10px] font-mono text-center transition-colors cursor-pointer ${
                               customSettings.iterationCount === opt.value
-                                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                                : 'text-white/30 hover:text-white/50 border border-transparent hover:border-white/[0.08]'
+                                ? 'bg-[#d4a017]/15 text-[#d4a017] border border-[#d4a017]/30'
+                                : 'text-[#6b6356]/70 hover:text-[#1a1a1a]/70 border border-transparent hover:border-[#1a1a1a]/15'
                             }`}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -1227,7 +1227,7 @@ export function AnimationGeneratorSection() {
 
                     {/* Direction */}
                     <div className="space-y-1.5">
-                      <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Direction</span>
+                      <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Direction</span>
                       <div className="flex gap-1">
                         {DIRECTION_OPTIONS.map((opt) => (
                           <motion.button
@@ -1235,8 +1235,8 @@ export function AnimationGeneratorSection() {
                             onClick={() => setCustomSettings((s) => ({ ...s, direction: opt.value }))}
                             className={`flex-1 px-2 py-1.5 rounded-md text-[10px] font-mono text-center transition-colors cursor-pointer ${
                               customSettings.direction === opt.value
-                                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                                : 'text-white/30 hover:text-white/50 border border-transparent hover:border-white/[0.08]'
+                                ? 'bg-[#d4a017]/15 text-[#d4a017] border border-[#d4a017]/30'
+                                : 'text-[#6b6356]/70 hover:text-[#1a1a1a]/70 border border-transparent hover:border-[#1a1a1a]/15'
                             }`}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -1248,7 +1248,7 @@ export function AnimationGeneratorSection() {
 
                     {/* Fill Mode */}
                     <div className="space-y-1.5">
-                      <span className="text-[11px] font-mono text-white/40 uppercase tracking-wider">Fill Mode</span>
+                      <span className="text-[11px] font-mono text-[#6b6356] uppercase tracking-wider">Fill Mode</span>
                       <div className="flex gap-1">
                         {FILL_MODE_OPTIONS.map((opt) => (
                           <motion.button
@@ -1256,8 +1256,8 @@ export function AnimationGeneratorSection() {
                             onClick={() => setCustomSettings((s) => ({ ...s, fillMode: opt.value }))}
                             className={`flex-1 px-2 py-1.5 rounded-md text-[10px] font-mono text-center transition-colors cursor-pointer ${
                               customSettings.fillMode === opt.value
-                                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                                : 'text-white/30 hover:text-white/50 border border-transparent hover:border-white/[0.08]'
+                                ? 'bg-[#d4a017]/15 text-[#d4a017] border border-[#d4a017]/30'
+                                : 'text-[#6b6356]/70 hover:text-[#1a1a1a]/70 border border-transparent hover:border-[#1a1a1a]/15'
                             }`}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -1281,9 +1281,9 @@ export function AnimationGeneratorSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             {/* Preview Panel */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
+            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
               {/* VS Code chrome */}
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
@@ -1291,18 +1291,18 @@ export function AnimationGeneratorSection() {
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                   </div>
                   <div className="flex items-center gap-1.5 ml-3">
-                    <Eye className="w-3 h-3 text-white/30" />
-                    <span className="text-[10px] font-mono text-white/25">Live Preview</span>
+                    <Eye className="w-3 h-3 text-[#6b6356]/70" />
+                    <span className="text-[10px] font-mono text-[#6b6356]/40">Live Preview</span>
                   </div>
                 </div>
                 {/* Shape selector */}
-                <div className="flex items-center gap-1 p-0.5 rounded-md border border-white/[0.06] bg-white/[0.02]">
+                <div className="flex items-center gap-1 p-0.5 rounded-md border border-[#1a1a1a]/10 bg-[#ebe5d0]">
                   {(['square', 'circle', 'text', 'button'] as const).map((shape) => (
                     <motion.button
                       key={`shape-${shape}`}
                       onClick={() => { setPreviewShape(shape); setAnimKey((k) => k + 1); }}
                       className={`px-2 py-1 rounded text-[9px] font-mono transition-colors cursor-pointer capitalize ${
-                        previewShape === shape ? 'text-white' : 'text-white/30 hover:text-white/50'
+                        previewShape === shape ? 'text-[#1a1a1a]' : 'text-[#6b6356]/70 hover:text-[#1a1a1a]/70'
                       }`}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -1322,17 +1322,17 @@ export function AnimationGeneratorSection() {
                   className="absolute inset-0"
                   style={{
                     backgroundImage: `
-                      linear-gradient(45deg, #111 25%, transparent 25%),
-                      linear-gradient(-45deg, #111 25%, transparent 25%),
-                      linear-gradient(45deg, transparent 75%, #111 75%),
-                      linear-gradient(-45deg, transparent 75%, #111 75%)
+                      linear-gradient(45deg, #d5cfc0 25%, transparent 25%),
+                      linear-gradient(-45deg, #d5cfc0 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, #d5cfc0 75%),
+                      linear-gradient(-45deg, transparent 75%, #d5cfc0 75%)
                     `,
                     backgroundSize: '20px 20px',
                     backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
                     opacity: 0.3,
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-[#0f1117] to-[#1a1a2e]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ebe5d0] to-[#e0d8c0]" />
 
                 {/* Inject keyframes for preview */}
                 <style>{currentCSS.keyframesCSS}</style>
@@ -1348,7 +1348,7 @@ export function AnimationGeneratorSection() {
                         transition={{ duration: 0.2 }}
                       >
                         <div
-                          className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-400"
+                          className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-gradient-to-br from-[#d4a017] to-[#b8860b]"
                           style={previewAnimStyle}
                         />
                       </motion.div>
@@ -1362,7 +1362,7 @@ export function AnimationGeneratorSection() {
                         transition={{ duration: 0.2 }}
                       >
                         <div
-                          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400"
+                          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-[#d4a017] to-[#b8860b]"
                           style={previewAnimStyle}
                         />
                       </motion.div>
@@ -1377,7 +1377,7 @@ export function AnimationGeneratorSection() {
                         className="text-center"
                       >
                         <div
-                          className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent"
+                          className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-[#d4a017] to-[#b8860b] bg-clip-text text-transparent"
                           style={previewAnimStyle}
                         >
                           Hello World
@@ -1393,7 +1393,7 @@ export function AnimationGeneratorSection() {
                         transition={{ duration: 0.2 }}
                       >
                         <div
-                          className="px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-mono text-sm font-bold shadow-lg shadow-emerald-500/20"
+                          className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#d4a017] to-[#b8860b] text-[#1a1a1a] font-mono text-sm font-bold shadow-lg shadow-[#d4a017]/20"
                           style={previewAnimStyle}
                         >
                           Click Me
@@ -1405,11 +1405,11 @@ export function AnimationGeneratorSection() {
               </div>
 
               {/* Playback Controls */}
-              <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/[0.06] bg-white/[0.02]">
+              <div className="flex items-center justify-between px-4 py-2.5 border-t border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-2">
                   <motion.button
                     onClick={isPlaying ? handlePause : handlePlay}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-[10px] font-mono text-emerald-400 hover:bg-emerald-500/30 transition-colors cursor-pointer"
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#d4a017]/15 border border-[#d4a017]/30 text-[10px] font-mono text-[#d4a017] hover:bg-[#d4a017]/20 transition-colors cursor-pointer"
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -1418,7 +1418,7 @@ export function AnimationGeneratorSection() {
                   </motion.button>
                   <motion.button
                     onClick={handleReset}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] text-[10px] font-mono text-white/40 hover:text-white/70 hover:border-white/[0.15] transition-colors cursor-pointer"
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#1a1a1a]/15 bg-[#ebe5d0] text-[10px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/90 hover:border-[#1a1a1a]/20 transition-colors cursor-pointer"
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -1429,14 +1429,14 @@ export function AnimationGeneratorSection() {
 
                 {/* Speed control */}
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono text-white/25">Speed</span>
-                  <div className="flex items-center gap-0.5 p-0.5 rounded-md border border-white/[0.06] bg-white/[0.02]">
+                  <span className="text-[10px] font-mono text-[#6b6356]/40">Speed</span>
+                  <div className="flex items-center gap-0.5 p-0.5 rounded-md border border-[#1a1a1a]/10 bg-[#ebe5d0]">
                     {([0.25, 0.5, 1, 1.5, 2, 3] as const).map((speed) => (
                       <motion.button
                         key={`speed-${speed}`}
                         onClick={() => setPlaybackSpeed(speed)}
                         className={`px-1.5 py-0.5 rounded text-[9px] font-mono transition-colors cursor-pointer ${
-                          playbackSpeed === speed ? 'text-emerald-400 bg-emerald-500/15' : 'text-white/25 hover:text-white/50'
+                          playbackSpeed === speed ? 'text-[#d4a017] bg-[#d4a017]/15' : 'text-[#6b6356]/40 hover:text-[#1a1a1a]/70'
                         }`}
                         whileTap={{ scale: 0.9 }}
                       >
@@ -1449,22 +1449,22 @@ export function AnimationGeneratorSection() {
             </div>
 
             {/* CSS Code Output */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02]">
+            <div className="rounded-xl border border-[#1a1a1a]/10 bg-[#ebe5d0] overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1a1a1a]/10 bg-[#ebe5d0]">
                 <div className="flex items-center gap-2">
-                  <Code2 className="w-3.5 h-3.5 text-emerald-400/70" />
-                  <span className="text-[10px] font-mono text-white/25">Generated CSS</span>
+                  <Code2 className="w-3.5 h-3.5 text-[#d4a017]" />
+                  <span className="text-[10px] font-mono text-[#6b6356]/40">Generated CSS</span>
                 </div>
                 <motion.button
                   onClick={copyCode}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-white/40 hover:text-white/70 border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.06] transition-all cursor-pointer"
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono text-[#6b6356] hover:text-[#1a1a1a]/90 border border-[#1a1a1a]/10 hover:border-[#1a1a1a]/15 bg-[#ebe5d0] hover:bg-[#ebe5d0] transition-all cursor-pointer"
                   whileHover={{ y: -1 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3 h-3 text-emerald-400" />
-                      <span className="text-emerald-400">Copied!</span>
+                      <Check className="w-3 h-3 text-[#d4a017]" />
+                      <span className="text-[#d4a017]">Copied!</span>
                     </>
                   ) : (
                     <>
@@ -1481,7 +1481,7 @@ export function AnimationGeneratorSection() {
                   <code>
                     {highlightedLines.map((line) => (
                       <div key={`anim-code-${line.lineNum}`} className="flex">
-                        <span className="text-white/10 w-6 text-right mr-4 select-none">{line.lineNum}</span>
+                        <span className="text-[#6b6356]/20 w-6 text-right mr-4 select-none">{line.lineNum}</span>
                         <span>
                           {line.parts.map((part, pi) => (
                             <span key={`anim-code-${line.lineNum}-${pi}`} className={part.cls || ''}>{part.text}</span>
@@ -1498,7 +1498,7 @@ export function AnimationGeneratorSection() {
 
         {/* Info Bar */}
         <motion.div
-          className="flex items-center justify-center gap-4 mt-10 text-[11px] font-mono text-white/20"
+          className="flex items-center justify-center gap-4 mt-10 text-[11px] font-mono text-[#6b6356]/50"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -1512,9 +1512,9 @@ export function AnimationGeneratorSection() {
               { icon: Gauge, text: 'Speed Control' },
             ].map((item, i) => (
               <div key={`anim-info-${i}`} className="flex items-center gap-1.5">
-                <item.icon className="w-3 h-3 text-emerald-500/30" />
+                <item.icon className="w-3 h-3 text-[#d4a017]/30" />
                 <span>{item.text}</span>
-                {i < 3 && <span className="text-emerald-500/20 ml-4">/</span>}
+                {i < 3 && <span className="text-[#d4a017]/20 ml-4">/</span>}
               </div>
             ))}
           </div>
