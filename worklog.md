@@ -1373,3 +1373,30 @@ Stage Summary:
 - Import path fix in page.tsx resolved the module-not-found error for RetroTerminalPrototype
 - All verification checks pass
 
+
+---
+Task ID: 3-8
+Agent: Main Agent
+Task: Reorganize project structure + create sections registry + cleanup + push
+
+Work Log:
+- Created directory structure: src/components/{layout,showcases,generators,editors,tools}
+- Moved 23 section components with git mv (preserves history):
+  - showcases/ (6): terminal.tsx, devex.tsx, brutalism.tsx, glitch.tsx, code-art.tsx, retro-terminal.tsx
+  - generators/ (6): gradient.tsx, palette.tsx, shadow.tsx, border.tsx, animation.tsx, css-filters.tsx
+  - editors/ (4): code-playground.tsx, svg-editor.tsx, css-snippets.tsx, markdown-preview.tsx
+  - tools/ (8): base64.tsx, unit-converter.tsx, regex-tester.tsx, json-formatter.tsx, typography.tsx, flexbox-grid.tsx, transform-3d.tsx, responsive-showcase.tsx
+- Created src/lib/sections-registry.ts with typed SectionConfig interface and SECTIONS array (23 entries, 4 categories)
+- Deleted src/app/page.tsx.full-backup (78KB backup, already in git history)
+- Deleted src/app/api/route.ts (unused placeholder endpoint)
+- Updated src/app/page.tsx import: @/components/retro-terminal-prototype → @/components/showcases/retro-terminal
+- CSS split into modules deferred (globals.css 4523 lines works correctly, splitting requires careful deduplication)
+- All lint checks pass (0 errors, 0 warnings)
+- Dev server returns HTTP 200
+- Committed and pushed to GitHub: 6e83ec9
+
+Stage Summary:
+- Project structure reorganized from flat 27-component folder into 4 categorized subdirectories
+- sections-registry.ts provides typed config for all 23 sections
+- 2 unused files deleted (-1955 lines)
+- GitHub repo synced: https://github.com/Sts8987/Code-Aesthetic-Gallery-v2.0
