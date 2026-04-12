@@ -2867,3 +2867,607 @@ html {
     animation-delay: 0s !important;
   }
 }
+
+/* =====================================================
+   CSS ANIMATION POLISH ENHANCEMENTS
+   ===================================================== */
+
+/* =====================================================
+   A. PREMIUM HOVER EFFECTS
+   ===================================================== */
+
+/* Note: .hover-lift already exists (line ~1236) — skipped to avoid conflict */
+
+/* ===== Hover Glow Border — animated border glow cycling emerald → cyan → purple ===== */
+.hover-glow-border {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: box-shadow 0.4s ease;
+  z-index: 1;
+}
+.hover-glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--hover-glow-angle, 0deg),
+    #10b981,
+    #06b6d4,
+    #a855f7,
+    #10b981
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.hover-glow-border:hover {
+  box-shadow:
+    0 0 16px rgba(16, 185, 129, 0.12),
+    0 0 32px rgba(6, 182, 212, 0.06);
+}
+.hover-glow-border:hover::before {
+  opacity: 1;
+  animation: hover-glow-border-spin 3s linear infinite;
+}
+@keyframes hover-glow-border-spin {
+  0% { --hover-glow-angle: 0deg; }
+  100% { --hover-glow-angle: 360deg; }
+}
+
+@property --hover-glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ===== Hover Underline Slide — underline slides in from left on hover ===== */
+.hover-underline-slide {
+  position: relative;
+  display: inline;
+  text-decoration: none;
+}
+.hover-underline-slide::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  border-radius: 1px;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-underline-slide:hover::after {
+  width: 100%;
+}
+
+/* ===== Hover Icon Spin — icon rotates 360deg with scale up on hover ===== */
+.hover-icon-spin {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-icon-spin:hover {
+  transform: rotate(360deg) scale(1.15);
+}
+
+/* =====================================================
+   B. GLASSMORPHISM VARIANTS
+   ===================================================== */
+
+/* ===== Glass Dark — darker glassmorphism ===== */
+.glass-dark {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+}
+
+/* ===== Glass Emerald — emerald-tinted glass ===== */
+.glass-emerald {
+  background: rgba(6, 78, 59, 0.2);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+  border-radius: 16px;
+}
+
+/* ===== Glass Card 3D — glass card with subtle 3D perspective tilt on hover ===== */
+.glass-card-3d {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  perspective: 800px;
+}
+.glass-card-3d:hover {
+  transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateZ(8px);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.25),
+    0 0 24px rgba(16, 185, 129, 0.06);
+}
+
+/* =====================================================
+   C. LOADING & SKELETON
+   ===================================================== */
+
+/* ===== Skeleton Pulse — pulsing skeleton with shimmer gradient sweep ===== */
+.skeleton-pulse {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+}
+.skeleton-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 70%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-pulse-shimmer 1.8s ease-in-out infinite;
+}
+@keyframes skeleton-pulse-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ===== Skeleton Text — placeholder for text lines ===== */
+.skeleton-text {
+  position: relative;
+  overflow: hidden;
+  height: 16px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+}
+.skeleton-text:last-child {
+  width: 70%;
+  margin-bottom: 0;
+}
+.skeleton-text::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 70%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-pulse-shimmer 1.8s ease-in-out infinite;
+}
+.skeleton-text-lg {
+  height: 24px;
+  width: 60%;
+  margin-bottom: 14px;
+}
+.skeleton-text-sm {
+  height: 12px;
+  margin-bottom: 8px;
+}
+
+/* ===== Loading Dots — 3 bouncing dots with staggered animation ===== */
+.loading-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.loading-dots span {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: loading-dots-bounce 1.4s ease-in-out infinite;
+}
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.32s;
+}
+@keyframes loading-dots-bounce {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* =====================================================
+   D. BADGE & TAG STYLES
+   ===================================================== */
+
+/* ===== Badge Gradient — pill badge with animated gradient background ===== */
+.badge-gradient {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(135deg, #10b981, #06b6d4, #a855f7, #10b981);
+  background-size: 300% 300%;
+  animation: badge-gradient-shift 4s ease infinite;
+  border: none;
+}
+@keyframes badge-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== Badge Outline — outlined badge with dashed border, fills on hover ===== */
+.badge-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(16, 185, 129, 0.8);
+  background: transparent;
+  border: 1px dashed rgba(16, 185, 129, 0.35);
+  transition: all 0.3s ease;
+}
+.badge-outline:hover {
+  color: #fff;
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.6);
+  border-style: solid;
+}
+
+/* ===== Tag Glow — small tag with subtle glow background ===== */
+.tag-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(16, 185, 129, 0.9);
+  background: rgba(16, 185, 129, 0.08);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.08),
+              inset 0 0 8px rgba(16, 185, 129, 0.04);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+/* =====================================================
+   E. SCROLL-LINKED EFFECTS
+   ===================================================== */
+
+/* ===== Parallax Slow — slower scroll speed for parallax layers ===== */
+.parallax-slow {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* ===== Sticky Blur — element gets blurred backdrop when sticky near top ===== */
+.sticky-blur {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+}
+.sticky-blur.is-stuck {
+  backdrop-filter: blur(24px) brightness(0.95);
+  -webkit-backdrop-filter: blur(24px) brightness(0.95);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* =====================================================
+   F. RESPONSIVE TYPOGRAPHY
+   ===================================================== */
+
+/* ===== Text Balance — better heading line breaks ===== */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* ===== Text Pretty — better body text line breaks ===== */
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ===== Text Gradient Clip — utility for gradient text clipping ===== */
+.text-gradient-clip {
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== Text Outline — text with configurable stroke via --stroke-width ===== */
+.text-outline {
+  --stroke-width: 1px;
+  --stroke-color: rgba(16, 185, 129, 0.5);
+  -webkit-text-stroke: var(--stroke-width) var(--stroke-color);
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transition: -webkit-text-stroke-color 0.3s ease;
+}
+.text-outline:hover {
+  --stroke-color: rgba(6, 182, 212, 0.7);
+}
+
+/* =====================================================
+   G. INTERACTIVE FOCUS STATES
+   ===================================================== */
+
+/* ===== Focus Ring — focus-visible ring with emerald color and offset ===== */
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid rgba(16, 185, 129, 0.6);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ===== Focus Glow — focus state with glowing box-shadow ===== */
+.focus-glow {
+  outline: none;
+}
+.focus-glow:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(16, 185, 129, 0.3),
+    0 0 12px rgba(16, 185, 129, 0.15),
+    0 0 24px rgba(16, 185, 129, 0.08);
+  border-radius: 4px;
+}
+
+/* ===== Focus Underline — underline appears on focus using pseudo-element ===== */
+.focus-underline {
+  position: relative;
+  outline: none;
+  text-decoration: none;
+}
+.focus-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  border-radius: 1px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.focus-underline:focus-visible::after {
+  width: 100%;
+}
+
+/* =====================================================
+   H. TRANSITION UTILITIES
+   ===================================================== */
+
+/* ===== Transition Smooth — smooth easing with material design curve ===== */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Transition Bounce — bouncy overshoot easing ===== */
+.transition-bounce {
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ===== Transition Slow — 500ms duration transition ===== */
+.transition-slow {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =====================================================
+   I. NOISE & TEXTURE
+   ===================================================== */
+
+/* Note: .noise-overlay already exists (line ~842) — these are complementary texture utilities */
+
+/* ===== Texture Grain — subtle film grain overlay using SVG filter ===== */
+.texture-grain {
+  position: relative;
+}
+.texture-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  mix-blend-mode: overlay;
+  border-radius: inherit;
+}
+
+/* ===== Texture Lines — horizontal scan lines overlay ===== */
+.texture-lines {
+  position: relative;
+}
+.texture-lines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.06;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0px,
+    rgba(255, 255, 255, 1) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  background-repeat: repeat;
+  background-size: 100% 4px;
+  border-radius: inherit;
+}
+
+/* ===== Texture Dots Fine — fine dot pattern at higher density ===== */
+.texture-dots-fine {
+  position: relative;
+}
+.texture-dots-fine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.12;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+  background-repeat: repeat;
+  background-size: 10px 10px;
+  border-radius: inherit;
+}
+
+/* =====================================================
+   J. GLOW UTILITIES (ADDITIONAL COLORS)
+   ===================================================== */
+
+/* Note: .glow-emerald/.glow-cyan/.glow-purple already exist (line ~2373)
+   These add amber, rose, and lime variants. */
+
+/* ===== Glow Amber ===== */
+.glow-amber {
+  box-shadow:
+    0 0 12px rgba(245, 158, 11, 0.15),
+    0 0 24px rgba(245, 158, 11, 0.08),
+    0 0 48px rgba(245, 158, 11, 0.04);
+}
+.text-glow-amber {
+  text-shadow:
+    0 0 8px rgba(245, 158, 11, 0.6),
+    0 0 20px rgba(245, 158, 11, 0.3),
+    0 0 40px rgba(245, 158, 11, 0.15);
+}
+
+/* ===== Glow Rose ===== */
+.glow-rose {
+  box-shadow:
+    0 0 12px rgba(244, 63, 94, 0.15),
+    0 0 24px rgba(244, 63, 94, 0.08),
+    0 0 48px rgba(244, 63, 94, 0.04);
+}
+.text-glow-rose {
+  text-shadow:
+    0 0 8px rgba(244, 63, 94, 0.6),
+    0 0 20px rgba(244, 63, 94, 0.3),
+    0 0 40px rgba(244, 63, 94, 0.15);
+}
+
+/* ===== Glow Lime ===== */
+.glow-lime {
+  box-shadow:
+    0 0 12px rgba(132, 204, 22, 0.15),
+    0 0 24px rgba(132, 204, 22, 0.08),
+    0 0 48px rgba(132, 204, 22, 0.04);
+}
+.text-glow-lime {
+  text-shadow:
+    0 0 8px rgba(132, 204, 22, 0.6),
+    0 0 20px rgba(132, 204, 22, 0.3),
+    0 0 40px rgba(132, 204, 22, 0.15);
+}
+
+/* =====================================================
+   PREFERS-REDUCED-MOTION SUPPORT
+   (Enhancement batch — respects user motion preferences)
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* A. Premium Hover Effects — show final hover state instantly */
+  .hover-glow-border::before {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hover-underline-slide::after {
+    transition: none !important;
+    width: 100% !important;
+  }
+  .hover-icon-spin {
+    transition: none !important;
+  }
+
+  /* B. Glassmorphism 3D — disable perspective tilt */
+  .glass-card-3d {
+    transition: none !important;
+    perspective: none;
+  }
+  .glass-card-3d:hover {
+    transform: none !important;
+  }
+
+  /* C. Loading & Skeleton — keep skeleton visible but disable shimmer animation */
+  .skeleton-pulse::after,
+  .skeleton-text::after {
+    animation: none !important;
+  }
+  .loading-dots span {
+    animation: none !important;
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  /* D. Badge Gradient — show static gradient, no animation */
+  .badge-gradient {
+    animation: none !important;
+    background-size: 100% 100%;
+  }
+  .badge-outline {
+    transition: none !important;
+  }
+
+  /* E. Scroll effects */
+  .parallax-slow {
+    will-change: auto;
+  }
+  .sticky-blur {
+    transition: none !important;
+  }
+
+  /* G. Focus states — show underline instantly */
+  .focus-underline::after {
+    transition: none !important;
+  }
+
+  /* H. Transition utilities — reduce to no transition */
+  .transition-smooth,
+  .transition-bounce,
+  .transition-slow {
+    transition: none !important;
+  }
+
+  /* I. Text effects */
+  .text-outline {
+    transition: none !important;
+  }
+}

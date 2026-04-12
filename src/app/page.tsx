@@ -31,6 +31,7 @@ import {
   ScanSearch,
   Braces,
   FileText,
+  Lock,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -66,6 +67,8 @@ const RegexTesterSection = lazy(() => import('@/components/regex-tester-section'
 const JsonFormatterSection = lazy(() => import('@/components/json-formatter-section').then(m => ({ default: () => <m.JsonFormatterSection /> })));
 
 const MarkdownPreviewSection = lazy(() => import('@/components/markdown-preview-section').then(m => ({ default: () => <m.MarkdownPreviewSection /> })));
+
+const Base64ToolSection = lazy(() => import('@/components/base64-tool-section').then(m => ({ default: () => <m.Base64ToolSection /> })));
 
 /* ──────────────────────────────────────────────
    SECTION LOADER
@@ -108,6 +111,7 @@ const SECTIONS = [
   { id: 'regex', label: 'Regex', icon: ScanSearch, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#14100a]' },
   { id: 'json', label: 'JSON', icon: Braces, color: '#f97316', bg: 'from-[#0a0a0a] to-[#0f0f1a]' },
   { id: 'markdown', label: 'Markdown', icon: FileText, color: '#8b5cf6', bg: 'from-[#0a0a0a] to-[#0d0d18]' },
+  { id: 'base64', label: 'Encoder', icon: Lock, color: '#14b8a6', bg: 'from-[#0a0a0a] to-[#0a1014]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -193,8 +197,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS', 'RESPONSIVE', 'BORDERS', 'SNIPPETS', 'REGEX', 'JSON', 'MARKDOWN'];
-  const fullSubtitle = 'Explore twenty-one iconic code-inspired design styles and interactive developer tools: from retro terminals to markdown preview. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS', 'RESPONSIVE', 'BORDERS', 'SNIPPETS', 'REGEX', 'JSON', 'MARKDOWN', 'ENCODER'];
+  const fullSubtitle = 'Explore twenty-two iconic code-inspired design styles and interactive developer tools: from retro terminals to base64 encoding. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const tiltRef = useRef<HTMLDivElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
@@ -560,7 +564,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           {[
-            { value: 21, suffix: '', label: 'Sections' },
+            { value: 22, suffix: '', label: 'Sections' },
             { value: 50, suffix: '+', label: 'Commands' },
             { value: 100, suffix: '%', label: 'Interactive' },
           ].map((stat) => (
@@ -906,7 +910,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">21 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">22 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -1898,6 +1902,19 @@ export default function HomePage() {
         />
         <Suspense fallback={<SectionLoader />}>
           <MarkdownPreviewSection />
+        </Suspense>
+      </div>
+
+      {/* Section 22: Encoder Lab */}
+      <div id="base64" ref={(el) => { sectionRefs.current['base64'] = el; }}>
+        <SectionDivider
+          label="Section 22"
+          sectionId="base64"
+          description="Encode and decode Base64, URLs, and HTML entities in real-time with file upload, auto-detection, and export."
+          icon={Lock}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <Base64ToolSection />
         </Suspense>
       </div>
 

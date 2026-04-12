@@ -224,7 +224,6 @@ export default function BrutalismSection() {
 
   return (
     <section
-      id="brutalism"
       className="relative w-full overflow-hidden"
       style={{ background: '#ffffff', fontFamily: 'Times New Roman, Georgia, serif' }}
     >
