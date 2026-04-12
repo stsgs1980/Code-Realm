@@ -1092,3 +1092,81 @@ Stage Summary:
 - All existing classes preserved, no breaking changes
 - New utility classes ready for use in existing and future components
 - Lint passes clean with zero errors
+
+---
+Task ID: 20
+Agent: Main Agent
+Task: QA, CSS styling improvements, JSON Formatter section, Markdown Preview section
+
+Work Log:
+- **Bug Assessment:**
+  - User reported `matches` duplicate variable error in regex-tester-section.tsx
+  - Investigated: only one `const matches` definition found at line 255
+  - Error was from stale build cache; current code is clean
+  - Verified with grep: only 1 definition of `const matches` in entire file
+  - Dev server returns HTTP 200, lint passes clean
+
+- **QA Testing:**
+  - Opened site with agent-browser, captured screenshots at multiple scroll positions
+  - Verified 20 section elements rendered, 0 errors
+  - All navigation links functional, hero animations working
+
+- **CSS Styling Improvements (by frontend-styling-expert agent):**
+  Added ~24 new CSS classes to globals.css:
+  - `.hero-gradient-orb`, `.hero-title-shimmer`, `.hero-subtitle-typing` — hero enhancements
+  - `.card-glass-hover` — intensified glass card on hover
+  - `.section-badge` — rotating conic-gradient border animation
+  - `.section-number` — large faded watermark for parallax
+  - `.shimmer-line`, `.bounce-subtle` — micro-animations
+  - `.scroll-fade-in`, `.stagger-1` through `.stagger-8`, `.blur-reveal` — scroll/transition effects
+  - `.text-gradient-animate`, `.text-shadow-glow`, `.text-stroke`, `.text-scramble` — text effects
+  - `.grid-pattern`, `.dot-pattern` — utility patterns
+  - All animations respect `prefers-reduced-motion: reduce`
+
+- **New Feature: JSON Formatter Section (Section 20):**
+  - Created `/src/components/json-formatter-section.tsx`
+  - JSON input with validation, formatted output with syntax highlighting
+  - Collapsible tree view, path finder, statistics panel
+  - Minify, validate, sort keys, 4 sample datasets
+  - Amber/orange accent colors, "JSON Studio" gradient header
+
+- **New Feature: Markdown Preview Section (Section 21):**
+  - Created `/src/components/markdown-preview-section.tsx`
+  - Custom markdown parser from scratch (no external libraries)
+  - Split/tab view, toolbar with formatting buttons
+  - 3 sample templates, export to HTML, auto-save to localStorage
+  - Purple/violet accent colors, "Markdown Lab" gradient header
+
+- **Page Integration:**
+  - Added both sections to SECTIONS array, lazy imports
+  - Updated hero words, subtitle, counter, mobile nav footer
+
+Stage Summary:
+- Project now has 21 fully interactive sections
+- Two major new features: JSON Studio and Markdown Lab
+- ~24 new CSS utility classes
+- All lint checks pass, dev server compiles successfully
+
+---
+## Current Project Status (Handover)
+
+### Assessment
+The project is fully functional and stable with **21 interactive sections**. All lint checks pass, the dev server compiles without errors.
+
+### Completed Modifications (This Phase)
+1. **JSON Formatter Section (Section 20)** — Interactive JSON formatter/validator with tree view
+2. **Markdown Preview Section (Section 21)** — Live markdown editor with custom parser and export
+3. **CSS Styling Improvements** — 24 new utility classes
+4. **Bug Assessment** — Confirmed `matches` error was from stale build cache
+
+### Verification Results
+- `bun run lint` → 0 errors, 0 warnings
+- Dev server → HTTP 200
+- agent-browser QA → Site renders correctly
+
+### Priority Recommendations for Next Phase
+1. Performance optimization — further lazy loading
+2. SEO metadata — OpenGraph tags
+3. New sections — CSS Unit Converter, Base64 Encoder, Diff Viewer, Cron Builder
+4. Accessibility audit — WCAG 2.1 AA compliance
+5. Terminal enhancements — file system simulation

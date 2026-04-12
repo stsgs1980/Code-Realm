@@ -29,6 +29,8 @@ import {
   Square,
   Scissors,
   ScanSearch,
+  Braces,
+  FileText,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -60,6 +62,10 @@ const BorderGeneratorSection = lazy(() => import('@/components/border-generator-
 const CssSnippetsSection = lazy(() => import('@/components/css-snippets-section').then(m => ({ default: () => <m.CssSnippetsSection /> })));
 
 const RegexTesterSection = lazy(() => import('@/components/regex-tester-section').then(m => ({ default: () => <m.RegexTesterSection /> })));
+
+const JsonFormatterSection = lazy(() => import('@/components/json-formatter-section').then(m => ({ default: () => <m.JsonFormatterSection /> })));
+
+const MarkdownPreviewSection = lazy(() => import('@/components/markdown-preview-section').then(m => ({ default: () => <m.MarkdownPreviewSection /> })));
 
 /* ──────────────────────────────────────────────
    SECTION LOADER
@@ -100,6 +106,8 @@ const SECTIONS = [
   { id: 'border', label: 'Border', icon: Square, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#14100a]' },
   { id: 'snippets', label: 'Snippets', icon: Scissors, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#1a140a]' },
   { id: 'regex', label: 'Regex', icon: ScanSearch, color: '#f59e0b', bg: 'from-[#0a0a0a] to-[#14100a]' },
+  { id: 'json', label: 'JSON', icon: Braces, color: '#f97316', bg: 'from-[#0a0a0a] to-[#0f0f1a]' },
+  { id: 'markdown', label: 'Markdown', icon: FileText, color: '#8b5cf6', bg: 'from-[#0a0a0a] to-[#0d0d18]' },
 ] as const;
 
 /* ──────────────────────────────────────────────
@@ -185,8 +193,8 @@ function HeroSection() {
   const [currentWord, setCurrentWord] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTypingDone, setIsTypingDone] = useState(false);
-  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS', 'RESPONSIVE', 'BORDERS', 'SNIPPETS', 'REGEX'];
-  const fullSubtitle = 'Explore nineteen iconic code-inspired design styles and interactive developer tools: from retro terminals to regex testing. Each section is fully interactive.';
+  const words = ['TERMINAL', 'DEVEX', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'PALETTES', 'SHADOWS', 'ANIMATIONS', 'FILTERS', 'SVG', 'TYPOGRAPHY', 'LAYOUTS', '3D TRANSFORMS', 'RESPONSIVE', 'BORDERS', 'SNIPPETS', 'REGEX', 'JSON', 'MARKDOWN'];
+  const fullSubtitle = 'Explore twenty-one iconic code-inspired design styles and interactive developer tools: from retro terminals to markdown preview. Each section is fully interactive.';
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const tiltRef = useRef<HTMLDivElement>(null);
   const mousePosRef = useRef({ x: 0, y: 0 });
@@ -552,7 +560,7 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           {[
-            { value: 19, suffix: '', label: 'Sections' },
+            { value: 21, suffix: '', label: 'Sections' },
             { value: 50, suffix: '+', label: 'Commands' },
             { value: 100, suffix: '%', label: 'Interactive' },
           ].map((stat) => (
@@ -898,7 +906,7 @@ function MobileNav({
                 <div className="px-6 py-4 border-t border-white/[0.06]">
                   <div className="flex items-center justify-center gap-1.5">
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/30" />
-                    <span className="text-[10px] font-mono text-white/20">19 sections</span>
+                    <span className="text-[10px] font-mono text-white/20">21 sections</span>
                     <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
                   </div>
                 </div>
@@ -1864,6 +1872,32 @@ export default function HomePage() {
         />
         <Suspense fallback={<SectionLoader />}>
           <RegexTesterSection />
+        </Suspense>
+      </div>
+
+      {/* Section 20: JSON Studio */}
+      <div id="json" ref={(el) => { sectionRefs.current['json'] = el; }}>
+        <SectionDivider
+          label="Section 20"
+          sectionId="json"
+          description="Format, validate, and explore JSON data with syntax highlighting, tree view, path finder, statistics, and multiple export formats."
+          icon={Braces}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <JsonFormatterSection />
+        </Suspense>
+      </div>
+
+      {/* Section 21: Markdown Lab */}
+      <div id="markdown" ref={(el) => { sectionRefs.current['markdown'] = el; }}>
+        <SectionDivider
+          label="Section 21"
+          sectionId="markdown"
+          description="Write, preview, and export markdown in real-time with live rendering, toolbar actions, sample templates, and full GFM support."
+          icon={FileText}
+        />
+        <Suspense fallback={<SectionLoader />}>
+          <MarkdownPreviewSection />
         </Suspense>
       </div>
 

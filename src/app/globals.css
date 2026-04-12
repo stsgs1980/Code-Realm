@@ -2473,3 +2473,397 @@ html {
   background: rgba(16, 185, 129, 0.4);
   box-shadow: 0 0 6px rgba(16, 185, 129, 0.3);
 }
+
+/* =====================================================
+   A. ENHANCED HERO SECTION
+   ===================================================== */
+
+/* ===== Hero Gradient Orb — animated radial gradient that slowly moves/pulses ===== */
+.hero-gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: hero-orb-pulse 8s ease-in-out infinite;
+}
+@keyframes hero-orb-pulse {
+  0%, 100% {
+    background: radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.25), rgba(6, 182, 212, 0.1) 50%, transparent 70%);
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    background: radial-gradient(circle at 60% 30%, rgba(6, 182, 212, 0.3), rgba(139, 92, 246, 0.1) 50%, transparent 70%);
+    transform: translate(30px, -20px) scale(1.1);
+  }
+  66% {
+    background: radial-gradient(circle at 30% 60%, rgba(139, 92, 246, 0.2), rgba(16, 185, 129, 0.1) 50%, transparent 70%);
+    transform: translate(-20px, 15px) scale(0.95);
+  }
+}
+
+/* ===== Hero Title Shimmer — text shimmer using background-clip with moving gradient ===== */
+.hero-title-shimmer {
+  background: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #10b981 15%,
+    #06b6d4 30%,
+    #ffffff 45%,
+    #10b981 60%,
+    #06b6d4 75%,
+    #ffffff 90%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hero-shimmer-move 4s ease-in-out infinite;
+}
+@keyframes hero-shimmer-move {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ===== Hero Subtitle Typing — subtle typing cursor effect via pseudo-element ===== */
+.hero-subtitle-typing {
+  position: relative;
+  display: inline;
+}
+.hero-subtitle-typing::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 0.1em;
+  width: 2px;
+  height: 1.1em;
+  background: #10b981;
+  animation: subtitle-cursor-blink 1s step-end infinite;
+  border-radius: 1px;
+  box-shadow: 0 0 4px rgba(16, 185, 129, 0.5);
+}
+@keyframes subtitle-cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* =====================================================
+   B. CARD & INTERACTION EFFECTS
+   ===================================================== */
+
+/* Note: .card-spotlight already exists (line ~1329)
+   Note: .magnetic-hover already exists (line ~623) */
+
+/* ===== Card Glass Hover — glass card that intensifies blur and brightness on hover ===== */
+.card-glass-hover {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px) brightness(0.95);
+  -webkit-backdrop-filter: blur(12px) brightness(0.95);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-glass-hover:hover {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px) brightness(1.1) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) brightness(1.1) saturate(1.4);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(16, 185, 129, 0.06);
+}
+
+/* =====================================================
+   C. SECTION DIVIDER ENHANCEMENTS
+   ===================================================== */
+
+/* ===== Section Badge — animated badge with gradient border using conic-gradient rotating animation ===== */
+.section-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-family: var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+}
+.section-badge::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #10b981,
+    #06b6d4,
+    #a855f7,
+    #ec4899,
+    #10b981
+  );
+  animation: section-badge-border-spin 4s linear infinite;
+  z-index: -2;
+}
+.section-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #0a0a0a;
+  z-index: -1;
+}
+@keyframes section-badge-border-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== Section Number — large faded section number watermark in background ===== */
+.section-number {
+  position: absolute;
+  font-size: clamp(6rem, 15vw, 14rem);
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  font-family: var(--font-geist-mono), monospace;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+/* =====================================================
+   D. MICRO-ANIMATIONS
+   ===================================================== */
+
+/* Note: .pulse-ring already exists (line ~997)
+   Note: .float-gentle already exists (line ~605) */
+
+/* ===== Shimmer Line — horizontal shimmer loading line effect ===== */
+.shimmer-line {
+  position: relative;
+  overflow: hidden;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+.shimmer-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 25%,
+    rgba(16, 185, 129, 0.5) 40%,
+    rgba(6, 182, 212, 0.5) 50%,
+    rgba(16, 185, 129, 0.5) 60%,
+    transparent 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-line-sweep 2s ease-in-out infinite;
+}
+@keyframes shimmer-line-sweep {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ===== Bounce Subtle — subtle bounce for notifications/badges ===== */
+.bounce-subtle {
+  animation: bounce-subtle-anim 1.5s ease-in-out infinite;
+}
+@keyframes bounce-subtle-anim {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+  50% { transform: translateY(-2px); }
+  70% { transform: translateY(-3px); }
+}
+
+/* =====================================================
+   E. SCROLL & TRANSITION EFFECTS
+   ===================================================== */
+
+/* ===== Scroll Fade In — fade in from below (uses CSS animation-play-state trick) ===== */
+.scroll-fade-in {
+  animation: scroll-fade-in-anim 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-play-state: paused;
+}
+.scroll-fade-in.visible {
+  animation-play-state: running;
+}
+@keyframes scroll-fade-in-anim {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Stagger Utility Classes — animation-delay for staggered reveals ===== */
+.stagger-1 { animation-delay: 0.06s; }
+.stagger-2 { animation-delay: 0.12s; }
+.stagger-3 { animation-delay: 0.18s; }
+.stagger-4 { animation-delay: 0.24s; }
+.stagger-5 { animation-delay: 0.30s; }
+.stagger-6 { animation-delay: 0.36s; }
+.stagger-7 { animation-delay: 0.42s; }
+.stagger-8 { animation-delay: 0.48s; }
+
+/* ===== Blur Reveal — blur to clear reveal animation ===== */
+.blur-reveal {
+  animation: blur-reveal-anim 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-play-state: paused;
+}
+.blur-reveal.visible {
+  animation-play-state: running;
+}
+@keyframes blur-reveal-anim {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+/* =====================================================
+   F. TEXT EFFECTS
+   ===================================================== */
+
+/* ===== Text Gradient Animate — animated gradient text that shifts colors ===== */
+.text-gradient-animate {
+  background: linear-gradient(
+    90deg,
+    #10b981,
+    #06b6d4,
+    #a855f7,
+    #ec4899,
+    #f59e0b,
+    #10b981
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-gradient-animate-shift 5s ease infinite;
+}
+@keyframes text-gradient-animate-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== Text Shadow Glow — text with colored glow shadow ===== */
+.text-shadow-glow {
+  text-shadow:
+    0 0 8px rgba(16, 185, 129, 0.6),
+    0 0 20px rgba(16, 185, 129, 0.3),
+    0 0 40px rgba(6, 182, 212, 0.15);
+}
+
+/* ===== Text Stroke — outlined/stroke-only text effect ===== */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(16, 185, 129, 0.5);
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transition: -webkit-text-stroke-color 0.3s ease;
+}
+.text-stroke:hover {
+  -webkit-text-stroke-color: rgba(6, 182, 212, 0.7);
+}
+
+/* ===== Text Scramble — text that briefly scrambles characters (CSS-only steps approach) ===== */
+.text-scramble {
+  position: relative;
+  display: inline-block;
+}
+.text-scramble::after {
+  content: attr(data-scramble);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: rgba(16, 185, 129, 0.6);
+  -webkit-text-fill-color: rgba(16, 185, 129, 0.6);
+  animation: text-scramble-anim 3s steps(8, end) infinite;
+  clip-path: inset(0 0 100% 0);
+  pointer-events: none;
+}
+@keyframes text-scramble-anim {
+  0% { clip-path: inset(0 0 100% 0); opacity: 0; }
+  10% { clip-path: inset(0 0 70% 0); opacity: 1; }
+  15% { clip-path: inset(0 0 100% 0); opacity: 0; }
+  20% { clip-path: inset(0 0 40% 0); opacity: 1; }
+  25% { clip-path: inset(0 0 100% 0); opacity: 0; }
+  30% { clip-path: inset(0 0 10% 0); opacity: 1; }
+  40% { clip-path: inset(0 0 100% 0); opacity: 0; }
+  100% { clip-path: inset(0 0 100% 0); opacity: 0; }
+}
+
+/* =====================================================
+   G. UTILITY ENHANCEMENTS
+   ===================================================== */
+
+/* Note: .noise-overlay already exists (line ~842) */
+
+/* ===== Grid Pattern — subtle grid pattern background ===== */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ===== Dot Pattern — subtle dot pattern background ===== */
+.dot-pattern {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* =====================================================
+   PREFERS-REDUCED-MOTION SUPPORT
+   All new animations respect user motion preferences.
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient-orb,
+  .hero-title-shimmer,
+  .hero-subtitle-typing::after,
+  .section-badge::before,
+  .shimmer-line::after,
+  .bounce-subtle,
+  .scroll-fade-in,
+  .blur-reveal,
+  .text-gradient-animate,
+  .text-scramble::after {
+    animation: none !important;
+    animation-play-state: paused !important;
+  }
+  .scroll-fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .blur-reveal {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .stagger-1, .stagger-2, .stagger-3, .stagger-4,
+  .stagger-5, .stagger-6, .stagger-7, .stagger-8 {
+    animation-delay: 0s !important;
+  }
+}
