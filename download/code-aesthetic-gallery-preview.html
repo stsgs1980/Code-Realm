@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Aesthetic Gallery v2.0</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --cream: #f5f0e1;
+    --black: #1a1a1a;
+    --amber: #d4a017;
+    --muted: #6b6356;
+    --border: rgba(26,26,26,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    background-color: var(--cream);
+    color: var(--black);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== PAPER TEXTURE ===== */
+  .retro-paper {
+    background-color: #f5f0e1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+  }
+
+  /* ===== SCANLINES ===== */
+  .retro-scanlines { position: relative; overflow: hidden; }
+  .retro-scanlines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 4px
+    );
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  /* ===== GRID ===== */
+  .retro-grid {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes amber-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  @keyframes float-code {
+    0%, 100% { transform: translateY(0) rotate(var(--rot, -1deg)); }
+    50% { transform: translateY(-10px) rotate(calc(var(--rot, -1deg) * -1)); }
+  }
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+  @keyframes boot-fadein {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes amber-progress-shift {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* ===== AMBER CURSOR ===== */
+  .amber-typing::after {
+    content: '\2588';
+    color: var(--amber);
+    animation: amber-blink 0.8s step-end infinite;
+    font-weight: 300;
+  }
+
+  /* ===== BADGE ===== */
+  .retro-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    border: 2px solid var(--black);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--black);
+  }
+  .retro-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--amber);
+    box-shadow: 0 0 6px rgba(212,160,23,0.5);
+    animation: amber-blink 1.5s ease-in-out infinite;
+  }
+
+  /* ===== NAV BUTTONS ===== */
+  .brutal-nav-btn {
+    border: 2px solid var(--black);
+    border-radius: 0;
+    background: transparent;
+    color: var(--black);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-size: 12px;
+  }
+  .brutal-nav-btn:hover { background: var(--black); color: var(--cream); }
+  .brutal-nav-btn.active { background: var(--amber); border-color: var(--amber); color: var(--black); }
+  .brutal-nav-btn .count { opacity: 0.5; margin-left: 4px; font-weight: 400; }
+
+  /* ===== AMBER PROGRESS BAR ===== */
+  .amber-progress {
+    height: 3px;
+    background: linear-gradient(90deg, #d4a017, #b8860b, #d4a017);
+    background-size: 200% 100%;
+    animation: amber-progress-shift 3s linear infinite;
+  }
+
+  /* ===== FLOATING SNIPPETS ===== */
+  .float-code {
+    animation: float-code 6s ease-in-out infinite;
+    font-family: 'JetBrains Mono', monospace;
+    position: absolute;
+    font-size: 11px;
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+    color: rgba(212,160,23,0.15);
+  }
+
+  /* ===== HERO LAYOUT ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .hero-sub-label {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .hero-title {
+    font-size: clamp(64px, 12vw, 128px);
+    font-weight: 800;
+    line-height: 0.85;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+
+  .hero-rotating {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .hero-rotating span {
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 700;
+    color: var(--amber);
+    animation: boot-fadein 0.3s ease-out;
+  }
+
+  .hero-description {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  .hero-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .hero-stats .amber-dot { color: var(--amber); }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .scroll-indicator .arrow {
+    font-size: 18px;
+    animation: scroll-bounce 2s ease-in-out infinite;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    margin-top: 64px;
+  }
+  .footer-inner {
+    padding: 40px 20px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .footer-title {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .footer-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .footer-status .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: amber-blink 1.5s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(212,160,23,0.5);
+  }
+  .footer-status .label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--amber);
+  }
+  .footer-divider {
+    height: 1px;
+    background: rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .footer-grid .cat-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 2px;
+  }
+  .footer-grid .cat-count {
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .footer-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .footer-tech span {
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .footer-tech span:hover { color: var(--amber); }
+  .footer-prompt {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .footer-prompt .prompt-symbol {
+    color: var(--amber);
+  }
+  .footer-cursor {
+    display: inline-block;
+    color: var(--amber);
+    animation: amber-blink 0.8s step-end infinite;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .hero-nav { gap: 6px; }
+    .brutal-nav-btn { padding: 6px 12px; font-size: 10px; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { gap: 8px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="retro-paper retro-scanlines">
+
+  <!-- ═══════════════════════════════════════════
+       HERO SECTION
+       ═══════════════════════════════════════════ -->
+  <header class="hero">
+    <!-- Background grid -->
+    <div class="retro-grid" style="position:absolute;inset:0;pointer-events:none;"></div>
+
+    <!-- Floating code snippets -->
+    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
+      <span class="float-code" style="left:5%;top:15%;--rot:-3deg;animation-delay:0s;">{ design: true }</span>
+      <span class="float-code" style="left:72%;top:10%;--rot:2deg;animation-delay:1.2s;">export default Art;</span>
+      <span class="float-code" style="left:82%;top:62%;--rot:-2deg;animation-delay:2.4s;">const style = "brutal";</span>
+      <span class="float-code" style="left:8%;top:72%;--rot:4deg;animation-delay:3.6s;">&lt;Terminal /&gt;</span>
+      <span class="float-code" style="left:55%;top:80%;--rot:-1deg;animation-delay:4.8s;">async function create() {}</span>
+    </div>
+
+    <!-- Hero content -->
+    <div class="hero-content">
+      <!-- Badge -->
+      <div style="margin-bottom:24px;">
+        <span class="retro-badge">Code Aesthetic Gallery v2.0</span>
+      </div>
+
+      <!-- "The Art of" -->
+      <p class="hero-sub-label">The Art of</p>
+
+      <!-- Main title -->
+      <h1 class="hero-title">CODE</h1>
+
+      <!-- Rotating word -->
+      <div class="hero-rotating">
+        <span id="rotating-word" class="amber-typing">GRADIENTS</span>
+      </div>
+
+      <!-- Description -->
+      <p class="hero-description">
+        Explore 23 iconic code-inspired design styles.
+        From retro terminals to brutalist layouts &mdash; the intersection of programming and visual design.
+      </p>
+
+      <!-- Category navigation -->
+      <nav class="hero-nav" aria-label="Section categories">
+        <button class="brutal-nav-btn active">SHOWCASES<span class="count">(6)</span></button>
+        <button class="brutal-nav-btn">GENERATORS<span class="count">(6)</span></button>
+        <button class="brutal-nav-btn">EDITORS<span class="count">(4)</span></button>
+        <button class="brutal-nav-btn">TOOLS<span class="count">(7)</span></button>
+      </nav>
+
+      <!-- Stats -->
+      <div class="hero-stats">
+        <span>23 SECTIONS</span>
+        <span class="amber-dot">&middot;</span>
+        <span>50+ TOOLS</span>
+        <span class="amber-dot">&middot;</span>
+        <span style="color:var(--amber);">&infin; STYLE</span>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <span class="arrow">&darr;</span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="amber-progress"></div>
+    <div class="footer-inner">
+      <!-- Title -->
+      <div class="footer-title">// CODE AESTHETIC GALLERY v2.0 &mdash; 23 SECTIONS</div>
+
+      <!-- System status -->
+      <div class="footer-status">
+        <span class="dot"></span>
+        <span class="label">&box; SYSTEM ONLINE</span>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <!-- Category summary -->
+      <div class="footer-grid">
+        <div>
+          <div class="cat-label">SHOWCASES</div>
+          <div class="cat-count">6 sections</div>
+        </div>
+        <div>
+          <div class="cat-label">GENERATORS</div>
+          <div class="cat-count">6 sections</div>
+        </div>
+        <div>
+          <div class="cat-label">EDITORS</div>
+          <div class="cat-count">4 sections</div>
+        </div>
+        <div>
+          <div class="cat-label">TOOLS</div>
+          <div class="cat-count">7 sections</div>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <!-- Tech stack -->
+      <div class="footer-tech">
+        <span>NEXT.JS 16</span>
+        <span>REACT 19</span>
+        <span>TYPESCRIPT 5</span>
+        <span>TAILWIND CSS 4</span>
+      </div>
+
+      <!-- Bottom note -->
+      <div class="footer-prompt">
+        <span class="prompt-symbol">$ </span>
+        Built with &hearts; and monospace fonts
+        <span class="footer-cursor">&box;</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Rotating words animation
+  const words = ['TERMINAL', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'TYPOGRAPHY', 'SHADOWS', 'ANIMATIONS'];
+  let current = 0;
+  const el = document.getElementById('rotating-word');
+  
+  setInterval(() => {
+    current = (current + 1) % words.length;
+    el.style.animation = 'none';
+    el.offsetHeight; // trigger reflow
+    el.textContent = words[current];
+    el.style.animation = 'boot-fadein 0.3s ease-out';
+  }, 2500);
+
+  // Nav button click toggle
+  document.querySelectorAll('.brutal-nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.brutal-nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
