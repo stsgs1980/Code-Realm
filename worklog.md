@@ -1593,3 +1593,34 @@ Stage Summary:
 - RetroTerminalPrototype keeps its own amber/cream theme as a self-contained showcase section
 - All dark theme CSS classes added to globals.css without modifying existing retro classes
 - Standalone HTML preview file created for sharing
+
+---
+Task ID: std-audit
+Agent: Main Agent
+Task: Standards compliance audit and fixes
+
+Work Log:
+- Read AGENT_RULES.md (8 sections), all 5 instruction files, worklog.md
+- Checked git state: main branch, clean tree, 6 unpushed commits
+- Checked dev server: HTTP 200, compiles in ~160-230ms
+- Ran ESLint: 0 errors, 0 warnings
+- Verified TypeScript strict mode: enabled in tsconfig.json
+- Verified shadcn/ui: 50+ components in src/components/ui/
+- Verified SEO metadata: OpenGraph, Twitter Cards, theme-color present
+- Verified accessibility: ARIA labels, semantic HTML, prefers-reduced-motion
+- Verified all dark-theme CSS classes present in globals.css (lines 4530-4649)
+- Verified skills: git-safe-ops, dev-watchdog, performance-code-generator all present
+- Verified instructions: 5/5 files in instructions/
+
+Issues Found & Fixed:
+1. REPRODUCIBILITY-STANDARD: missing .env.example → created .env.example
+2. No-Unicode Policy v2.1: 4 Unicode chars in page.tsx → replaced with HTML entities (&#9670; &#8595; &#9632; &lt;3)
+3. SEO description outdated: "8 styles" → updated to "23 styles across 4 categories"
+4. AGENT_RULES.md §3 conflict: `npx next dev` vs `bun run dev` → updated to `bun run dev`
+
+Stage Summary:
+- 15/19 checks passed before fixes
+- All 4 violations fixed
+- Lint clean after all changes
+- Dev server compiles successfully, HTTP 200
+- Remaining note: 6 commits unpushed to origin (user decision)

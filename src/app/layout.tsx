@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Code Aesthetic Showcase | Interactive Web Design Gallery",
-  description: "Explore 8 iconic code-inspired design styles: retro terminals, VS Code aesthetics, brutalism, cyberpunk glitch, creative coding, live code playground, gradient builder, and palette generator.",
+  description: "Explore 23 iconic code-inspired design styles across 4 categories: showcases, generators, editors, and developer tools. From retro terminals to brutalist layouts.",
   keywords: ["code aesthetic", "web design", "terminal", "brutalism", "glitch", "cyberpunk", "code playground", "gradient generator", "palette generator", "interactive gallery"],
   authors: [{ name: "Z.ai Team" }],
   icons: {
@@ -24,14 +24,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Code Aesthetic Showcase | Interactive Web Design Gallery",
-    description: "Explore 8 iconic code-inspired design styles: retro terminals, VS Code aesthetics, brutalism, cyberpunk glitch, creative coding, live code playground, gradient builder, and palette generator.",
-    siteName: "Code Aesthetic Showcase",
+    description: "Explore 23 iconic code-inspired design styles across 4 categories: showcases, generators, editors, and developer tools. From retro terminals to brutalist layouts.",
+    siteName: "Code Aesthetic Gallery v2.0",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Code Aesthetic Showcase | Interactive Web Design Gallery",
-    description: "Explore 8 iconic code-inspired design styles: retro terminals, VS Code aesthetics, brutalism, cyberpunk glitch, creative coding, live code playground, gradient builder, and palette generator.",
+    description: "Explore 23 iconic code-inspired design styles across 4 categories: showcases, generators, editors, and developer tools. From retro terminals to brutalist layouts.",
   },
   other: {
     'theme-color': '#0a0a0a',

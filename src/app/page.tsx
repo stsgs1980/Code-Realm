@@ -186,7 +186,7 @@ export default function Home() {
           {/* Badge */}
           <div className="mb-8">
             <span className="dark-badge">
-              <span style={{ color: YELLOW }}>◆</span> Code Aesthetic Gallery v2.0
+              <span style={{ color: YELLOW }}>&#9670;</span> Code Aesthetic Gallery v2.0
             </span>
           </div>
 
@@ -248,7 +248,7 @@ export default function Home() {
         {/* Scroll indicator */}
         <div className="absolute bottom-8 flex flex-col items-center gap-1" style={{ color: MUTED }}>
           <span className="text-xs tracking-[0.3em] uppercase">Scroll</span>
-          <span className="text-lg" style={{ animation: 'scroll-bounce 2s ease-in-out infinite' }}>↓</span>
+          <span className="text-lg" style={{ animation: 'scroll-bounce 2s ease-in-out infinite' }}>&#8595;</span>
         </div>
       </header>
 
@@ -465,7 +465,7 @@ export default function Home() {
                 }}
               />
               <span className="text-xs sm:text-sm font-bold" style={{ color: YELLOW }}>
-                █ SYSTEM ONLINE
+                &#9632; SYSTEM ONLINE
               </span>
             </div>
 
@@ -504,7 +504,7 @@ export default function Home() {
             {/* Bottom note */}
             <div className="mt-8 text-xs" style={{ color: MUTED }}>
               <span style={{ color: YELLOW }}>$ </span>
-              Built with ♥ and monospace fonts
+              Built with &lt;3 and monospace fonts
               <span className="dark-cursor-blink" />
             </div>
           </div>

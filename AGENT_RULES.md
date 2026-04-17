@@ -69,11 +69,11 @@ After every git operation, log to `worklog.md`: operation, hash before/after, re
 
 ## 3. Dev Server Rules
 
-- Use `npx next dev -p 3000` directly (NOT `bun run dev`)
-- Use `127.0.0.1` not `localhost` for curl
-- Redirect output: `</dev/null >/tmp/zdev.log 2>&1 &`
-- Wait 6 seconds before health check (Turbopack compile time)
-- If server returns 500: check logs, fix error, then restart (don't blindly restart)
+- Use `bun run dev` to start the project (port 3000 auto-assigned)
+- Dev server MUST always run in the background, avoid duplicate instances
+- Use `127.0.0.1` not `localhost` for curl health checks
+- Check dev log at `/home/z/my-project/dev.log` for compilation status
+- If server returns 500: check dev.log, fix error, then restart (don't blindly restart)
 
 ## 4. Code Standards
 
