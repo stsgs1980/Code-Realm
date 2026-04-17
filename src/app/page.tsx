@@ -50,6 +50,14 @@ const GRAY = '#888888';
 const MUTED = '#555555';
 const SUBTLE_BORDER = 'rgba(255, 255, 255, 0.08)';
 
+/* ─── ASCII Art Banner ─── */
+const ASCII_ART = ` ██████╗ ██████╗ ██████╗ ███████╗    ██████╗ ███████╗ █████╗ ██╗     ███╗   ███╗
+██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔══██╗██╔════╝██╔══██╗██║     ████╗ ████║
+██║     ██║   ██║██║  ██║█████╗      ██████╔╝█████╗  ███████║██║     ██╔████╔██║
+██║     ██║   ██╗██║  ██║██╔══╝      ██╔══██╗██╔══╝  ██╔══██╗██║     ██║╚██╔╝██║
+╚██████╗╚██████╔╝██████╔╝███████╗    ██║  ██║███████╗██║  ██║███████╗██║ ╚═╝ ██║
+ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝`;
+
 /* ─── Rotating hero words ─── */
 const HERO_WORDS = ['TERMINAL', 'BRUTALISM', 'GLITCH', 'CODE ART', 'GRADIENTS', 'TYPOGRAPHY', 'SHADOWS', 'ANIMATIONS'];
 
@@ -182,28 +190,37 @@ export default function Home() {
         </div>
 
         {/* Hero content */}
-        <div className="relative z-10 text-center max-w-3xl mx-auto">
-          {/* Badge */}
-          <div className="mb-8">
-            <span className="dark-badge">
-              <span style={{ color: YELLOW }}>&#9670;</span> Code Realm
-            </span>
+        <div className="relative z-10 text-center max-w-4xl mx-auto w-full">
+          {/* ASCII Art Banner */}
+          <div className="overflow-x-auto mb-8 pb-2">
+            <pre
+              className="ascii-art-glow text-[0.32rem] sm:text-[0.48rem] md:text-[0.62rem] lg:text-[0.78rem] leading-[1.2] inline-block text-left"
+              style={{ color: YELLOW }}
+              aria-label="CODE REALM ASCII art banner"
+            >
+              {ASCII_ART.split('\n').map((line, i) => (
+                <div
+                  key={`ascii-${i}`}
+                  className="ascii-line-reveal"
+                  style={{ animationDelay: `${0.3 + i * 0.12}s` }}
+                >{line || '\u00A0'}</div>
+              ))}
+            </pre>
           </div>
 
-          {/* Main heading */}
-          <div className="mb-4">
-            <p className="text-sm sm:text-base tracking-[0.3em] uppercase mb-3" style={{ color: GRAY }}>
-              The Art of
-            </p>
-            <h1 className="text-7xl sm:text-8xl md:text-9xl font-bold leading-none" style={{ color: WHITE }}>
-              CODE
-            </h1>
+          {/* Separator */}
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="h-px flex-1 max-w-[80px]" style={{ backgroundColor: SUBTLE_BORDER }} />
+            <span className="text-[0.65rem] sm:text-xs tracking-[0.4em] uppercase" style={{ color: MUTED }}>
+              The Art of Code
+            </span>
+            <div className="h-px flex-1 max-w-[80px]" style={{ backgroundColor: SUBTLE_BORDER }} />
           </div>
 
           {/* Rotating word */}
-          <div className="h-10 sm:h-12 mb-8 flex items-center justify-center overflow-hidden">
+          <div className="h-8 sm:h-10 mb-7 flex items-center justify-center overflow-hidden">
             <span
-              className="text-2xl sm:text-3xl md:text-4xl font-bold dark-typing"
+              className="text-lg sm:text-xl md:text-2xl font-bold dark-typing"
               key={currentWord}
               style={{
                 color: YELLOW,
@@ -215,9 +232,9 @@ export default function Home() {
           </div>
 
           {/* Subtitle */}
-          <p className="text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed" style={{ color: GRAY }}>
-            Explore 23 iconic code-inspired design styles.
-            From retro terminals to brutalist layouts — the intersection of programming and visual design.
+          <p className="text-xs sm:text-sm max-w-md mx-auto mb-10 leading-relaxed" style={{ color: GRAY }}>
+            23 sections. 50+ tools. Infinite style.
+            From retro terminals to brutalist layouts.
           </p>
 
           {/* Category navigation */}

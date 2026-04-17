@@ -4526,6 +4526,23 @@ html {
    DARK HERO THEME — Code Realm
    ===================================================== */
 
+/* ASCII Art Glow Effect */
+.ascii-art-glow {
+  text-shadow:
+    0 0 8px rgba(245, 197, 66, 0.35),
+    0 0 20px rgba(245, 197, 66, 0.12),
+    0 0 40px rgba(212, 160, 23, 0.06);
+  filter: drop-shadow(0 0 2px rgba(245, 197, 66, 0.15));
+}
+
+/* Line-by-line reveal for ASCII art */
+.ascii-line-reveal {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: boot-fadein 0.4s ease-out forwards;
+  min-height: 1.2em;
+}
+
 /* Page root background */
 .dark-page-root {
   background-color: #0a0a0a;
