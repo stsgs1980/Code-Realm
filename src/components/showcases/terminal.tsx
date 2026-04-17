@@ -402,7 +402,7 @@ export function TerminalSection() {
 
       case 'about':
         respond(`╔══════════════════════════════════════════════╗
-║  Z.AI Terminal — Code Aesthetic Showcase      ║
+║  Z.AI Terminal — Code Realm                  ║
 ║                                              ║
 ║  A retro-futuristic terminal emulator that    ║
 ║  celebrates the art of the command line.      ║

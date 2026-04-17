@@ -186,7 +186,7 @@ export default function Home() {
           {/* Badge */}
           <div className="mb-8">
             <span className="dark-badge">
-              <span style={{ color: YELLOW }}>&#9670;</span> Code Aesthetic Gallery v2.0
+              <span style={{ color: YELLOW }}>&#9670;</span> Code Realm
             </span>
           </div>
 
@@ -451,7 +451,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             {/* Title */}
             <div className="text-xs sm:text-sm mb-6" style={{ color: MUTED }}>
-              {'// CODE AESTHETIC GALLERY v2.0 — 23 SECTIONS'}
+              {'// CODE REALM — 23 SECTIONS'}
             </div>
 
             {/* System status */}

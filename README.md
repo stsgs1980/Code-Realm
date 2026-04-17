@@ -9,7 +9,7 @@
  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝
 ```
 
-### `The Art of CODE AESTHETICS`
+### `The Art of CODE REALM`
 
 **23 sections. 50+ tools. Infinite style.**
 *From retro terminals to brutalist layouts — the intersection of programming and visual design.*
@@ -26,7 +26,7 @@
 
 ```css
 /* ═══════════════════════════════════════════════════════════
-   CODE AESTHETIC GALLERY v2.0
+   CODE REALM
    A curated collection of code-inspired design aesthetics
    ═══════════════════════════════════════════════════════════ */
 
@@ -273,8 +273,8 @@ my-project/
 
 ```c
 /* Built with ♥ and monospace fonts */
-printf("> Code Aesthetic Gallery v2.0\n");
-printf("> The Art of CODE AESTHETICS\n");
+printf("> Code Realm\n");
+printf("> The Art of CODE REALM\n");
 ```
 
 </div>

@@ -15,22 +15,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Code Aesthetic Showcase | Interactive Web Design Gallery",
+  title: "Code Realm | Interactive Web Design Gallery",
   description: "Explore 23 iconic code-inspired design styles across 4 categories: showcases, generators, editors, and developer tools. From retro terminals to brutalist layouts.",
-  keywords: ["code aesthetic", "web design", "terminal", "brutalism", "glitch", "cyberpunk", "code playground", "gradient generator", "palette generator", "interactive gallery"],
+  keywords: ["code realm", "web design", "terminal", "brutalism", "glitch", "cyberpunk", "code playground", "gradient generator", "palette generator", "interactive gallery"],
   authors: [{ name: "Z.ai Team" }],
   icons: {
     icon: "/logo.svg",
   },
   openGraph: {
-    title: "Code Aesthetic Showcase | Interactive Web Design Gallery",
+    title: "Code Realm | Interactive Web Design Gallery",
     description: "Explore 23 iconic code-inspired design styles across 4 categories: showcases, generators, editors, and developer tools. From retro terminals to brutalist layouts.",
-    siteName: "Code Aesthetic Gallery v2.0",
+    siteName: "Code Realm",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Code Aesthetic Showcase | Interactive Web Design Gallery",
+    title: "Code Realm | Interactive Web Design Gallery",
     description: "Explore 23 iconic code-inspired design styles across 4 categories: showcases, generators, editors, and developer tools. From retro terminals to brutalist layouts.",
   },
   other: {

@@ -19,7 +19,7 @@ const GREEN = '#2d6a4f';
 
 /* ─── Boot sequence lines ─── */
 const BOOT_LINES = [
-  'CODE AESTHETIC GALLERY v2.0',
+  'CODE REALM',
   '═════════════════════════════',
   '> Booting retro terminal...',
   '> Loading amber palette...   [OK]',
@@ -71,7 +71,7 @@ function processCommand(cmd: string): string[] {
       ];
     case 'about':
       return [
-        'Code Aesthetic Gallery v2.0',
+        'Code Realm',
         'A curated collection of 23 iconic code-inspired design styles.',
         'From retro terminals to brutalist layouts, each section explores',
         'the intersection of programming and visual design.',
@@ -90,7 +90,7 @@ function processCommand(cmd: string): string[] {
     case 'banner':
       return [
         '╔══════════════════════════════════════════╗',
-        '║  CODE AESTHETIC GALLERY v2.0             ║',
+        '║  CODE REALM                          ║',
         '║  ═════════════════════════════════════    ║',
         '║  23 SECTIONS  |  50+ COMMANDS  |  ∞ STYLE║',
         '╚══════════════════════════════════════════╝',
@@ -445,7 +445,7 @@ export function RetroTerminalPrototype() {
             <div className="relative z-10 text-center max-w-3xl mx-auto">
               {/* Badge */}
               <div className="mb-6">
-                <span className="retro-badge">Code Aesthetic Gallery v2.0</span>
+                <span className="retro-badge">Code Realm</span>
               </div>
 
               {/* Main heading */}
@@ -741,7 +741,7 @@ export function RetroTerminalPrototype() {
               <div className="max-w-5xl mx-auto">
                 {/* Title */}
                 <div className="text-xs sm:text-sm mb-6" style={{ color: MUTED }}>
-                  {'// CODE AESTHETIC GALLERY v2.0 — PROTOTYPE'}
+                  {'// CODE REALM — PROTOTYPE'}
                 </div>
 
                 {/* Status */}
