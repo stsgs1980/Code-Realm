@@ -1,3 +1,5 @@
+# Code Realm
+
 <div align="center">
 
 ```bash
