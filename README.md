@@ -1,6 +1,6 @@
 <div align="center">
 
-```
+```bash
  ██████╗ ██████╗ ██████╗ ███████╗    ██████╗ ███████╗ █████╗ ██╗     ███╗   ███╗
 ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔══██╗██╔════╝██╔══██╗██║     ████╗ ████║
 ██║     ██║   ██║██║  ██║█████╗      ██████╔╝█████╗  ███████║██║     ██╔████╔██║
@@ -20,9 +20,24 @@
 [![Framer Motion](https://img.shields.io/badge/FRAMER_MOTION-12-ff69b4?style=flat-square&logo=framer)](https://www.framer.com/motion/)
 [![Bun](https://img.shields.io/badge/BUN-RUNTIME-f472b6?style=flat-square&logo=bun)](https://bun.sh/)
 
+
+## Table of Contents
+
+- [`> SHOWCASES` - Visual Style Demos](#`>-showcases`---visual-style-demos)
+- [`Features`](#`features`)
+- [`Tech Stack`](#`tech-stack`)
+- [`> Getting Started`](#`>-getting-started`)
+- [Install dependencies](#install-dependencies)
+- [Set up database](#set-up-database)
+- [Start development server](#start-development-server)
+- [`Project Structure`](#`project-structure`)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [License](#license)
+
 </div>
 
----
 
 ```css
 /* ═══════════════════════════════════════════════════════════
@@ -50,9 +65,8 @@
 }
 ```
 
----
 
-## `> SHOWCASES` — Visual Style Demos
+## `> SHOWCASES` - Visual Style Demos
 
 | `#` | Section | Description |
 |----:|:--------|:------------|
@@ -105,7 +119,6 @@
 
 </details>
 
----
 
 ```javascript
 // ═══════════════════════════════════════════════
@@ -136,7 +149,6 @@ const GALLERY = {
 export default GALLERY;
 ```
 
----
 
 ## `Features`
 
@@ -167,11 +179,10 @@ export default GALLERY;
 - **Zero nested `<button>` elements** — `role="button"` + `tabIndex` pattern
 - **Unique React keys** with component-specific prefixes
 
----
 
 ## `Tech Stack`
 
-```
+```css
 ┌─────────────────────────────────────────────────────┐
 │  FRAMEWORK    Next.js 16 (App Router, Turbopack)    │
 │  LANGUAGE     TypeScript 5                          │
@@ -186,7 +197,6 @@ export default GALLERY;
 └─────────────────────────────────────────────────────┘
 ```
 
----
 
 ## `> Getting Started`
 
@@ -195,13 +205,13 @@ export default GALLERY;
 git clone https://github.com/Sts8987/Code-Aesthetic-Gallery-v2.0.git
 cd Code-Aesthetic-Gallery-v2.0
 
-# Install dependencies
+## Install dependencies
 bun install
 
-# Set up database
+## Set up database
 bun run db:push
 
-# Start development server
+## Start development server
 bun run dev
 ```
 
@@ -214,11 +224,10 @@ bun run dev
 | `bun run db:push` | Push Prisma schema |
 | `bun run db:generate` | Generate Prisma client |
 
----
 
 ## `Project Structure`
 
-```
+```bash
 my-project/
 ├── public/
 │   ├── logo.svg
@@ -255,11 +264,10 @@ my-project/
 └── worklog.md                     # Development log
 ```
 
----
 
 <div align="center">
 
-```
+```bash
  ╔══════════════════════════════════════════╗
  ║                                          ║
  ║   ██  SYSTEM ONLINE                      ║
@@ -278,3 +286,55 @@ printf("> The Art of CODE REALM\n");
 ```
 
 </div>
+
+
+## Features
+
+- Amber/cream retro terminal aesthetic with paper texture & scanlines
+- CRT vignette effect and subtle grid overlay
+- Floating code snippets with gentle drift animation
+- Scroll progress bar with amber gradient shimmer
+- Section dividers styled as terminal comments `// SHOWCASES — ...`
+- Responsive layout — mobile-first with `clamp()` typography
+- Framer Motion throughout (`whileInView`, `AnimatePresence`, `layoutId`)
+- `prefers-reduced-motion` accessibility support
+- 30+ custom CSS animations in `globals.css` (4500+ lines)
+- SSR-safe mounting via `useSyncExternalStore` — zero hydration mismatches
+
+
+## Tech Stack
+
+- **Framework** - Next.js
+- **Language** - TypeScript
+- **Styling** - Tailwind CSS, SVG, CSS, HTML
+- **Database** - Prisma, SQLite
+- **Libraries** - shadcn/ui, Framer Motion
+- **Tools** - React, Bun
+
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20+ or Bun
+
+### Installation
+
+```bash
+git clone https://github.com/stsgs1980/Code-Realm.git
+cd Code-Realm
+bun install
+```
+
+### Run
+
+```bash
+bun run dev
+```
+
+## License
+
+[MIT](LICENSE)
+
+---
+Built with: Next.js + React + TypeScript + Tailwind CSS
